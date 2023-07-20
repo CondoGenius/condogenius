@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondoGenius-Api", "CondoGenius-Api\CondoGenius-Api.csproj", "{2EEF3E8A-DA31-49AB-B188-42FC550A1B91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondoGenius-Gateway-Api", "CondoGenius-Gateway-Api\CondoGenius-Gateway-Api.csproj", "{6A096D0F-C7E6-47C3-9F88-D4C75152165D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Login", "Login", "{5B5F9CEE-B2B7-4432-8EDF-093E9941239F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{32643493-1D26-47DA-B957-19B7D21CC79C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{3EA0FEF9-D8F5-4C18-8714-45933A8A28A1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2EEF3E8A-DA31-49AB-B188-42FC550A1B91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EEF3E8A-DA31-49AB-B188-42FC550A1B91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EEF3E8A-DA31-49AB-B188-42FC550A1B91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EEF3E8A-DA31-49AB-B188-42FC550A1B91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A096D0F-C7E6-47C3-9F88-D4C75152165D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A096D0F-C7E6-47C3-9F88-D4C75152165D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A096D0F-C7E6-47C3-9F88-D4C75152165D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A096D0F-C7E6-47C3-9F88-D4C75152165D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2EEF3E8A-DA31-49AB-B188-42FC550A1B91} = {32643493-1D26-47DA-B957-19B7D21CC79C}
+		{6A096D0F-C7E6-47C3-9F88-D4C75152165D} = {3EA0FEF9-D8F5-4C18-8714-45933A8A28A1}
+	EndGlobalSection
+EndGlobal
