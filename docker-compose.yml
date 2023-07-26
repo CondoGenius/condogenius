@@ -1,0 +1,40 @@
+version: "3"
+services:
+  mysql:
+    image: mysql
+    volumes_from:
+      - data_database
+    ports:
+      - "3306:3306"
+    command: mysqld --sql_mode=""
+    environment:
+      MYSQL_ROOT_PASSWORD: genius
+      MYSQL_DATABASE: genius
+
+  data_database:
+    image: cogniteev/echo
+    command: echo 'Data Container for MySql'
+    volumes:
+      - /var/lib/mysql
+
+  gateway:
+    build:
+      context: ./CondoGenius-Gateway-Api
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+    command: yarn dev
+    volumes:
+      - ./gateway:/usr/gateway
+    ports:
+      - '3333:3333'
+
+  residents:
+    build:
+      context: ./residents
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+    command: yarn dev
+    volumes:
+      - ./residents:/usr/residents
