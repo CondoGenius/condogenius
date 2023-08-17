@@ -3,7 +3,7 @@ Api gateway e microservices.
 
 # Estrutura
 
-![alt](https://)
+![alt](https://github.com/CondoGenius/condogenius-api/blob/add-readme/CondoGenius%20arquitetura.jpg)
 
 ## Microservices disponíveis
 - API-Auth/Gateway
