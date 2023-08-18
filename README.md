@@ -19,7 +19,7 @@ Api gateway e microservices.
 
 ## Rodando no local
 
-1. Clone esse repositório executando `git clone git@github.com:Artia/euax-microservices.git`.
+1. Clone esse repositório executando
 2. No caminho diretório do repositório, execute o comando `make up`.
 3. O comando `make up` levanta alguns containers com o docker-compose:
 
