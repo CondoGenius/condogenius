@@ -17,24 +17,13 @@ services:
     volumes:
       - /var/lib/mysql
 
-  gateway:
+  complaints:
     build:
-      context: ./CondoGenius-Gateway-Api
+      context: ./CondoGenius-Complaints-Api
       dockerfile: Dockerfile
     environment:
-      NODE_ENV: development
-    command: yarn dev
+      TESTE: teste
     volumes:
       - ./gateway:/usr/gateway
     ports:
-      - '3333:3333'
-
-  residents:
-    build:
-      context: ./residents
-      dockerfile: Dockerfile
-    environment:
-      NODE_ENV: development
-    command: yarn dev
-    volumes:
-      - ./residents:/usr/residents
+      - "5002:5002"
