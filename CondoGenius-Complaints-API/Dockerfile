@@ -1,6 +1,6 @@
 ﻿FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine
-EXPOSE 5002
-ENV ASPNETCORE_URLS=http://+:5002
+EXPOSE 7002
+ENV ASPNETCORE_URLS=http://+:7002
 
 WORKDIR /src
 COPY . .

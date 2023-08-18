@@ -5,7 +5,7 @@ services:
     volumes_from:
       - data_database
     ports:
-      - "3306:3306"
+      - "3308:3308"
     command: mysqld --sql_mode=""
     environment:
       MYSQL_ROOT_PASSWORD: genius
@@ -18,12 +18,51 @@ services:
       - /var/lib/mysql
 
   complaints:
+    image: complaints
     build:
-      context: ./CondoGenius-Complaints-Api
+      context: ./CondoGenius-Complaints-API
       dockerfile: Dockerfile
     environment:
-      TESTE: teste
-    volumes:
-      - ./gateway:/usr/gateway
+      - ASPNETCORE_URLS=http://0.0.0.0:7002
     ports:
-      - "5002:5002"
+      - "7002:7002"
+
+  deliveries:
+    image: deliveries
+    build:
+      context: ./CondoGenius-Deliveries-API
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:7003
+    ports:
+      - "7003:7003"
+ 
+  digital_hub:
+    image: digital_hub
+    build:
+      context: ./CondoGenius-DigitalHub-API
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:7004
+    ports:
+      - "7004:7004"
+
+
+  # residents:
+  #   build:
+  #     context: ./residents
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     NODE_ENV: development
+  #   command: yarn dev
+  #   volumes:
+  #     - ./residents:/usr/residents
+  # reservations:
+  #   build:
+  #     context: ./residents
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     NODE_ENV: development
+  #   command: yarn dev
+  #   volumes:
+  #     - ./residents:/usr/residents

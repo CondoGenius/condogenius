@@ -1,12 +1,12 @@
 ﻿FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine
-EXPOSE 5003
-ENV ASPNETCORE_URLS=http://+:5003
+EXPOSE 7004
+ENV ASPNETCORE_URLS=http://+:7004
 
 WORKDIR /src
 COPY . .
 
-RUN dotnet restore CondoGenius-DigitalHUB-API.csproj
-RUN dotnet publish CondoGenius-DigitalHUB-API.csproj -c Release -o /app/publish
+RUN dotnet restore CondoGenius-DigitalHub-API.csproj
+RUN dotnet publish CondoGenius-DigitalHub-API.csproj -c Release -o /app/publish
 
 WORKDIR /app/publish
-ENTRYPOINT ["dotnet", "CondoGenius-DigitalHUB-API.dll"]
+ENTRYPOINT ["dotnet", "CondoGenius-DigitalHuB-API.dll"]
