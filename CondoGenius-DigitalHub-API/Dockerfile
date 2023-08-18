@@ -9,4 +9,4 @@ RUN dotnet restore CondoGenius-DigitalHub-API.csproj
 RUN dotnet publish CondoGenius-DigitalHub-API.csproj -c Release -o /app/publish
 
 WORKDIR /app/publish
-ENTRYPOINT ["dotnet", "CondoGenius-DigitalHuB-API.dll"]
+ENTRYPOINT ["dotnet", "CondoGenius-DigitalHub-API.dll"]
