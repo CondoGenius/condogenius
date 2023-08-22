@@ -1,0 +1,12 @@
+.content_card {
+
+    .custom-card {
+        img {
+            height: 250px;
+        }
+    }
+
+    .custom-card:hover {
+        box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+      }
+}

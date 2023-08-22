@@ -1,0 +1,10 @@
+.content_home {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+
+    .context {
+        flex: 85%;
+        background-color: white;
+    }
+}

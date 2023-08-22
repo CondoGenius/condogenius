@@ -1,0 +1,47 @@
+@import '../../styles/variables.scss';
+
+.navbar_content {
+    background-color: #F5F5F5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    height: 75px;
+    height: 100px;
+
+    .logo {
+        width: 120px;
+        margin-left: 40px;
+    }
+
+    .menu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .menu a {
+        margin-left: 10px;
+        text-decoration: none;
+        color: black;
+        margin-right: 45px;
+        display: flex;
+        align-items: center;
+        color: #666666;
+
+        svg {
+            margin-left: 5px;
+            color: #666666;
+        }
+    }
+
+    svg {
+        height: 30px;
+        width: 30px;
+        color: #666666;
+    }
+
+    .logout_icon {
+        margin-right: 50    px;
+    }
+}

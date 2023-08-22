@@ -1,0 +1,19 @@
+@import './variables.scss';
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./Montserrat-Bold.otf')
+}
+
+body {
+    font-family: 'Montserrat';
+}
+
+.content_header {
+    margin: 30px;
+
+    h1 {
+        border-bottom: solid $yellow 5px ;
+        border-radius: 5px;
+    }
+}
