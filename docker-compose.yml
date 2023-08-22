@@ -47,6 +47,14 @@ services:
     ports:
       - "7004:7004"
 
+  condogenius_web:
+    image: web
+    build:
+      context: ./CondoGenius-WEB
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+
 
   # residents:
   #   build:
