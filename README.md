@@ -19,7 +19,7 @@ Aplicação orientada à microserviços que sustenta o software CondoGenius - so
 - [Yarn](https://yarnpkg.com/pt-BR/docs/install)
 - [Docker](https://docs.docker.com/install/)
 
-## Rodando no local 👨🏻‍💻
+## Configurações local 👨🏻‍💻
 
 1. Clone esse repositório executando
 2. No caminho diretório do repositório, execute o comando `make up`.
