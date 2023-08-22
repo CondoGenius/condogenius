@@ -47,6 +47,18 @@ services:
     ports:
       - "7004:7004"
 
+  residents:
+    build:
+      context: ./CondoGenius-Residents-Api
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+    command: yarn dev
+    volumes:
+      - ./residents:/usr/residents
+    ports:
+      - "7005:7005"
+
   condogenius_web:
     image: web
     build:
@@ -56,15 +68,7 @@ services:
       - "3000:3000"
 
 
-  # residents:
-  #   build:
-  #     context: ./residents
-  #     dockerfile: Dockerfile
-  #   environment:
-  #     NODE_ENV: development
-  #   command: yarn dev
-  #   volumes:
-  #     - ./residents:/usr/residents
+
   # reservations:
   #   build:
   #     context: ./residents
