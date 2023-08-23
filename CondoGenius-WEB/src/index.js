@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+
+import { BrowserRouter } from 'react-router-dom';
+import RoutesConfig from './routes';
 
 import 'materialize-css/dist/css/materialize.min.css';
 import './styles/global.scss';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    < App />
-  </React.StrictMode>
+ReactDOM.render(
+  <BrowserRouter>
+    <RoutesConfig />
+  </BrowserRouter>,
+  document.getElementById('root')
 );
+

@@ -1,18 +1,25 @@
 import React from 'react';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'; // Importe BrowserRouter como Router
-
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import Complaints from './components/complaints/complaints';
 import Home from './components/home/home';
 import Login from './components/login/login';
+import Reservations from './components/reservations/reservations';
+import Residents from './components/residents/residents';
 
 const RoutesConfig = () => {
   return (
-    <Router>
-      <Switch> {/* Use o Switch para renderizar apenas a primeira rota que corresponda ao caminho */}
-        <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-      </Switch>
-    </Router>
+    <Switch>
+      <Route path="/" exact component={Login} />
+      <Route path="/home" component={Home} />
+      <Route path="/residents" component={Residents} />
+      <Route path="/reservations" component={Reservations} />
+      {/* reunioes */}
+      <Route path="/complaints" component={Complaints} />
+      {/* checkin */}
+      {/* entregas */}
+    </Switch>
   );
 };
+
 
 export default RoutesConfig;

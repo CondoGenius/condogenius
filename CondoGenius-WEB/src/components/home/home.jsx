@@ -15,8 +15,8 @@ const Home = () => (
     </div>
     <div className='content_home'>
       <Sidebar />
-      <div className='context'>
-        <Complaints />
+      <div id='context'>
+        <Reservations />
       </div>
     </div>
   </div>

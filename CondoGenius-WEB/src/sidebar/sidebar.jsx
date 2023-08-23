@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import './sidebar.scss'; 
 
 import { MdOutlineHub } from 'react-icons/md'
@@ -13,11 +14,11 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <ul className="sidebar-menu">
-        <li><MdOutlineHub /> Hub Digital</li>
-        <li><MdPeopleAlt /> Moradores</li>
-        <li><GiBarbecue /> Reservas</li>
+        <NavLink to="/home"><li><MdOutlineHub /> Hub Digital</li></NavLink>
+        <NavLink to="/residents"><li><MdPeopleAlt /> Moradores</li></NavLink>
+        <NavLink to="/reservations"><li><GiBarbecue /> Reservas</li></NavLink>
         <li><SiGooglemeet /> Reuniões</li>
-        <li><TiWarning /> Reclamações</li>
+        <NavLink to="/complaints"><li><TiWarning /> Reclamações</li></NavLink>
         <li><BsCheck2Square /> Check-in</li>
         <li><BsBoxSeamFill /> Entregas</li>
       </ul>
