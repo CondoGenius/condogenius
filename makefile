@@ -4,6 +4,7 @@ SHELL:=/bin/bash
 # adicionamos os comandos de build de cada api
 # cd CondoGenius-Api && yarn
 # cd CondoGenius-GatewayApi && yarn
+
 up:
 	sudo docker-compose up
 
