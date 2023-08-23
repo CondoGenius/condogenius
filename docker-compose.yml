@@ -17,6 +17,16 @@ services:
     volumes:
       - /var/lib/mysql
 
+  gateway:
+    image: gateway
+    build:
+      context: ./CondoGenius-API-Gateway
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:5000
+    ports:
+      - "5000:5000"
+
   complaints:
     image: complaints
     build:
