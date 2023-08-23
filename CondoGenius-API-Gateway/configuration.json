@@ -1,0 +1,17 @@
+﻿{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/Status",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "complaints",
+          "Port": 7002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/complaints/status",
+      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete", "Options"]
+    }
+  ],
+  "GlobalConfiguration": {}
+}

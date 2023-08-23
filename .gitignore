@@ -4,3 +4,6 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 node_modules/
+CondoGenius-WEB/node_modules
+CondoGenius-WEB/node_modules/
+node_modules
