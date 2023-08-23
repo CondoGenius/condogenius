@@ -17,6 +17,16 @@ services:
     volumes:
       - /var/lib/mysql
 
+  gateway:
+    image: gateway
+    build:
+      context: ./CondoGenius-API-Gateway
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:5000
+    ports:
+      - "5000:5000"
+
   complaints:
     image: complaints
     build:
@@ -47,6 +57,30 @@ services:
     ports:
       - "7004:7004"
 
+  residents:
+    build:
+      context: ./CondoGenius-Residents-Api
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+    command: npm start
+    volumes:
+      - ./residents:/usr/residents
+    ports:
+      - "7008:7008"
+
+  send-notifications:
+    build:
+      context: ./CondoGenius-SendNotifications
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+    command: npm start
+    volumes:
+      - ./send-notifications:/usr/send-notifications
+    ports:
+      - "7007:7007"
+
   condogenius_web:
     image: web
     build:
@@ -54,23 +88,3 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-
-
-  # residents:
-  #   build:
-  #     context: ./residents
-  #     dockerfile: Dockerfile
-  #   environment:
-  #     NODE_ENV: development
-  #   command: yarn dev
-  #   volumes:
-  #     - ./residents:/usr/residents
-  # reservations:
-  #   build:
-  #     context: ./residents
-  #     dockerfile: Dockerfile
-  #   environment:
-  #     NODE_ENV: development
-  #   command: yarn dev
-  #   volumes:
-  #     - ./residents:/usr/residents
