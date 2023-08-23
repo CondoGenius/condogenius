@@ -57,7 +57,7 @@ services:
     volumes:
       - ./residents:/usr/residents
     ports:
-      - "7005:7005"
+      - "7008:7008"
 
   send-notifications:
     build:
