@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expõe a porta em que o microserviço irá escutar
-EXPOSE 7005
+EXPOSE 7007
 
 # Comando para iniciar o microserviço
-CMD ["npm", "start"]
+# CMD ["npm", "start"]
