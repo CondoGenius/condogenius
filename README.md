@@ -6,12 +6,15 @@ Aplicação orientada à microserviços que sustenta o software CondoGenius - so
 ![alt](https://github.com/CondoGenius/condogenius-api/blob/add-readme/CondoGenius%20arquitetura.jpg)
 
 ## Microservices disponíveis 🌐
-- API-Auth/Gateway
-- API-Complains
-- API-Deliveries
-- API-DigitalHub
-- CondoGeniuis-WEB
-
+Nome | Porta
+---- | ----
+CondoGeniuis-WEB | (porta: 3000)
+API-Auth/Gateway | (porta: 5000)
+API-Complains | (porta: 7002)
+API-Deliveries | (porta: 7003)
+API-DigitalHub | (porta: 7004)
+API-SendNotifications | (porta: 7007)
+API-Residents | (porta: 7008)
 
 ## Dependências 🛠️
 
@@ -21,8 +24,8 @@ Aplicação orientada à microserviços que sustenta o software CondoGenius - so
 
 ## Configurações local 👨🏻‍💻
 
-1. Clone esse repositório executando
-2. No caminho diretório do repositório, execute o comando `make up`.
+1. Clone esse repositório executando `git clone https://github.com/CondoGenius/condogenius`
+2. No caminho diretório do repositório, execute o comando `make up-build` (ou docker-compose up --build).
 3. O comando `make up` levanta alguns containers com o docker-compose:
 
 ## Rodando os testes
