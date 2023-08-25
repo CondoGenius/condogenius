@@ -13,11 +13,8 @@ const Home = () => (
     <div>
       <Navbar />
     </div>
-    <div className='content_home'>
-      <Sidebar />
-      <div id='context'>
+    <div className='context'>
         <Reservations />
-      </div>
     </div>
   </div>
 );
