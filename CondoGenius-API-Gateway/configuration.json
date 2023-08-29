@@ -11,6 +11,24 @@
       ],
       "UpstreamPathTemplate": "/api/complaints/status",
       "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete", "Options"]
+    }, {
+      "DownstreamPathTemplate": "/Reservations/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reservations",
+          "Port": 7006
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin"
+      },
+      "UpstreamPathTemplate": "/api/reservations/{everything}",
+      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete", "Options"],
     }
   ],
   "GlobalConfiguration": {}
