@@ -1,22 +1,15 @@
 import React from 'react';
+import RoutesConfig from '../../routes';
+
 import Navbar from '../navbar/navbar';
-import Sidebar from '../../sidebar/sidebar';
-
-import Residents from '../residents/residents';
-import Complaints from '../complaints/complaints';
-import Reservations from '../reservations/reservations';
-
-import './home.scss';
 
 const Home = () => (
-  <div>
-    <div>
-      <Navbar />
+  <>
+    <Navbar />
+    <div className="content">
+      <RoutesConfig />
     </div>
-    <div className='context'>
-        <Reservations />
-    </div>
-  </div>
-);
+  </>
+)
 
 export default Home;

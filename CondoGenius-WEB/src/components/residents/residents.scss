@@ -1,59 +1,63 @@
 @import '../../styles/variables.scss';
 
-h1 {
-
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-
-    svg {
-        margin-left: 10px;
-    }
-    
-    .subtitle {
-        font-size: 16px;
-        color: #a8a8a8;
-        
-    }
-}
-
-.content_register_resident {
+.content_residents {
     margin: 20px;
-    padding-top: 10px;
-    display: flex;
-    
-    .person_content{
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        img{
-            width: 90%;
+
+    .list_residents {
+
+        ul {
+            border: none;
+        
+            li {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              width: 100%;
+              border-bottom: none !important;
+              border-radius: 49px;
+              box-shadow: 0px 3px 6px $shadow-color;
+              margin-bottom: 10px !important;
+              background: #FFFFFF 0% 0% no-repeat padding-box;
+              font: normal normal normal 1.1vw/1.2vw Helvetica Neue;
+              letter-spacing: 0px;
+              padding: 5px 20px !important;
+              
+                &:hover {
+                    box-shadow: 0px 5px 8px $shadow-color;
+                }
+                
+                &.list_header {
+                    border: none;
+                    box-shadow: none;
+                    font-weight: bold;
+
+                    &:hover {
+                        box-shadow: none
+                    }
+                }
+        
+                span {
+                    width: 22.5%;
+                    margin: auto 0px;
+                    text-transform: none;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    padding-right: 10px;
+
+                    &.icon {
+                        width: 10%;
+                    }
+
+                    svg {
+                        font-size: 1.4vw;
+                        cursor: pointer;
+                    }
+
+                }
+            }
         }
     }
-
-    .fields_content {
-        flex: 2;
-
-        .select_residence {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    }
-
-}
-
-.residents_button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 15px;
-
-    button {
-        width: 400px;
-        font-weight: bold;
-        height: 45px;
-    }
-
 }

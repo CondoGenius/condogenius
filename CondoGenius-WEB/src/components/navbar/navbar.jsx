@@ -14,25 +14,39 @@ import { BsPersonCircle } from 'react-icons/bs';
 
 import './navbar.scss';
 
+const navLink = (route, icon, name) => {
+    const Icon = icon 
+    return (
+        <NavLink to={route} activeClassName='selected'>
+            <Icon /> {name}
+        </NavLink>
+    );
+};
+
+const logout = () => {
+    localStorage.removeItem("user");
+    window.location.reload()
+}
+
 const Navbar = () => (
-    <div className="content">
+    <div className="navbar_content">
         <div className="logo_content">
             <img src={logo} alt="Logo" className="logo" />
         </div>
         <div className="menu_content">
             <ul>
-                <NavLink to="/home"><li><MdOutlineHub /> Hub Digital</li></NavLink>
-                <NavLink to="/residents"><li><MdPeopleAlt /> Moradores</li></NavLink>
-                <NavLink to="/reservations"><li><GiBarbecue /> Reservas</li></NavLink>
-                <li><SiGooglemeet /> Reuniões</li>
-                <NavLink to="/complaints"><li><TiWarning /> Reclamações</li></NavLink>
-                <li><BsCheck2Square /> Check-in</li>
-                <li><BsBoxSeamFill /> Entregas</li>
+                {navLink('/hub', MdOutlineHub, 'Hub Digital')}
+                {navLink('/residents', MdPeopleAlt, 'Moradores')}
+                {navLink('/reservations', GiBarbecue, 'Reservas')}
+                {navLink('/meetings', SiGooglemeet, 'Reuniões')}
+                {navLink('/complaints', TiWarning, 'Reclamações')}
+                {navLink('/check-in', BsCheck2Square, 'Check-in')}
+                {navLink('/deliverys', BsBoxSeamFill, 'Entregas')}
             </ul>
         </div>
         <div className="actions_content">
-            <span><BsPersonCircle /><a href="#">Perfil</a></span>
-            <MdExitToApp className='logout_icon'/>
+            {navLink('/profile', BsPersonCircle, 'Perfil')}
+            <span className='exit_icon' onClick={logout}><MdExitToApp className='logout_icon'/></span>
         </div>
     </div>
 )

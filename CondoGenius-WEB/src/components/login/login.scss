@@ -1,61 +1,73 @@
 @import '../../styles/variables.scss';
 
-
-
 .login_content {
     height: 100vh;
     width: 100%;
     background-image: url('../../assets/condominio.webp');
     background-repeat: no-repeat;
     background-size: cover;
-}
 
-.card_content {
-    background-color: rgba(255, 255, 255, 0.891);
-    z-index: 1000;
-    opacity: none;
-    height: 600px;
-    border-radius: 8px;
-    display: flex;
-    justify-items: center;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    .logo {
-        width: 60%;
-        
-        position: relative;
-    }
-
-    input {
-        width: 350px !important;
-    }
-
-    .actions {
-        margin-top: 10px;
+    .card_content {
+        background-color: rgba(255, 255, 255, 0.891);
+        z-index: 1000;
+        opacity: none;
+        height: 600px;
+        border-radius: 8px;
         display: flex;
         justify-items: center;
         align-items: center;
+        justify-content: center;
         flex-direction: column;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    
+        .logo {
+            width: 60%;
+            position: relative;
+        }
+    
+        .fields_content {
+            padding-top: 20px;
+    
+            div {
+                margin-top: 10px;
+            }
         
-        .button_to_enter, a {
-            margin: 5px;
+            input {
+                width: 350px !important;
+                margin: 0;
+    
+                &:focus{
+                    box-shadow: 0 0 0 0 !important;
+                }
+            }
+        
+            .actions {
+                margin-top: 10px;
+                display: flex;
+                justify-items: center;
+                align-items: center;
+                flex-direction: column;
+                
+                .button_to_enter, a {
+                    margin: 5px;
+                }
+        
+                a {
+                    text-decoration: underline;
+                    color: #bab4b4;
+                }
+        
+                .button_to_enter {
+                    background-color: $blue !important;
+                    width: 200px;
+                    font-weight: bold;
+                }
+            }
         }
-
-        a {
-            text-decoration: underline;
-            color: #bab4b4;
-        }
-
-        .button_to_enter {
-            background-color: $blue !important;
-            width: 200px;
-            font-weight: bold;
-        }
+    
     }
+
 }

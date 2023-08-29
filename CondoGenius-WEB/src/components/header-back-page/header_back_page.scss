@@ -1,0 +1,24 @@
+@import '../../styles/variables.scss';
+
+.header_back_page_content {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: 10px;
+
+    a span {
+        color: $gray;
+        display: flex;
+        align-items: center;
+
+        svg {
+            width: 3em;
+            height: 25px;
+        }
+
+        &:hover {
+            cursor: pointer;
+            color: $black;
+        }
+    }
+}
