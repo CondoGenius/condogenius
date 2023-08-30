@@ -1,0 +1,35 @@
+@import '../../styles/variables.scss';
+
+.modal.open {
+    border-radius: 5px;
+
+    .modal-content div{
+        color: $gray;
+    }
+}
+
+.modal.open.delete {
+    border: solid 2px $red;
+
+    .confirm_button {
+        background-color: $red;
+        color: white;
+
+        &:hover {
+            background-color: #e8374eeb;
+        }
+    }
+}
+
+.modal.open.update {
+    border: solid 2px $blue;
+
+    .confirm_button {
+        background-color: $blue;
+        color: white;
+
+        &:hover {
+            background-color: #3cddf9;
+        }
+    }
+}

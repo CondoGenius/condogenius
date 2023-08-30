@@ -1,7 +1,8 @@
 export const listResidents = [
     {
         id: 1,
-        name: 'Rodrigo Diego Fernandes',
+        name: 'Rodrigo',
+        lastName: 'Diego Fernandes',
         residence: '10',
         email: 'rodrigo@gmail.com',
         cpf: '00867548721'

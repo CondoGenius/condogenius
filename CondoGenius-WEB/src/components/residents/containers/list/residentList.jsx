@@ -1,12 +1,15 @@
-import React from "react";
-import { Collection, CollectionItem } from 'react-materialize';
+import React, { useState } from "react";
+import { Collection, CollectionItem, Button } from 'react-materialize';
 
 import { MdEdit } from 'react-icons/md'
 import { MdRemoveCircleOutline } from 'react-icons/md'
 
 import {listResidents} from '../../mock';
+import ModalContent from "../../../modal/modal_content";
+import ResidentForm from "../form/resident_form";
 
 import './residentList.scss';
+import ResidentFormFields from "../form/resident_form_fields";
 
 const ResidentList = () => {
     return (
@@ -33,12 +36,22 @@ const ResidentList = () => {
                     </span>
                     <span>
                     {resident.cpf}
+                    </span> 
+                    <span className='icon'>
+                        <ModalContent 
+                            header="Editar morador"
+                            trigger={<MdEdit />}
+                            children={<ResidentFormFields tittle="Editar morador" residentEdited={resident}/>}
+                            action="update"
+                        />
                     </span>
                     <span className='icon'>
-                    <MdEdit />
-                    </span>
-                    <span className='icon'>
-                    <MdRemoveCircleOutline />
+                    <ModalContent 
+                            header="Excluir morador"
+                            trigger={<MdRemoveCircleOutline />}
+                            children={<div>Tem certeza que deseja remover {resident.name} como morador do condomínio?</div>}
+                            action="delete"
+                        />
                     </span>
                 </CollectionItem>
             ))}
