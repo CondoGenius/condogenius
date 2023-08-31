@@ -4,7 +4,7 @@ import App from './App';
 
 import Complaints from './views/complaints/complaints';
 import Home from './components/home/home';
-import Reservations from './components/reservations/reservations';
+import Reservations from './views/reservations/reservations';
 import Residents from './views/residents/residents';
 
 const RoutesConfig = () => {

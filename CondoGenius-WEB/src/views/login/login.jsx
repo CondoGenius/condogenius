@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { Button } from 'react-materialize';
-import ErrorField from '../utils/errorField';
+import ErrorField from '../../components/utils/errorField';
 import logo from '../../assets/condogenius.png';
 
 import './login.scss';
@@ -94,7 +94,7 @@ const Login = () => {
 
                             <div className='actions'>
                                 {renderButtonSubmit(isValid, handleSubmit, handleReset, setIsSubmit)}
-                                <a href=''>Cadastre-se</a>
+                                <a href='./'>Cadastre-se</a>
                             </div>
                         </div>
                     </div>

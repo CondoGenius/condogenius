@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CardContent from '../cards/card';
+import CardContent from '../../components/cards/card';
 
 import './reservations.scss';
 
