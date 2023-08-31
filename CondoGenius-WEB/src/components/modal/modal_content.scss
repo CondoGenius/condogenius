@@ -8,6 +8,35 @@
     }
 }
 
+.modal-footer {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 10px !important;
+    margin-right: 10px;
+    background-color: transparent !important;
+
+    button {
+        position: absolute;
+        right: 10px;
+        width: 25px;
+        height: 25px !important;
+        padding: 0px;
+        color: #000;
+        background: transparent !important;
+        box-shadow: unset;
+
+        svg {
+            width: 2em;
+            height: 50px;
+        }
+
+        &:hover {
+            box-shadow: unset;
+        }
+    }
+}
+
 .modal.open.delete {
     border: solid 2px $red;
 
@@ -21,15 +50,15 @@
     }
 }
 
-.modal.open.update {
-    border: solid 2px $blue;
+.modal.open.update, .modal.open.create {
+    border: solid 2px $green;
 
     .confirm_button {
-        background-color: $blue;
+        background-color: $green;
         color: white;
 
         &:hover {
-            background-color: #3cddf9;
+            background-color: #2ABBAD;
         }
     }
 }

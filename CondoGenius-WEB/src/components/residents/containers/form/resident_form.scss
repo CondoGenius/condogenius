@@ -1,57 +1,34 @@
 @import '../../../../styles/variables.scss';
 
-.content_resident_form {
+.form_content {
+    flex: 2;
     display: flex;
-    color: $gray;
-    padding: 10px;
-    border-bottom: 1px solid $gray;
-    border-radius: 15px;
-    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
-    height: 50vh;
-    
-    .person_content {
-        flex: 1;
+    flex-direction: column;
+
+    .tittle {
+        flex: 10%;
         display: flex;
         align-items: center;
         justify-content: center;
-
-        img {
-            width: 300px;
-        }
+        font-size: 25px;
+        margin-bottom: 10px;
+        border-bottom: solid 5px $yellow;
     }
 
-    .form_content {
-        flex: 2;
+    .person_fields {
+        flex: 90%;
         display: flex;
-        flex-direction: column;
+        align-items: center;
+        width: 100%;
 
-        .tittle {
-            flex: 10%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 25px;
-            margin-bottom: 10px;
-            border-bottom: solid 5px $yellow;
-        }
-
-        .person_fields {
-            flex: 90%;
-            display: flex;
-            align-items: center;
+        .fields {
             width: 100%;
 
-            .fields {
-                width: 100%;
-
-                .actions {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
+            .actions {
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
-
-
     }
 }

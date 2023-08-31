@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import ResidentList from './containers/list/residentList';
-import ResidentActions from './containers/filter/resident_actions';
+import ResidentActions from './containers/actions/resident_actions';
 
 import './residents.scss';
 import 'materialize-css';

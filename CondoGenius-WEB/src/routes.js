@@ -7,7 +7,6 @@ import Home from './components/home/home';
 import Login from './components/login/login';
 import Reservations from './components/reservations/reservations';
 import Residents from './components/residents/residents';
-import ResidentForm from './components/residents/containers/form/resident_form';
 
 const RoutesConfig = () => {
   return (
@@ -16,7 +15,6 @@ const RoutesConfig = () => {
       <Route path="/login" exact component={App} />
 
       <Route path="/residents" exact component={Residents} />
-      <Route path="/residents/new" exact component={ResidentForm} />
 
       <Route path="/reservations" component={Reservations} />
       {/* reunioes */}

@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Collection, CollectionItem, Button } from 'react-materialize';
 
-import { MdEdit } from 'react-icons/md'
-import { MdRemoveCircleOutline } from 'react-icons/md'
+import { MdEdit } from 'react-icons/md';
+import { MdRemoveCircleOutline } from 'react-icons/md';
 
-import {listResidents} from '../../mock';
+import {listResidents} from '../../../../states/residents/mock';
 import ModalContent from "../../../modal/modal_content";
-import ResidentForm from "../form/resident_form";
 
 import './residentList.scss';
-import ResidentFormFields from "../form/resident_form_fields";
+import ResidentFormFields from "../form/resident_form";
 
 const ResidentList = () => {
     return (
@@ -41,16 +40,25 @@ const ResidentList = () => {
                         <ModalContent 
                             header="Editar morador"
                             trigger={<MdEdit />}
-                            children={<ResidentFormFields tittle="Editar morador" residentEdited={resident}/>}
-                            action="update"
+                            children={<ResidentFormFields residentEdited={resident}/>}
+                            className="update"
                         />
                     </span>
                     <span className='icon'>
                     <ModalContent 
                             header="Excluir morador"
                             trigger={<MdRemoveCircleOutline />}
-                            children={<div>Tem certeza que deseja remover {resident.name} como morador do condomínio?</div>}
-                            action="delete"
+                            children={
+                                <div>
+                                    <div>Tem certeza que deseja remover {resident.name} como morador do condomínio?</div>
+                                    <div className="button_delete_resident_content">
+                                        <Button modal="close" node="button" className="confirm_button">
+                                            Confirmar
+                                        </Button>
+                                    </div>
+                                </div>
+                            }
+                            className="delete"
                         />
                     </span>
                 </CollectionItem>

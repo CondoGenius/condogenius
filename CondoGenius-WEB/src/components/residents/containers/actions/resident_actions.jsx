@@ -5,6 +5,9 @@ import './resident_actions.scss';
 import { Button } from "react-materialize";
 import { MdAddBox } from 'react-icons/md';
 
+import ModalContent from "../../../modal/modal_content";
+import ResidentFormFields from "../form/resident_form";
+
 const renderFieldFilterByName = () => (
     <input 
         id="name"
@@ -35,9 +38,12 @@ const renderFieldFilterByResidenceNumber = () => (
 );
 
 const renderButtonRegisterResident = () => (
-    <NavLink to="/residents/new">
-        <Button><MdAddBox /> Cadastrar novo morador</Button>
-    </NavLink>
+    <ModalContent
+        header="Cadastrar morador"
+        trigger={<Button><MdAddBox /> Cadastrar novo morador</Button>}
+        children={<ResidentFormFields/>}
+        className="create"
+    />
 );
 
 const ResidentActions = (filters, setFilters) => {
