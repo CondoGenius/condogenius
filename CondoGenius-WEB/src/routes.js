@@ -2,11 +2,10 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import App from './App';
 
-import Complaints from './components/complaints/complaints';
+import Complaints from './views/complaints/complaints';
 import Home from './components/home/home';
-import Login from './components/login/login';
 import Reservations from './components/reservations/reservations';
-import Residents from './components/residents/residents';
+import Residents from './views/residents/residents';
 
 const RoutesConfig = () => {
   return (

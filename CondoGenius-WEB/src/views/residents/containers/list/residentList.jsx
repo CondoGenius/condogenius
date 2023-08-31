@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Collection, CollectionItem, Button } from 'react-materialize';
 
 import { MdEdit } from 'react-icons/md';
 import { MdRemoveCircleOutline } from 'react-icons/md';
 
 import {listResidents} from '../../../../states/residents/mock';
-import ModalContent from "../../../modal/modal_content";
+import ModalContent from "../../../../components/modal/modal_content";
 
 import './residentList.scss';
 import ResidentFormFields from "../form/resident_form";

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import ErrorField from '../../../utils/errorField';
+import ErrorField from '../../../../components/utils/errorField';
 import { Button } from 'react-materialize';
 
 import './resident_form.scss';

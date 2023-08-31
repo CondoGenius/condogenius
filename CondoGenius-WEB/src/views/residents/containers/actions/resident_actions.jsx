@@ -4,7 +4,7 @@ import './resident_actions.scss';
 import { Button } from "react-materialize";
 import { MdAddBox } from 'react-icons/md';
 
-import ModalContent from "../../../modal/modal_content";
+import ModalContent from "../../../../components/modal/modal_content";
 import ResidentFormFields from "../form/resident_form";
 
 const renderFieldFilterByName = () => (
