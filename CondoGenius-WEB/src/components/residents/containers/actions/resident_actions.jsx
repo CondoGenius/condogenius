@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { NavLink } from 'react-router-dom';
+import React from "react";
 
 import './resident_actions.scss';
 import { Button } from "react-materialize";
