@@ -2,7 +2,7 @@
 -- e criar a tabela de usuários com os atributos: email, senha, is_active, e role_id
 
 
-use genius;
+-- use genius;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
