@@ -11,7 +11,7 @@ const Residents = () => {
 
   return (
     <div className='content_residents'>
-      <div className='content_header'>
+      <div className='header_content'>
         <h1>Moradores</h1>
       </div>
 

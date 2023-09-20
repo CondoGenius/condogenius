@@ -1,0 +1,42 @@
+@import '../../../styles/variables.scss';
+
+
+.form_complaint {
+    display: flex;
+    justify-content: end;
+}
+
+.complaint_field {
+    height: 300px;
+    border: solid 2px #D7D7D7;
+}
+
+.complaint_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+
+    button {
+        width: 400px;
+        font-weight: bold;
+        height: 45px;
+    }
+}
+
+.list_view ul li {
+    height: 75px;
+
+    span {
+        width: 20.5% !important;
+    }
+
+    .complaint_list_text {
+        margin: 0;
+        width: 80% !important;
+    }
+
+    .complaint_list_body {
+        width: 80% !important;
+    }
+}

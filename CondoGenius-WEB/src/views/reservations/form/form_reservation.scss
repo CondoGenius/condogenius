@@ -1,0 +1,16 @@
+.form_content {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+
+    .fields {
+        width: 100%;
+    }
+
+    .actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+

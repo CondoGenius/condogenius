@@ -12,7 +12,7 @@ import ResidentFormFields from "../form/resident_form";
 
 const ResidentList = () => {
     return (
-        <div className='list_residents'>
+        <div className='list_view'>
             <Collection>
             <CollectionItem key="header" className='list_header'>
                 <span>Nome</span>
@@ -52,7 +52,7 @@ const ResidentList = () => {
                                 <div>
                                     <div>Tem certeza que deseja remover {resident.name} como morador do condomínio?</div>
                                     <div className="button_delete_resident_content">
-                                        <Button modal="close" node="button" className="confirm_button">
+                                        <Button modal="close" node="button" className="red_button">
                                             Confirmar
                                         </Button>
                                     </div>
