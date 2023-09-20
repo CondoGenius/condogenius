@@ -5,7 +5,7 @@ services:
     volumes_from:
       - data_database
     ports:
-      - "3308:3308"
+      - "3306:3306"
     command: mysqld --sql_mode=""
     environment:
       MYSQL_ROOT_PASSWORD: genius
@@ -16,6 +16,14 @@ services:
     command: echo 'Data Container for MySql'
     volumes:
       - /var/lib/mysql
+
+  database-runner:
+    build: 
+      context: ./migrations
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+      - data_database
 
   gateway:
     image: gateway
