@@ -1,27 +1,27 @@
-﻿using System.Threading.Tasks;
-using CondoGenius_API_Gateway.Models;
-using Microsoft.AspNetCore.DataProtection.Internal;
+﻿using CondoGenius_Auth;
+using CondoGenius_Auth.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CondoGenius_API_Gateway.Controllers;
 
+[Route("api/auth")]
 [ApiController]
-[Route("[controller]")]
 public class AuthController : ControllerBase
 {
+    private readonly JwtTokenHandler _tokenHandler;
 
-    [HttpPost]
-    [Route("Login")]
-    public async Task<IActionResult> Login([FromBody] User user)
+    public AuthController(JwtTokenHandler jwtTokenHandler)
     {
-        if (user.Username != "ADMIN" && user.Password == "ADMIN")
-        {
-            return NotFound("Usuário não encontrado!");
-        }
-
-        var token = TokenService.GenerateToken(user);
-
-        return Ok(new { User = user.Username, Roles = user.Role, Token = token });
+        _tokenHandler = jwtTokenHandler;
     }
-    
+
+    [Route("login")]
+    public ActionResult<AuthResponse?> Login([FromBody] AuthRequest request)
+    {
+        var authResponse = _tokenHandler.GenerateJwtToken(request);
+
+        if (authResponse == null) return Unauthorized();
+
+        return authResponse;
+    }
 }
