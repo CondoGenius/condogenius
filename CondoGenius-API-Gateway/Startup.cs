@@ -38,7 +38,6 @@ public class Startup
         services.AddSingleton<JwtTokenHandler>();
         services.AddOcelot(_configuration);
         services.AddCustomJwtAuthentication();
-        
     }
 
     public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -47,8 +46,11 @@ public class Startup
         {
             app.UseDeveloperExceptionPage();
         }
-        app.UseRouting();
+        app.UseCors(c => c.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod());
         
+        app.UseRouting();
         app.UseHealthChecks("/health");
         app.UseAuthentication();
         app.UseAuthorization();
