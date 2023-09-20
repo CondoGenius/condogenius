@@ -20,8 +20,8 @@ services:
   gateway:
     image: gateway
     build:
-      context: ./CondoGenius-API-Gateway
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: CondoGenius-API-Gateway/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://0.0.0.0:5000
     ports:

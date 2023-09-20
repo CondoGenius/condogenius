@@ -5,7 +5,8 @@ ENV ASPNETCORE_URLS=http://+:5000
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS build
 WORKDIR /src
-COPY . .
+COPY ["CondoGenius-Auth/", "../CondoGenius-Auth/"]
+COPY ["CondoGenius-API-Gateway/", "."]
 
 RUN dotnet restore CondoGenius-API-Gateway.csproj
 RUN dotnet publish CondoGenius-API-Gateway.csproj -c Release -o /app/publish
