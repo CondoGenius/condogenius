@@ -6,6 +6,8 @@ import { Button } from 'react-materialize';
 import ErrorField from '../../components/utils/errorField';
 import logo from '../../assets/condogenius.png';
 
+import useLogin from '../../states/login/hooks/useLogin.js';
+
 import './login.scss';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
@@ -14,9 +16,11 @@ const FormLoginSchema = Yup.object().shape({
     password: Yup.string().ensure().required(requiredFieldMessage)
 });
 
-const onSubmit = async (values) => {
-    localStorage.setItem("user", JSON.stringify({'email': values.email, 'password': values.password}));
-    window.location.reload();
+const onSubmit = async (values, authUserLogin) => {
+    // localStorage.setItem("user", JSON.stringify({'email': values.email, 'password': values.password}));
+    // window.location.reload();
+    const response = await authUserLogin(values.email, values.password)
+    console.log(response)
 }
 
 const renderFieldEmail = (handleChange, handleBlur, values) => (
@@ -58,6 +62,7 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => 
 
 const Login = () => {
     const [isSubmit, setIsSubmit] = useState(false);
+    const { authUserLogin } = useLogin();
     
     return (
         <div className='login_content'>
@@ -67,7 +72,7 @@ const Login = () => {
                     password: ''
                 }}
                 validationSchema={FormLoginSchema}
-                onSubmit={values => {onSubmit(values)}}
+                onSubmit={values => {onSubmit(values, authUserLogin)}}
             > 
                 {({
                     handleChange,

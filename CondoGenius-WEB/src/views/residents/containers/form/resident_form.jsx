@@ -88,7 +88,13 @@ const renderFieldBirth = (handleChange, handleBlur, values) => (
 );
 
 const renderFieldResidenceNumber = (handleChange, handleBlur, values) => (
-    <select class="browser-default">
+    <select 
+        class="browser-default"
+        name="type"
+        onChange={handleChange}
+        onBlur={handleBlur}
+        value={values.residenceNumber}
+    >
         <option value="" disabled selected hidden>Selecione a residência</option>
         <option value="10">Residência 23</option>
         <option value="7">Residência 8</option>

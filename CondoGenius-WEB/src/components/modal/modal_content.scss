@@ -37,17 +37,8 @@
     }
 }
 
-.modal.open.delete {
+.modal.open.delete, .complaint {
     border: solid 2px $red;
-
-    .confirm_button {
-        background-color: $red;
-        color: white;
-
-        &:hover {
-            background-color: #e8374eeb;
-        }
-    }
 }
 
 .modal.open.update, .modal.open.create {
