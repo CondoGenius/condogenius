@@ -38,6 +38,7 @@ public class Startup
         services.AddSingleton<JwtTokenHandler>();
         services.AddOcelot(_configuration);
         services.AddCustomJwtAuthentication();
+        services.AddCors();
     }
 
     public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
