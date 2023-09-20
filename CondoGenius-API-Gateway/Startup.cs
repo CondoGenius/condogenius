@@ -46,11 +46,11 @@ public class Startup
         {
             app.UseDeveloperExceptionPage();
         }
-        app.UseCors(c => c.AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod());
         
         app.UseRouting();
+        app.UseCors(c => c.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
         app.UseHealthChecks("/health");
         app.UseAuthentication();
         app.UseAuthorization();
