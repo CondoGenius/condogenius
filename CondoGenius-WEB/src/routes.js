@@ -1,29 +1,37 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import App from './App';
+import { useSelector } from "react-redux";
 
-import Complaints from './views/complaints/complaints.tsx';
-import Home from './components/home/home';
-import Reservations from './views/reservations/reservations';
-import ListReservations from './views/reservations/list/list_reservations.tsx';
+import ComplaintsResidentView from './views/complaints/admin_view/complaints';
+import ComplaintsAdminView from './views/complaints/user_view/complaints';
+
+import ReservationsResidentView from './views/reservations/resident_view/reservations';
+import ListReservationsResidentView from './views/reservations/resident_view/list/list_reservations';
+import ReservationsAdminView from './views/reservations/admin_view/reservations';
+
 import Residents from './views/residents/residents';
+
 import Profile from './views/profile/profile';
 
 const RoutesConfig = () => {
+  const user = useSelector(state => state.user.data);
+
   return (
     <Switch>
-      <Route path="/home" exact component={Home} />
-      <Route path="/login" exact component={App} />
 
-      <Route path="/residents" exact component={Residents} />
+      {/* Residents */}
+      {user.isAdmin && <Route path="/residents" exact component={Residents} />}
 
-      <Route path="/reservations" component={Reservations} />
-      <Route path="/list-resident-reservations" component={ListReservations} />
-      
-      {/* reunioes */}
-      <Route path="/complaints" component={Complaints}  />
-      {/* checkin */}
-      {/* entregas */}
+      {/* Reservations */}
+      {!user.isAdmin && <Route path="/reservations" component={ReservationsResidentView} />}
+      {!user.isAdmin && <Route path="/my-reservations" component={ListReservationsResidentView} />}
+      {user.isAdmin && <Route path="/list-reservations" component={ReservationsAdminView} />}
+
+      {/* Complaints */}
+      {user.isAdmin && <Route path="/complaints" component={ComplaintsAdminView} />}
+      {!user.isAdmin && <Route path="/complaints" component={ComplaintsResidentView} />}
+
+
       {<Route path="/profile" exact component={Profile} />}
     </Switch>
   );

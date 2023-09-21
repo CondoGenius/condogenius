@@ -16,11 +16,13 @@ const FormLoginSchema = Yup.object().shape({
     password: Yup.string().ensure().required(requiredFieldMessage)
 });
 
-const onSubmit = async (values, authUserLogin) => {
-    // localStorage.setItem("user", JSON.stringify({'email': values.email, 'password': values.password}));
-    // window.location.reload();
-    const response = await authUserLogin(values.email, values.password)
-    console.log(response)
+const onSubmit = async (values, authUserLogin, setMessageSubmitLogin) => {
+    const response = await authUserLogin(values.email, values.password);
+    if (response.status === 200) {
+        window.location.reload();
+    } else {
+        setMessageSubmitLogin("Usuário ou senha incorretos.")
+    }
 }
 
 const renderFieldEmail = (handleChange, handleBlur, values) => (
@@ -63,6 +65,7 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => 
 const Login = () => {
     const [isSubmit, setIsSubmit] = useState(false);
     const { authUserLogin } = useLogin();
+    const [messageSubmitLogin, setMessageSubmitLogin] = useState(null);
     
     return (
         <div className='login_content'>
@@ -72,7 +75,7 @@ const Login = () => {
                     password: ''
                 }}
                 validationSchema={FormLoginSchema}
-                onSubmit={values => {onSubmit(values, authUserLogin)}}
+                onSubmit={values => {onSubmit(values, authUserLogin, setMessageSubmitLogin)}}
             > 
                 {({
                     handleChange,
@@ -83,7 +86,7 @@ const Login = () => {
                     isValid,
                     errors
                 }) => (
-                    <div className='card_content'>
+                    <div className='card_content'>  
                         <img src={logo} className='logo' alt='logo condogenius' />
 
                         <div className='fields_content'>
@@ -102,6 +105,7 @@ const Login = () => {
                                 <a href='./'>Cadastre-se</a>
                             </div>
                         </div>
+                        {messageSubmitLogin && <ErrorField error={messageSubmitLogin}/>}
                     </div>
                 )}
             </Formik>

@@ -1,6 +1,8 @@
 import React from 'react';
-import logo from '../../assets/condogenius.png';
+import { useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
+
+import logo from '../../assets/condogenius.png';
 
 import { MdOutlineHub } from 'react-icons/md'
 import { MdPeopleAlt } from 'react-icons/md';
@@ -26,29 +28,40 @@ const navLink = (route, icon, name) => {
 const logout = () => {
     localStorage.removeItem("user");
     window.location.reload()
-}
+};
 
-const Navbar = () => (
-    <div className="navbar_content">
-        <div className="logo_content">
-            <img src={logo} alt="Logo" className="logo" />
+const Navbar = () => {
+    const user = useSelector((state => state.user.data));
+    console.log('user: ', user)
+    return (
+        <div className="navbar_content">
+            <div className="logo_content">
+                <img src={logo} alt="Logo" className="logo" />
+            </div>
+            <div className="menu_content">
+                <ul>
+                    {navLink('/hub', MdOutlineHub, 'Hub Digital')}
+
+                    {user.isAdmin && navLink('/residents', MdPeopleAlt, 'Moradores')}
+
+                    {!user.isAdmin && navLink('/reservations', GiBarbecue, 'Reservas')}
+                    {user.isAdmin && navLink('/list-reservations', GiBarbecue, 'Reservas')}
+
+                    {navLink('/meetings', SiGooglemeet, 'Reuniões')}
+
+                    {navLink('/complaints', TiWarning, 'Reclamações')}
+                    {!user.isAdmin && navLink('/check-in', BsCheck2Square, 'Check-in')}
+                    {navLink('/deliverys', BsBoxSeamFill, 'Entregas')}
+
+                </ul>
+            </div>
+            <div className="actions_content">
+                {navLink('/profile', BsPersonCircle, 'Perfil')}
+                <span className='exit_icon' onClick={logout}><MdExitToApp className='logout_icon'/></span>
+            </div>
         </div>
-        <div className="menu_content">
-            <ul>
-                {navLink('/hub', MdOutlineHub, 'Hub Digital')}
-                {navLink('/residents', MdPeopleAlt, 'Moradores')}
-                {navLink('/reservations', GiBarbecue, 'Reservas')}
-                {navLink('/meetings', SiGooglemeet, 'Reuniões')}
-                {navLink('/complaints', TiWarning, 'Reclamações')}
-                {navLink('/check-in', BsCheck2Square, 'Check-in')}
-                {navLink('/deliverys', BsBoxSeamFill, 'Entregas')}
-            </ul>
-        </div>
-        <div className="actions_content">
-            {navLink('/profile', BsPersonCircle, 'Perfil')}
-            <span className='exit_icon' onClick={logout}><MdExitToApp className='logout_icon'/></span>
-        </div>
-    </div>
-)
+    );
+};
+
 
 export default Navbar;

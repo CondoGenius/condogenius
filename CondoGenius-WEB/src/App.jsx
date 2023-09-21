@@ -1,16 +1,18 @@
 import React from 'react';
+import { useSelector } from "react-redux";
+
 import Home from './components/home/home';
 import Login from './views/login/login';
 
 import { BrowserRouter } from 'react-router-dom';
 
 export default function App() {
-  const user = localStorage.getItem('user');
+  const user = useSelector(state => state.user.data);
 
   return (
     <BrowserRouter>
       {
-      user ? 
+      user.isLogged ? 
           <Home /> 
         : 
           <Login />

@@ -1,8 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import CardContent from '../../components/cards/card';
-import ModalContent from '../../components/modal/modal_content';
+import CardContent from '../../../components/cards/card';
 
 import { MdArrowForward } from 'react-icons/md';
 
@@ -12,7 +11,7 @@ const Reservations = () => (
   <div className='header_content'>
     <h1>Reservas de áreas comuns</h1>
     <div className='content_resident_reservation'>
-      <NavLink to='/list-resident-reservations'>
+      <NavLink to='/my-reservations'>
         Ir para minhas reservas <MdArrowForward />
       </NavLink>
     </div>

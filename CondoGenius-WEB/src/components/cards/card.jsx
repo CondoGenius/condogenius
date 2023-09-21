@@ -2,12 +2,8 @@ import React from 'react';
 import { Card, Row, Col, CardTitle, Button } from 'react-materialize';
 
 import ModalContent from "../../components/modal/modal_content";
-import FormReservations from '../../views/reservations/form/form_reservation';
+import FormReservations from '../../views/reservations/resident_view/form/form_reservation';
 import { areas } from '../../states/reservations/mock';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-
-import ErrorField from '../../components/utils/errorField';
 
 import './card.scss';
 
