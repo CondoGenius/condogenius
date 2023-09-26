@@ -2,8 +2,26 @@ import React from "react";
 import { Collection, CollectionItem } from 'react-materialize';
 
 import { reservations } from "../../../states/reservations/mock";
+import ModalContent from "../../../components/modal/modal_content";
 
 import './reservations.scss';
+
+import { guestList } from '../../../states/reservations/mock';
+
+const renderGuestListFromReservation = () => (
+    <Collection>
+    {guestList.map(guest => (
+        <CollectionItem key={guest.id}>
+            <span>
+            {guest.name}
+            </span>
+            <span className='guest_list_info'>
+            {guest.document}
+            </span>
+        </CollectionItem>
+    ))}
+    </Collection>
+);
 
 const Reservations = () => {
 
@@ -29,9 +47,12 @@ const Reservations = () => {
                             <span>
                             {reservation.date}
                             </span>
-                            <span>
-                                <a href="/">acessar lista de convidados</a>
-                            </span>                        
+                            <ModalContent
+                                header={`Lista de convidados - ${reservation.name} ${reservation.date}`}
+                                trigger={<span className='guest_list_action'>acessar lista de convidados</span>}
+                                children={renderGuestListFromReservation()}
+                                className="complaint"
+                            />                     
                     </CollectionItem>
                 ))}
                 </Collection>
