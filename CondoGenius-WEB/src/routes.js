@@ -11,6 +11,9 @@ import ReservationsAdminView from './views/reservations/admin_view/reservations'
 
 import Residents from './views/residents/residents';
 
+import DeliveriesResidentView from './views/deliveries/resident_view/deliveries';
+import DeliveriesAdminView from './views/deliveries/admin_view/deliveries';
+
 import Profile from './views/profile/profile';
 
 const RoutesConfig = () => {
@@ -30,6 +33,10 @@ const RoutesConfig = () => {
       {/* Complaints */}
       {user.isAdmin && <Route path="/complaints" component={ComplaintsAdminView} />}
       {!user.isAdmin && <Route path="/complaints" component={ComplaintsResidentView} />}
+
+      {/* Deliveries */}
+      {!user.isAdmin && <Route path="/deliveries" component={DeliveriesResidentView} />}
+      {user.isAdmin && <Route path="/deliveries" component={DeliveriesAdminView} />}
 
 
       {<Route path="/profile" exact component={Profile} />}

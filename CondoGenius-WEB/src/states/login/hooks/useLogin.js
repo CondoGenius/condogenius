@@ -15,7 +15,7 @@ const useLogin = () => {
                 id: 1,
                 email: response.data.user,
                 token: response.data.jwtToken,
-                role: 'resident',
+                role: 'admin',
                 isLogged: true
             }))
             localStorage.setItem("user", JSON.stringify({email: response.data.user, token: response.data.jwtToken, role: 'admin', isLogged: true}));

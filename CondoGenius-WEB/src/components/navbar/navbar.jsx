@@ -51,7 +51,8 @@ const Navbar = () => {
 
                     {navLink('/complaints', TiWarning, 'Reclamações')}
                     {!user.isAdmin && navLink('/check-in', BsCheck2Square, 'Check-in')}
-                    {navLink('/deliverys', BsBoxSeamFill, 'Entregas')}
+
+                    {navLink('/deliveries', BsBoxSeamFill, 'Entregas')}
 
                 </ul>
             </div>
