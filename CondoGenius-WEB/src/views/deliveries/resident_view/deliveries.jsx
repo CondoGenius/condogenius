@@ -1,4 +1,3 @@
-import react from "react";
 import { Collection, CollectionItem } from 'react-materialize';
 
 import { deliveries } from "../../../states/deliveries/mock";
