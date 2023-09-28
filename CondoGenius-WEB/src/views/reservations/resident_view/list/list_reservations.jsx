@@ -8,10 +8,12 @@ import GuestForm from './guest_form/guest_form';
 import './list_reservations.scss';
 
 const ListReservations = () => (
-  <div className='header_content'>
-    <HeaderBackPage route="/reservations"/>
-    <h1>Minhas reservas</h1>
-    <div className='list_view'>
+    <>
+        <div className='header_content'>
+            <HeaderBackPage route="/reservations"/>
+            <h1>Minhas reservas</h1>
+            </div>
+        <div className='list_view'>
             <Collection>
                 <CollectionItem key="header" className='list_header'>
                     <span>Área</span>
@@ -35,8 +37,9 @@ const ListReservations = () => (
                 </CollectionItem>
             ))}
             </Collection>
-      </div>
-  </div>
+        </div>
+    </>
+
 );
 
 export default ListReservations;

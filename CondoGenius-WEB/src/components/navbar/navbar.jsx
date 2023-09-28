@@ -42,15 +42,17 @@ const Navbar = () => {
                 <ul>
                     {navLink('/hub', MdOutlineHub, 'Hub Digital')}
 
+                    {/* Admin routes */}
                     {user.isAdmin && navLink('/residents', MdPeopleAlt, 'Moradores')}
-
-                    {!user.isAdmin && navLink('/reservations', GiBarbecue, 'Reservas')}
                     {user.isAdmin && navLink('/list-reservations', GiBarbecue, 'Reservas')}
+
+                    {/* Resident routes */}
+                    {!user.isAdmin && navLink('/reservations', GiBarbecue, 'Reservas')}
+                    {!user.isAdmin && navLink('/check-in', BsCheck2Square, 'Check-in')}
 
                     {navLink('/meetings', SiGooglemeet, 'Reuniões')}
 
                     {navLink('/complaints', TiWarning, 'Reclamações')}
-                    {!user.isAdmin && navLink('/check-in', BsCheck2Square, 'Check-in')}
 
                     {navLink('/deliveries', BsBoxSeamFill, 'Entregas')}
 

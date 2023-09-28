@@ -26,8 +26,10 @@ const renderGuestListFromReservation = () => (
 const Reservations = () => {
 
     return (
-        <div className='header_content'>
-            <h1>Reservas</h1>
+        <>
+            <div className='header_content'>
+                <h1>Reservas</h1>
+            </div>
             <div className='list_view'>
                 <Collection>
                     <CollectionItem key="header" className='list_header'>
@@ -57,7 +59,7 @@ const Reservations = () => {
                 ))}
                 </Collection>
             </div>
-        </div>
+        </>
     )
 };
 
