@@ -36,6 +36,8 @@
     "mdi-react": "^8.2.0",
     "mini-css-extract-plugin": "^2.4.5",
     "moment": "^2.29.4",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
     "postcss": "^8.4.4",
     "postcss-normalize": "^10.0.1",
     "postcss-preset-env": "^7.0.1",

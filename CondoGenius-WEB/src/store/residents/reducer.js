@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
-    residents: []
+  list: [],
+  error: null
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -7,7 +8,8 @@ const userReducer = (state = INITIAL_STATE, action) => {
       case "SET_RESIDENTS":
         return {
           ...state,
-          residents: action.payload.residents
+          list: action.payload.list,
+          error: action.payload.error
         }
       default:
         return state;

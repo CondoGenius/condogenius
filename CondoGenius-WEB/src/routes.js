@@ -1,5 +1,8 @@
 import React from 'react';
+import { useSelector } from "react-redux";
 import { Route, Switch } from 'react-router-dom';
+
+import Register from './views/login/containers/register/register';
 
 import ComplaintsResidentView from './views/complaints/admin_view/complaints';
 import ComplaintsAdminView from './views/complaints/user_view/complaints';
@@ -14,11 +17,14 @@ import DeliveriesResidentView from './views/deliveries/resident_view/deliveries'
 import DeliveriesAdminView from './views/deliveries/admin_view/deliveries';
 
 import Profile from './views/profile/profile';
+import Login from './views/login/login';
+import RegisterVerifys from './views/login/containers/register-verifys/register_verifys';
 
 const RoutesConfig = () => {
-  return (
-    <Switch>
+  const user = useSelector(state => state.user.data);
 
+  return user.isLogged ? (
+    <Switch>
       {/* Residents */}
       <Route path="/residents" exact component={Residents} />
 
@@ -35,8 +41,13 @@ const RoutesConfig = () => {
       <Route path="/deliveries" component={DeliveriesResidentView} />
       <Route path="/deliveries" component={DeliveriesAdminView} />
 
-
       <Route path="/profile" exact component={Profile} />
+    </Switch>
+  ) : (
+    <Switch>
+      <Route path="/" exact component={Login} />
+      <Route path="/register-verifys" exact component={RegisterVerifys} />
+      <Route path="/register" exact component={Register} />
     </Switch>
   );
 };

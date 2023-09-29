@@ -1,13 +1,43 @@
+
 import axios from 'axios';
-import { useSelector } from 'react-redux';
 
 const ResidentsService = () => {
-    const user = useSelector((state => state.user.data));
+    const token = localStorage.getItem('user').token;
 
-    const getAllResidents = (authLogin) => {
-        return axios.get(`http://localhost:5233/api/auth/login`,{
+    const getAllResidents =  () => {
+        return axios.get(`${process.env.API_GATEWAY_URL_LOCAL}/api/residents`,{
             headers: {
-                Authorization: `Bearer ${user.token}`,
+                Authorization: `Bearer ${token}`,
+            },
+          })
+          .then(res => res)
+          .catch(err => err);
+    };
+
+    const createResident = (resident) => {
+        return axios.post(`${process.env.API_GATEWAY_URL_LOCAL}/api/residents`, resident, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+          })
+          .then(res => res)
+          .catch(err => err);
+    };
+
+    const updateResident = (resident) => {
+        return axios.put(`${process.env.API_GATEWAY_URL_LOCAL}/api/residents/${resident.id}`, resident, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+          })
+          .then(res => res)
+          .catch(err => err);
+    };
+
+    const deleteResident = (id) => {
+        return axios.delete(`${process.env.API_GATEWAY_URL_LOCAL}/api/residents/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
             },
           })
           .then(res => res)
@@ -15,7 +45,10 @@ const ResidentsService = () => {
     };
 
     return {
-        getAllResidents
+        getAllResidents,
+        createResident,
+        updateResident,
+        deleteResident
     };
 
 };
