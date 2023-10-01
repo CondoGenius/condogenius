@@ -1,7 +1,71 @@
 ﻿{
   "Routes": [
     {
-      "DownstreamPathTemplate": "/Status",
+      "DownstreamPathTemplate": "/Checks/{everything}",
+      "AuthenticationOptions" : {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement" : {
+        "Role": "Admin;Resident"
+      },
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "checks",
+          "Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/checks/{everything}",
+      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete", "Options"]
+    },
+    {
+      "DownstreamPathTemplate": "/DigitalHub/{everything}",
+      "AuthenticationOptions" : {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement" : {
+        "Role": "Admin;Resident"
+      },
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "digital_hub",
+          "Port": 7004
+        }
+      ],
+      "UpstreamPathTemplate": "/api/hub/{everything}",
+      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete", "Options"]
+    },
+    {
+      "DownstreamPathTemplate": "/Deliveries/{everything}",
+      "AuthenticationOptions" : {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement" : {
+        "Role": "Admin;Resident"
+      },
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "deliveries",
+          "Port": 7003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/deliveries/{everything}",
+      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete", "Options"]
+    },
+    {
+      "DownstreamPathTemplate": "/Complaints/{everything}",
+      "AuthenticationOptions" : {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement" : {
+        "Role": "Admin;Resident"
+      },
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -9,9 +73,10 @@
           "Port": 7002
         }
       ],
-      "UpstreamPathTemplate": "/api/complaints/status",
+      "UpstreamPathTemplate": "/api/complaints/{everything}",
       "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete", "Options"]
-    }, {
+    }, 
+    {
       "DownstreamPathTemplate": "/Reservations/{everything}",
       "AuthenticationOptions" : {
         "AuthenticationProviderKey": "Bearer",

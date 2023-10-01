@@ -72,6 +72,16 @@ services:
       - ASPNETCORE_URLS=http://0.0.0.0:7004
     ports:
       - "7004:7004"
+  
+  checks:
+    image: checks
+    build:
+      context: ./CondoGenius-Checks-API
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:7005
+    ports:
+      - "7005:7005"
 
   reservations:
     image: reservations
