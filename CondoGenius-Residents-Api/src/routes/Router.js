@@ -1,11 +1,17 @@
-const express = require('express');
-const router = express.Router();
+module.exports = app => {
+  const residents = require("../controllers/residentController");
 
-const residentRoutes = require('./routes/ResidentsRouter');
+  var router = require("express").Router();
 
-router.use('/residents', residentRoutes);
+  router.post("/", residents.createResident);
 
+  router.get("/", residents.listResidents);
 
-// adicionar outros routers aqui
+  router.get("/:id", residents.listResidentById);
 
-module.exports = router;
+  router.put("/:id", residents.updateResident);
+
+  router.delete("/:id", residents.deleteResident);
+
+  app.use('/api/residents', router);
+};

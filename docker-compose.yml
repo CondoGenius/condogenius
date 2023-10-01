@@ -2,6 +2,8 @@ version: "3"
 services:
   mysql:
     image: mysql
+    networks:
+      - db_network
     volumes_from:
       - data_database
     ports:
@@ -86,6 +88,11 @@ services:
       - ./residents:/usr/residents
     ports:
       - "7008:7008"
+    depends_on:
+      - mysql
+      - data_database
+    networks:
+      - db_network
 
   send-notifications:
     build:
@@ -106,3 +113,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+
+networks:
+  db_network:
+    driver: bridge
