@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { Button } from 'react-materialize';
-import ErrorField from '../../components/utils/errorField';
-import { NavLink } from 'react-router-dom';
-import logo from '../../assets/condogenius.png';
+import ErrorField from '../../../../components/utils/errorField';
 
-import useLogin from '../../states/login/hooks/useLogin.js';
+import useLogin from '../../../../states/login/hooks/useLogin';
 
-import './login.scss';
+import './register.scss';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormLoginSchema = Yup.object().shape({
@@ -17,13 +16,8 @@ const FormLoginSchema = Yup.object().shape({
     password: Yup.string().ensure().required(requiredFieldMessage)
 });
 
-const onSubmit = async (values, authUserLogin, setMessageSubmitLogin) => {
-    const response = await authUserLogin(values.email, values.password);
-    if (response.status === 200) {
-        window.location.reload();
-    } else {
-        setMessageSubmitLogin("Usuário ou senha incorretos.")
-    }
+const onSubmit = async (values, authUserLogin, setMessageSubmitLogin, history) => {
+    history.push('/');
 }
 
 const renderFieldEmail = (handleChange, handleBlur, values) => (
@@ -59,11 +53,12 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => 
             }
         }}
     >
-        Entrar
+        Salvar
     </Button>
 );
 
-const Login = () => {
+const Register = () => {
+    const history = useHistory();
     const [isSubmit, setIsSubmit] = useState(false);
     const { authUserLogin } = useLogin();
     const [messageSubmitLogin, setMessageSubmitLogin] = useState(null);
@@ -76,7 +71,7 @@ const Login = () => {
                     password: ''
                 }}
                 validationSchema={FormLoginSchema}
-                onSubmit={values => {onSubmit(values, authUserLogin, setMessageSubmitLogin)}}
+                onSubmit={values => {onSubmit(values, authUserLogin, setMessageSubmitLogin, history)}}
             > 
                 {({
                     handleChange,
@@ -87,10 +82,10 @@ const Login = () => {
                     isValid,
                     errors
                 }) => (
-                    <div className='card_content_login'>  
-                        <img src={logo} className='logo' alt='logo condogenius' />
-
+                    <div className='card_content_register'>  
                         <div className='fields_content'>
+                        <h1>Seja bem vindo, José!</h1>
+                        <p>Escolha sua senha</p>
                             <div>
                                 {renderFieldEmail(handleChange, handleBlur, values)}
                                 {isSubmit && errors.email && <ErrorField error={errors.email}/>}
@@ -103,9 +98,6 @@ const Login = () => {
 
                             <div className='actions'>
                                 {renderButtonSubmit(isValid, handleSubmit, handleReset, setIsSubmit)}
-                                <NavLink to="/register-verifys">
-                                    <span>Cadastre-se</span>
-                                </NavLink>
                             </div>
                         </div>
                         {messageSubmitLogin && <ErrorField error={messageSubmitLogin}/>}
@@ -116,4 +108,4 @@ const Login = () => {
     )
 };
 
-export default Login;
+export default Register;
