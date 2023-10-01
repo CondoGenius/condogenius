@@ -18,11 +18,11 @@ module.exports = (sequelize, Sequelize) => {
     contact: {
       type: Sequelize.STRING
     },
-    created_at: {
+    createdAt: {
       type: Sequelize.DATE,
       field: 'created_at' 
     },
-    updated_at: {
+    updatedAt: {
       type: Sequelize.DATE,
       field: 'updated_at' 
     },
