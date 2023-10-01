@@ -8,9 +8,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10" />
       <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.32.2" />
       <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.32.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CondoGenius-Auth-Repository\CondoGenius-Auth-Repository.csproj" />
+      <ProjectReference Include="..\CondoGenius-Auth-Shared\CondoGenius-Auth-Shared.csproj" />
     </ItemGroup>
 
 </Project>

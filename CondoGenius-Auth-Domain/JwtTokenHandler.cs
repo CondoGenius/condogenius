@@ -1,6 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using CondoGenius_Auth_Repository.Repositories.Interfaces;
 using CondoGenius_Auth.Models;
 using Microsoft.IdentityModel.Tokens;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
@@ -11,27 +12,19 @@ public class JwtTokenHandler
 {
     public const string JWT_KEY = "yPkCqn4KSWLtaJwXvN2jGzpQRH3gSJsVlrMIMf278";
     private const int JWT_TOKEN_VALIDATY_MINS = 600;
-    private readonly List<User> _usersList;
+    private IUserRepository _userRepository;
     
-    public JwtTokenHandler()
+    public JwtTokenHandler(IUserRepository repository)
     {
-        _usersList = new()
-        {
-            new User() { UserName = "Admin", Password = "admin123", Role = "Admin" },
-            new User() { UserName = "Resident", Password = "resident123", Role = "Resident" },
-            new User() { UserName = "Nobody", Password = "nobody1", Role = "Nobody" }
-        };
+        _userRepository = repository;
     }
 
-    public AuthResponse? GenerateJwtToken(AuthRequest request)
+    public async Task<AuthResponse?> GenerateJwtToken(AuthRequest request)
     {
         if (string.IsNullOrWhiteSpace(request.User) || string.IsNullOrWhiteSpace(request.Password))
             return null;
         
-        //MUDAR PRA PEGAR DO BANCO - PRECISA HASHEAR A SENHA
-
-        var user = _usersList.FirstOrDefault(x => x.UserName == request.User 
-                                                  && x.Password == request.Password);
+        var user = await _userRepository.GetUserByUsernameAndPassword(request.User, request.Password);
 
         if (user == null) return null;
 
@@ -62,7 +55,8 @@ public class JwtTokenHandler
         {
             User = user.UserName,
             ExpiresIn = tokenExpiration.ToString("dd/MM/yyyy hh:mm:ss"),
-            JwtToken = token
+            JwtToken = token,
+            Role = user.Role
         };
     }
 }

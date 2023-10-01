@@ -1,0 +1,1 @@
+﻿INSERT INTO users (email, password, is_active, role_id)  VALUES (@Email, @Password, 1, @RoleId);
