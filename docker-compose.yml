@@ -11,6 +11,14 @@ services:
       MYSQL_ROOT_PASSWORD: genius
       MYSQL_DATABASE: genius
 
+  mysql-init:
+    image: mysql:latest
+    volumes:
+      - ./Data/InitializeDatabase.sql:/Data/InitializeDatabase.sql
+    command: bash -c "sleep 80 && mysql -h mysql -uroot -pgenius genius < Data/InitializeDatabase.sql"
+    depends_on:
+      - mysql
+
   data_database:
     image: cogniteev/echo
     command: echo 'Data Container for MySql'
@@ -18,8 +26,8 @@ services:
       - /var/lib/mysql
 
   database-runner:
-    build: 
-      context: ./migrations
+    build:
+      context: ./Data
       dockerfile: Dockerfile
     depends_on:
       - mysql
