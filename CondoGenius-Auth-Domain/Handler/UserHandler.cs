@@ -9,15 +9,17 @@ namespace CondoGenius_Auth.Handler;
 public class UserHandler : IUserHandler
 {
     public IUserRepository _repository;
-    public Hasher.Hasher _hasher;
     
     public UserHandler(IUserRepository repository)
     {
         _repository = repository;
-        _hasher = new Hasher.Hasher();
     }
     public async Task CreateUser(CreateUserRequest request)
     {
-        await _repository.CreateUser(request.Email, request.Password, request.RoleId);
+        var passwordSalt = Hasher.Hasher.GenerateSalt();
+        
+        var passwordHash = Hasher.Hasher.ComputeHash(request.Password, passwordSalt, int.Parse(Environment.GetEnvironmentVariable("Iterations")));
+        
+        await _repository.CreateUser(request.Email, passwordHash, passwordSalt, request.RoleId);
     }
 }
