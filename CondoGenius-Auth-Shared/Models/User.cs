@@ -1,4 +1,4 @@
-﻿namespace CondoGenius_Auth.Models;
+﻿namespace CondoGenius_Auth_Shared.Models;
 
 public class User
 {

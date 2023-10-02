@@ -13,6 +13,14 @@ services:
       MYSQL_ROOT_PASSWORD: genius
       MYSQL_DATABASE: genius
 
+  mysql-init:
+    image: mysql:latest
+    volumes:
+      - ./Data/InitializeDatabase.sql:/Data/InitializeDatabase.sql
+    command: bash -c "sleep 80 && mysql -h mysql -uroot -pgenius genius < Data/InitializeDatabase.sql"
+    depends_on:
+      - mysql
+
   data_database:
     image: cogniteev/echo
     command: echo 'Data Container for MySql'
@@ -20,8 +28,8 @@ services:
       - /var/lib/mysql
 
   database-runner:
-    build: 
-      context: ./migrations
+    build:
+      context: ./Data
       dockerfile: Dockerfile
     depends_on:
       - mysql
@@ -66,6 +74,16 @@ services:
       - ASPNETCORE_URLS=http://0.0.0.0:7004
     ports:
       - "7004:7004"
+  
+  checks:
+    image: checks
+    build:
+      context: ./CondoGenius-Checks-API
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:7005
+    ports:
+      - "7005:7005"
 
   reservations:
     image: reservations

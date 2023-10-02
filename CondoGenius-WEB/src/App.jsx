@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from "react-redux";
+import RoutesConfig from './routes';
 
 import Home from './components/home/home';
 import Login from './views/login/login';
@@ -15,7 +16,9 @@ export default function App() {
       user.isLogged ? 
           <Home /> 
         : 
-          <Login />
+          <RoutesConfig>
+            <Login />
+          </RoutesConfig>
       }
     </BrowserRouter>
   );

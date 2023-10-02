@@ -195,3 +195,6 @@ CREATE TABLE IF NOT EXISTS guest_list (
     FOREIGN KEY (event_id) REFERENCES events (id),
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
+
+INSERT INTO roles (name) VALUES ('Admin'), ('Resident')
+

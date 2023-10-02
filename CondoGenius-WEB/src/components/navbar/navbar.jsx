@@ -9,7 +9,6 @@ import { MdPeopleAlt } from 'react-icons/md';
 import { GiBarbecue } from 'react-icons/gi';
 import { SiGooglemeet } from 'react-icons/si';
 import { TiWarning } from 'react-icons/ti';
-import { BsCheck2Square } from 'react-icons/bs';
 import { BsBoxSeamFill } from 'react-icons/bs';
 import { MdExitToApp } from 'react-icons/md';
 import { BsPersonCircle } from 'react-icons/bs';
@@ -42,16 +41,18 @@ const Navbar = () => {
                 <ul>
                     {navLink('/hub', MdOutlineHub, 'Hub Digital')}
 
+                    {/* Admin routes */}
                     {user.isAdmin && navLink('/residents', MdPeopleAlt, 'Moradores')}
-
-                    {!user.isAdmin && navLink('/reservations', GiBarbecue, 'Reservas')}
                     {user.isAdmin && navLink('/list-reservations', GiBarbecue, 'Reservas')}
+
+                    {/* Resident routes */}
+                    {!user.isAdmin && navLink('/reservations', GiBarbecue, 'Reservas')}
 
                     {navLink('/meetings', SiGooglemeet, 'Reuniões')}
 
                     {navLink('/complaints', TiWarning, 'Reclamações')}
-                    {!user.isAdmin && navLink('/check-in', BsCheck2Square, 'Check-in')}
-                    {navLink('/deliverys', BsBoxSeamFill, 'Entregas')}
+
+                    {navLink('/deliveries', BsBoxSeamFill, 'Entregas')}
 
                 </ul>
             </div>

@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\CondoGenius-Auth\CondoGenius-Auth.csproj" />
+      <ProjectReference Include="..\CondoGenius-Auth-Domain\CondoGenius-Auth-Domain.csproj" />
     </ItemGroup>
 
 </Project>

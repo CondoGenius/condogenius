@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 
 import { Button } from 'react-materialize';
 import ErrorField from '../../components/utils/errorField';
+import { NavLink } from 'react-router-dom';
 import logo from '../../assets/condogenius.png';
 
 import useLogin from '../../states/login/hooks/useLogin.js';
@@ -68,7 +69,7 @@ const Login = () => {
     const [messageSubmitLogin, setMessageSubmitLogin] = useState(null);
     
     return (
-        <div className='login_content'>
+        <div className='background_content'>
             <Formik        
                 initialValues={{
                     email: '',
@@ -86,7 +87,7 @@ const Login = () => {
                     isValid,
                     errors
                 }) => (
-                    <div className='card_content'>  
+                    <div className='card_content_login'>  
                         <img src={logo} className='logo' alt='logo condogenius' />
 
                         <div className='fields_content'>
@@ -102,7 +103,9 @@ const Login = () => {
 
                             <div className='actions'>
                                 {renderButtonSubmit(isValid, handleSubmit, handleReset, setIsSubmit)}
-                                <a href='./'>Cadastre-se</a>
+                                <NavLink to="/register-verifys">
+                                    <span>Cadastre-se</span>
+                                </NavLink>
                             </div>
                         </div>
                         {messageSubmitLogin && <ErrorField error={messageSubmitLogin}/>}

@@ -5,6 +5,12 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using CondoGenius_Auth;
+using CondoGenius_Auth_Repository.Queries.User;
+using CondoGenius_Auth_Repository.Queries.User.Interface;
+using CondoGenius_Auth_Repository.Repositories;
+using CondoGenius_Auth_Repository.Repositories.Interfaces;
+using CondoGenius_Auth.Handler;
+using CondoGenius_Auth.Handler.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -35,7 +41,12 @@ public class Startup
     {
         services.AddHealthChecks();
         services.AddHttpContextAccessor();
+
+        services.AddSingleton<IUserHandler, UserHandler>();
+        services.AddSingleton<IUserRepository, UserRepository>();
+        services.AddSingleton<IUserQueries, UserQueries>();
         services.AddSingleton<JwtTokenHandler>();
+        
         services.AddOcelot(_configuration);
         services.AddCustomJwtAuthentication();
         services.AddCors();

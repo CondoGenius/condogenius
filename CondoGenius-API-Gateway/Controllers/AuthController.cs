@@ -1,4 +1,5 @@
-﻿using CondoGenius_Auth;
+﻿using System.Threading.Tasks;
+using CondoGenius_Auth;
 using CondoGenius_Auth.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +17,9 @@ public class AuthController : ControllerBase
     }
 
     [Route("login")]
-    public ActionResult<AuthResponse?> Login([FromBody] AuthRequest request)
+    public async Task<ActionResult<AuthResponse?>> Login([FromBody] AuthRequest request)
     {
-        var authResponse = _tokenHandler.GenerateJwtToken(request);
+        var authResponse = await _tokenHandler.GenerateJwtToken(request);
 
         if (authResponse == null) return Unauthorized();
 
