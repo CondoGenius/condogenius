@@ -12,24 +12,23 @@ import './register.scss';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormLoginSchema = Yup.object().shape({
-    email: Yup.string().ensure().required(requiredFieldMessage),
-    password: Yup.string().ensure().required(requiredFieldMessage)
-});
+    password: Yup.string()
+      .required(requiredFieldMessage)
+      .test('passwords-match', 'As senhas não coincidem', function (value) {
+        return value === this.parent.password_verify;
+      }),
+    password_verify: Yup.string()
+      .required(requiredFieldMessage)
+      .test('passwords-match', 'As senhas não coincidem', function (value) {
+        return value === this.parent.password;
+      }),
+  });
+  
 
 const onSubmit = async (values, authUserLogin, setMessageSubmitLogin, history) => {
     history.push('/');
 }
 
-const renderFieldEmail = (handleChange, handleBlur, values) => (
-    <input 
-        id="email"
-        type="text" 
-        placeholder="Digite seu e-mail"
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={values.email} 
-    />
-);
 
 const renderFieldPassword = (handleChange, handleBlur, values) => (
     <input 
@@ -41,7 +40,17 @@ const renderFieldPassword = (handleChange, handleBlur, values) => (
         value={values.password} 
     />
 );
-
+    
+const renderFieldVerifyPassword = (handleChange, handleBlur, values) => (
+    <input 
+        id="password_verify"
+        type="password" 
+        placeholder="Digite sua senha" 
+        onChange={handleChange}
+        onBlur={handleBlur}
+        value={values.password_verify} 
+    />
+);
 const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => (
     <Button 
         className='button_to_enter'
@@ -87,13 +96,13 @@ const Register = () => {
                         <h1>Seja bem vindo, José!</h1>
                         <p>Escolha sua senha</p>
                             <div>
-                                {renderFieldEmail(handleChange, handleBlur, values)}
-                                {isSubmit && errors.email && <ErrorField error={errors.email}/>}
+                                {renderFieldPassword(handleChange, handleBlur, values)}
+                                {isSubmit && errors.password && <ErrorField error={errors.password}/>}
                             </div>
 
                             <div>
-                                {renderFieldPassword(handleChange, handleBlur, values)}
-                                {isSubmit && errors.password && <ErrorField error={errors.password}/>}
+                                {renderFieldVerifyPassword(handleChange, handleBlur, values)}
+                                {isSubmit && errors.password_verify && <ErrorField error={errors.password_verify}/>}
                             </div>
 
                             <div className='actions'>

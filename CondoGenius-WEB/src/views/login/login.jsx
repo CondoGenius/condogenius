@@ -100,6 +100,7 @@ const Login = () => {
                                 {renderFieldPassword(handleChange, handleBlur, values)}
                                 {isSubmit && errors.password && <ErrorField error={errors.password}/>}
                             </div>
+                            {messageSubmitLogin && <ErrorField error={messageSubmitLogin}/>}
 
                             <div className='actions'>
                                 {renderButtonSubmit(isValid, handleSubmit, handleReset, setIsSubmit)}
@@ -108,7 +109,6 @@ const Login = () => {
                                 </NavLink>
                             </div>
                         </div>
-                        {messageSubmitLogin && <ErrorField error={messageSubmitLogin}/>}
                     </div>
                 )}
             </Formik>

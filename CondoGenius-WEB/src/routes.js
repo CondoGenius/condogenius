@@ -19,12 +19,16 @@ import DeliveriesAdminView from './views/deliveries/admin_view/deliveries';
 import Profile from './views/profile/profile';
 import Login from './views/login/login';
 import RegisterVerifys from './views/login/containers/register-verifys/register_verifys';
+import HubDigital from './views/hub/hub';
 
 const RoutesConfig = () => {
   const user = useSelector(state => state.user.data);
 
   return user.isLogged ? (
     <Switch>
+      {/* Hub Digital */}
+      <Route path="/hub" exact component={HubDigital} />
+
       {/* Residents */}
       <Route path="/residents" exact component={Residents} />
 
@@ -38,7 +42,7 @@ const RoutesConfig = () => {
       <Route path="/complaints" component={ComplaintsResidentView} />
 
       {/* Deliveries */}
-      <Route path="/deliveries" component={DeliveriesResidentView} />
+      <Route path="/deliveries-list" component={DeliveriesResidentView} />
       <Route path="/deliveries" component={DeliveriesAdminView} />
 
       <Route path="/profile" exact component={Profile} />
