@@ -17,7 +17,7 @@ const onSubmit = async (values) => {
 }
 
 const SurveyForm = () => {
-    const [options, setOptions] = useState(2);
+    let [options, setOptions] = useState(2);
     const [inputValues, setInputValues] = useState(Array(options).fill(""));
   
     const optionElements = [];

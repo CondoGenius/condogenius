@@ -4,14 +4,12 @@ import { useSelector } from "react-redux";
 import { BsPersonCircle } from "react-icons/bs";
 import { AiFillPushpin } from "react-icons/ai";
 import { AiOutlinePushpin } from "react-icons/ai";
-import { AiFillWechat } from "react-icons/ai";
 import { AiOutlineSend } from "react-icons/ai";
 
 import './card_publication.scss';
 
 const CardPublication = ({publication}) => {
     const isAdmin = useSelector((state => state.user.data.isAdmin));
-    console.log(publication)
 
     return (
     <div className="publication_content">
