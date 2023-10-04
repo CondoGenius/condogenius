@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS residences (
 
 CREATE TABLE IF NOT EXISTS residents (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    user_id  INTEGER NOT NULL,
+    user_id INTEGER,
 	residence_id INTEGER NOT NULL, 
 	cpf_cnpj VARCHAR(255) NOT NULL, 
 	email VARCHAR(255) NOT NULL, 
