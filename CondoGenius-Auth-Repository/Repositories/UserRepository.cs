@@ -15,7 +15,7 @@ public class UserRepository : BaseRepository, IUserRepository
         _queries = queries;
     }
 
-    public async Task CreateUser(string email, string password, int roleId)
+    public async Task CreateUser(string email, string password, string passwordSalt, int roleId)
     {
         try
         {
@@ -27,6 +27,7 @@ public class UserRepository : BaseRepository, IUserRepository
             {
                 Email = email,
                 Password = password,
+                PasswordSalt = passwordSalt,
                 RoleId = roleId
             });
         }
@@ -39,16 +40,24 @@ public class UserRepository : BaseRepository, IUserRepository
 
     public async Task<User> GetUserByUsernameAndPassword(string username, string password)
     {
-        await using var conn = GetConnection();
-
-        await conn.OpenAsync();
-
-        var user = await conn.QueryFirstOrDefaultAsync<User>(_queries.GetUserByUsernameAndPassword(), new
+        try
         {
-            Email = username,
-            Password = password
-        });
+            await using var conn = GetConnection();
 
-        return user;
+            await conn.OpenAsync();
+
+            var user = await conn.QueryFirstOrDefaultAsync<User>(_queries.GetUserByUsernameAndPassword(), new
+            {
+                Email = username,
+                Password = password
+            });
+
+            return user;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Erro no método GetUserByUsernameAndPassword");
+            throw;
+        }
     }
 }

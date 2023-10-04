@@ -21,42 +21,55 @@ public class JwtTokenHandler
 
     public async Task<AuthResponse?> GenerateJwtToken(AuthRequest request)
     {
-        if (string.IsNullOrWhiteSpace(request.User) || string.IsNullOrWhiteSpace(request.Password))
-            return null;
-        
-        var user = await _userRepository.GetUserByUsernameAndPassword(request.User, request.Password);
-
-        if (user == null) return null;
-
-        var tokenExpiration = DateTime.Now.AddMinutes(JWT_TOKEN_VALIDATY_MINS);
-        var tokenKey = Encoding.ASCII.GetBytes(JWT_KEY);
-        var claimsIdentity = new ClaimsIdentity(new List<Claim>
+        try
         {
-            new Claim(JwtRegisteredClaimNames.Name, request.User),
-            new Claim("Role", user.Role)
-        });
+            if (string.IsNullOrWhiteSpace(request.User) || string.IsNullOrWhiteSpace(request.Password))
+                return null;
 
-        var signingCredentials = new SigningCredentials(
-            new SymmetricSecurityKey(tokenKey),
-            SecurityAlgorithms.HmacSha256Signature);
+            var user = await _userRepository.GetUserByUsernameAndPassword(request.User, request.Password);
 
-        var securityTokenDescriptor = new SecurityTokenDescriptor()
+            if (user == null) return null;
+
+            var passwordHash = Hasher.Hasher.ComputeHash(request.Password, user.PasswordSalt,
+                int.Parse(Environment.GetEnvironmentVariable("Iterations")));
+
+            if (passwordHash != user.Password) return null;
+
+            var tokenExpiration = DateTime.Now.AddMinutes(JWT_TOKEN_VALIDATY_MINS);
+            var tokenKey = Encoding.ASCII.GetBytes(JWT_KEY);
+            var claimsIdentity = new ClaimsIdentity(new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Name, request.User),
+                new Claim("Role", user.Role)
+            });
+
+            var signingCredentials = new SigningCredentials(
+                new SymmetricSecurityKey(tokenKey),
+                SecurityAlgorithms.HmacSha256Signature);
+
+            var securityTokenDescriptor = new SecurityTokenDescriptor()
+            {
+                Subject = claimsIdentity,
+                Expires = tokenExpiration,
+                SigningCredentials = signingCredentials
+            };
+
+            var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+            var securityToken = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
+            var token = jwtSecurityTokenHandler.WriteToken(securityToken);
+
+            return new AuthResponse()
+            {
+                User = user.UserName,
+                ExpiresIn = tokenExpiration.ToString("dd/MM/yyyy hh:mm:ss"),
+                JwtToken = token,
+                Role = user.Role
+            };
+        }
+        catch (Exception ex)
         {
-            Subject = claimsIdentity,
-            Expires = tokenExpiration,
-            SigningCredentials = signingCredentials
-        };
-
-        var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
-        var securityToken = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
-        var token = jwtSecurityTokenHandler.WriteToken(securityToken);
-
-        return new AuthResponse()
-        {
-            User = user.UserName,
-            ExpiresIn = tokenExpiration.ToString("dd/MM/yyyy hh:mm:ss"),
-            JwtToken = token,
-            Role = user.Role
-        };
+            Console.WriteLine("Erro ao gerar token no método JwtTokenHandler");
+            throw;
+        }
     }
 }
