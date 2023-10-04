@@ -94,6 +94,25 @@
       ],
       "UpstreamPathTemplate": "/api/reservations/{everything}",
       "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete", "Options"]
+    },
+    {
+      "DownstreamPathTemplate": "/Residents/{everything}",
+      "AuthenticationOptions" : {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement" : {
+        "Role": "Admin;Resident"
+      },
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "residents",
+          "Port": 7008
+        }
+      ],
+      "UpstreamPathTemplate": "/api/residents/{everything}",
+      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete", "Options"]
     }
   ],
   "GlobalConfiguration": {}

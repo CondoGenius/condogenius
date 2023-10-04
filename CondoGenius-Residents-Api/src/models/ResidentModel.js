@@ -1,47 +1,35 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../sequelize');
+module.exports = (sequelize, Sequelize) => {
+  const Resident = sequelize.define("resident", {
+    user_id: {
+      type: Sequelize.INTEGER
+    },
+    residence_id: {
+      type: Sequelize.INTEGER
+    },
+    email: {
+      type: Sequelize.STRING
+    },
+    name: {
+      type: Sequelize.STRING
+    },
+    last_name: {
+      type: Sequelize.STRING
+    },
+    contact: {
+      type: Sequelize.STRING
+    },
+    createdAt: {
+      type: Sequelize.DATE,
+      field: 'created_at' 
+    },
+    updatedAt: {
+      type: Sequelize.DATE,
+      field: 'updated_at' 
+    },
+    is_active: {
+      type: Sequelize.BOOLEAN
+    }
+  });
 
-const Resident = sequelize.define('Resident', {
-  user_id: {
-    type: DataTypes.BIGINT.UNSIGNED,
-    allowNull: false,
-  },
-  residence_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  cpf_cnpj: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  email: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  name: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  last_name: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  contact: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  created_at: {
-    type: DataTypes.DATE,
-  },
-  updated_at: {
-    type: DataTypes.DATE,
-  },
-  is_active: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-  },
-});
-
-Resident.sync();
-
-module.exports = Resident;
+  return Resident;
+};

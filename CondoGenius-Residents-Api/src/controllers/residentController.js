@@ -1,4 +1,5 @@
-const Resident = require('../models/ResidentModel');
+const db = require('../models');
+const Resident = db.residents;
 
 // Função para criar um novo residente
 exports.createResident = async (req, res) => {
@@ -23,6 +24,8 @@ exports.createResident = async (req, res) => {
       last_name,
       contact,
       is_active,
+      created_at: new Date(),
+      updated_at: new Date()
     });
 
     res.status(201).json({ message: 'Residente criado com sucesso', resident: novoResidente });
