@@ -5,7 +5,7 @@ const Resident = db.residents;
 exports.createResident = async (req, res) => {
   try {
     const {
-      user_id,
+      user_id = null,
       residence_id,
       cpf_cnpj,
       email,
@@ -67,7 +67,7 @@ exports.updateResident = async (req, res) => {
   try {
     const { id } = req.params;
     const {
-      user_id,
+      user_id = null,
       residence_id,
       cpf_cnpj,
       email,
