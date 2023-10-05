@@ -37,7 +37,11 @@ exports.createResident = async (req, res) => {
 
 exports.listResidents = async (req, res) => {
   try {
-    const residents = await Resident.findAll();
+    const residents = await Resident.findAll({
+      where: {
+        is_active: 1
+      }
+    });
 
     res.status(200).json(residents);
   } catch (error) {
@@ -111,7 +115,9 @@ exports.deleteResident = async (req, res) => {
       return res.status(404).json({ message: 'Residente não encontrado' });
     }
 
-    await resident.destroy();
+    await resident.update({
+      is_active: 0
+    });
 
     res.status(200).json({ message: 'Residente deletado com sucesso' });
   } catch (error) {
