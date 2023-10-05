@@ -1,1 +1,0 @@
-﻿INSERT INTO users (email, password, passwordSalt, is_active, role_id)  VALUES (@Email, @Password, @PasswordSalt, 1, @RoleId);

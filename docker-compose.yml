@@ -38,11 +38,13 @@ services:
   gateway:
     image: gateway
     build:
-      context: ./
-      dockerfile: CondoGenius-API-Gateway/Dockerfile
+      context: ./CondoGenius-Gateway-API
+      dockerfile: Dockerfile
     environment:
-      - ASPNETCORE_URLS=http://0.0.0.0:5000
-      - Iterations=50
+      NODE_ENV: development
+    command: npm start
+    volumes:
+      - ./gateway:/usr/gateway
     ports:
       - "5000:5000"
 
