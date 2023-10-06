@@ -3,7 +3,9 @@ EXPOSE 7006
 ENV ASPNETCORE_URLS=http://+:7006
 
 WORKDIR /src
-COPY . .
+COPY ["CondoGenius-Reservations-Domain/", "../CondoGenius-Reservations-Domain/"]
+COPY ["CondoGenius-Reservations-Infra/", "../CondoGenius-Reservations-Infra/"]
+COPY ["CondoGenius-Reservations-API/", "."]
 
 RUN dotnet restore CondoGenius-Reservations-API.csproj
 RUN dotnet publish CondoGenius-Reservations-API.csproj -c Release -o /app/publish

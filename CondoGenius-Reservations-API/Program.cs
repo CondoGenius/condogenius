@@ -1,3 +1,8 @@
+using CondoGenius_Reservations_Domain.Handler;
+using CondoGenius_Reservations_Domain.Handler.Interfaces;
+using CondoGenius_Reservations_Domain.Repository.Interfaces;
+using CondoGenius_Reservations_Infra.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +11,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//DEPENDENCY INJECTION
+builder.Services.AddSingleton<IReservationsHandler, ReservationsHandler>();
+builder.Services.AddSingleton<IReservationsRepository, ReservationsRepository>();
 
 var app = builder.Build();
 

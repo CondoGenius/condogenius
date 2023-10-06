@@ -3,7 +3,9 @@ EXPOSE 7005
 ENV ASPNETCORE_URLS=http://+:7005
 
 WORKDIR /src
-COPY . .
+COPY ["CondoGenius-Checks-Domain/", "../CondoGenius-Checks-Domain/"]
+COPY ["CondoGenius-Checks-Infra/", "../CondoGenius-Checks-Infra/"]
+COPY ["CondoGenius-Checks-API/", "."]
 
 RUN dotnet restore CondoGenius-Checks-API.csproj
 RUN dotnet publish CondoGenius-Checks-API.csproj -c Release -o /app/publish

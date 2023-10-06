@@ -1,3 +1,8 @@
+using CondoGenius_Complaints_Domain.Handler;
+using CondoGenius_Complaints_Domain.Handler.Interfaces;
+using CondoGenius_Complaints_Domain.Repository.Interfaces;
+using CondoGenius_Complaints_Infra.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +11,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//DEPENDENCY INJECTION
+builder.Services.AddSingleton<IComplaintsHandler, ComplaintsHandler>();
+builder.Services.AddSingleton<IComplaintsRepository, ComplaintsRepository>();
 
 var app = builder.Build();
 

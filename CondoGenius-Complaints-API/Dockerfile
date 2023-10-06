@@ -3,7 +3,9 @@ EXPOSE 7002
 ENV ASPNETCORE_URLS=http://+:7002
 
 WORKDIR /src
-COPY . .
+COPY ["CondoGenius-Complaints-Domain/", "../CondoGenius-Complaints-Domain/"]
+COPY ["CondoGenius-Complaints-Infra/", "../CondoGenius-Complaints-Infra/"]
+COPY ["CondoGenius-Complaints-API/", "."]
 
 RUN dotnet restore CondoGenius-Complaints-API.csproj
 RUN dotnet publish CondoGenius-Complaints-API.csproj -c Release -o /app/publish

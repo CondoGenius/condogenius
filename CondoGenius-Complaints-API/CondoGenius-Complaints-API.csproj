@@ -20,4 +20,9 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\CondoGenius-Complaints-Domain\CondoGenius-Complaints-Domain.csproj" />
+      <ProjectReference Include="..\CondoGenius-Complaints-Infra\CondoGenius-Complaints-Infra.csproj" />
+    </ItemGroup>
+
 </Project>
