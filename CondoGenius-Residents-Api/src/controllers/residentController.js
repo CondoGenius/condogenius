@@ -7,7 +7,7 @@ exports.createResident = async (req, res) => {
     const {
       user_id = null,
       residence_id,
-      cpf_cnpj,
+      cpf,
       email,
       name,
       last_name,
@@ -18,7 +18,7 @@ exports.createResident = async (req, res) => {
     const novoResidente = await Resident.create({
       user_id,
       residence_id,
-      cpf_cnpj,
+      cpf,
       email,
       name,
       last_name,
@@ -73,7 +73,7 @@ exports.updateResident = async (req, res) => {
     const {
       user_id = null,
       residence_id,
-      cpf_cnpj,
+      cpf,
       email,
       name,
       last_name,
@@ -90,7 +90,7 @@ exports.updateResident = async (req, res) => {
     await resident.update({
       user_id,
       residence_id,
-      cpf_cnpj,
+      cpf,
       email,
       name,
       last_name,
