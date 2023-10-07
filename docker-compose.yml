@@ -2,8 +2,6 @@ version: "3"
 services:
   mysql:
     image: mysql
-    networks:
-      - db_network
     volumes_from:
       - data_database
     ports:
@@ -51,8 +49,8 @@ services:
   complaints:
     image: complaints
     build:
-      context: ./CondoGenius-Complaints-API
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: CondoGenius-Complaints-API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://0.0.0.0:7002
     ports:
@@ -61,8 +59,8 @@ services:
   deliveries:
     image: deliveries
     build:
-      context: ./CondoGenius-Deliveries-API
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: CondoGenius-Deliveries-API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://0.0.0.0:7003
     ports:
@@ -71,8 +69,8 @@ services:
   digital_hub:
     image: digital_hub
     build:
-      context: ./CondoGenius-DigitalHub-API
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: CondoGenius-DigitalHub-API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://0.0.0.0:7004
     ports:
@@ -81,8 +79,8 @@ services:
   checks:
     image: checks
     build:
-      context: ./CondoGenius-Checks-API
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: CondoGenius-Checks-API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://0.0.0.0:7005
     ports:
@@ -91,8 +89,8 @@ services:
   reservations:
     image: reservations
     build:
-      context: ./CondoGenius-Reservations-API
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: CondoGenius-Reservations-API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://0.0.0.0:7006
     ports:
@@ -109,11 +107,6 @@ services:
       - ./residents:/usr/residents
     ports:
       - "7008:7008"
-    depends_on:
-      - mysql
-      - data_database
-    networks:
-      - db_network
 
   send-notifications:
     build:
@@ -134,7 +127,3 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-
-networks:
-  db_network:
-    driver: bridge
