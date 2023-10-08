@@ -12,7 +12,7 @@ exports.createResident = async (req, res) => {
       name,
       last_name,
       contact,
-      is_active,
+      is_active = true,
       birthday
     } = req.body;
 
@@ -58,7 +58,12 @@ exports.listResidentById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const resident = await Resident.findByPk(id);
+    const resident = await Resident.findOne({
+      where: {
+        id,
+        is_active: 1
+      }
+    });
 
     if (!resident) {
       return res.status(404).json({ message: 'Residente não encontrado' });
@@ -68,6 +73,28 @@ exports.listResidentById = async (req, res) => {
   } catch (error) {
     console.error('Erro ao listar residente:', error);
     res.status(500).json({ message: 'Erro ao listar residente' });
+  }
+};
+
+exports.listResidentByCpf = async (req, res) => {
+  try {
+    const { cpf } = req.params;
+
+    const resident = await Resident.findOne({
+      where: {
+        cpf,
+        is_active: 1
+      }
+    });
+
+    if (!resident) {
+      return res.status(404).json({ message: 'Residente não encontrado' });
+    }
+
+    res.status(200).json(resident);
+  } catch (error) {
+    console.error('Erro ao listar residente por CPF:', error);
+    res.status(500).json({ message: 'Erro ao listar residente por CPF' });
   }
 };
 

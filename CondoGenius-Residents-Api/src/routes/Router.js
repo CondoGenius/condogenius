@@ -7,7 +7,9 @@ module.exports = app => {
   // Residents routes
   router.post("/residents/", residents.createResident);
   router.get("/residents/", residents.listResidents);
-  router.get("/residents/:id", residents.listResidentById);
+  router.get("/residents/id/:id", residents.listResidentById);
+  router.get("/residents/cpf/:cpf", residents.listResidentByCpf)
+  
   router.put("/residents/:id", residents.updateResident);
   router.delete("/residents/:id", residents.deleteResident);
 

@@ -209,9 +209,10 @@ VALUES (202, 2, 'B', 'Apartment 202', NOW(), NOW());
 INSERT INTO residences (number, floor, block, complement, created_at, updated_at)
 VALUES (303, 3, 'C', 'Apartment 303', NOW(), NOW());
 
-INSERT INTO residents (user_id, residence_id, cpf, email, name, last_name, contact, created_at, updated_at, is_active)
-VALUES (null, 1, '123.456.789-00', 'joao@email.com', 'João', 'Silva', '+55 11 1234-5678', NOW(), NOW(), 1);
+INSERT INTO residents (user_id, residence_id, cpf, email, name, last_name, contact, created_at, updated_at, is_active, birthday)
+VALUES (null, 1, '123.456.789-00', 'joao@email.com', 'João', 'Silva', '+55 11 1234-5678', NOW(), NOW(), 1, "2000-01-31");
 
-INSERT INTO residents (user_id, residence_id, cpf, email, name, last_name, contact, created_at, updated_at, is_active)
-VALUES (null, 2, '987.654.321-00', 'maria@email.com', 'Maria', 'Luz', '+55 11 1234-5678', NOW(), NOW(), 1);
+
+INSERT INTO residents (user_id, residence_id, cpf, email, name, last_name, contact, created_at, updated_at, is_active, birthday)
+VALUES (null, 2, '987.654.321-00', 'maria@email.com', 'Maria', 'Luz', '+55 11 1234-5678', NOW(), NOW(), 1, "2000-01-31");
 
