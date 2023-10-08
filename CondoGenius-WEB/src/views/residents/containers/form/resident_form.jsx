@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 import ErrorField from '../../../../components/utils/errorField';
 import { Button } from 'react-materialize';
+
+import useResidents from "../../../../states/residents/hooks/useResidents";
+import useResidences from "../../../../states/residences/hooks/useResidences";
 
 import './resident_form.scss';
 
@@ -18,8 +23,11 @@ const FormResidentSchema = Yup.object().shape({
     residenceNumber: Yup.string().ensure().required(requiredFieldMessage)
 });
 
-const onSubmit = async (values) => {
-    
+const onSubmit = async (values, createResident, getAllResidents, history) => {
+    const response = await createResident(values);
+    if(response.status === 201) {
+        getAllResidents();
+    }
 };
 
 const renderFieldName = (handleChange, handleBlur, values) => (
@@ -73,7 +81,7 @@ const renderFieldEmail = (handleChange, handleBlur, values) => (
         placeholder="Digite o e-mail"
         onChange={handleChange}
         onBlur={handleBlur}
-        value={values.contact} 
+        value={values.email} 
     />
 );
 
@@ -87,18 +95,20 @@ const renderFieldBirth = (handleChange, handleBlur, values) => (
     />
 );
 
-const renderFieldResidenceNumber = (handleChange, handleBlur, values) => (
+const renderFieldResidenceNumber = (handleChange, handleBlur, values, residences) => (
     <select 
         class="browser-default"
-        name="type"
+        name="residenceNumber"
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.residenceNumber}
     >
         <option value="" disabled selected hidden>Selecione a residência</option>
-        <option value="10">Residência 23</option>
-        <option value="7">Residência 8</option>
-        <option value="3">Residência 4</option>
+        {
+            residences?.map(residence => (
+                <option value={residence.id}>Residência {residence.number}</option>
+            ))
+        }
     </select>
 );
 
@@ -117,20 +127,30 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit, isE
 );
 
 const ResidentFormFields = ({residentEdited}) => {
+    const residences = useSelector(state => state.residences.list);
+
     const [isSubmit, setIsSubmit] = useState(false);
+    const [ , getAllResidents, createResident, ,] = useResidents();
+    const [ , getAllResidences ] = useResidences();
+    const history = useHistory();
+
+    useEffect(() => {
+        getAllResidences();
+    }, []);
 
     return (
         <Formik        
             initialValues={{
                 name: residentEdited?.name ?? '',
-                lastName: residentEdited?.lastName ?? '',
+                lastName: residentEdited?.last_name ?? '',
                 cpf: residentEdited?.cpf ?? '',
                 contact: residentEdited?.contact ?? '',
+                email: residentEdited?.email ?? '',
                 birth: residentEdited?.birth ?? '',
-                residenceNumber: residentEdited?.residenceNumber ?? ''
+                residenceNumber: residentEdited?.residence_number ?? ''
             }}
             validationSchema={FormResidentSchema}
-            onSubmit={values => {onSubmit(values)}}
+            onSubmit={values => {onSubmit(values, createResident, getAllResidents, history)}}
         > 
             {({
                 handleChange,
@@ -179,7 +199,7 @@ const ResidentFormFields = ({residentEdited}) => {
                                         {isSubmit && errors.birth && <ErrorField error={errors.birth}/>}
                                     </div>
                                     <div class="input-field col s6">
-                                        {renderFieldResidenceNumber(handleChange, handleBlur, values)}
+                                        {renderFieldResidenceNumber(handleChange, handleBlur, values, residences)}
                                         {isSubmit && errors.residenceNumber && <ErrorField error={errors.residenceNumber}/>}
                                     </div>
                                 </form>
