@@ -13,7 +13,10 @@ exports.createResident = async (req, res) => {
       last_name,
       contact,
       is_active,
+      birthday
     } = req.body;
+
+    console.log('birthday', birthday)
 
     const novoResidente = await Resident.create({
       user_id,
@@ -24,6 +27,7 @@ exports.createResident = async (req, res) => {
       last_name,
       contact,
       is_active,
+      birthday: new Date(birthday),
       created_at: new Date(),
       updated_at: new Date()
     });
@@ -79,6 +83,7 @@ exports.updateResident = async (req, res) => {
       last_name,
       contact,
       is_active,
+      birthday
     } = req.body;
 
     const resident = await Resident.findByPk(id);
@@ -96,6 +101,7 @@ exports.updateResident = async (req, res) => {
       last_name,
       contact,
       is_active,
+      birthday: new Date(birthday)
     });
 
     res.status(200).json({ message: 'Residente atualizado com sucesso', resident });
