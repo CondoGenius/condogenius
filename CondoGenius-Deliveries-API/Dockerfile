@@ -3,7 +3,9 @@ EXPOSE 7003
 ENV ASPNETCORE_URLS=http://+:7003
 
 WORKDIR /src
-COPY . .
+COPY ["CondoGenius-Deliveries-Domain/", "../CondoGenius-Deliveries-Domain/"]
+COPY ["CondoGenius-Deliveries-Infra/", "../CondoGenius-Deliveries-Infra/"]
+COPY ["CondoGenius-Deliveries-API/", "."]
 
 RUN dotnet restore CondoGenius-Deliveries-API.csproj
 RUN dotnet publish CondoGenius-Deliveries-API.csproj -c Release -o /app/publish

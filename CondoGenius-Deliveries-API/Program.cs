@@ -1,3 +1,8 @@
+using CondoGenius_Deliveries_Domain.Handler;
+using CondoGenius_Deliveries_Domain.Handler.Interfaces;
+using CondoGenius_Deliveries_Domain.Repository.Interfaces;
+using CondoGenius_Deliveries_Infra.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +11,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//DEPENDENCY INJECTION
+builder.Services.AddSingleton<IDeliveriesHandler, DeliveriesHandler>();
+builder.Services.AddSingleton<IDeliveriesRepository, DeliveriesRepository>();
 
 var app = builder.Build();
 

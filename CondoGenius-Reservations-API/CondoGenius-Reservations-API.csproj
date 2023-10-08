@@ -19,4 +19,9 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\CondoGenius-Reservations-Domain\CondoGenius-Reservations-Domain.csproj" />
+      <ProjectReference Include="..\CondoGenius-Reservations-Infra\CondoGenius-Reservations-Infra.csproj" />
+    </ItemGroup>
+
 </Project>

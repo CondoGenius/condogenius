@@ -19,4 +19,9 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\CondoGenius-Checks-Domain\CondoGenius-Checks-Domain.csproj" />
+      <ProjectReference Include="..\CondoGenius-Checks-Infra\CondoGenius-Checks-Infra.csproj" />
+    </ItemGroup>
+
 </Project>

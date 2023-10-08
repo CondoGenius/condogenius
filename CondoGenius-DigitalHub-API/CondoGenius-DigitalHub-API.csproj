@@ -20,4 +20,9 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\CondoGenius-DigitalHub-Domain\CondoGenius-DigitalHub-Domain.csproj" />
+      <ProjectReference Include="..\CondoGenius-DigitalHub-Infra\CondoGenius-DigitalHub-Infra.csproj" />
+    </ItemGroup>
+
 </Project>
