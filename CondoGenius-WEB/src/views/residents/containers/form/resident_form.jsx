@@ -96,21 +96,28 @@ const renderFieldBirth = (handleChange, handleBlur, values) => (
 );
 
 const renderFieldResidenceNumber = (handleChange, handleBlur, values, residences) => (
-    <select 
-        class="browser-default"
+    <select
+        className="browser-default"
         name="residenceNumber"
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.residenceNumber}
     >
-        <option value="" disabled selected hidden>Selecione a residência</option>
+        <option value="" disabled hidden>Selecione a residência</option>
         {
             residences?.map(residence => (
-                <option value={residence.id}>Residência {residence.number}</option>
+                <option
+                    key={residence.id}
+                    value={residence.number}
+                >
+                    Residência {residence.number}
+                </option>
             ))
         }
     </select>
 );
+
+
 
 const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit, isEdit) => (
     <Button 
@@ -131,12 +138,9 @@ const ResidentFormFields = ({residentEdited}) => {
 
     const [isSubmit, setIsSubmit] = useState(false);
     const [ , getAllResidents, createResident, ,] = useResidents();
-    const [ , getAllResidences ] = useResidences();
     const history = useHistory();
 
-    useEffect(() => {
-        getAllResidences();
-    }, []);
+    let residenceNumber = residentEdited ? residences.find((residence) => residence.id === residentEdited.residence_id)?.number : '';
 
     return (
         <Formik        
@@ -147,7 +151,7 @@ const ResidentFormFields = ({residentEdited}) => {
                 contact: residentEdited?.contact ?? '',
                 email: residentEdited?.email ?? '',
                 birth: residentEdited?.birth ?? '',
-                residenceNumber: residentEdited?.residence_number ?? ''
+                residenceNumber,
             }}
             validationSchema={FormResidentSchema}
             onSubmit={values => {onSubmit(values, createResident, getAllResidents, history)}}
