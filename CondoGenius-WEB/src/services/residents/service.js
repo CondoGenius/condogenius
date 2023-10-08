@@ -5,19 +5,22 @@ const ResidentsService = () => {
     const token = localStorage.getItem('user').token;
 
     const getAllResidents =  () => {
-        return axios.get(`${process.env.API_GATEWAY_URL_LOCAL}/api/residents`,{
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-          })
+        return axios.get(`http://localhost:7008/api/residents`,
+        // {
+        //     headers: {
+        //         Authorization: `Bearer ${token}`,
+        //     },
+        // }
+        )
           .then(res => res)
           .catch(err => err);
     };
 
     const createResident = (resident) => {
-        return axios.post(`${process.env.API_GATEWAY_URL_LOCAL}/api/residents`, resident, {
+        return axios.post(`http://localhost:7008/api/residents`, resident, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                // Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
             },
           })
           .then(res => res)
@@ -35,11 +38,13 @@ const ResidentsService = () => {
     };
 
     const deleteResident = (id) => {
-        return axios.delete(`${process.env.API_GATEWAY_URL_LOCAL}/api/residents/${id}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-          })
+        return axios.delete(`http://localhost:7008/api/residents/${id}`, 
+        // {
+        //     headers: {
+        //         Authorization: `Bearer ${token}`,
+        //     },
+        // }
+        )
           .then(res => res)
           .catch(err => err);
     };

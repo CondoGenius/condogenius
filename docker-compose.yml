@@ -125,3 +125,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    volumes:
+      - ./CondoGenius-WEB:/app
+
+networks:
+  db_network:
+    driver: bridge

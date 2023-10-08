@@ -14,18 +14,22 @@ const useResidents = () => {
         const response = await ResidentsService().getAllResidents();
         setLoadingResidents(false)
 
-        if (!response.status || response.status < 400) {
-            dispatch(setResidents({list: response.data}));
+        if (response?.status === 200) {
+            dispatch(setResidents({ list: response.data }));
         } else {
             dispatch(setResidents({ error: "Erro ao listar moradores." }));
         }
-
-        dispatch(setResidents(response))
         
-        return response;
     };
 
-    const createResident = async (resident) => {
+    const createResident = async (values) => {
+        const resident = {
+            residence_id: "2",
+            email: values.email,
+            name: values.name,
+            last_name: values.last_name,
+            contact: values.contact
+        };
 
         const response = await ResidentsService().createResident(resident);
         

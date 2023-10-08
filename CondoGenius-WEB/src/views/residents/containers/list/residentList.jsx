@@ -16,13 +16,19 @@ import useResidents from "../../../../states/residents/hooks/useResidents";
 const ResidentList = () => {
     const [ loadingResidents, getAllResidents, , , deleteResident] = useResidents();
 
-    const residentsList = useSelector((state) => state.residents.list);
-
+    const residents = useSelector((state) => state.residents);
 
     useEffect(() => {
         getAllResidents();
     }, []);
-    
+
+    const deleteResidentSubmit = async (id) => {
+        const response = await deleteResident(id);
+        if(response.status === 200) {
+            getAllResidents();
+        }
+    };
+
     return (
         <div>
             <Loading
@@ -41,7 +47,7 @@ const ResidentList = () => {
                         <span className='icon'></span>
                         <span className='icon'></span>
                     </CollectionItem>
-                    {residentsList?.map(resident => (
+                    {residents?.list?.map(resident => (
                         <CollectionItem key={resident.id}>
                             <span>
                             {resident.name}
@@ -71,7 +77,7 @@ const ResidentList = () => {
                                         <div>
                                             <div>Tem certeza que deseja remover {resident.name} como morador do condomínio?</div>
                                             <div className="button_delete_resident_content">
-                                                <Button modal="close" node="button" className="red_button" onClick={() => deleteResident(resident.id)}>
+                                                <Button modal="close" node="button" className="red_button" onClick={() => deleteResidentSubmit(resident.id)}>
                                                     Confirmar
                                                 </Button>
                                             </div>
