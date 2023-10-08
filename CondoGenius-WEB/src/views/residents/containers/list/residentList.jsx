@@ -12,14 +12,19 @@ import './residentList.scss';
 import ResidentFormFields from "../form/resident_form";
 
 import useResidents from "../../../../states/residents/hooks/useResidents";
+import useResidences from "../../../../states/residences/hooks/useResidences";
 
 const ResidentList = () => {
-    const [ loadingResidents, getAllResidents, , , deleteResident] = useResidents();
-
+    const residences = useSelector(state => state.residences.list);
     const residents = useSelector((state) => state.residents);
+
+    const [ loadingResidents, getAllResidents, , , deleteResident] = useResidents();
+    const [ , getAllResidences ] = useResidences();
+
 
     useEffect(() => {
         getAllResidents();
+        getAllResidences();
     }, []);
 
     const deleteResidentSubmit = async (id) => {
@@ -50,10 +55,10 @@ const ResidentList = () => {
                     {residents?.list?.map(resident => (
                         <CollectionItem key={resident.id}>
                             <span>
-                            {resident.name}
+                            {`${resident.name} ${resident.last_name}`}
                             </span>
                             <span>
-                            {resident.residence}
+                            Residência {residences.find((residence) => residence.id === resident.residence_id)?.number}
                             </span>
                             <span>
                             {resident.email}
