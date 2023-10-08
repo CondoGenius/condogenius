@@ -25,14 +25,6 @@ services:
     volumes:
       - /var/lib/mysql
 
-  database-runner:
-    build:
-      context: ./Data
-      dockerfile: Dockerfile
-    depends_on:
-      - mysql
-      - data_database
-
   gateway:
     image: gateway
     build:
@@ -104,7 +96,7 @@ services:
       NODE_ENV: development
     command: npm start
     volumes:
-      - ./residents:/usr/residents
+      - ./residents:/usr/residents:cached
     ports:
       - "7008:7008"
 
