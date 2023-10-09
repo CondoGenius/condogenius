@@ -11,9 +11,9 @@ const ResidentsService = () => {
             //     Authorization: `Bearer ${token}`,
             // },
             params: {
-                name: filters?.name ?? null,
-                cpf: filters?.cpf ?? null,
-                residence_id: filters?.resindeceId ?? null
+                name: filters?.name,
+                cpf: filters?.cpf,
+                residence_id: filters?.residenceId
             },
         },
         )

@@ -8,9 +8,9 @@ import 'materialize-css';
 
 const Residents = () => {
   const [filters, setFilters] = useState({
-    name: '',
-    cpf: '',
-    residence_id: ''
+    name: null,
+    cpf: null,
+    residenceId: null
   });
 
   return (
@@ -21,7 +21,7 @@ const Residents = () => {
 
       <ResidentActions filters={filters} setFilters={setFilters} />
       
-      <ResidentList />
+      <ResidentList filters={filters} setFilters={setFilters}/>
     </div>
   );
 }

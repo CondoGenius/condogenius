@@ -14,3 +14,13 @@
         }
     }
 }
+
+.magnifying_glass_icon, .refresh_icon {
+    width: 30px;
+    height: 3em;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+

@@ -1,0 +1,26 @@
+.tooltip {
+  background: transparent !important;
+  box-shadow: none;
+
+  i {
+    color: #000;
+  }
+
+  &.text {
+    text-align: left;
+    width: unset;
+    height: unset;
+    margin: 0px;
+    color: #000;
+
+    > div {
+      padding-left: 1px;
+    }
+  }
+
+  &:hover, &:focus {
+    background: transparent;
+    box-shadow: none;
+    cursor: default;
+  }
+}

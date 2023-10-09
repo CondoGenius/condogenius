@@ -12,14 +12,14 @@ const useResidents = () => {
         setLoadingResidents(true)
 
         const response = await ResidentsService().getResidents(filters);
-        setLoadingResidents(false)
-
+        
         if (response?.status === 200) {
             dispatch(setResidents({ list: response.data }));
         } else {
             dispatch(setResidents({ error: "Erro ao listar moradores." }));
         }
         
+        setLoadingResidents(false)
     };
 
     const createResident = async (values) => {

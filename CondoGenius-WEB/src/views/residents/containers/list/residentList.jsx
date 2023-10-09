@@ -14,7 +14,7 @@ import ResidentFormFields from "../form/resident_form";
 import useResidents from "../../../../states/residents/hooks/useResidents";
 import useResidences from "../../../../states/residences/hooks/useResidences";
 
-const ResidentList = () => {
+const ResidentList = ({ filters, setFilters }) => {
     const residences = useSelector(state => state.residences.list);
     const residents = useSelector((state) => state.residents);
 
@@ -26,6 +26,10 @@ const ResidentList = () => {
         getResidents();
         getAllResidences();
     }, []);
+
+    useEffect(() => {
+        getResidents(filters)
+    }, [filters])
 
     const deleteResidentSubmit = async (id) => {
         const response = await deleteResident(id);
