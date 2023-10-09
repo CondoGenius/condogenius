@@ -4,13 +4,18 @@ import axios from 'axios';
 const ResidentsService = () => {
     const token = localStorage.getItem('user').token;
 
-    const getAllResidents =  () => {
-        return axios.get(`http://localhost:7008/api/residents`,
-        // {
-        //     headers: {
-        //         Authorization: `Bearer ${token}`,
-        //     },
-        // }
+    const getResidents =  (filters) => {
+        return axios.get(`http://localhost:7008/api/residents`, 
+        {
+            // headers: {
+            //     Authorization: `Bearer ${token}`,
+            // },
+            params: {
+                name: filters?.name ?? null,
+                cpf: filters?.cpf ?? null,
+                residence_id: filters?.resindeceId ?? null
+            },
+        },
         )
           .then(res => res)
           .catch(err => err);
@@ -28,10 +33,10 @@ const ResidentsService = () => {
     };
 
     const updateResident = (resident) => {
-        return axios.put(`${process.env.API_GATEWAY_URL_LOCAL}/api/residents/${resident.id}`, resident, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
+        return axios.put(`http://localhost:7008/api/residents/${resident.id}`, resident, {
+            // headers: {
+            //     Authorization: `Bearer ${token}`,
+            // },
           })
           .then(res => res)
           .catch(err => err);
@@ -50,7 +55,7 @@ const ResidentsService = () => {
     };
 
     return {
-        getAllResidents,
+        getResidents,
         createResident,
         updateResident,
         deleteResident

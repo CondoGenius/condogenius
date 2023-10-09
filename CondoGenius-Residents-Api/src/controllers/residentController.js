@@ -16,8 +16,6 @@ exports.createResident = async (req, res) => {
       birthday
     } = req.body;
 
-    console.log('birthday', birthday)
-
     const novoResidente = await Resident.create({
       user_id,
       residence_id,

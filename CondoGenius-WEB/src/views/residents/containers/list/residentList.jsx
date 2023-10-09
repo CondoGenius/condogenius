@@ -18,19 +18,19 @@ const ResidentList = () => {
     const residences = useSelector(state => state.residences.list);
     const residents = useSelector((state) => state.residents);
 
-    const [ loadingResidents, getAllResidents, , , deleteResident] = useResidents();
+    const [ loadingResidents, getResidents, , , deleteResident] = useResidents();
     const [ , getAllResidences ] = useResidences();
 
 
     useEffect(() => {
-        getAllResidents();
+        getResidents();
         getAllResidences();
     }, []);
 
     const deleteResidentSubmit = async (id) => {
         const response = await deleteResident(id);
         if(response.status === 200) {
-            getAllResidents();
+            getResidents();
         }
     };
 

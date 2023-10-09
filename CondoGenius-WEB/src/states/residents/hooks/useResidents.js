@@ -8,10 +8,10 @@ const useResidents = () => {
     const dispatch = useDispatch();
     const [loadingResidents, setLoadingResidents] = useState(false);
 
-    const getAllResidents = async () => {
+    const getResidents = async (filters) => {
         setLoadingResidents(true)
 
-        const response = await ResidentsService().getAllResidents();
+        const response = await ResidentsService().getResidents(filters);
         setLoadingResidents(false)
 
         if (response?.status === 200) {
@@ -24,11 +24,14 @@ const useResidents = () => {
 
     const createResident = async (values) => {
         const resident = {
-            residence_id: "2",
-            email: values.email,
             name: values.name,
-            last_name: values.last_name,
-            contact: values.contact
+            last_name: values.lastName,
+            cpf: values.cpf,
+            email: values.email,
+            birthday: values.birthday,
+            contact: values.contact,
+            residence_id: values.residenceId,
+            is_active: 1,
         };
 
         const response = await ResidentsService().createResident(resident);
@@ -36,7 +39,17 @@ const useResidents = () => {
         return response;
     };
 
-    const updateResident = async (resident) => {
+    const updateResident = async (values) => {
+        const resident = {
+            id: values.id,
+            name: values.name,
+            last_name: values.lastName,
+            cpf: values.cpf,
+            email: values.email,
+            birthday: values.birthday,
+            contact: values.contact,
+            residence_id: values.residenceId,
+        };
 
         const response = await ResidentsService().updateResident(resident);
         
@@ -53,7 +66,7 @@ const useResidents = () => {
 
     return [
         loadingResidents,
-        getAllResidents,
+        getResidents,
         createResident,
         updateResident,
         deleteResident

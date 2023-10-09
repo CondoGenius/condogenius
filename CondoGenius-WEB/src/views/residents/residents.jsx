@@ -7,7 +7,11 @@ import './residents.scss';
 import 'materialize-css';
 
 const Residents = () => {
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState({
+    name: '',
+    cpf: '',
+    residence_id: ''
+  });
 
   return (
     <div className='content_residents'>
