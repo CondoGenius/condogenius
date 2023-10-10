@@ -6,12 +6,6 @@ import Navbar from '../navbar/navbar';
 import { useEffect } from 'react';
 
 const Home = () => {
-  const history = useHistory();
-
-  useEffect(() => {
-    history.push('/hub');
-  }, []);
-
   return (
     <>
       <Navbar />

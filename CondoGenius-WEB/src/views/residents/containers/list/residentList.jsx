@@ -56,47 +56,51 @@ const ResidentList = ({ filters, setFilters }) => {
                         <span className='icon'></span>
                         <span className='icon'></span>
                     </CollectionItem>
-                    {residents?.list?.map(resident => (
-                        <CollectionItem key={resident.id}>
+                    {residents.list.length > 0 ? (
+                        residents.list.map((resident) => (
+                            <CollectionItem key={resident.id}>
                             <span>
-                            {`${resident.name} ${resident.last_name}`}
+                                {`${resident.name} ${resident.last_name}`}
                             </span>
                             <span>
-                            Residência {residences.find((residence) => residence.id === resident.residence_id)?.number}
+                                Residência {residences.find((residence) => residence.id === resident.residence_id)?.number}
                             </span>
                             <span>
-                            {resident.email}
+                                {resident.email}
                             </span>
                             <span>
-                            {resident.cpf}
-                            </span> 
+                                {resident.cpf}
+                            </span>
                             <span className='icon'>
                                 <ModalContent 
-                                    header="Editar morador"
-                                    trigger={<MdEdit />}
-                                    children={<ResidentFormFields residentEdited={resident}/>}
-                                    className="update"
+                                header="Editar morador"
+                                trigger={<MdEdit />}
+                                children={<ResidentFormFields residentEdited={resident}/>}
+                                className="update"
                                 />
                             </span>
                             <span className='icon'>
-                            <ModalContent 
-                                    header="Excluir morador"
-                                    trigger={<MdRemoveCircleOutline />}
-                                    children={
-                                        <div>
-                                            <div>Tem certeza que deseja remover {resident.name} como morador do condomínio?</div>
-                                            <div className="button_delete_resident_content">
-                                                <Button modal="close" node="button" className="red_button" onClick={() => deleteResidentSubmit(resident.id)}>
-                                                    Confirmar
-                                                </Button>
-                                            </div>
-                                        </div>
-                                    }
-                                    className="delete"
+                                <ModalContent 
+                                header="Excluir morador"
+                                trigger={<MdRemoveCircleOutline />}
+                                children={
+                                    <div>
+                                    <div>Tem certeza que deseja remover {resident.name} como morador do condomínio?</div>
+                                    <div className="button_delete_resident_content">
+                                        <Button modal="close" node="button" className="red_button" onClick={() => deleteResidentSubmit(resident.id)}>
+                                        Confirmar
+                                        </Button>
+                                    </div>
+                                    </div>
+                                }
+                                className="delete"
                                 />
                             </span>
-                        </CollectionItem>
-                    ))}
+                            </CollectionItem>
+                        ))
+                        ) : (
+                            <span className="message_not_result">Nenhum morador encontrado</span>
+                        )}
                     </Collection>
                 </div>
             </div>
