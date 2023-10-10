@@ -9,7 +9,7 @@ const DelivriesList = () => {
             <div className='list_view'>
                 <Collection>
                 <CollectionItem key="header" className='list_header'>
-                    <span>Residencia</span>
+                    <span>Residência</span>
                     <span>Recebida</span>
                     <span>Entregue</span>
                     <span>Status</span>
