@@ -41,10 +41,16 @@ exports.createResident = async (req, res) => {
 
 exports.listResidents = async (req, res) => {
   try {
+    const { name, cpf, residence_id } = req.query;
+    const whereClause = {
+      is_active: 1,
+      ...(name && { name }),
+      ...(cpf && { cpf }),
+      ...(residence_id && { residence_id }),
+    };
+
     const residents = await Resident.findAll({
-      where: {
-        is_active: 1
-      }
+      where: whereClause,
     });
 
     res.status(200).json(residents);
