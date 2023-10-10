@@ -2,14 +2,26 @@
 import axios from 'axios';
 
 const ResidentsService = () => {
-    const token = localStorage.getItem('user').token;
+    const token = localStorage.getItem('user')?.token;
+
+    const getResidentByCpf = (cpf) => {
+        return axios.get(`http://localhost:7008/api/residents/cpf/${cpf}`, 
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        },
+        )
+        .then(res => res)
+        .catch(err => err);
+    };
 
     const getResidents =  (filters) => {
         return axios.get(`http://localhost:7008/api/residents`, 
         {
-            // headers: {
-            //     Authorization: `Bearer ${token}`,
-            // },
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
             params: {
                 name: filters?.name,
                 cpf: filters?.cpf,
@@ -24,7 +36,7 @@ const ResidentsService = () => {
     const createResident = (resident) => {
         return axios.post(`http://localhost:7008/api/residents`, resident, {
             headers: {
-                // Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
           })
@@ -34,9 +46,9 @@ const ResidentsService = () => {
 
     const updateResident = (resident) => {
         return axios.put(`http://localhost:7008/api/residents/${resident.id}`, resident, {
-            // headers: {
-            //     Authorization: `Bearer ${token}`,
-            // },
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
           })
           .then(res => res)
           .catch(err => err);
@@ -44,17 +56,18 @@ const ResidentsService = () => {
 
     const deleteResident = (id) => {
         return axios.delete(`http://localhost:7008/api/residents/${id}`, 
-        // {
-        //     headers: {
-        //         Authorization: `Bearer ${token}`,
-        //     },
-        // }
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
         )
           .then(res => res)
           .catch(err => err);
     };
 
     return {
+        getResidentByCpf,
         getResidents,
         createResident,
         updateResident,

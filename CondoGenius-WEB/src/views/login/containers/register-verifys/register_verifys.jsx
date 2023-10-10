@@ -7,31 +7,39 @@ import { Button } from 'react-materialize';
 import ErrorField from '../../../../components/utils/errorField';
 import logo from '../../../../assets/condogenius.png';
 
-import useLogin from '../../../../states/login/hooks/useLogin';
-
 import './register_verifys.scss';
+import useResidents from '../../../../states/residents/hooks/useResidents';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormLoginSchema = Yup.object().shape({
     document: Yup.string().ensure().required(requiredFieldMessage),
 });
 
-const onSubmit = async (values, authUserLogin, setMessageSubmitLogin, history) => {
-    history.push('/register');
+const onSubmit = async (values, history, getResidentByCpf) => {
+    const response = await getResidentByCpf(values.document);
+
+    if (response.status === 200) {
+        history.push('/register');
+    }
 }
 
-const renderFieldDocument = (handleChange, handleBlur, values) => (
+const renderFieldDocument = (handleChange, handleBlur, values, setMessageSubmitLogin) => (
     <input 
         id="document"
         type="text" 
         placeholder="Digite o número de seu documento"
-        onChange={handleChange}
+        onChange={(e) => {
+            handleChange(e);
+            setMessageSubmitLogin("");
+        }}
         onBlur={handleBlur}
         value={values.document} 
     />
 );
 
-const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => (
+const renderButtonSubmit = (isValid, handleSubmit, setIsSubmit) => (
     <Button 
         className='button_to_enter'
         type="submit"
@@ -47,11 +55,18 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => 
 );
 
 const RegisterVerifys = () => {
+    const resident = useSelector((state) => state.residents);
     const history = useHistory();
     const [isSubmit, setIsSubmit] = useState(false);
-    const { authUserLogin } = useLogin();
     const [messageSubmitLogin, setMessageSubmitLogin] = useState(null);
-    
+    const [, getResidentByCpf , , , ,] = useResidents();
+
+    useEffect(() => {
+        if(resident?.error) {
+            setMessageSubmitLogin(resident.error)
+        }
+    }, [resident.error]);
+
     return (
         <div className='background_content'>
             <Formik        
@@ -59,7 +74,7 @@ const RegisterVerifys = () => {
                     document: ''
                 }}
                 validationSchema={FormLoginSchema}
-                onSubmit={values => {onSubmit(values, authUserLogin, setMessageSubmitLogin, history)}}
+                onSubmit={(values) => {onSubmit(values, history, getResidentByCpf)}}
             > 
                 {({
                     handleChange,
@@ -75,18 +90,17 @@ const RegisterVerifys = () => {
                             <img src={logo} alt='logo condogenius' />
                         </div>
                       
-
                         <div className='fields_content_verifys_register'>
                             <h1>Cadastre-se</h1>
                             <div>
-                                {renderFieldDocument(handleChange, handleBlur, values)}
+                                {renderFieldDocument(handleChange, handleBlur, values, setMessageSubmitLogin)}
                                 {isSubmit && errors.document && <ErrorField error={errors.document}/>}
                             </div>
+                            {messageSubmitLogin && <ErrorField error={messageSubmitLogin}/>}
 
                             <div className='actions'>
-                                {renderButtonSubmit(isValid, handleSubmit, handleReset, setIsSubmit)}
+                                {renderButtonSubmit(isValid, handleSubmit, setIsSubmit)}
                             </div>
-                            {messageSubmitLogin && <ErrorField error={messageSubmitLogin}/>}
                         </div>
                     </div>
                 )}

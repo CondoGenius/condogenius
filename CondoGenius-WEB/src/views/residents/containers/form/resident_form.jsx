@@ -144,7 +144,7 @@ const ResidentFormFields = ({residentEdited}) => {
     const residences = useSelector(state => state.residences.list);
 
     const [isSubmit, setIsSubmit] = useState(false);
-    const [ , getResidents, createResident, updateResident,] = useResidents();
+    const [, , getResidents, createResident, updateResident,] = useResidents();
     const [ , getAllResidences ] = useResidences();
     const history = useHistory();
 

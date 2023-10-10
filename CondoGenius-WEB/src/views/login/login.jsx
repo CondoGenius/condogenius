@@ -7,7 +7,7 @@ import ErrorField from '../../components/utils/errorField';
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/condogenius.png';
 
-import useLogin from '../../states/login/hooks/useLogin.js';
+import useUser from '../../states/user/hooks/useUser';
 
 import './login.scss';
 
@@ -65,7 +65,7 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => 
 
 const Login = () => {
     const [isSubmit, setIsSubmit] = useState(false);
-    const { authUserLogin } = useLogin();
+    const { authUserLogin } = useUser();
     const [messageSubmitLogin, setMessageSubmitLogin] = useState(null);
     
     return (
