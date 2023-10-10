@@ -47,10 +47,12 @@ CREATE TABLE IF NOT EXISTS residents (
 
 CREATE TABLE IF NOT EXISTS delivery_control (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    status VARCHAR(255) NOT NULL,
+    deliveredAt DATETIME NOT NULL DEFAULT NOW(),
+    received DATETIME NOT NULL DEFAULT NOW(),
     resident_id INTEGER NOT NULL,
-    created_at DATETIME NOT NULL,
-    updated_at DATETIME NOT NULL,
-    received BOOLEAN NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT NOW(),
+    updated_at DATETIME ON UPDATE NOW(),
     FOREIGN KEY (resident_id) REFERENCES residents (id)
 );
 
@@ -214,3 +216,4 @@ VALUES (null, 1, '123.456.789-00', 'joao@email.com', 'João', 'Silva', '+55 11 1
 INSERT INTO residents (user_id, residence_id, cpf_cnpj, email, name, last_name, contact, created_at, updated_at, is_active)
 VALUES (null, 2, '987.654.321-00', 'maria@email.com', 'Maria', 'Luz', '+55 11 1234-5678', NOW(), NOW(), 1);
 
+INSERT INTO delivery_control (status, resident_id) VALUES ('Na portaria', 1);
