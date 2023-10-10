@@ -6,11 +6,11 @@ const ResidenceService = () => {
 
     const getAllResidences =  () => {
         return axios.get(`http://localhost:7008/api/residences`,
-        // {
-        //     headers: {
-        //         Authorization: `Bearer ${token}`,
-        //     },
-        // }
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
         )
           .then(res => res)
           .catch(err => err);

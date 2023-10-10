@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from 'react-redux';
-import { Collection, CollectionItem, Button } from 'react-materialize';
+import { Collection, CollectionItem, Button, Toast } from 'react-materialize';
 
 import { MdEdit } from 'react-icons/md';
 import { MdRemoveCircleOutline } from 'react-icons/md';
@@ -14,23 +14,27 @@ import ResidentFormFields from "../form/resident_form";
 import useResidents from "../../../../states/residents/hooks/useResidents";
 import useResidences from "../../../../states/residences/hooks/useResidences";
 
-const ResidentList = () => {
+const ResidentList = ({ filters, setFilters }) => {
     const residences = useSelector(state => state.residences.list);
     const residents = useSelector((state) => state.residents);
 
-    const [ loadingResidents, getAllResidents, , , deleteResident] = useResidents();
+    const [ loadingResidents, ,  getResidents, , , deleteResident] = useResidents();
     const [ , getAllResidences ] = useResidences();
 
 
     useEffect(() => {
-        getAllResidents();
+        getResidents();
         getAllResidences();
     }, []);
+
+    useEffect(() => {
+        getResidents(filters)
+    }, [filters]);
 
     const deleteResidentSubmit = async (id) => {
         const response = await deleteResident(id);
         if(response.status === 200) {
-            getAllResidents();
+            getResidents();
         }
     };
 

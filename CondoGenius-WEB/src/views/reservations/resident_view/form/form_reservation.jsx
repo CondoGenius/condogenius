@@ -27,7 +27,7 @@ const renderFieldTypeEvent = (handleChange, handleBlur, values) => (
         value={values.type}
     >
         <option value="" disabled selected hidden>Selecione o tipo de evento</option>
-        <option value="birth">Aniversário</option>
+        <option value="birthday">Aniversário</option>
         <option value="family_event">Evento familiar</option>
         <option value="other">Outro</option>
     </select>

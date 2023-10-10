@@ -1,40 +1,71 @@
-import React from "react";
-
-import './resident_actions.scss';
+import React, { useEffect } from "react";
+import { Formik } from 'formik';
+import { useSelector } from "react-redux";
 import { Button } from "react-materialize";
-import { MdAddBox } from 'react-icons/md';
 
+import { MdAddBox } from 'react-icons/md';
+import { PiMagnifyingGlassBold } from 'react-icons/pi';
+import { FiRefreshCcw } from 'react-icons/fi';
+
+import Tooltip from "../../../../components/tooltip";
 import ModalContent from "../../../../components/modal/modal_content";
 import ResidentFormFields from "../form/resident_form";
+import useResidences from "../../../../states/residences/hooks/useResidences";
 
-const renderFieldFilterByName = () => (
+import './resident_actions.scss';
+
+const onSubmit = (values, setFilters) => {
+    setFilters({
+        name: values.name !== '' ? values.name : null,
+        cpf: values.cpf !== '' ? values.cpf :  null,
+        residenceId: values.residenceId !== '' ? values.residenceId : null
+    });
+};
+
+const renderFieldFilterByName = (handleChange, handleBlur, values) => (
     <input 
         id="name"
         type="text"
         placeholder="Busque pelo nome do morador"
-        // onChange={}
-        // value={} 
+        onChange={handleChange}
+        value={values.name}
+        handleBlur={handleBlur}
     />
 );
 
-const renderFieldFilterByCpf = () => (
+const renderFieldFilterByCpf = (handleChange, handleBlur, values) => (
     <input 
         id="cpf"
         type="text"
         placeholder="Busque pelo CPF do morador"
-        // onChange={}
-        // value={} 
+        onChange={handleChange}
+        value={values.cpf} 
+        handleBlur={handleBlur}
     />
 );
 
-const renderFieldFilterByResidenceNumber = () => (
-    <select class="browser-default">
-        <option value="" disabled selected hidden>Selecione a residência</option>
-        <option value="1">Residência 23</option>
-        <option value="2">Residência 8</option>
-        <option value="3">Residência 4</option>
+const renderFieldFilterByResidenceNumber = (handleChange, handleBlur, values, residences) => (
+    <select
+        className="browser-default"
+        name="residenceId"
+        onChange={handleChange}
+        onBlur={handleBlur}
+        value={values.residenceId}
+    >
+        <option value="" disabled hidden>Selecione a residência</option>
+        {
+            residences?.map(residence => (
+                <option
+                    key={residence.id}
+                    value={residence.id}
+                >
+                    Residência {residence.number}
+                </option>
+            ))
+        }
     </select>
 );
+
 
 const renderButtonRegisterResident = () => (
     <ModalContent
@@ -45,27 +76,64 @@ const renderButtonRegisterResident = () => (
     />
 );
 
-const ResidentActions = (filters, setFilters) => {
+const ResidentActions = ({filters, setFilters}) => {
+    const residences = useSelector(state => state.residences.list);
+
+    const [ , getAllResidences ] = useResidences();
+
+    useEffect(() => {
+        getAllResidences();
+    }, []);
 
     return (
-        <div className="filter_content">
-            <div class="row">
-                <form class="col s12">
-                    <div class="input-field col s3">
-                        {renderFieldFilterByName()}
+        <Formik        
+                initialValues={{
+                    name: '',
+                    cpf: '',
+                    residenceId: ''
+                }}
+                onSubmit={(values) => onSubmit(values, setFilters)}
+            > 
+                {({
+                    handleChange,
+                    handleBlur,
+                    values,
+                    handleSubmit
+                }) => (
+                    <div className="filter_content">
+                        <div class="row">
+                            <form class="col s12">
+                                <div class="input-field col s3">
+                                    {renderFieldFilterByName(handleChange, handleBlur, values)}
+                                </div>
+                                <div class="input-field col s3">
+                                    {renderFieldFilterByCpf(handleChange, handleBlur, values)}
+                                </div>
+                                <div class="input-field col s3">
+                                    {renderFieldFilterByResidenceNumber(handleChange, handleBlur, values, residences)}
+                                </div>
+                                <div class="input-field col s05">
+                                    <Tooltip
+                                        message={"Pesquisar"}
+                                    >
+                                        <PiMagnifyingGlassBold className="magnifying_glass_icon" onClick={handleSubmit}/>
+                                    </Tooltip>
+                                </div>
+                                <div class="input-field col s05">
+                                    <Tooltip
+                                        message={"Limpar filtros"}
+                                    >
+                                        <FiRefreshCcw className="refresh_icon" onClick={() => setFilters({name: null, cpf: null, residenceId: null})} />
+                                    </Tooltip>
+                                </div>
+                                <div class="input-field col s2 button_register_content">
+                                    {renderButtonRegisterResident()}
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="input-field col s3">
-                        {renderFieldFilterByCpf()}
-                    </div>
-                    <div class="input-field col s3">
-                        {renderFieldFilterByResidenceNumber()}
-                    </div>
-                    <div class="input-field col s3 button_register_content">
-                        {renderButtonRegisterResident()}
-                    </div>
-                </form>
-            </div>
-        </div>
+                )}
+            </Formik>
     )
 };
 

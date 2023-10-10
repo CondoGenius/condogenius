@@ -2,15 +2,32 @@
 import axios from 'axios';
 
 const ResidentsService = () => {
-    const token = localStorage.getItem('user').token;
+    const token = localStorage.getItem('user')?.token;
 
-    const getAllResidents =  () => {
-        return axios.get(`http://localhost:7008/api/residents`,
-        // {
-        //     headers: {
-        //         Authorization: `Bearer ${token}`,
-        //     },
-        // }
+    const getResidentByCpf = (cpf) => {
+        return axios.get(`http://localhost:7008/api/residents/cpf/${cpf}`, 
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        },
+        )
+        .then(res => res)
+        .catch(err => err);
+    };
+
+    const getResidents =  (filters) => {
+        return axios.get(`http://localhost:7008/api/residents`, 
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            params: {
+                name: filters?.name,
+                cpf: filters?.cpf,
+                residence_id: filters?.residenceId
+            },
+        },
         )
           .then(res => res)
           .catch(err => err);
@@ -19,7 +36,7 @@ const ResidentsService = () => {
     const createResident = (resident) => {
         return axios.post(`http://localhost:7008/api/residents`, resident, {
             headers: {
-                // Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
           })
@@ -28,7 +45,7 @@ const ResidentsService = () => {
     };
 
     const updateResident = (resident) => {
-        return axios.put(`${process.env.API_GATEWAY_URL_LOCAL}/api/residents/${resident.id}`, resident, {
+        return axios.put(`http://localhost:7008/api/residents/${resident.id}`, resident, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -39,18 +56,19 @@ const ResidentsService = () => {
 
     const deleteResident = (id) => {
         return axios.delete(`http://localhost:7008/api/residents/${id}`, 
-        // {
-        //     headers: {
-        //         Authorization: `Bearer ${token}`,
-        //     },
-        // }
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
         )
           .then(res => res)
           .catch(err => err);
     };
 
     return {
-        getAllResidents,
+        getResidentByCpf,
+        getResidents,
         createResident,
         updateResident,
         deleteResident
