@@ -16,10 +16,12 @@ exports.createResident = async (req, res) => {
       birthday
     } = req.body;
 
+    const cleanedCpf = cpf.replace(/[^\d]/g, '');
+
     const novoResidente = await Resident.create({
       user_id,
       residence_id,
-      cpf,
+      cpf: cleanedCpf,
       email,
       name,
       last_name,
@@ -40,10 +42,13 @@ exports.createResident = async (req, res) => {
 exports.listResidents = async (req, res) => {
   try {
     const { name, cpf, residence_id } = req.query;
+
+    const cleanedCpf = cpf.replace(/[^\d]/g, '');
+
     const whereClause = {
       is_active: 1,
       ...(name && { name }),
-      ...(cpf && { cpf }),
+      ...(cpf && { cpf: cleanedCpf }),
       ...(residence_id && { residence_id }),
     };
 
@@ -84,9 +89,11 @@ exports.listResidentByCpf = async (req, res) => {
   try {
     const { cpf } = req.params;
 
+    const cleanedCpf = cpf.replace(/[^\d]/g, '');
+
     const resident = await Resident.findOne({
       where: {
-        cpf,
+        cpf: cleanedCpf,
         is_active: 1
       }
     });
@@ -123,10 +130,12 @@ exports.updateResident = async (req, res) => {
       return res.status(404).json({ message: 'Residente não encontrado' });
     }
 
+    cleanedCpf = cpf.replace(/[^\d]/g, '');
+
     await resident.update({
       user_id,
       residence_id,
-      cpf,
+      cpf: cleanedCpf,
       email,
       name,
       last_name,
