@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 import ErrorField from '../../../../components/utils/errorField';
 import { Button } from 'react-materialize';
+
+import useResidents from "../../../../states/residents/hooks/useResidents";
+import useResidences from "../../../../states/residences/hooks/useResidences";
 
 import './resident_form.scss';
 
@@ -14,12 +19,22 @@ const FormResidentSchema = Yup.object().shape({
     cpf: Yup.string().ensure().required(requiredFieldMessage),
     contact: Yup.string().ensure().required(requiredFieldMessage),
     email: Yup.string().ensure().required(requiredFieldMessage),
-    birth: Yup.string().ensure().required(requiredFieldMessage),
-    residenceNumber: Yup.string().ensure().required(requiredFieldMessage)
+    birthday: Yup.string().ensure().required(requiredFieldMessage),
+    residenceId: Yup.string().ensure().required(requiredFieldMessage)
 });
 
-const onSubmit = async (values) => {
-    
+const onSubmit = async (values, createResident, updateResident, getResidents, history) => {
+    let response;
+
+    if (values.id) {
+        response = await updateResident(values);
+    } else {
+        response = await createResident(values);
+    }
+
+    if (response.status === 201 || response.status === 200) {
+        getResidents();
+    }
 };
 
 const renderFieldName = (handleChange, handleBlur, values) => (
@@ -73,37 +88,46 @@ const renderFieldEmail = (handleChange, handleBlur, values) => (
         placeholder="Digite o e-mail"
         onChange={handleChange}
         onBlur={handleBlur}
-        value={values.contact} 
+        value={values.email} 
     />
 );
 
-const renderFieldBirth = (handleChange, handleBlur, values) => (
+const renderFieldBirthday = (handleChange, handleBlur, values) => (
     <input 
-        id="birth"
+        id="birthday"
         type="date" 
         onChange={handleChange}
         onBlur={handleBlur}
-        value={values.birth} 
+        value={values.birthday} 
     />
 );
 
-const renderFieldResidenceNumber = (handleChange, handleBlur, values) => (
-    <select 
-        class="browser-default"
-        name="type"
+const renderFieldResidenceNumber = (handleChange, handleBlur, values, residences) => (
+    <select
+        className="browser-default"
+        name="residenceId"
         onChange={handleChange}
         onBlur={handleBlur}
-        value={values.residenceNumber}
+        value={values.residenceId}
     >
-        <option value="" disabled selected hidden>Selecione a residência</option>
-        <option value="10">Residência 23</option>
-        <option value="7">Residência 8</option>
-        <option value="3">Residência 4</option>
+        <option value="" disabled hidden>Selecione a residência</option>
+        {
+            residences?.map(residence => (
+                <option
+                    key={residence.id}
+                    value={residence.id}
+                >
+                    Residência {residence.number}
+                </option>
+            ))
+        }
     </select>
 );
 
-const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit, isEdit) => (
+const renderButtonSubmit = (isValid, errors, handleSubmit, handleReset, setIsSubmit, isEdit) => (
     <Button 
+        modal={isValid ? "close" : "open"}
+        node="button"
         type="submit"
         onClick={() => {
             setIsSubmit(true);
@@ -117,20 +141,38 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit, isE
 );
 
 const ResidentFormFields = ({residentEdited}) => {
+    const residences = useSelector(state => state.residences.list);
+
     const [isSubmit, setIsSubmit] = useState(false);
+    const [, , getResidents, createResident, updateResident,] = useResidents();
+    const [ , getAllResidences ] = useResidences();
+    const history = useHistory();
+
+    let residenceId = residentEdited ? residences.find((residence) => residence.id === residentEdited.residence_id)?.id : '';
+
+    const dateValue = residentEdited?.birthday ? new Date(residentEdited?.birthday) : null;
+
+    let  birthday = dateValue instanceof Date && !isNaN(dateValue)
+    ? dateValue.toISOString().split('T')[0] : '';
+
+    useEffect(() => {
+        getAllResidences();
+    }, []);
 
     return (
         <Formik        
             initialValues={{
+                id: residentEdited?.id ?? '',
                 name: residentEdited?.name ?? '',
-                lastName: residentEdited?.lastName ?? '',
+                lastName: residentEdited?.last_name ?? '',
                 cpf: residentEdited?.cpf ?? '',
                 contact: residentEdited?.contact ?? '',
-                birth: residentEdited?.birth ?? '',
-                residenceNumber: residentEdited?.residenceNumber ?? ''
+                email: residentEdited?.email ?? '',
+                birthday,
+                residenceId,
             }}
             validationSchema={FormResidentSchema}
-            onSubmit={values => {onSubmit(values)}}
+            onSubmit={values => {onSubmit(values, createResident, updateResident, getResidents, history)}}
         > 
             {({
                 handleChange,
@@ -164,28 +206,28 @@ const ResidentFormFields = ({residentEdited}) => {
                                 <form class="col s12">
                                     <div class="input-field col s6">
                                         {renderFieldContact(handleChange, handleBlur, values)}
-                                        {isSubmit && errors.name && <ErrorField error={errors.name}/>}
+                                        {isSubmit && errors.contact && <ErrorField error={errors.contact}/>}
                                     </div>
                                     <div class="input-field col s6">
                                         {renderFieldEmail(handleChange, handleBlur, values)}
-                                        {isSubmit && errors.name && <ErrorField error={errors.name}/>}
+                                        {isSubmit && errors.email && <ErrorField error={errors.email}/>}
                                     </div>
                                 </form>
                             </div>
                             <div class="row">
                                 <form class="col s12">
                                     <div class="input-field col s6">
-                                        {renderFieldBirth(handleChange, handleBlur, values)}
-                                        {isSubmit && errors.birth && <ErrorField error={errors.birth}/>}
+                                        {renderFieldBirthday(handleChange, handleBlur, values)}
+                                        {isSubmit && errors.birthday && <ErrorField error={errors.birthday}/>}
                                     </div>
                                     <div class="input-field col s6">
-                                        {renderFieldResidenceNumber(handleChange, handleBlur, values)}
-                                        {isSubmit && errors.residenceNumber && <ErrorField error={errors.residenceNumber}/>}
+                                        {renderFieldResidenceNumber(handleChange, handleBlur, values, residences)}
+                                        {isSubmit && errors.residenceId && <ErrorField error={errors.residenceId}/>}
                                     </div>
                                 </form>
                             </div>
                             <div className='actions'>
-                                {renderButtonSubmit(isValid, handleSubmit, handleReset, setIsSubmit, residentEdited)}
+                                {renderButtonSubmit(isValid, errors, handleSubmit, handleReset, setIsSubmit, residentEdited)}
                             </div>
                         </div>
                     </div>

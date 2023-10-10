@@ -18,6 +18,12 @@ module.exports = (sequelize, Sequelize) => {
     contact: {
       type: Sequelize.STRING
     },
+    cpf: {
+      type: Sequelize.STRING
+    },
+    birthday: {
+      type: Sequelize.DATE
+    },
     createdAt: {
       type: Sequelize.DATE,
       field: 'created_at' 

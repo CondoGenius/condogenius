@@ -1,4 +1,4 @@
-import RolesUserEnum from "../states/login/enum/roles_enum";
+import RolesUserEnum from "../states/user/enum/roles_enum";
 
 export default class UserModel {
     constructor({ id, email, token, role, isLogged }) {

@@ -3,30 +3,39 @@ import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import { Button } from 'react-materialize';
+import { Button, Toast } from 'react-materialize';
 import ErrorField from '../../../../components/utils/errorField';
-
-import useLogin from '../../../../states/login/hooks/useLogin';
+import { toast } from 'react-toastify';
 
 import './register.scss';
+import useUser from '../../../../states/user/hooks/useUser';
+import { useSelector } from 'react-redux';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormLoginSchema = Yup.object().shape({
     password: Yup.string()
-      .required(requiredFieldMessage)
-      .test('passwords-match', 'As senhas não coincidem', function (value) {
+        .required(requiredFieldMessage)
+        .min(6, 'A senha deve ter no mínimo 6 caracteres')
+        .test('passwords-match', 'As senhas não coincidem', function (value) {
         return value === this.parent.password_verify;
-      }),
+    }),
     password_verify: Yup.string()
-      .required(requiredFieldMessage)
-      .test('passwords-match', 'As senhas não coincidem', function (value) {
+        .required(requiredFieldMessage)
+        .min(6, 'A senha deve ter no mínimo 6 caracteres')
+        .test('passwords-match', 'As senhas não coincidem', function (value) {
         return value === this.parent.password;
-      }),
+        }),
   });
   
 
-const onSubmit = async (values, authUserLogin, setMessageSubmitLogin, history) => {
-    history.push('/');
+const onSubmit = async (values, resident, createUser, setMessageSubmitLogin, history) => {
+    const response = await createUser(resident.data.email, values.password);
+
+    if (response?.status === 201) {
+        history.push('/');
+    } else {
+        toast.error("Ocorreu um erro no cadastro do usuário. Tente novamente mais tarde ou entre em contato com um administrador.")
+    }
 }
 
 
@@ -45,7 +54,7 @@ const renderFieldVerifyPassword = (handleChange, handleBlur, values) => (
     <input 
         id="password_verify"
         type="password" 
-        placeholder="Digite sua senha" 
+        placeholder="Confirme sua senha" 
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.password_verify} 
@@ -67,9 +76,10 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => 
 );
 
 const Register = () => {
+    const resident = useSelector((state) => state.residents);
     const history = useHistory();
     const [isSubmit, setIsSubmit] = useState(false);
-    const { authUserLogin } = useLogin();
+    const { createUser } = useUser();
     const [messageSubmitLogin, setMessageSubmitLogin] = useState(null);
     
     return (
@@ -80,7 +90,7 @@ const Register = () => {
                     password: ''
                 }}
                 validationSchema={FormLoginSchema}
-                onSubmit={values => {onSubmit(values, authUserLogin, setMessageSubmitLogin, history)}}
+                onSubmit={values => {onSubmit(values, resident, createUser, setMessageSubmitLogin, history)}}
             > 
                 {({
                     handleChange,
@@ -93,7 +103,7 @@ const Register = () => {
                 }) => (
                     <div className='card_content_register'>  
                         <div className='fields_content'>
-                        <h1>Seja bem vindo, José!</h1>
+                        <h1>Seja bem vindo, {resident.data?.name}!</h1>
                         <p>Escolha sua senha</p>
                             <div>
                                 {renderFieldPassword(handleChange, handleBlur, values)}

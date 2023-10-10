@@ -1,17 +1,24 @@
 module.exports = app => {
   const residents = require("../controllers/residentController");
+  const residences = require("../controllers/residenceController");
 
   var router = require("express").Router();
 
-  router.post("/", residents.createResident);
+  // Residents routes
+  router.post("/residents/", residents.createResident);
+  router.get("/residents/", residents.listResidents);
+  router.get("/residents/id/:id", residents.listResidentById);
+  router.get("/residents/cpf/:cpf", residents.listResidentByCpf)
+  
+  router.put("/residents/:id", residents.updateResident);
+  router.delete("/residents/:id", residents.deleteResident);
 
-  router.get("/", residents.listResidents);
+  // Residences routes
+  router.post("/residences/", residences.createResidence);
+  router.get("/residences/", residences.listResidences);
+  router.get("/residences/:id", residences.getResidenceById);
+  router.put("/residences/:id", residences.updateResidence);
+  router.delete("/residences/:id", residences.deleteResidence);
 
-  router.get("/:id", residents.listResidentById);
-
-  router.put("/:id", residents.updateResident);
-
-  router.delete("/:id", residents.deleteResident);
-
-  app.use('/api/residents', router);
+  app.use('/api', router);
 };
