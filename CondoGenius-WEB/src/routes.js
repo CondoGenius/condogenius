@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from "react-redux";
 import { Route, Switch } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+
 
 import Register from './views/login/containers/register/register';
 
@@ -23,6 +25,14 @@ import HubDigital from './views/hub/hub';
 
 const RoutesConfig = () => {
   const user = useSelector(state => state.user.data);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    if(window.location.pathname === '/') {
+      history.push('/hub');
+    }
+  });
 
   return user.isLogged ? (
     <Switch>

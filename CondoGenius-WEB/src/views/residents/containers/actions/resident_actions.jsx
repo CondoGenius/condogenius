@@ -22,6 +22,11 @@ const onSubmit = (values, setFilters) => {
     });
 };
 
+const clearFilters = (e, setFilters) => {
+    e.preventDefault();
+    setFilters({name: null, cpf: null, residenceId: null});
+};
+
 const renderFieldFilterByName = (handleChange, handleBlur, values) => (
     <input 
         id="name"
@@ -83,7 +88,7 @@ const ResidentActions = ({filters, setFilters}) => {
 
     useEffect(() => {
         getAllResidences();
-    }, []);
+    });
 
     return (
         <Formik        
@@ -123,7 +128,7 @@ const ResidentActions = ({filters, setFilters}) => {
                                     <Tooltip
                                         message={"Limpar filtros"}
                                     >
-                                        <FiRefreshCcw className="refresh_icon" onClick={() => setFilters({name: null, cpf: null, residenceId: null})} />
+                                        <FiRefreshCcw className="refresh_icon" onClick={(e) => clearFilters(e, setFilters)} />
                                     </Tooltip>
                                 </div>
                                 <div class="input-field col s2 button_register_content">
