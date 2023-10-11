@@ -12,18 +12,22 @@ exports.createResident = async (req, res) => {
       name,
       last_name,
       contact,
-      is_active,
+      is_active = true,
+      birthday
     } = req.body;
+
+    const cleanedCpf = cpf.replace(/[^\d]/g, '');
 
     const novoResidente = await Resident.create({
       user_id,
       residence_id,
-      cpf,
+      cpf: cleanedCpf,
       email,
       name,
       last_name,
       contact,
       is_active,
+      birthday: new Date(birthday),
       created_at: new Date(),
       updated_at: new Date()
     });
@@ -37,10 +41,19 @@ exports.createResident = async (req, res) => {
 
 exports.listResidents = async (req, res) => {
   try {
+    const { name, cpf, residence_id } = req.query;
+
+    const cleanedCpf = cpf.replace(/[^\d]/g, '');
+
+    const whereClause = {
+      is_active: 1,
+      ...(name && { name }),
+      ...(cpf && { cpf: cleanedCpf }),
+      ...(residence_id && { residence_id }),
+    };
+
     const residents = await Resident.findAll({
-      where: {
-        is_active: 1
-      }
+      where: whereClause,
     });
 
     res.status(200).json(residents);
@@ -54,7 +67,12 @@ exports.listResidentById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const resident = await Resident.findByPk(id);
+    const resident = await Resident.findOne({
+      where: {
+        id,
+        is_active: 1
+      }
+    });
 
     if (!resident) {
       return res.status(404).json({ message: 'Residente não encontrado' });
@@ -64,6 +82,30 @@ exports.listResidentById = async (req, res) => {
   } catch (error) {
     console.error('Erro ao listar residente:', error);
     res.status(500).json({ message: 'Erro ao listar residente' });
+  }
+};
+
+exports.listResidentByCpf = async (req, res) => {
+  try {
+    const { cpf } = req.params;
+
+    const cleanedCpf = cpf.replace(/[^\d]/g, '');
+
+    const resident = await Resident.findOne({
+      where: {
+        cpf: cleanedCpf,
+        is_active: 1
+      }
+    });
+
+    if (!resident) {
+      return res.status(404).json({ message: 'Residente não encontrado' });
+    }
+
+    res.status(200).json(resident);
+  } catch (error) {
+    console.error('Erro ao listar residente por CPF:', error);
+    res.status(500).json({ message: 'Erro ao listar residente por CPF' });
   }
 };
 
@@ -79,6 +121,7 @@ exports.updateResident = async (req, res) => {
       last_name,
       contact,
       is_active,
+      birthday
     } = req.body;
 
     const resident = await Resident.findByPk(id);
@@ -87,15 +130,18 @@ exports.updateResident = async (req, res) => {
       return res.status(404).json({ message: 'Residente não encontrado' });
     }
 
+    cleanedCpf = cpf.replace(/[^\d]/g, '');
+
     await resident.update({
       user_id,
       residence_id,
-      cpf,
+      cpf: cleanedCpf,
       email,
       name,
       last_name,
       contact,
       is_active,
+      birthday: new Date(birthday)
     });
 
     res.status(200).json({ message: 'Residente atualizado com sucesso', resident });

@@ -4,7 +4,7 @@ const port = 7008;
 const cors = require("cors");
 
 var corsOptions = {
-  origin: "http://localhost:*"
+  origin: "*"
 };
 
 app.use(cors(corsOptions));

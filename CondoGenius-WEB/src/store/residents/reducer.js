@@ -1,10 +1,17 @@
 const INITIAL_STATE = {
+  data: null,
   list: [],
   error: null
 };
 
-const userReducer = (state = INITIAL_STATE, action) => {
+const residentReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
+      case "SET_RESIDENT":
+        return {
+          ...state,
+          data: action.payload.data,
+          error: action.payload.error
+        }
       case "SET_RESIDENTS":
         return {
           ...state,
@@ -16,4 +23,4 @@ const userReducer = (state = INITIAL_STATE, action) => {
     }
 };
   
-export default userReducer;
+export default residentReducer;
