@@ -18,7 +18,7 @@ const ResidentList = ({ filters, setFilters }) => {
     const residences = useSelector(state => state.residences.list);
     const residents = useSelector((state) => state.residents.list);
 
-    const [ loadingResidents, ,  getResidents, , , deleteResident] = useResidents();
+    const [ loadingResidents, , , getResidents, , , deleteResident] = useResidents();
     const [ , getAllResidences ] = useResidences();
 
 

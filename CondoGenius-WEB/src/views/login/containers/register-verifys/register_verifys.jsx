@@ -59,7 +59,7 @@ const RegisterVerifys = () => {
     const history = useHistory();
     const [isSubmit, setIsSubmit] = useState(false);
     const [messageSubmitLogin, setMessageSubmitLogin] = useState(null);
-    const [, getResidentByCpf , , , ,] = useResidents();
+    const [, getResidentByCpf , , , , ,] = useResidents();
 
     useEffect(() => {
         if(resident?.error) {

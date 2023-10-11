@@ -24,6 +24,21 @@ const useResidents = () => {
         return response;
     };
 
+    const getResidentByUserId = async (userId) => {
+        setLoadingResidents(true);
+
+        const response = await ResidentsService().getResidentByUserId(userId);
+
+        if (response?.status === 200) {
+            dispatch(setResidentAction({ data: response.data }));
+        } else {
+            dispatch(setResidentAction({ error: "Morador não identificado na nossa base de dados. Procure um administrador"}));
+        }
+
+        setLoadingResidents(false);
+        return response;
+    };
+
     const getResidents = async (filters) => {
         setLoadingResidents(true);
 
@@ -103,6 +118,7 @@ const useResidents = () => {
     return [
         loadingResidents,
         getResidentByCpf,
+        getResidentByUserId,
         getResidents,
         createResident,
         updateResident,

@@ -16,6 +16,18 @@ const ResidentsService = () => {
         .catch(err => err);
     };
 
+    const getResidentByUserId = (userId) => {
+        return axios.get(`http://localhost:7008/api/residents/user/${userId}`, 
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        },
+        )
+        .then(res => res)
+        .catch(err => err);
+    };
+
     const getResidents =  (filters) => {
         return axios.get(`http://localhost:7008/api/residents`, 
         {
@@ -68,6 +80,7 @@ const ResidentsService = () => {
 
     return {
         getResidentByCpf,
+        getResidentByUserId,
         getResidents,
         createResident,
         updateResident,
