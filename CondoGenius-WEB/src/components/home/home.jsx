@@ -1,11 +1,12 @@
 import React from 'react';
 import RoutesConfig from '../../routes';
-import { useHistory } from 'react-router-dom';
 
 import Navbar from '../navbar/navbar';
-import { useEffect } from 'react';
 
 const Home = () => {
+
+  
+
   return (
     <>
       <Navbar />

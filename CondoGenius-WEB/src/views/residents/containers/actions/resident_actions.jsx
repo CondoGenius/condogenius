@@ -7,7 +7,7 @@ import { MdAddBox } from 'react-icons/md';
 import { PiMagnifyingGlassBold } from 'react-icons/pi';
 import { FiRefreshCcw } from 'react-icons/fi';
 
-import Tooltip from "../../../../components/tooltip";
+import Tooltip from "../../../../components/tooltip/tooltip";
 import ModalContent from "../../../../components/modal/modal_content";
 import ResidentFormFields from "../form/resident_form";
 import useResidences from "../../../../states/residences/hooks/useResidences";
@@ -88,7 +88,7 @@ const ResidentActions = ({filters, setFilters}) => {
 
     useEffect(() => {
         getAllResidences();
-    });
+    }, []);
 
     return (
         <Formik        

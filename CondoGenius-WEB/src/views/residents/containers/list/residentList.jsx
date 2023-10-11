@@ -6,7 +6,7 @@ import { MdEdit } from 'react-icons/md';
 import { MdRemoveCircleOutline } from 'react-icons/md';
 
 import ModalContent from "../../../../components/modal/modal_content";
-import Loading from "../../../../components/loading";
+import Loading from "../../../../components/loading/loading";
 
 import './residentList.scss';
 import ResidentFormFields from "../form/resident_form";
@@ -16,7 +16,7 @@ import useResidences from "../../../../states/residences/hooks/useResidences";
 
 const ResidentList = ({ filters, setFilters }) => {
     const residences = useSelector(state => state.residences.list);
-    const residents = useSelector((state) => state.residents);
+    const residents = useSelector((state) => state.residents.list);
 
     const [ loadingResidents, ,  getResidents, , , deleteResident] = useResidents();
     const [ , getAllResidences ] = useResidences();
@@ -56,8 +56,8 @@ const ResidentList = ({ filters, setFilters }) => {
                         <span className='icon'></span>
                         <span className='icon'></span>
                     </CollectionItem>
-                    {residents.list.length > 0 ? (
-                        residents.list.map((resident) => (
+                    {residents.length > 0 ? (
+                        residents.map((resident) => (
                             <CollectionItem key={resident.id}>
                             <span>
                                 {`${resident.name} ${resident.last_name}`}

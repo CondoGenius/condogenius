@@ -55,7 +55,7 @@ const renderButtonSubmit = (isValid, handleSubmit, setIsSubmit) => (
 );
 
 const RegisterVerifys = () => {
-    const resident = useSelector((state) => state.residents);
+    const resident = useSelector((state) => state.resident);
     const history = useHistory();
     const [isSubmit, setIsSubmit] = useState(false);
     const [messageSubmitLogin, setMessageSubmitLogin] = useState(null);

@@ -37,7 +37,7 @@ const ResidentsService = () => {
         return axios.post(`http://localhost:7008/api/residents`, resident, {
             headers: {
                 Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
+                ContentType: 'application/json',
             },
           })
           .then(res => res)
