@@ -48,10 +48,12 @@ CREATE TABLE IF NOT EXISTS residents (
 
 CREATE TABLE IF NOT EXISTS delivery_control (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    status VARCHAR(255) NOT NULL,
+    deliveredAt DATETIME NOT NULL DEFAULT NOW(),
+    received DATETIME NOT NULL DEFAULT NOW(),
     resident_id INTEGER NOT NULL,
-    created_at DATETIME NOT NULL,
-    updated_at DATETIME NOT NULL,
-    received BOOLEAN NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT NOW(),
+    updated_at DATETIME ON UPDATE NOW(),
     FOREIGN KEY (resident_id) REFERENCES residents (id)
 );
 
@@ -210,9 +212,10 @@ INSERT INTO residences (number, floor, block, complement, created_at, updated_at
 VALUES (303, 3, 'C', 'Apartment 303', NOW(), NOW());
 
 INSERT INTO residents (user_id, residence_id, cpf, email, name, last_name, contact, created_at, updated_at, is_active, birthday)
-VALUES (null, 1, '123.456.789-00', 'joao@email.com', 'João', 'Silva', '+55 11 1234-5678', NOW(), NOW(), 1, "2000-01-31");
+VALUES (null, 1, '12345678900', 'joao@email.com', 'João', 'Silva', '+55 11 1234-5678', NOW(), NOW(), 1, "2000-01-31");
 
 
 INSERT INTO residents (user_id, residence_id, cpf, email, name, last_name, contact, created_at, updated_at, is_active, birthday)
-VALUES (null, 2, '987.654.321-00', 'maria@email.com', 'Maria', 'Luz', '+55 11 1234-5678', NOW(), NOW(), 1, "2000-01-31");
+VALUES (null, 2, '98765432100', 'maria@email.com', 'Maria', 'Luz', '+55 11 1234-5678', NOW(), NOW(), 1, "2000-01-31");
 
+INSERT INTO delivery_control (status, resident_id) VALUES ('Na portaria', 1);
