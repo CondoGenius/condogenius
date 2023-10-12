@@ -9,6 +9,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CondoGenius-Deliveries-Domain\CondoGenius-Deliveries-Domain.csproj" />
+      <ProjectReference Include="..\Global.Shared\Global.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.1.4" />
     </ItemGroup>
 
 </Project>

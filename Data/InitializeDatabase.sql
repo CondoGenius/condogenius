@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS roles (
     name VARCHAR(255) UNIQUE NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS  users (
+CREATE TABLE IF NOT EXISTS users (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -17,6 +17,19 @@ CREATE TABLE IF NOT EXISTS  users (
     is_active BOOLEAN NOT NULL,
     role_id INTEGER NOT NULL,
     FOREIGN KEY (role_id) REFERENCES roles (id)
+);
+
+CREATE TABLE IF NOT EXISTS administrators
+(
+    id           INTEGER AUTO_INCREMENT PRIMARY KEY,
+    cpf VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    name varchar(255) NOT NULL,
+    user_id     INTEGER,
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_active BOOLEAN NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 CREATE TABLE IF NOT EXISTS residences (
@@ -49,8 +62,9 @@ CREATE TABLE IF NOT EXISTS residents (
 CREATE TABLE IF NOT EXISTS delivery_control (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
     status VARCHAR(255) NOT NULL,
-    deliveredAt DATETIME NOT NULL DEFAULT NOW(),
-    received DATETIME NOT NULL DEFAULT NOW(),
+    received_by VARCHAR(255) NOT NULL,
+    delivered_at DATETIME NOT NULL DEFAULT NOW(),
+    received_at DATETIME NOT NULL DEFAULT NOW(),
     resident_id INTEGER NOT NULL,
     created_at DATETIME NOT NULL DEFAULT NOW(),
     updated_at DATETIME ON UPDATE NOW(),
@@ -218,4 +232,4 @@ VALUES (null, 1, '12345678900', 'joao@email.com', 'João', 'Silva', '+55 11 1234
 INSERT INTO residents (user_id, residence_id, cpf, email, name, last_name, contact, created_at, updated_at, is_active, birthday)
 VALUES (null, 2, '98765432100', 'maria@email.com', 'Maria', 'Luz', '+55 11 1234-5678', NOW(), NOW(), 1, "2000-01-31");
 
-INSERT INTO delivery_control (status, resident_id) VALUES ('Na portaria', 1);
+INSERT INTO delivery_control (status, received_by, resident_id) VALUES ('Na portaria', 'João', 1);
