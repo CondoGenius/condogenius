@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import ResidenceService from '../../../services/residences/service';
 import { useDispatch } from "react-redux";
 
-import { setResidences } from "../../../store/residences/actions";
+import ResidenceService from '../../../services/residences/service';
+import { setResidencesAction } from "../../../store/residences/actions";
 
 const useResidences = () => {
     const dispatch = useDispatch();
@@ -15,9 +15,9 @@ const useResidences = () => {
         setLoadingResidences(false)
 
         if (response?.status === 200) {
-            dispatch(setResidences({ list: response.data }));
+            dispatch(setResidencesAction({ list: response.data }));
         } else {
-            dispatch(setResidences({ error: "Erro ao listar residencias." }));
+            dispatch(setResidencesAction({ error: "Erro ao listar residencias." }));
         }
         
     };

@@ -12,13 +12,13 @@ const useUser = () => {
 
         if (response?.status === 200) {
             dispatch(setUserAction({
-                id: response.data.id,
-                email: response.data.user,
-                token: response.data.jwtToken,
-                role: response.data.role,
+                id: response.data.user.id,
+                email: response.data.user.user,
+                token: response.data.user.jwtToken,
+                role: response.data.user.role,
                 isLogged: true
-            }))
-            localStorage.setItem("user", JSON.stringify({id: response.data.id, email: response.data.user, token: response.data.jwtToken, role: response.data.role, isLogged: true}));
+            }));
+            localStorage.setItem("user", JSON.stringify({id: response.data.user.id, email: response.data.user.user, token: response.data.user.jwtToken, role: response.data.user.role, isLogged: true}));
         };
         
         return response;

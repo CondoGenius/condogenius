@@ -1,11 +1,6 @@
 import { ResidentsActionType } from "./types";
 
-export const setResident = (payload) => ({
-    type: ResidentsActionType.SET_RESIDENT,
-    payload
-});
-
-export const setResidents = (payload) => ({
+export const setResidentsAction = (payload) => ({
     type: ResidentsActionType.SET_RESIDENTS,
     payload,
 });

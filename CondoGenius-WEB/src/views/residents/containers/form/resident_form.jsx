@@ -9,8 +9,10 @@ import { Button } from 'react-materialize';
 
 import useResidents from "../../../../states/residents/hooks/useResidents";
 import useResidences from "../../../../states/residences/hooks/useResidences";
+import { FormatDate } from '../../../../utils/utils';
 
 import './resident_form.scss';
+import { toast } from 'materialize-css';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormResidentSchema = Yup.object().shape({
@@ -25,14 +27,18 @@ const FormResidentSchema = Yup.object().shape({
 
 const onSubmit = async (values, createResident, updateResident, getResidents, history) => {
     let response;
+    let messageSuccess;
 
     if (values.id) {
         response = await updateResident(values);
+        messageSuccess = "Morador atualizado com sucesso.";
     } else {
         response = await createResident(values);
+        messageSuccess = "Morador cadastrado com sucesso.";
     }
 
     if (response.status === 201 || response.status === 200) {
+        toast.success(messageSuccess);
         getResidents();
     }
 };
@@ -144,16 +150,13 @@ const ResidentFormFields = ({residentEdited}) => {
     const residences = useSelector(state => state.residences.list);
 
     const [isSubmit, setIsSubmit] = useState(false);
-    const [, , getResidents, createResident, updateResident,] = useResidents();
+    const [, , , getResidents, createResident, updateResident,] = useResidents();
     const [ , getAllResidences ] = useResidences();
     const history = useHistory();
 
     let residenceId = residentEdited ? residences.find((residence) => residence.id === residentEdited.residence_id)?.id : '';
 
-    const dateValue = residentEdited?.birthday ? new Date(residentEdited?.birthday) : null;
-
-    let  birthday = dateValue instanceof Date && !isNaN(dateValue)
-    ? dateValue.toISOString().split('T')[0] : '';
+    const birthday = residentEdited?.birthday ? FormatDate(residentEdited?.birthday) : null;
 
     useEffect(() => {
         getAllResidences();

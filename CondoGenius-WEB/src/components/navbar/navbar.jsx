@@ -26,6 +26,7 @@ const navLink = (route, icon, name) => {
 
 const logout = () => {
     localStorage.removeItem("user");
+
     window.location.reload()
 };
 
