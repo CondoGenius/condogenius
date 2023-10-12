@@ -258,3 +258,9 @@ VALUES (null, 1, '12345678900', 'joao@email.com', 'João', 'Silva', '+55 11 1234
 INSERT INTO residents (user_id, residence_id, cpf, email, name, last_name, contact, created_at, updated_at, is_active,
                        birthday)
 VALUES (null, 2, '98765432100', 'maria@email.com', 'Maria', 'Luz', '+55 11 1234-5678', NOW(), NOW(), 1, "2000-01-31");
+
+INSERT INTO delivery_control (status, user_id, residence_id)
+VALUES ('Na portaria', 1, 1, NOW(), NOW());
+
+INSERT INTO delivery_control (status, user_id, residence_id)
+VALUES ('Entregue', 1, 2, NOW(), NOW());
