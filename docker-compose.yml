@@ -105,6 +105,8 @@ services:
       - ./residents:/usr/residents
     ports:
       - "7008:7008"
+    depends_on:
+      - mysql
 
   send-notifications:
     build:
