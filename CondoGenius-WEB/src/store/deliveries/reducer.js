@@ -3,9 +3,9 @@ const INITIAL_STATE = {
   error: null
 };
 
-const residentsReducer = (state = INITIAL_STATE, action) => {
+const deliveriesReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-      case "SET_RESIDENTS":
+      case "SET_DELIVERIES":
         return {
           ...state,
           list: action.payload.list,
@@ -16,4 +16,4 @@ const residentsReducer = (state = INITIAL_STATE, action) => {
     }
 };
   
-export default residentsReducer;
+export default deliveriesReducer;

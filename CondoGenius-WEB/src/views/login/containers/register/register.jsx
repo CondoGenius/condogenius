@@ -76,7 +76,7 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => 
 );
 
 const Register = () => {
-    const resident = useSelector((state) => state.residents);
+    const resident = useSelector((state) => state.resident);
     const history = useHistory();
     const [isSubmit, setIsSubmit] = useState(false);
     const { createUser } = useUser();

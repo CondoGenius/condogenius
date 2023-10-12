@@ -2,7 +2,8 @@ import { useState } from 'react';
 import ResidentsService from "../../../services/residents/service";
 import { useDispatch } from "react-redux";
 
-import { setResident, setResidents } from "../../../store/residents/actions";
+import { setResidentsAction } from "../../../store/residents/actions";
+import { setResidentAction } from '../../../store/resident/actions';
 
 const useResidents = () => {
     const dispatch = useDispatch();
@@ -14,9 +15,24 @@ const useResidents = () => {
         const response = await ResidentsService().getResidentByCpf(cpf);
 
         if (response?.status === 200) {
-            dispatch(setResident({ data: response.data }));
+            dispatch(setResidentAction({ data: response.data }));
         } else {
-            dispatch(setResident({ error: "CPF não identificado na nossa base de dados. Procure um administrador"}));
+            dispatch(setResidentAction({ error: "CPF não identificado na nossa base de dados. Procure um administrador"}));
+        }
+
+        setLoadingResidents(false);
+        return response;
+    };
+
+    const getResidentByUserId = async (userId) => {
+        setLoadingResidents(true);
+
+        const response = await ResidentsService().getResidentByUserId(userId);
+
+        if (response?.status === 200) {
+            dispatch(setResidentAction({ data: response.data }));
+        } else {
+            dispatch(setResidentAction({ error: "Morador não identificado na nossa base de dados. Procure um administrador"}));
         }
 
         setLoadingResidents(false);
@@ -29,9 +45,9 @@ const useResidents = () => {
         const response = await ResidentsService().getResidents(filters);
         
         if (response?.status === 200) {
-            dispatch(setResidents({ list: response.data }));
+            dispatch(setResidentsAction({ list: response.data }));
         } else {
-            dispatch(setResidents({ error: "Erro ao listar moradores." }));
+            dispatch(setResidentsAction({ error: "Erro ao listar moradores." }));
         }
         
         setLoadingResidents(false);
@@ -54,7 +70,7 @@ const useResidents = () => {
         const response = await ResidentsService().createResident(resident);
 
         if (response?.status !== 201) {
-            dispatch(setResidents({ error: "Erro ao cadastrar morador." }));
+            dispatch(setResidentsAction({ error: "Erro ao cadastrar morador." }));
         }
 
         setLoadingResidents(false);
@@ -78,7 +94,7 @@ const useResidents = () => {
         const response = await ResidentsService().updateResident(resident);
 
         if (response?.status !== 200) {
-            dispatch(setResidents({ error: "Erro ao atualiazar morador." }));
+            dispatch(setResidentsAction({ error: "Erro ao atualiazar morador." }));
         }
 
         setLoadingResidents(false);
@@ -91,7 +107,7 @@ const useResidents = () => {
         const response = await ResidentsService().deleteResident(id);
 
         if (response?.status !== 200) {
-            dispatch(setResidents({ error: "Erro ao deletar morador." }));
+            dispatch(setResidentsAction({ error: "Erro ao deletar morador." }));
         }
         
         setLoadingResidents(false);
@@ -102,6 +118,7 @@ const useResidents = () => {
     return [
         loadingResidents,
         getResidentByCpf,
+        getResidentByUserId,
         getResidents,
         createResident,
         updateResident,

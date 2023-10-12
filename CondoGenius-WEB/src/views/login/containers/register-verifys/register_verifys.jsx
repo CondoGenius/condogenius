@@ -55,11 +55,11 @@ const renderButtonSubmit = (isValid, handleSubmit, setIsSubmit) => (
 );
 
 const RegisterVerifys = () => {
-    const resident = useSelector((state) => state.residents);
+    const resident = useSelector((state) => state.resident);
     const history = useHistory();
     const [isSubmit, setIsSubmit] = useState(false);
     const [messageSubmitLogin, setMessageSubmitLogin] = useState(null);
-    const [, getResidentByCpf , , , ,] = useResidents();
+    const [, getResidentByCpf , , , , ,] = useResidents();
 
     useEffect(() => {
         if(resident?.error) {

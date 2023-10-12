@@ -99,6 +99,8 @@ services:
       - ./residents:/usr/residents:cached
     ports:
       - "7008:7008"
+    depends_on:
+      - mysql
 
   send-notifications:
     build:
