@@ -16,7 +16,7 @@ exports.createResident = async (req, res) => {
       birthday
     } = req.body;
 
-    const cleanedCpf = cpf.replace(/[^\d]/g, '');
+    const cleanedCpf = cpf?.replace(/[^\d]/g, '');
 
     const novoResidente = await Resident.create({
       user_id,
@@ -43,7 +43,7 @@ exports.listResidents = async (req, res) => {
   try {
     const { name, cpf, residence_id } = req.query;
 
-    const cleanedCpf = cpf.replace(/[^\d]/g, '');
+    const cleanedCpf = cpf?.replace(/[^\d]/g, '');
 
     const whereClause = {
       is_active: 1,
@@ -89,7 +89,7 @@ exports.listResidentByCpf = async (req, res) => {
   try {
     const { cpf } = req.params;
 
-    const cleanedCpf = cpf.replace(/[^\d]/g, '');
+    const cleanedCpf = cpf?.replace(/[^\d]/g, '');
 
     const resident = await Resident.findOne({
       where: {

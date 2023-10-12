@@ -1,6 +1,7 @@
 const INITIAL_STATE = {
   data: null,
   deliveries: [],
+  complaints: [],
   error: null
 };
 

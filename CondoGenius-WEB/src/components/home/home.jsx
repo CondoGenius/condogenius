@@ -7,7 +7,7 @@ import useResidents from '../../states/residents/hooks/useResidents';
 
 import Navbar from '../navbar/navbar';
 
-const Home = async () => {
+const Home = () => {
   const user = useSelector(state => state.user.data);
   const resident = useSelector(state => state.resident);
 

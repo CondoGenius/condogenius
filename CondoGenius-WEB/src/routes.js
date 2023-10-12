@@ -6,8 +6,8 @@ import { useHistory } from 'react-router-dom';
 
 import Register from './views/login/containers/register/register';
 
-import ComplaintsResidentView from './views/complaints/admin_view/complaints';
-import ComplaintsAdminView from './views/complaints/user_view/complaints';
+import ComplaintsResidentView from './views/complaints/resident_view/complaints';
+import ComplaintsAdminView from './views/complaints/admin_view/complaints';
 
 import ReservationsResidentView from './views/reservations/resident_view/reservations';
 import ListReservationsResidentView from './views/reservations/resident_view/list/list_reservations';

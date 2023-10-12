@@ -1,6 +1,6 @@
 import React from 'react';
-import { Collection, CollectionItem, Button } from 'react-materialize';
 import ModalContent from "../../../components/modal/modal_content";
+import { Collection, CollectionItem, Button } from 'react-materialize';
 
 import { listComplaints } from '../../../states/complaints/mock';
 import { MdAddCircle } from 'react-icons/md';
@@ -10,46 +10,42 @@ import { MdInfo } from 'react-icons/md';
 
 import './complaints.scss';
 
-const renderComplaintMoreInfo = (complaint) => (
-    <>
-        {complaint.text}
-        <p>Data: {complaint.date}</p>
-        <div className='complaint_actions_buttons'>
-            <Button className='green_button'>
-                Marcar denúncia como notificada
-            </Button>
-            <Button className='red_button'>
-                Marcar denúncia como reprovada
-            </Button>
-        </div>
-    </>
+const renderFormComplaint = () => (
+  <>
+    <br/>
+    <textarea name="complaint" placeholder='Descreva em detalhes o motivo da sua reclamação incluindo o nome ou casa do morador reclamado' className='complaint_field'></textarea>
+    <div className='complaint_button'>
+        <Button>Enviar reclamação</Button>
+    </div>
+  </>
 );
 
-const ComplaintsUser = () => {
-    return (
-        <>
-        <div className='header_content'>
-            <h1>Reclamações</h1>    
+const ComplaintsResident = () => {
+  return (
+    <>
+        <div className="header_content">
+          <h1>Reclamações</h1>
         </div>
-        <div className='list_view'>
+        <div className='form_complaint'>
+          <ModalContent
+            header={`Nova reclamação`}
+            trigger={<Button>Enviar nova reclamação</Button>}
+            children={renderFormComplaint()}
+            className="complaint"
+          />
+        </div>
+        <div>
+          <div className='list_view'>
             <Collection>
             <CollectionItem key="header" className='list_header'>
-                <span>Nome</span>
                 <span className='complaint_list_body'>Reclamação</span>
-                <span>Data</span>
                 <span>Status</span>
                 <span />
             </CollectionItem>
             {listComplaints.map(complaint => (
                 <CollectionItem key={complaint.id}>
-                    <span>
-                    {complaint.name}
-                    </span>
                     <span className='complaint_list_text'>
                     {complaint.text}
-                    </span>
-                    <span>
-                    {complaint.date}
                     </span>
                     <span className='complaint_list_status'>
                         {complaint.status === 'notified' && <MdCheckBox className='complaint_status_notified'/>}
@@ -58,18 +54,24 @@ const ComplaintsUser = () => {
                     </span>
                     <span>
                         <ModalContent
-                            header={`Reclamação de ${complaint.name}`}
+                            header={`Detalhes da reclamção`}
                             trigger={<MdAddCircle />}
-                            children={renderComplaintMoreInfo(complaint)}
+                            children={
+                            <>
+                                {complaint.text}
+                                <p>Data: {complaint.date}</p>
+                            </>
+                            }
                             className="complaint"
                         />
                     </span>
                 </CollectionItem>
             ))}
             </Collection>
-      </div>
-        </>
-    );
+          </div>
+        </div>
+    </>
+  );
 };
 
-export default ComplaintsUser;
+export default ComplaintsResident;
