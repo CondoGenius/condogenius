@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS delivery_control
     status       VARCHAR(255) NOT NULL,
     user_id      INTEGER      NOT NULL,
     delivered_at DATETIME     NOT NULL DEFAULT NOW(),
-    received_at  DATETIME     NOT NULL DEFAULT NOW(),
+    received_at  DATETIME,
     residence_id INTEGER      NOT NULL,
     created_at   DATETIME     NOT NULL DEFAULT NOW(),
     updated_at   DATETIME ON UPDATE NOW(),

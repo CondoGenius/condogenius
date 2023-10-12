@@ -43,7 +43,7 @@ public class DeliveriesController : ControllerBase
     {
         await _handler.CreateDelivery(request);
 
-        return Ok(JsonConvert.SerializeObject(new { message = "Entrega criada com sucesso!" }));
+        return Created("Entrega criada com sucesso!", null);
     }
 
     // PUT: api/deliveries/1 (Update)
