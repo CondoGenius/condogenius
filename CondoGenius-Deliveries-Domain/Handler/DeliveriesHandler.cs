@@ -28,9 +28,9 @@ public class DeliveriesHandler : IDeliveriesHandler
         return await _repository.GetDelivery(id);
     }
 
-    public async Task UpdateDelivery(int id, string status, string receivedBy)
+    public async Task UpdateDelivery(int id)
     {
-        await _repository.UpdateDelivery(id, status, receivedBy);
+        await _repository.UpdateDelivery(id);
     }
 
 }

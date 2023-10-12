@@ -1,2 +1,2 @@
-﻿INSERT INTO delivery_control (status, received_by, resident_id) 
-VALUES (@Status, @ReceivedBy, @ResidentId);
+﻿INSERT INTO delivery_control (status, user_id, residence_id)
+VALUES (@Status, @UserId, @ResidenceId);

@@ -26,9 +26,9 @@ public class DeliveriesRepository : BaseRepository, IDeliveriesRepository
 
             await conn.ExecuteAsync(_queries.CreateDelivery(), new
             {
-                request.Status,
-                request.ReceivedBy,
-                request.ResidentId
+                Status = "Na portaria",
+                request.UserId,
+                request.ResidenceId
             });
         }
         catch (Exception ex)
@@ -38,7 +38,7 @@ public class DeliveriesRepository : BaseRepository, IDeliveriesRepository
         }
     }
 
-    public async Task UpdateDelivery(int id, string status, string receivedBy)
+    public async Task UpdateDelivery(int id)
     {
         try
         {
@@ -49,8 +49,6 @@ public class DeliveriesRepository : BaseRepository, IDeliveriesRepository
             await conn.ExecuteAsync(_queries.UpdateDelivery(), new
             {
                 Id = id,
-                Status = status,
-                ReceivedBy = receivedBy
             });
         }
         catch (Exception ex)

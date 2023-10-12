@@ -2,7 +2,6 @@
 
 public class CreateDeliveryRequest
 {
-    public string Status { get; set; }
-    public string ReceivedBy { get; set; }
-    public int ResidentId { get; set; }
+    public int UserId { get; set; }
+    public int ResidenceId { get; set; }
 }

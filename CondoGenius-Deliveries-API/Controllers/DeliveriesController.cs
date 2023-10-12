@@ -20,19 +20,19 @@ public class DeliveriesController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetDeliveries()
     {
-        return Ok(await _handler.ListDeliveries());
+        return Ok(JsonConvert.SerializeObject(await _handler.ListDeliveries()));
     }
 
     // GET: api/deliveries/1 (Read)
     [HttpGet("{id}")]
     public async Task<IActionResult> GetDelivery([FromRoute] int id)
     {
-        return Ok(await _handler.ListDelivery(id));
+        return Ok(JsonConvert.SerializeObject(await _handler.ListDelivery(id)));
     }
     
     // GET: api/deliveries/residence/1 (Read)
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetDeliveryByResidence([FromRoute] int residenceId)
+    [HttpGet("/residence/{id}")]
+    public async Task<IActionResult> GetDeliveryByResidence([FromRoute] int id)
     {
         return null;
     }
@@ -43,14 +43,14 @@ public class DeliveriesController : ControllerBase
     {
         await _handler.CreateDelivery(request);
 
-        return Ok(JsonConvert.SerializeObject(new { Message = "Entrega criada com sucesso!" }));
+        return Ok(JsonConvert.SerializeObject(new { message = "Entrega criada com sucesso!" }));
     }
 
     // PUT: api/deliveries/1 (Update)
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateDelivery([FromRoute] int id, [FromBody] CreateDeliveryRequest request)
+    public async Task<IActionResult> UpdateDelivery([FromRoute] int id)
     {
-        await _handler.UpdateDelivery(id, request.Status, request.ReceivedBy);
+        await _handler.UpdateDelivery(id);
 
         return Ok("Registro atualizado com sucesso!");
     }
