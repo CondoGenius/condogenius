@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Collection, CollectionItem, Button } from 'react-materialize';
+import { Collection, CollectionItem } from 'react-materialize';
 import { useSelector } from 'react-redux';
 
 import useDeliveries from '../../../states/deliveries/hooks/useDeliveries';
@@ -34,7 +34,7 @@ const Deliveries = () => {
                     deliveries?.map(delivery => (
                         <CollectionItem key={delivery.id}>
                             <span>
-                            {delivery.user_name_received ? FormatDate(delivery.user_name_received) : '-'}
+                            {delivery.admin_name ? FormatDate(delivery.admin_name) : '-'}
                             </span>
                             <span>
                             {delivery.received ? FormatDate(delivery.received) : '-'}

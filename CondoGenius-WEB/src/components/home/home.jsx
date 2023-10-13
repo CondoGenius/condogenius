@@ -1,6 +1,6 @@
-import { toast } from 'materialize-css';
 import React, { useEffect } from 'react';
 import { useSelector } from "react-redux";
+import { toast } from 'react-toastify';
 import RoutesConfig from '../../routes';
 
 import useResidents from '../../states/residents/hooks/useResidents';
@@ -11,18 +11,19 @@ const Home = () => {
   const user = useSelector(state => state.user.data);
   const resident = useSelector(state => state.resident);
 
-  const [, , getResidentByUserId , , , ,] = useResidents();
-
-  if (!user.isAdmin) {
-    getResidentByUserId(user.id);
-  }
+  const [, , getResidentByUserId, , , ,] = useResidents();
 
   useEffect(() => {
-    if(resident?.error) {
-      toast.error(resident.error)
+    if (!user.isAdmin) {
+      getResidentByUserId(user.id);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (resident?.error) {
+      toast.error(resident.error);
       localStorage.removeItem("user");
-  
-      window.location.reload()
+      window.location.reload();
     }
   }, [resident.error]);
 
@@ -33,7 +34,7 @@ const Home = () => {
         <RoutesConfig />
       </div>
     </>
-  )
+  );
 };
 
 export default Home;
