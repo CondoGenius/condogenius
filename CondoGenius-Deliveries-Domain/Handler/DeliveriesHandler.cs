@@ -14,9 +14,9 @@ public class DeliveriesHandler : IDeliveriesHandler
         _repository = repository;
     }
 
-    public async Task CreateDelivery(CreateDeliveryRequest request)
+    public async Task<int> CreateDelivery(CreateDeliveryRequest request)
     {
-        await _repository.CreateDelivery(request);
+        return await _repository.CreateDelivery(request);
     }
     public async Task<List<DeliveryControl>> ListDeliveries()
     {
@@ -28,9 +28,19 @@ public class DeliveriesHandler : IDeliveriesHandler
         return await _repository.GetDelivery(id);
     }
 
-    public async Task UpdateDelivery(int id)
+    public async Task<List<DeliveryControl>> ListDeliveriesByResidence(int id)
     {
-        await _repository.UpdateDelivery(id);
+        return await _repository.GetDeliveriesByResidence(id);
+    }
+
+    public async Task<int> DeleteDelivery(int id)
+    {
+        return await _repository.DeleteDelivery(id);
+    }
+
+    public async Task<int> UpdateDelivery(int id)
+    {
+        return await _repository.UpdateDelivery(id);
     }
 
 }

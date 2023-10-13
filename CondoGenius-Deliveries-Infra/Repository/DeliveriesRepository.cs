@@ -16,7 +16,7 @@ public class DeliveriesRepository : BaseRepository, IDeliveriesRepository
         _queries = queries;
     }
 
-    public async Task CreateDelivery(CreateDeliveryRequest request)
+    public async Task<int> CreateDelivery(CreateDeliveryRequest request)
     {
         try
         {
@@ -24,7 +24,7 @@ public class DeliveriesRepository : BaseRepository, IDeliveriesRepository
 
             await conn.OpenAsync();
 
-            await conn.ExecuteAsync(_queries.CreateDelivery(), new
+            return await conn.ExecuteAsync(_queries.CreateDelivery(), new
             {
                 Status = "Na portaria",
                 request.UserId,
@@ -38,7 +38,7 @@ public class DeliveriesRepository : BaseRepository, IDeliveriesRepository
         }
     }
 
-    public async Task UpdateDelivery(int id)
+    public async Task<int> UpdateDelivery(int id)
     {
         try
         {
@@ -46,14 +46,14 @@ public class DeliveriesRepository : BaseRepository, IDeliveriesRepository
 
             await conn.OpenAsync();
 
-            await conn.ExecuteAsync(_queries.UpdateDelivery(), new
+            return await conn.ExecuteAsync(_queries.UpdateDelivery(), new
             {
                 Id = id,
             });
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Não foi possível criar a entrega. Erro: {ex.Message}");
+            Console.WriteLine($"Não foi possível atualizar a entrega. Erro: {ex.Message}");
             throw;
         }
     }
@@ -79,8 +79,28 @@ public class DeliveriesRepository : BaseRepository, IDeliveriesRepository
         return (await conn.QueryAsync<DeliveryControl>(_queries.GetAllDeliveries())).ToList();
     }
 
-    public Task DeleteDelivery(int id)
+    public async Task<List<DeliveryControl>> GetDeliveriesByResidence(int id)
     {
-        throw new NotImplementedException();
+        await using var conn = GetConnection();
+        
+        await conn.OpenAsync();
+
+        return (await conn.QueryAsync<DeliveryControl>(_queries.GetDeliveryByResidence(), new
+        {
+            ResidenceId = id
+        })).ToList();
+
+    }
+
+    public async Task<int> DeleteDelivery(int id)
+    {
+        await using var conn = GetConnection();
+        
+        await conn.OpenAsync();
+
+        return await conn.ExecuteAsync(_queries.DeleteDelivery(), new
+        {
+            Id = id
+        });
     }
 }
