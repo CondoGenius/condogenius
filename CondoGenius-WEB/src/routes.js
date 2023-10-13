@@ -28,7 +28,7 @@ const RoutesConfig = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if(window.location.pathname === '/') {
+    if(window.location.pathname === '/' && user.isLogged) {
       history.push('/hub');
     }
   });

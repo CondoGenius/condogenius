@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import ResidentsService from "../../../services/residents/service";
 import { useDispatch } from "react-redux";
+import ResidentsService from "../../../services/residents/service";
 
-import { setResidentsAction } from "../../../store/residents/actions";
 import { setResidentAction } from '../../../store/resident/actions';
+import { setResidentsAction } from "../../../store/residents/actions";
 
 const useResidents = () => {
     const dispatch = useDispatch();
@@ -26,11 +26,32 @@ const useResidents = () => {
 
     const getResidentByUserId = async (userId) => {
         setLoadingResidents(true);
-
         const response = await ResidentsService().getResidentByUserId(userId);
 
         if (response?.status === 200) {
-            dispatch(setResidentAction({ data: response.data }));
+            dispatch(setResidentAction({data: {
+                id: response.data.id, 
+                userId: response.data.user_id,
+                cpf: response.data.cpf,
+                email: response.data.email,
+                name: response.data.name,
+                lastName: response.data.last_name,
+                contact: response.data.contact,
+                birthday: response.data.birthday,
+                residenceId: response.data.residence_id
+            }
+            }));
+            localStorage.setItem("resident", JSON.stringify({
+                id: response.data.id, 
+                userId: response.data.user_id,
+                cpf: response.data.cpf,
+                email: response.data.email,
+                name: response.data.name,
+                lastName: response.data.last_name,
+                contact: response.data.contact,
+                birthday: response.data.birthday,
+                residenceId: response.data.residence_id
+            }));
         } else {
             dispatch(setResidentAction({ error: "Morador não identificado na nossa base de dados. Procure um administrador"}));
         }

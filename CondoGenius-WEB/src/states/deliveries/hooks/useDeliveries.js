@@ -11,7 +11,7 @@ const useDeliveries = () => {
 
     const getDeliveriesByResidenceId = async (residenceId) => {
         setLoadingDeliveries(true)
-
+        
         const response = await DeliveriesService().getDeliveriesByResidenceId(residenceId);
         setLoadingDeliveries(false)
 

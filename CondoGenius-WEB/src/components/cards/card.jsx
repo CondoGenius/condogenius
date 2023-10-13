@@ -20,8 +20,9 @@ const renderCard = (area) => (
 );
 
 const CardContent = () => {
-    const reservations = useSelector((state) => state.reservations)
-    const [loadingReservations, getAreasFromReservations, getReservationsByUserId, , createReservation, createGuestList, updateGuestList, deleteReservation] = useReservations();
+    const reservations = useSelector((state) => state.reservations);
+
+    const [, getAreasFromReservations, , , , , , ] = useReservations();
 
     useEffect(() => {
         getAreasFromReservations();
@@ -43,6 +44,6 @@ const CardContent = () => {
             </Row>
     </div>
     );
-                };
+};
 
 export default CardContent;

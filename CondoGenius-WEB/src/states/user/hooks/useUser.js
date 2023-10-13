@@ -1,5 +1,5 @@
-import UserService from "../../../services/user/service";
 import { useDispatch } from "react-redux";
+import UserService from "../../../services/user/service";
 
 import { setUserAction } from "../../../store/user/actions";
 
@@ -12,13 +12,13 @@ const useUser = () => {
 
         if (response?.status === 200) {
             dispatch(setUserAction({
-                id: response.data.user.id,
-                email: response.data.user.user,
-                token: response.data.user.jwtToken,
-                role: response.data.user.role,
+                id: response.data.id,
+                email: response.data.user,
+                token: response.data.jwtToken,
+                role: response.data.role,
                 isLogged: true
             }));
-            localStorage.setItem("user", JSON.stringify({id: response.data.user.id, email: response.data.user.user, token: response.data.user.jwtToken, role: response.data.user.role, isLogged: true}));
+            localStorage.setItem("user", JSON.stringify({id: response.data.id, email: response.data.user, token: response.data.jwtToken, role: response.data.role, isLogged: true}));
         };
         
         return response;
