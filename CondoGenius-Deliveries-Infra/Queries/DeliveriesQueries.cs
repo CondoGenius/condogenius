@@ -19,6 +19,11 @@ public class DeliveriesQueries : IDeliveriesQueries
         return File.ReadAllText("/src/SQLs/GetAllDeliveries.sql");
     }
 
+    public string GetDeliveryByResidence()
+    {
+        return File.ReadAllText("/src/SQLs/ListDeliveriesByResidence.sql");
+    }
+
     public string UpdateDelivery()
     {
         return File.ReadAllText("/src/SQLs/UpdateDelivery.sql");

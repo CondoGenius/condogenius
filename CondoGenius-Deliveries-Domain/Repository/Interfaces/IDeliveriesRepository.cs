@@ -5,9 +5,10 @@ namespace CondoGenius_Deliveries_Domain.Repository.Interfaces;
 
 public interface IDeliveriesRepository
 {
-    Task CreateDelivery(CreateDeliveryRequest request);
-    Task UpdateDelivery(int id);
+    Task<int> CreateDelivery(CreateDeliveryRequest request);
+    Task<int> UpdateDelivery(int id);
     Task<DeliveryControl> GetDelivery(int id);
     Task<List<DeliveryControl>> GetAllDeliveries();
-    Task DeleteDelivery(int id);
+    Task<List<DeliveryControl>> GetDeliveriesByResidence(int id);
+    Task<int> DeleteDelivery(int id);
 }

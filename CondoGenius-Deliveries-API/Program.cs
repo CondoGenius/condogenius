@@ -12,9 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
-    options.SerializerSettings.ContractResolver = new DefaultContractResolver()
+    options.SerializerSettings.ContractResolver = new DefaultContractResolver
     {
-        NamingStrategy = new SnakeCaseNamingStrategy()
+        NamingStrategy = new SnakeCaseNamingStrategy
         {
             OverrideSpecifiedNames = true
         }

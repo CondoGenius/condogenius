@@ -20,7 +20,7 @@ public class DeliveriesController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetDeliveries()
     {
-        return Ok(JsonConvert.SerializeObject(await _handler.ListDeliveries()));
+        return Ok(await _handler.ListDeliveries());
     }
 
     // GET: api/deliveries/1 (Read)
@@ -31,34 +31,36 @@ public class DeliveriesController : ControllerBase
     }
     
     // GET: api/deliveries/residence/1 (Read)
-    [HttpGet("/residence/{id}")]
+    [HttpGet("residence/{id}")]
     public async Task<IActionResult> GetDeliveryByResidence([FromRoute] int id)
     {
-        return null;
+        return Ok(await _handler.ListDeliveriesByResidence(id));
     }
 
     // POST: api/deliveries (Create)
     [HttpPost]
     public async Task<IActionResult> CreateDelivery([FromBody] CreateDeliveryRequest request)
     {
-        await _handler.CreateDelivery(request);
+        var rowsAffected = await _handler.CreateDelivery(request);
 
-        return Created("Entrega criada com sucesso!", null);
+        return rowsAffected == 1 ? Created("", "Registro criado com sucesso!") : BadRequest("Não foi possível criar o registro!");
     }
 
     // PUT: api/deliveries/1 (Update)
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateDelivery([FromRoute] int id)
     {
-        await _handler.UpdateDelivery(id);
+        var rowsAffected = await _handler.UpdateDelivery(id);
 
-        return Ok("Registro atualizado com sucesso!");
+        return rowsAffected == 1 ? Ok("Registro atualizado com sucesso!") : NoContent();
     }
 
     // DELETE: api/deliveries/1 (Delete)
     [HttpDelete("{id}")]
-    public IActionResult DeleteDelivery()
+    public async Task<IActionResult> DeleteDelivery([FromRoute] int id)
     {
-        return null;
+        var rowsAffected = await _handler.DeleteDelivery(id);
+        
+        return rowsAffected == 1 ? Ok("Registro deletado com sucesso!") : NoContent();
     }
 }
