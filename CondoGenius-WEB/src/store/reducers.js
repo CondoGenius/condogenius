@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import complaints from './complaints/reducer';
 import deliveries from './deliveries/reducer';
+import reservations from './reservations/reducer';
 import residences from './residences/reducer';
 import resident from './resident/reducer';
 import residents from './residents/reducer';
@@ -13,5 +14,6 @@ export default combineReducers({
   resident,
   residences,
   deliveries,
-  complaints
+  complaints,
+  reservations
 });

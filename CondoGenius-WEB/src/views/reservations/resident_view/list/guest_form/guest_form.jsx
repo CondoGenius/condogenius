@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
 import { Formik } from 'formik';
+import React, { useState } from 'react';
+import { Button, Collection, CollectionItem } from 'react-materialize';
+import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import { Collection, CollectionItem, Button } from 'react-materialize';
 
 import ErrorField from '../../../../../components/utils/errorField';
 
-import { guestList } from '../../../../../states/reservations/mock';
-
 import './guest_form.scss';
 
-import { MdClear, MdAddBox } from 'react-icons/md';
+import { MdAddBox, MdClear } from 'react-icons/md';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormGuestListSchema = Yup.object().shape({
@@ -23,6 +22,7 @@ const onSubmit = async (values, area) => {
 
 const GuestForm = () => {
     const [isSubmit, setIsSubmit] = useState(false);
+    const resident = useSelector((state) => state.resident.reservations);
     
     return (
         <Formik        
@@ -69,7 +69,7 @@ const GuestForm = () => {
                     <Button onClick={() => setIsSubmit(true)}><MdAddBox /> Adicionar</Button>
                 </div>
                 <Collection>
-                    {guestList.map(guest => (
+                    {resident.guestList.map(guest => (
                         <CollectionItem key={guest.id}>
                             <span>
                             {guest.name}

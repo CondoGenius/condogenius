@@ -5,7 +5,7 @@ const DeliveriesService = () => {
     const token = localStorage.getItem('user')?.token;
 
     const getDeliveriesByResidenceId = async (residenceId) => {
-        return axios.get(`http://localhost:7008/api/deliveries/residence/${residenceId}`, 
+        return axios.get(`http://localhost:7003/api/deliveries/residence/${residenceId}`, 
         {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -17,7 +17,7 @@ const DeliveriesService = () => {
     };
 
     const getDeliveries = async  () => {
-        return axios.get(`http://localhost:7008/api/deliveries`, 
+        return axios.get(`http://localhost:7003/api/deliveries`, 
         {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -29,7 +29,7 @@ const DeliveriesService = () => {
     };
 
     const createDelivery = async (delivery) => {
-        return axios.post(`http://localhost:7008/api/deliveries`, delivery, {
+        return axios.post(`http://localhost:7003/api/deliveries`, delivery, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 ContentType: 'application/json',
@@ -39,8 +39,8 @@ const DeliveriesService = () => {
           .catch(err => err);
     };
 
-    const updateDelivery = async (delivery) => {
-        return axios.put(`http://localhost:7008/api/deliveries/${delivery.id}`, {
+    const updateDelivery = async (id) => {
+        return axios.put(`http://localhost:7003/api/deliveries/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
