@@ -37,6 +37,9 @@ services:
       - ./gateway:/usr/gateway
     ports:
       - "5000:5000"
+    depends_on:
+      - mysql
+
 
   complaints:
     image: complaints
