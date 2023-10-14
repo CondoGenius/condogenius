@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS  users (
     passwordSalt varchar(255),
     is_active BOOLEAN NOT NULL,
     role_id INTEGER NOT NULL,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL,
     FOREIGN KEY (role_id) REFERENCES roles (id)
 );
 
