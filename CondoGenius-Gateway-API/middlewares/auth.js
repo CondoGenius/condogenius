@@ -1,25 +1,24 @@
 const jwt = require('jsonwebtoken');
+const config = require('../config/config');
 
 function authMiddleware(req, res, next) {
-  const token = req.header('Authorization');
+  const token = req.header('x-access-token');
 
-  // Check if request URL is for login or register
-  console.log(req.url)
-  if (req.url === '/gateway/login' || req.url === '/gateway/user/register') {
+  if (req.url === '/gateway/login' || req.url === '/gateway/user/register' || req.url === '/gateway/user/me' || req.url === '/gateway/logout') {
     return next();
   }
 
   if (!token) {
-    return res.status(401).json({ msg: 'No token, authorization denied' });
+    return res.status(401).json({ msg: 'Sem Token. Autorização negada!' });
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, config.secret);
 
-    req.user = decoded.user;
+    req.user_id = decoded.userId;
     next();
   } catch (err) {
-    res.status(401).json({ msg: 'Token is not valid' });
+    res.status(401).json({ msg: 'Este Token não é valido!', err: err.message });
   }
 }
 
