@@ -4,14 +4,11 @@ import { NavLink } from 'react-router-dom';
 
 import logo from '../../assets/condogenius.png';
 
-import { MdOutlineHub } from 'react-icons/md'
-import { MdPeopleAlt } from 'react-icons/md';
+import { BsBoxSeamFill, BsPersonCircle } from 'react-icons/bs';
 import { GiBarbecue } from 'react-icons/gi';
+import { MdExitToApp, MdOutlineHub, MdPeopleAlt } from 'react-icons/md';
 import { SiGooglemeet } from 'react-icons/si';
 import { TiWarning } from 'react-icons/ti';
-import { BsBoxSeamFill } from 'react-icons/bs';
-import { MdExitToApp } from 'react-icons/md';
-import { BsPersonCircle } from 'react-icons/bs';
 
 import './navbar.scss';
 
@@ -26,13 +23,14 @@ const navLink = (route, icon, name) => {
 
 const logout = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("resident");
 
     window.location.reload()
 };
 
 const Navbar = () => {
     const user = useSelector((state => state.user.data));
-    console.log('user: ', user)
+
     return (
         <div className="navbar_content">
             <div className="logo_content">
@@ -53,9 +51,8 @@ const Navbar = () => {
 
                     {navLink('/complaints', TiWarning, 'Reclamações')}
 
-                    {!user.isAdmin && navLink('/deliveries-list', BsBoxSeamFill, 'Entregas')}
-
-                    {navLink('/deliveries', BsBoxSeamFill, 'Entregas')}
+                    {user.isAdmin && navLink('/deliveries-list', BsBoxSeamFill, 'Entregas')}
+                    {!user.isAdmin && navLink('/deliveries', BsBoxSeamFill, 'Entregas')}
 
                 </ul>
             </div>

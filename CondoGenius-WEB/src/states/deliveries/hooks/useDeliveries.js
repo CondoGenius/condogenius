@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
 import DeliveriesService from '../../../services/deliveries/service';
@@ -12,7 +11,7 @@ const useDeliveries = () => {
 
     const getDeliveriesByResidenceId = async (residenceId) => {
         setLoadingDeliveries(true)
-
+        
         const response = await DeliveriesService().getDeliveriesByResidenceId(residenceId);
         setLoadingDeliveries(false)
 
@@ -40,7 +39,7 @@ const useDeliveries = () => {
         setLoadingDeliveries(true);
 
         const delivery = {
-           residence_id: values.residenceId,
+           residence_id: parseInt(values.residenceId),
            user_id: values.userId
         };
 
@@ -75,7 +74,6 @@ const useDeliveries = () => {
         createDelivery,
         updateDelivery
     ];
-
 };
 
 export default useDeliveries;

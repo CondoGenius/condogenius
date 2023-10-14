@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
 import { Formik } from 'formik';
-import * as Yup from 'yup';
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import * as Yup from 'yup';
 
 import { Button } from "react-materialize";
-import { toast } from 'materialize-css';
-import useResidences from "../../../../../states/residences/hooks/useResidences";
 import ErrorField from '../../../../../components/utils/errorField';
 import useDeliveries from "../../../../../states/deliveries/hooks/useDeliveries";
+import useResidences from "../../../../../states/residences/hooks/useResidences";
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormResidentSchema = Yup.object().shape({
@@ -18,7 +17,6 @@ const onSubmit = async (values, createDelivery, getDeliveries) => {
     const response = await createDelivery(values);
 
     if (response.status === 201) {
-        toast.success("Entrega cadastrada com sucesso");
         getDeliveries();
     }
 };

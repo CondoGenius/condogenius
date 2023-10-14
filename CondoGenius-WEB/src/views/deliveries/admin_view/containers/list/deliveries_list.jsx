@@ -1,19 +1,20 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { Button, Collection, CollectionItem } from 'react-materialize';
+import { useSelector } from "react-redux";
 
 import { toast } from 'react-toastify';
 
 import useDeliveries from "../../../../../states/deliveries/hooks/useDeliveries";
 import useResidences from "../../../../../states/residences/hooks/useResidences";
-import { FormatDate } from "../../../../../utils/utils";
+import { FormatDateZone } from "../../../../../utils/utils";
 
-const updateStatus = (e, id, updateDelivery) => {
+const updateStatus = async (e, id, updateDelivery, getDeliveries) => {
     e.preventDefault();
-    const response = updateDelivery(id);
+    const response = await updateDelivery(id);
 
     if(response?.status === 200) {
-        toast.success("Status de entrega atualizado.");
+        toast.success("Entrega atualizada com sucesso");
+        getDeliveries();
     }
 };
 
@@ -47,16 +48,16 @@ const DelivriesList = () => {
                             Residência {residences.find((residence) => residence.id === delivery.residence_id)?.number}
                             </span>
                             <span>
-                            {delivery.received ? FormatDate(delivery.received) : '-'}
+                            {delivery.received_at ? FormatDateZone(delivery.received_at) : '-'}
                             </span>
                             <span>
-                            {delivery.delivered ? FormatDate(delivery.delivered) : '-'}
+                            {delivery.delivered_at ? FormatDateZone(delivery.delivered_at) : '-'}
                             </span>
                             <span>
                             {delivery.status}
                             </span>
                             <span>
-                            <Button onClick={(e) => updateStatus(e, delivery.id, updateDelivery)}>Marcar como entregue</Button>
+                            {delivery.status === 'Na portaria' && <Button onClick={(e) => updateStatus(e, delivery.id, updateDelivery, getDeliveries)}>Marcar como entregue</Button>}
                             </span>
                         </CollectionItem>
                     ))

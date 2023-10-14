@@ -1,5 +1,5 @@
 export default class ResidentModel {
-    constructor({ id, userId, cpf, email, name, lastName, contact, birthday }) {
+    constructor({ id, userId, cpf, email, name, lastName, contact, birthday, residenceId }) {
       this.id = id;
       this.userId = userId;
       this.cpf = cpf;
@@ -8,6 +8,7 @@ export default class ResidentModel {
       this.lastName = lastName;
       this.contact = contact;
       this.birthday = birthday;
+      this.residenceId = residenceId;
     }
 }
 

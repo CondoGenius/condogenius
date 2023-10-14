@@ -11,4 +11,8 @@
       <ProjectReference Include="..\CondoGenius-Complaints-Domain\CondoGenius-Complaints-Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.1.11" />
+    </ItemGroup>
+
 </Project>

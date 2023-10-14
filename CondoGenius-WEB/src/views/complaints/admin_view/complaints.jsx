@@ -2,7 +2,7 @@ import { Formik } from 'formik';
 import React, { useEffect } from 'react';
 import { Button, Collection, CollectionItem } from 'react-materialize';
 import { useSelector } from "react-redux";
-import { FormatDate } from "../../../utils/utils";
+import { FormatDateZone } from "../../../utils/utils";
 
 import { toast } from 'react-toastify';
 import ModalContent from "../../../components/modal/modal_content";
@@ -75,7 +75,7 @@ const ComplaintsUser = () => {
             <div className='list_view'>
                 <Collection>
                 <CollectionItem key="header" className='list_header'>
-                    <span>Nome</span>
+                    <span>Morador</span>
                     <span>Residência</span>
                     <span className='complaint_list_body'>Reclamação</span>
                     <span>Data</span>
@@ -86,16 +86,16 @@ const ComplaintsUser = () => {
                     complaints.list.map(complaint => (
                         <CollectionItem key={complaint.id}> 
                             <span>
-                            {complaint.name}
+                            {complaint.resident_name}
                             </span>
                             <span>
                             Residência {residences.find((residence) => residence.id === complaint.residence_id)?.number}
                             </span>
                             <span className='complaint_list_text'>
-                            {complaint.text}
+                            {complaint.description}
                             </span>
                             <span>
-                            {FormatDate(complaint.date)}
+                            {FormatDateZone(complaint.date)}
                             </span>
                             <span className='complaint_list_status'>
                                 {complaint.status === 'notified' && 

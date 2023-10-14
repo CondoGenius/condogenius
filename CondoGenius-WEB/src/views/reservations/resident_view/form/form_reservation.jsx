@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
 import { Formik } from 'formik';
+import React, { useState } from 'react';
+import { useSelector } from "react-redux";
+import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import ErrorField from '../../../../components/utils/errorField';
 import { Button } from 'react-materialize';
+import ErrorField from '../../../../components/utils/errorField';
 
+import useReservations from '../../../../states/reservations/hooks/useReservations';
 
+import { toast } from 'materialize-css';
 import './form_reservation.scss';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
@@ -14,8 +18,13 @@ const FormReservationSchema = Yup.object().shape({
     date: Yup.string().ensure().required(requiredFieldMessage),
 });
 
-const onSubmit = async (values, area) => {
-    
+const onSubmit = async (values, createReservation, history) => {
+    const response = await createReservation(values);
+
+    if (response?.status === 201) {
+        toast.success("Reserva realizada com sucesso!");
+        history.push('/my-reservations');
+    }
 };
 
 const renderFieldTypeEvent = (handleChange, handleBlur, values) => (
@@ -57,17 +66,24 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => 
     </Button>
 );
 
-const FormReservations = (area) => {
+const FormReservations = (areaId) => {
+    const history = useHistory();
     const [isSubmit, setIsSubmit] = useState(false);
+    
+    const resident = useSelector((state) => state.resident.data);
+
+    const [, , , , createReservation, , , ] = useReservations();
 
     return (
         <Formik        
             initialValues={{
+                residentId: resident.id,
+                areaId: areaId,
                 type: '',
                 date: '',
             }}
             validationSchema={FormReservationSchema}
-            onSubmit={values => {onSubmit(values, area)}}
+            onSubmit={values => {onSubmit(values, createReservation, history)}}
         > 
         {({
             handleChange,
