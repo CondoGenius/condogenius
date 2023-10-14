@@ -81,9 +81,22 @@ CREATE TABLE IF NOT EXISTS common_area
     name          VARCHAR(255) NOT NULL,
     capacity      INTEGER      NOT NULL,
     business_hour VARCHAR(255) NOT NULL,
-    status        boolean      NOT NULL,
+    is_active     boolean      NOT NULL,
+    image         text,
     created_at    DATETIME     NOT NULL,
     updated_at    DATETIME     NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS guest_list
+(
+    id         INTEGER AUTO_INCREMENT PRIMARY KEY,
+    user_id    INTEGER      NOT NULL,
+    name       VARCHAR(255) NOT NULL,
+    phone      VARCHAR(255) NOT NULL,
+    cpf        VARCHAR(255) NOT NULL,
+    created_at DATETIME     NOT NULL,
+    updated_at DATETIME     NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 CREATE TABLE IF NOT EXISTS reserve_common_area
@@ -91,11 +104,13 @@ CREATE TABLE IF NOT EXISTS reserve_common_area
     id             INTEGER AUTO_INCREMENT PRIMARY KEY,
     common_area_id INTEGER  NOT NULL,
     user_id        INTEGER  NOT NULL,
+    guest_list_id  INTEGER,
     reserve_date   DATETIME NOT NULL,
     created_at     DATETIME NOT NULL,
     updated_at     DATETIME NOT NULL,
     FOREIGN KEY (common_area_id) REFERENCES common_area (id),
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (guest_list_id) REFERENCES guest_list (id)
 );
 
 CREATE TABLE IF NOT EXISTS check_in_common_area
@@ -170,14 +185,13 @@ CREATE TABLE IF NOT EXISTS poll_votes
 
 CREATE TABLE IF NOT EXISTS complaints
 (
-    id                   INTEGER AUTO_INCREMENT PRIMARY KEY,
-    title                VARCHAR(255) NOT NULL,
-    user_id              INTEGER      NOT NULL,
-    description          VARCHAR(255) NOT NULL,
-    user_to_complaint_id INTEGER      NOT NULL,
-    status               varchar(255) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users (id),
-    FOREIGN KEY (user_to_complaint_id) REFERENCES users (id)
+    id                        INTEGER AUTO_INCREMENT PRIMARY KEY,
+    resident_id               INTEGER      NOT NULL,
+    description               text         NOT NULL,
+    residence_to_complaint_id INTEGER      NOT NULL,
+    status                    varchar(255) NOT NULL,
+    FOREIGN KEY (resident_id) REFERENCES residents (id),
+    FOREIGN KEY (residence_to_complaint_id) REFERENCES residences (id)
 );
 
 CREATE TABLE IF NOT EXISTS notifications
@@ -217,20 +231,6 @@ CREATE TABLE IF NOT EXISTS events
     updated_at  DATETIME     NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS guest_list
-(
-    id         INTEGER AUTO_INCREMENT PRIMARY KEY,
-    event_id   INTEGER      NOT NULL,
-    user_id    INTEGER      NOT NULL,
-    name       VARCHAR(255) NOT NULL,
-    phone      VARCHAR(255) NOT NULL,
-    cpf        VARCHAR(255) NOT NULL,
-    created_at DATETIME     NOT NULL,
-    updated_at DATETIME     NOT NULL,
-    FOREIGN KEY (event_id) REFERENCES events (id),
-    FOREIGN KEY (user_id) REFERENCES users (id)
-);
-
 INSERT INTO roles (name)
 VALUES ('Admin'),
        ('Resident');
@@ -260,7 +260,7 @@ INSERT INTO residents (user_id, residence_id, cpf, email, name, last_name, conta
 VALUES (null, 2, '98765432100', 'maria@email.com', 'Maria', 'Luz', '+55 11 1234-5678', NOW(), NOW(), 1, "2000-01-31");
 
 INSERT INTO delivery_control (status, user_id, residence_id)
-VALUES ('Na portaria', 1, 1, NOW(), NOW());
+VALUES ('Na portaria', 1, 1);
 
 INSERT INTO delivery_control (status, user_id, residence_id)
-VALUES ('Entregue', 1, 2, NOW(), NOW());
+VALUES ('Entregue', 1, 2);
