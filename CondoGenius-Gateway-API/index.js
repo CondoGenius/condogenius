@@ -2,12 +2,22 @@ const express = require("express");
 const cors = require("cors");
 const proxy = require("express-http-proxy");
 
+const db = require("./models/");
+
 const app = express();
 const router = express.Router(); // Crie um objeto Router
 
 const authController = require("./controllers/authController");
 
 const authMiddleware = require("./middlewares/auth");
+
+db.sequelize.sync()
+  .then(() => {
+    console.log("Synced db.");
+  })
+  .catch((err) => {
+    console.log("Failed to sync db: " + err.message);
+  });
 
 app.use(cors());
 app.use(express.json());
