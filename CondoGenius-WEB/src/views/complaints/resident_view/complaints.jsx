@@ -1,12 +1,11 @@
 import React from 'react';
+import { Button, Collection, CollectionItem } from 'react-materialize';
 import ModalContent from "../../../components/modal/modal_content";
-import { Collection, CollectionItem, Button } from 'react-materialize';
 
+import { FormatDateZone } from "../../../utils/utils";
+
+import { MdAddCircle, MdCancel, MdCheckBox, MdInfo } from 'react-icons/md';
 import { listComplaints } from '../../../states/complaints/mock';
-import { MdAddCircle } from 'react-icons/md';
-import { MdCheckBox } from 'react-icons/md';
-import { MdCancel } from 'react-icons/md';
-import { MdInfo } from 'react-icons/md';
 
 import './complaints.scss';
 
@@ -39,13 +38,17 @@ const ComplaintsResident = () => {
             <Collection>
             <CollectionItem key="header" className='list_header'>
                 <span className='complaint_list_body'>Reclamação</span>
+                <span>Data</span>
                 <span>Status</span>
                 <span />
             </CollectionItem>
             {listComplaints.map(complaint => (
                 <CollectionItem key={complaint.id}>
                     <span className='complaint_list_text'>
-                    {complaint.text}
+                    {complaint.description}
+                    </span>
+                    <span>
+                    {FormatDateZone(complaint.date)}
                     </span>
                     <span className='complaint_list_status'>
                         {complaint.status === 'notified' && <MdCheckBox className='complaint_status_notified'/>}

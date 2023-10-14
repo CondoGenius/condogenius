@@ -13,14 +13,24 @@ import './list_reservations.scss';
 import useReservations from '../../../../states/reservations/hooks/useReservations';
 import { FormatDateZone } from '../../../../utils/utils';
 
+
 const ListReservations = () => {
     const resident = useSelector((state) => state.resident)
-    const [loadingReservations, getAreasFromReservations, getReservationsByUserId, , createReservation, createGuestList, updateGuestList, deleteReservation] = useReservations();
-
+    const [loadingReservations, getAreasFromReservations, getReservationsByUserId, , , , , deleteReservation] = useReservations();
+    
     useEffect(() => {
         getAreasFromReservations();
-        // getReservationsByUserId(resident.data.id);
+        getReservationsByUserId(resident.data.id);
     }, []);
+
+    const submitDeleteReservation = async(e, id) => {
+        e.preventDefault();
+        const response = await deleteReservation(id);
+    
+        if(response?.status === 200) {
+            getReservationsByUserId(resident.id);
+        }
+    };
 
     return (
         <>
@@ -41,23 +51,27 @@ const ListReservations = () => {
                         <span />
                         <span />
                     </CollectionItem>
-                    {resident.reservations.map(reservation => (
-                        <CollectionItem key={reservation.id}>
-                            <span>
-                            {reservation.name}
-                            </span>
-                            <span>
-                            {FormatDateZone(reservation.date)}
-                            </span>
-                            <ModalContent
-                                header={`Lista de convidados - ${reservation.name} ${reservation.date}`}
-                                trigger={<span className='guest_list_action'>gerenciar lista de convidados</span>}
-                                children={<GuestForm />}
-                                className="complaint"
-                            />
-                            <span><MdRemoveCircleOutline /></span>
-                    </CollectionItem>
-                ))}
+                    {resident?.reservations?.length > 0 ? (
+                        resident.reservations.map(reservation => (
+                            <CollectionItem key={reservation.id}>
+                                <span>
+                                {reservation.name}
+                                </span>
+                                <span>
+                                {FormatDateZone(reservation.date)}
+                                </span>
+                                <ModalContent
+                                    header={`Lista de convidados - ${reservation.name} ${reservation.date}`}
+                                    trigger={<span className='guest_list_action'>gerenciar lista de convidados</span>}
+                                    children={<GuestForm list={reservation.guestList} reservationId={reservation.id} />}
+                                    className="complaint"
+                                />
+                                <span><MdRemoveCircleOutline onClick={(e) => {submitDeleteReservation(e, reservation.id)}}/></span>
+                        </CollectionItem>
+                        ))
+                    ) : (
+                        <span className="message_not_result">Nenhuma reserva encontrada</span>
+                    )}
                 </Collection>
             </div>
         </>

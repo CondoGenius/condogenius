@@ -58,7 +58,8 @@ const useReservations = () => {
         setLoadingReservations(true);
 
         const reservation = {
-            // user_id: values.id,
+            resident_id: values.residentId,
+            area_id: values.areaId,
             type: values.type,
             date: values.date
         };
@@ -73,22 +74,22 @@ const useReservations = () => {
         return response;
     };
 
-    const createGuestList = async (values) => {
-        setLoadingReservations(true);
+    // const createGuestList = async (values) => {
+    //     setLoadingReservations(true);
 
-        const reservation = {
+    //     const reservation = {
          
-        };
+    //     };
 
-        const response = await ReservationsService().createReservation(reservation);
+    //     const response = await ReservationsService().createReservation(reservation);
 
-        if (response?.status !== 201) {
-            dispatch(setResidentAction({ error: "Erro ao cadastrar reserva." }));
-        }
+    //     if (response?.status !== 201) {
+    //         dispatch(setResidentAction({ error: "Erro ao cadastrar reserva." }));
+    //     }
 
-        setLoadingReservations(false);
-        return response;
-    };
+    //     setLoadingReservations(false);
+    //     return response;
+    // };
 
     const updateGuestList = async (values) => {
         setLoadingReservations(false);
@@ -127,7 +128,7 @@ const useReservations = () => {
         getReservationsByUserId,
         getReservations,
         createReservation,
-        createGuestList,
+        // createGuestList,
         updateGuestList,
         deleteReservation
     ];

@@ -1,14 +1,17 @@
 import { Formik } from 'formik';
 import React, { useState } from 'react';
 import { Button, Collection, CollectionItem } from 'react-materialize';
-import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
 import ErrorField from '../../../../../components/utils/errorField';
 
 import './guest_form.scss';
 
+import useReservations from '../../../../../states/reservations/hooks/useReservations.js';
+
 import { MdAddBox, MdClear } from 'react-icons/md';
+import { useSelector } from 'react-redux';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormGuestListSchema = Yup.object().shape({
@@ -16,22 +19,30 @@ const FormGuestListSchema = Yup.object().shape({
     document: Yup.string().ensure().required(requiredFieldMessage),
 });
 
-const onSubmit = async (values, area) => {
-    
+const onSubmit = async (values, updateGuestList, getReservationsByUserId, userId) => {
+    const response = await updateGuestList(values);
+
+    if (response?.status === 200) {
+        toast.success("Lista de convidados atualizada!");
+        getReservationsByUserId(userId);
+    }
 };
 
-const GuestForm = () => {
+const GuestForm = ({ guestList, reservationId }) => {
     const [isSubmit, setIsSubmit] = useState(false);
-    const resident = useSelector((state) => state.resident.reservations);
+    const user = useSelector((state) => state.user.data)
+
+    const [, , getReservationsByUserId, , , , updateGuestList, ] = useReservations();
     
     return (
         <Formik        
             initialValues={{
+                reservationId: reservationId,
                 name: '',
                 document: '',
             }}
             validationSchema={FormGuestListSchema}
-            onSubmit={values => {onSubmit(values)}}
+            onSubmit={values => {onSubmit(values, updateGuestList, getReservationsByUserId, user.id)}}
         > 
         {({
             handleChange,
@@ -69,19 +80,23 @@ const GuestForm = () => {
                     <Button onClick={() => setIsSubmit(true)}><MdAddBox /> Adicionar</Button>
                 </div>
                 <Collection>
-                    {resident.guestList.map(guest => (
-                        <CollectionItem key={guest.id}>
-                            <span>
-                            {guest.name}
-                            </span>
-                            <span className='guest_list_info'>
-                            {guest.document}
-                            </span>
-                            <span>
-                                <MdClear />
-                            </span>
-                    </CollectionItem>
-                    ))}
+                {guestList?.length > 0 ? (
+                        guestList.map(guest => (
+                            <CollectionItem key={guest.id}>
+                                <span>
+                                {guest.name}
+                                </span>
+                                <span className='guest_list_info'>
+                                {guest.document}
+                                </span>
+                                <span>
+                                    <MdClear />
+                                </span>
+                        </CollectionItem>
+                        ))
+                    ) : (
+                        <span className="message_not_result">Nenhum convidado cadastado</span>
+                    )}
                 </Collection>
             </div>
         )}

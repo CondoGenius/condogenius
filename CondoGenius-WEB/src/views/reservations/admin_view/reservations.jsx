@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 
 import Loading from "../../../components/loading/loading";
 import ModalContent from "../../../components/modal/modal_content";
+import { FormatDateZone } from "../../../utils/utils";
 
 import useReservations from "../../../states/reservations/hooks/useReservations";
 import './reservations.scss';
@@ -32,7 +33,7 @@ const renderGuestListFromReservation = (guestList) => (
 const Reservations = () => {
     const reservations = useSelector((state) => state.reservations);
 
-    const [loadingReservations, getAreasFromReservations, getReservationsByUserId, getReservations, createReservation, createGuestList, updateGuestList, deleteReservation] = useReservations();
+    const [loadingReservations, , , getReservations, , , , ] = useReservations();
 
     useEffect(() => {
         getReservations();
@@ -64,13 +65,13 @@ const Reservations = () => {
                         reservations.list.map(reservation => (
                             <CollectionItem key={reservations.id}>
                                 <span>
-                                {reservation.resident}
+                                {`${reservation.name} ${reservation.last_name}`}
                                 </span>
                                 <span>
                                 {reservation.name}
                                 </span>
                                 <span>
-                                {reservation.date}
+                                {FormatDateZone(reservation.date)}
                                 </span>
                                 <ModalContent
                                     header={`Lista de convidados - ${reservation.name} ${reservation.date}`}

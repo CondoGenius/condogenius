@@ -23,13 +23,14 @@ const navLink = (route, icon, name) => {
 
 const logout = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("resident");
 
     window.location.reload()
 };
 
 const Navbar = () => {
     const user = useSelector((state => state.user.data));
-    console.log('user: ', user)
+
     return (
         <div className="navbar_content">
             <div className="logo_content">
@@ -49,8 +50,6 @@ const Navbar = () => {
                     {navLink('/meetings', SiGooglemeet, 'Reuniões')}
 
                     {navLink('/complaints', TiWarning, 'Reclamações')}
-
-                    {!user.isAdmin && navLink('/deliveries-list', BsBoxSeamFill, 'Entregas')}
 
                     {user.isAdmin && navLink('/deliveries-list', BsBoxSeamFill, 'Entregas')}
                     {!user.isAdmin && navLink('/deliveries', BsBoxSeamFill, 'Entregas')}
