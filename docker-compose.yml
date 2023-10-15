@@ -25,24 +25,21 @@ services:
     volumes:
       - /var/lib/mysql
 
-  database-runner:
-    build:
-      context: ./Data
-      dockerfile: Dockerfile
-    depends_on:
-      - mysql
-      - data_database
-
   gateway:
     image: gateway
     build:
-      context: ./
-      dockerfile: CondoGenius-API-Gateway/Dockerfile
+      context: ./CondoGenius-Gateway-API
+      dockerfile: Dockerfile
     environment:
-      - ASPNETCORE_URLS=http://0.0.0.0:5000
-      - Iterations=50
+      NODE_ENV: development
+    command: npm start
+    volumes:
+      - ./gateway:/usr/gateway
     ports:
       - "5000:5000"
+    depends_on:
+      - mysql
+
 
   complaints:
     image: complaints
@@ -102,7 +99,7 @@ services:
       NODE_ENV: development
     command: npm start
     volumes:
-      - ./residents:/usr/residents
+      - ./residents:/usr/residents:cached
     ports:
       - "7008:7008"
     depends_on:

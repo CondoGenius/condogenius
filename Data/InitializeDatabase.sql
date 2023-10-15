@@ -10,13 +10,15 @@ CREATE TABLE IF NOT EXISTS roles
     name VARCHAR(255) UNIQUE NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS users
+CREATE TABLE IF NOT EXISTS  users 
 (
-    id        INTEGER AUTO_INCREMENT PRIMARY KEY,
-    email     VARCHAR(255) UNIQUE NOT NULL,
-    password  VARCHAR(255)        NOT NULL,
-    is_active BOOLEAN             NOT NULL,
-    role_id   INTEGER             NOT NULL,
+    id         INTEGER AUTO_INCREMENT PRIMARY KEY,
+    email      VARCHAR(255) UNIQUE NOT NULL,
+    password   VARCHAR(255) NOT NULL,
+    is_active  BOOLEAN NOT NULL,
+    role_id    INTEGER NOT NULL,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL,
     FOREIGN KEY (role_id) REFERENCES roles (id)
 );
 
