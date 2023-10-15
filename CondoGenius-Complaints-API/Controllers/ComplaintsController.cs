@@ -36,6 +36,13 @@ public class ComplaintsController : ControllerBase
     {
         return Ok(await _handler.ListComplaintsByResidence(id));
     }
+    
+    // GET: api/complaints/resident/1 (Read)
+    [HttpGet("resident/{id}")]
+    public async Task<IActionResult> GetComplaintByResident([FromRoute] int id)
+    {
+        return Ok(await _handler.ListComplaintsByResident(id));
+    }
 
     // POST: api/complaints (Create)
     [HttpPost]

@@ -10,6 +10,7 @@ public interface IComplaintsHandler
     public Task<List<Complaint>> ListComplaints();
     public Task<Complaint> ListComplaint(int id);
     public Task<List<Complaint>> ListComplaintsByResidence(int id);
+    public Task<List<Complaint>> ListComplaintsByResident(int id);
     public Task<int> DeleteComplaint(int id);
 
 }

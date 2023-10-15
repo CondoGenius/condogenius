@@ -33,6 +33,11 @@ public class ComplaintsHandler : IComplaintsHandler
         return await _repository.GetComplaintsByResidence(id);
     }
 
+    public async Task<List<Complaint>> ListComplaintsByResident(int id)
+    {
+        return await _repository.GetComplaintsByResident(id);
+    }
+
     public async Task<int> DeleteComplaint(int id)
     {
         return await _repository.DeleteComplaint(id);
