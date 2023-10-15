@@ -192,6 +192,8 @@ CREATE TABLE IF NOT EXISTS complaints
     description               text         NOT NULL,
     residence_to_complaint_id INTEGER      NOT NULL,
     status                    varchar(255) NOT NULL,
+    created_at                DATETIME     NOT NULL DEFAULT NOW(),
+    updated_at                DATETIME     NOT NULL ON UPDATE NOW(),
     FOREIGN KEY (resident_id) REFERENCES residents (id),
     FOREIGN KEY (residence_to_complaint_id) REFERENCES residences (id)
 );

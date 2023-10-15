@@ -9,7 +9,7 @@ public class CreateComplaintRequest
     [JsonProperty("resident_id")]
     public int ResidentId { get; set; }
     [JsonProperty("description")]
-    public string Description { get; set; }
+    public string? Description { get; set; }
     [JsonProperty("status")]
     public string Status { get; set; }
 }

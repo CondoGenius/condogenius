@@ -1,4 +1,3 @@
 ﻿UPDATE complaints
-SET description = @Description,
-    status      = @Status
+SET status = @Status
 WHERE id = @Id;

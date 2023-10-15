@@ -4,10 +4,6 @@ using CondoGenius_Complaints_Infra.Queries.Interface;
 using Dapper;
 using Global.Shared;
 using Global.Shared.Database.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CondoGenius_Complaints_Infra.Repository
 {
@@ -52,7 +48,6 @@ namespace CondoGenius_Complaints_Infra.Repository
                 return await conn.ExecuteAsync(_queries.UpdateComplaint(), new
                 {
                     Id = id,  // O ID da reclamação a ser atualizada
-                    Description = updatedEntity.Description,  // A nova descrição da reclamação
                     Status = updatedEntity.Status  // O novo status da reclamação
                 });
             }
