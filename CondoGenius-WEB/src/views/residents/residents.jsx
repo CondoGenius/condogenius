@@ -7,7 +7,6 @@ import useResidents from '../../states/residents/hooks/useResidents';
 import ResidentActions from './containers/actions/resident_actions';
 import ResidentList from './containers/list/residentList';
 
-import 'materialize-css';
 import './residents.scss';
 
 const Residents = () => {
