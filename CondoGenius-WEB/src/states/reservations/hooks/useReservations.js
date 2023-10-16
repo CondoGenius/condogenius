@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import ReservationsService from '../../../services/reservations/service';
 
 import { setReservationsAction } from '../../../store/reservations/actions';
-import { setResidentAction } from "../../../store/resident/actions";
+import { setResidentReservationsAction } from "../../../store/resident/actions";
 
 const useReservations = () => {
     const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const useReservations = () => {
         if (response?.status === 200) {
             dispatch(setReservationsAction({ areas: response.data }));
         } else {
-            dispatch(setResidentAction({ error: "Erro ao listar áreas."}));
+            dispatch(setResidentReservationsAction({ error: "Erro ao listar áreas."}));
         }
 
         setLoadingReservations(false);
@@ -30,9 +30,9 @@ const useReservations = () => {
         const response = await ReservationsService().getReservationsByUserId(userId);
 
         if (response?.status === 200) {
-            dispatch(setResidentAction({ reservations: response.data }));
+            dispatch(setResidentReservationsAction({ reservations: response.data }));
         } else {
-            dispatch(setResidentAction({ error: "Erro ao listar suas reservas."}));
+            dispatch(setResidentReservationsAction({ error: "Erro ao listar suas reservas."}));
         }
 
         setLoadingReservations(false);
@@ -67,7 +67,7 @@ const useReservations = () => {
         const response = await ReservationsService().createReservation(reservation);
 
         if (response?.status !== 201) {
-            dispatch(setResidentAction({ error: "Erro ao cadastrar reserva." }));
+            dispatch(setResidentReservationsAction({ error: "Erro ao cadastrar reserva." }));
         }
 
         setLoadingReservations(false);
@@ -101,7 +101,7 @@ const useReservations = () => {
         const response = await ReservationsService().updateGuestList(guestList);
 
         if (response?.status !== 200) {
-            dispatch(setResidentAction({ error: "Erro ao atualiazar lista de convidados." }));
+            dispatch(setResidentReservationsAction({ error: "Erro ao atualiazar lista de convidados." }));
         }
 
         setLoadingReservations(false);
@@ -114,7 +114,7 @@ const useReservations = () => {
         const response = await ReservationsService().deleteReservation(id);
 
         if (response?.status !== 200) {
-            dispatch(setResidentAction({ error: "Erro ao deletar reserva." }));
+            dispatch(setResidentReservationsAction({ error: "Erro ao deletar reserva." }));
         }
         
         setLoadingReservations(false);
@@ -122,7 +122,7 @@ const useReservations = () => {
     };
     
 
-    return [
+    return {
         loadingReservations,
         getAreasFromReservations,
         getReservationsByUserId,
@@ -131,7 +131,7 @@ const useReservations = () => {
         // createGuestList,
         updateGuestList,
         deleteReservation
-    ];
+    };
 
 };
 

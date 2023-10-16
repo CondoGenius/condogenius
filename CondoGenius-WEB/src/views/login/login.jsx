@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
 import { Formik } from 'formik';
-import * as Yup from 'yup';
-
+import React, { useState } from 'react';
 import { Button } from 'react-materialize';
-import ErrorField from '../../components/utils/errorField';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import * as Yup from 'yup';
 import logo from '../../assets/condogenius.png';
-
+import Loading from '../../components/loading/loading';
+import ErrorField from '../../components/utils/errorField';
+import useResidents from '../../states/residents/hooks/useResidents';
 import useUser from '../../states/user/hooks/useUser';
 
 import './login.scss';
@@ -17,10 +19,19 @@ const FormLoginSchema = Yup.object().shape({
     password: Yup.string().ensure().required(requiredFieldMessage)
 });
 
-const onSubmit = async (values, authUserLogin, setMessageSubmitLogin) => {
-    const response = await authUserLogin(values.email, values.password);
+const onSubmit = async (values, authUserLogin, setMessageSubmitLogin, user, getResidentByUserId) => {
+    let response = await authUserLogin(values.email, values.password);
     if (response.status === 200) {
-        window.location.reload();
+        if (!user.isAdmin) {
+            response = await getResidentByUserId(user.id);
+        }
+
+        if (response.status === 200) {
+            window.location.reload();
+        } else {
+            toast.error("Morador não encontrado no nosso banco de dados. Entre em contato com um administrador");
+        }
+
     } else {
         setMessageSubmitLogin("Usuário ou senha incorretos.")
     }
@@ -65,18 +76,25 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => 
 
 const Login = () => {
     const [isSubmit, setIsSubmit] = useState(false);
-    const { authUserLogin } = useUser();
+    const { loadingUser, authUserLogin } = useUser();
+    const { loadingResidents, getResidentByUserId } = useResidents();
     const [messageSubmitLogin, setMessageSubmitLogin] = useState(null);
+    const user = useSelector((state) => state.user.data)
     
     return (
         <div className='background_content'>
+            <Loading
+                show={
+                    loadingUser || loadingResidents
+                }
+            />
             <Formik        
                 initialValues={{
                     email: '',
                     password: ''
                 }}
                 validationSchema={FormLoginSchema}
-                onSubmit={values => {onSubmit(values, authUserLogin, setMessageSubmitLogin)}}
+                onSubmit={values => {onSubmit(values, authUserLogin, setMessageSubmitLogin, user, getResidentByUserId)}}
             > 
                 {({
                     handleChange,

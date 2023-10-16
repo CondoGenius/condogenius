@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
-import * as Yup from 'yup';
-
-import { Button, Toast } from 'react-materialize';
-import ErrorField from '../../../../components/utils/errorField';
+import React, { useState } from 'react';
+import { Button } from 'react-materialize';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import * as Yup from 'yup';
+import ErrorField from '../../../../components/utils/errorField';
+import useUser from '../../../../states/user/hooks/useUser';
 
 import './register.scss';
-import useUser from '../../../../states/user/hooks/useUser';
-import { useSelector } from 'react-redux';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormLoginSchema = Yup.object().shape({

@@ -1,8 +1,7 @@
-import React, { useState, useRef } from "react";
 import { Formik } from 'formik';
-import * as Yup from 'yup';
-
+import React, { useRef, useState } from "react";
 import { Button } from "react-materialize";
+import * as Yup from 'yup';
 
 import './survey_form.scss';
 

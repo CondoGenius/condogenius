@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import { Button, Collection, CollectionItem } from 'react-materialize';
 import { useSelector } from "react-redux";
-
 import { toast } from 'react-toastify';
-
 import useDeliveries from "../../../../../states/deliveries/hooks/useDeliveries";
 import useResidences from "../../../../../states/residences/hooks/useResidences";
 import { FormatDateZone } from "../../../../../utils/utils";
@@ -22,8 +20,8 @@ const DelivriesList = () => {
     const deliveries = useSelector((state) => state.deliveries.list);
     const residences = useSelector(state => state.residences.list);
 
-    const [ , , getDeliveries, , updateDelivery] = useDeliveries();
-    const [ , getAllResidences ] = useResidences();
+    const {getDeliveries, updateDelivery } = useDeliveries();
+    const { getAllResidences } = useResidences();
 
     useEffect(() => {
         getDeliveries();

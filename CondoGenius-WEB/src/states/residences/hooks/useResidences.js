@@ -23,10 +23,10 @@ const useResidences = () => {
     };
     
 
-    return [
+    return {
         loadingResidences,
         getAllResidences
-    ];
+    };
 
 };
 

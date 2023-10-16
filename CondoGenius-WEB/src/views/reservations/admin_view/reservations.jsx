@@ -2,12 +2,10 @@ import React, { useEffect } from "react";
 import { Collection, CollectionItem } from 'react-materialize';
 import { useSelector } from "react-redux";
 import { toast } from 'react-toastify';
-
 import Loading from "../../../components/loading/loading";
 import ModalContent from "../../../components/modal/modal_content";
-import { FormatDateZone } from "../../../utils/utils";
-
 import useReservations from "../../../states/reservations/hooks/useReservations";
+import { FormatDateZone } from "../../../utils/utils";
 import './reservations.scss';
 
 const renderGuestListFromReservation = (guestList) => (
@@ -33,7 +31,7 @@ const renderGuestListFromReservation = (guestList) => (
 const Reservations = () => {
     const reservations = useSelector((state) => state.reservations);
 
-    const [loadingReservations, , , getReservations, , , , ] = useReservations();
+    const { loadingReservations, getReservations } = useReservations();
 
     useEffect(() => {
         getReservations();

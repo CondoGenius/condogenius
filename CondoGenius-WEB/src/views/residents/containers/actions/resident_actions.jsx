@@ -1,12 +1,10 @@
 import { Formik } from 'formik';
 import React, { useEffect } from "react";
-import { Button } from "react-materialize";
-import { useSelector } from "react-redux";
-
 import { FiRefreshCcw } from 'react-icons/fi';
 import { MdAddBox } from 'react-icons/md';
 import { PiMagnifyingGlassBold } from 'react-icons/pi';
-
+import { Button } from "react-materialize";
+import { useSelector } from "react-redux";
 import ModalContent from "../../../../components/modal/modal_content";
 import Tooltip from "../../../../components/tooltip/tooltip";
 import useResidences from "../../../../states/residences/hooks/useResidences";
@@ -84,7 +82,7 @@ const renderButtonRegisterResident = () => (
 const ResidentActions = ({filters, setFilters}) => {
     const residences = useSelector(state => state.residences.list);
 
-    const [ , getAllResidences ] = useResidences();
+    const { getAllResidences } = useResidences();
 
     useEffect(() => {
         getAllResidences();

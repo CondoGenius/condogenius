@@ -1,8 +1,6 @@
 import React from "react";
-
-import './profile.scss';
-
 import person from '../../assets/person.png';
+import './profile.scss';
 
 const Profile = () => {
 

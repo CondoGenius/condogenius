@@ -1,9 +1,8 @@
 import { Formik } from 'formik';
 import React, { useEffect, useState } from "react";
+import { Button } from "react-materialize";
 import { useSelector } from "react-redux";
 import * as Yup from 'yup';
-
-import { Button } from "react-materialize";
 import ErrorField from '../../../../../components/utils/errorField';
 import useDeliveries from "../../../../../states/deliveries/hooks/useDeliveries";
 import useResidences from "../../../../../states/residences/hooks/useResidences";
@@ -61,8 +60,8 @@ const DeliveriesActions = () => {
     const residences = useSelector(state => state.residences.list);
     const user = useSelector(state => state.user.data);
     
-    const [ , getAllResidences ] = useResidences();
-    const [ , , getDeliveries, createDelivery ,] = useDeliveries();
+    const { getAllResidences } = useResidences();
+    const { getDeliveries, createDelivery } = useDeliveries();
 
     const [isSubmit, setIsSubmit] = useState(false);
 

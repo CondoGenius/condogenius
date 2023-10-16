@@ -22,7 +22,7 @@ const renderCard = (area) => (
 const CardContent = () => {
     const reservations = useSelector((state) => state.reservations);
 
-    const [, getAreasFromReservations, , , , , , ] = useReservations();
+    const { getAreasFromReservations } = useReservations();
 
     useEffect(() => {
         getAreasFromReservations();

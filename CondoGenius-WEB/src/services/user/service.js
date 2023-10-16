@@ -13,7 +13,6 @@ const UserService = () => {
     };
 
     const createUser = (user) => {
-        console.log(process.env)
         return axios.post(`http://localhost:7008/api/user`, user, {
             headers: {
                 'Content-Type': 'application/json',

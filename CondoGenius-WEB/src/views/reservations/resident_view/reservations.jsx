@@ -14,7 +14,7 @@ import './reservations.scss';
 
 const Reservations = () => {
   const resident = useSelector((state) => state.resident);
-  const [loadingReservations, , , , , , , ] = useReservations();
+  const { loadingReservations } = useReservations();
 
   useEffect(() => {
     toast.error(resident.error)

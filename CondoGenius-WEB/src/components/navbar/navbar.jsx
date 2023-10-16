@@ -1,13 +1,12 @@
 import React from 'react';
 import { useSelector } from "react-redux";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 import logo from '../../assets/condogenius.png';
 
 import { BsBoxSeamFill, BsPersonCircle } from 'react-icons/bs';
 import { GiBarbecue } from 'react-icons/gi';
 import { MdExitToApp, MdOutlineHub, MdPeopleAlt } from 'react-icons/md';
-import { SiGooglemeet } from 'react-icons/si';
 import { TiWarning } from 'react-icons/ti';
 
 import './navbar.scss';
@@ -21,14 +20,15 @@ const navLink = (route, icon, name) => {
     );
 };
 
-const logout = () => {
+const logout = (history) => {
     localStorage.removeItem("user");
     localStorage.removeItem("resident");
 
-    window.location.reload()
+    history.push('/');
 };
 
 const Navbar = () => {
+    const history = useHistory();
     const user = useSelector((state => state.user.data));
 
     return (
@@ -47,18 +47,19 @@ const Navbar = () => {
                     {/* Resident routes */}
                     {!user.isAdmin && navLink('/reservations', GiBarbecue, 'Reservas')}
 
-                    {navLink('/meetings', SiGooglemeet, 'Reuniões')}
+                    {!user.isAdmin && navLink('/meetings-list', GiBarbecue, 'Reuniões')}
 
-                    {navLink('/complaints', TiWarning, 'Reclamações')}
+                    {user.isAdmin && navLink('/complaints-list', TiWarning, 'Reclamações')}
+                    {!user.isAdmin && navLink('/complaints', TiWarning, 'Reclamações')}
 
-                    {user.isAdmin && navLink('/deliveries-list', BsBoxSeamFill, 'Entregas')}
-                    {!user.isAdmin && navLink('/deliveries', BsBoxSeamFill, 'Entregas')}
+                    {!user.isAdmin && navLink('/deliveries-list', BsBoxSeamFill, 'Entregas')}
+                    {user.isAdmin && navLink('/deliveries', BsBoxSeamFill, 'Entregas')}
 
                 </ul>
             </div>
             <div className="actions_content">
                 {navLink('/profile', BsPersonCircle, 'Perfil')}
-                <span className='exit_icon' onClick={logout}><MdExitToApp className='logout_icon'/></span>
+                <span className='exit_icon' onClick={() => logout(history)}><MdExitToApp className='logout_icon'/></span>
             </div>
         </div>
     );

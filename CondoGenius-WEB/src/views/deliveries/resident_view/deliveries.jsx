@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Collection, CollectionItem } from 'react-materialize';
 import { useSelector } from 'react-redux';
+import Loading from '../../../components/loading/loading';
 
 import useDeliveries from '../../../states/deliveries/hooks/useDeliveries';
 
@@ -10,15 +11,19 @@ const Deliveries = () => {
     const resident = useSelector((state) => state.resident.data);
     const deliveries = useSelector((state) => state.resident.deliveries);
 
-    const [ , getDeliveriesByResidenceId, , , , ] = useDeliveries();
+    const { loadingDeliveries, getDeliveriesByResidenceId } = useDeliveries();
     
-
     useEffect(() => {
         getDeliveriesByResidenceId(resident.residenceId);
     }, []);
     
     return (
         <div> 
+            <Loading
+                show={
+                    loadingDeliveries
+                }
+            />
             <div className='header_content'>
             <h1>Entregas</h1>
             </div>

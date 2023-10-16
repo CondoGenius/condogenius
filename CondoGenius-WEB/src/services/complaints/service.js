@@ -5,7 +5,7 @@ const ComplaintsService = () => {
     const token = localStorage.getItem('user')?.token;
 
     const getComplaintsByResindentId =  (residentId) => {
-        return axios.get(`http://localhost:7008/api/complaints/residence/${residentId}`, 
+        return axios.get(`http://localhost:7002/api/complaints/resident/${residentId}`, 
         {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -17,7 +17,7 @@ const ComplaintsService = () => {
     };
 
     const getComplaints =  () => {
-        return axios.get(`http://localhost:7008/api/complaints`, 
+        return axios.get(`http://localhost:7002/api/complaints`, 
         {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -29,7 +29,7 @@ const ComplaintsService = () => {
     };
 
     const createComplaint = (complaint) => {
-        return axios.post(`http://localhost:7008/api/residents`, complaint, {
+        return axios.post(`http://localhost:7002/api/complaints`, complaint, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 ContentType: 'application/json',
@@ -40,7 +40,7 @@ const ComplaintsService = () => {
     };
 
     const updateComplaint = (complaint) => {
-        return axios.put(`http://localhost:7008/api/residents/${complaint.id}`, complaint, {
+        return axios.put(`http://localhost:7002/api/complaints/${complaint.id}`, complaint, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -50,7 +50,7 @@ const ComplaintsService = () => {
     };
 
     const deleteResident = (id) => {
-        return axios.delete(`http://localhost:7008/api/residents/${id}`, 
+        return axios.delete(`http://localhost:7002/api/complaints/${id}`, 
         {
             headers: {
                 Authorization: `Bearer ${token}`,
