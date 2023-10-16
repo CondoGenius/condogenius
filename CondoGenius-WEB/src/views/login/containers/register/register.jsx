@@ -31,6 +31,7 @@ const onSubmit = async (values, resident, createUser, setMessageSubmitLogin, his
     const response = await createUser(resident.data.email, values.password);
 
     if (response?.status === 201) {
+        toast.success("Usuário cadastrado no banco de dados! Realize seu primeiro login.")
         history.push('/');
     } else {
         toast.error("Ocorreu um erro no cadastro do usuário. Tente novamente mais tarde ou entre em contato com um administrador.")

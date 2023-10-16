@@ -25,6 +25,7 @@ const logout = (history) => {
     localStorage.removeItem("resident");
 
     history.push('/');
+    window.location.reload();
 };
 
 const Navbar = () => {
