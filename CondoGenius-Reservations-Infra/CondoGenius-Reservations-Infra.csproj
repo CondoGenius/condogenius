@@ -11,4 +11,8 @@
       <ProjectReference Include="..\CondoGenius-Reservations-Domain\CondoGenius-Reservations-Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.1.11" />
+    </ItemGroup>
+
 </Project>

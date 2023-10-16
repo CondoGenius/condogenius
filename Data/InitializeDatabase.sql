@@ -10,15 +10,15 @@ CREATE TABLE IF NOT EXISTS roles
     name VARCHAR(255) UNIQUE NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS  users 
+CREATE TABLE IF NOT EXISTS users
 (
     id         INTEGER AUTO_INCREMENT PRIMARY KEY,
     email      VARCHAR(255) UNIQUE NOT NULL,
-    password   VARCHAR(255) NOT NULL,
-    is_active  BOOLEAN NOT NULL,
-    role_id    INTEGER NOT NULL,
-    created_at DATETIME NOT NULL,
-    updated_at DATETIME NOT NULL,
+    password   VARCHAR(255)        NOT NULL,
+    is_active  BOOLEAN             NOT NULL,
+    role_id    INTEGER             NOT NULL,
+    created_at DATETIME            NOT NULL,
+    updated_at DATETIME            NOT NULL,
     FOREIGN KEY (role_id) REFERENCES roles (id)
 );
 
@@ -85,34 +85,32 @@ CREATE TABLE IF NOT EXISTS common_area
     business_hour VARCHAR(255) NOT NULL,
     is_active     boolean      NOT NULL,
     image         text,
-    created_at    DATETIME     NOT NULL,
-    updated_at    DATETIME     NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS guest_list
-(
-    id         INTEGER AUTO_INCREMENT PRIMARY KEY,
-    user_id    INTEGER      NOT NULL,
-    name       VARCHAR(255) NOT NULL,
-    phone      VARCHAR(255) NOT NULL,
-    cpf        VARCHAR(255) NOT NULL,
-    created_at DATETIME     NOT NULL,
-    updated_at DATETIME     NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    created_at    DATETIME     NOT NULL DEFAULT NOW(),
+    updated_at    DATETIME     NOT NULL ON UPDATE NOW()
 );
 
 CREATE TABLE IF NOT EXISTS reserve_common_area
 (
     id             INTEGER AUTO_INCREMENT PRIMARY KEY,
     common_area_id INTEGER  NOT NULL,
-    user_id        INTEGER  NOT NULL,
-    guest_list_id  INTEGER,
+    resident_id    INTEGER  NOT NULL,
     reserve_date   DATETIME NOT NULL,
-    created_at     DATETIME NOT NULL,
-    updated_at     DATETIME NOT NULL,
+    created_at     DATETIME NOT NULL DEFAULT NOW(),
+    updated_at     DATETIME ON UPDATE NOW(),
     FOREIGN KEY (common_area_id) REFERENCES common_area (id),
-    FOREIGN KEY (user_id) REFERENCES users (id),
-    FOREIGN KEY (guest_list_id) REFERENCES guest_list (id)
+    FOREIGN KEY (resident_id) REFERENCES residents (id)
+);
+
+CREATE TABLE IF NOT EXISTS guest_list
+(
+    id         INTEGER AUTO_INCREMENT PRIMARY KEY,
+    name       VARCHAR(255) NOT NULL,
+    phone      VARCHAR(255) NOT NULL,
+    cpf        VARCHAR(255) NOT NULL,
+    reserve_id INTEGER NOT NULL,
+    created_at DATETIME     NOT NULL DEFAULT NOW(),
+    updated_at DATETIME     NOT NULL ON UPDATE NOW(),
+    FOREIGN KEY (reserve_id) REFERENCES reserve_common_area (id)
 );
 
 CREATE TABLE IF NOT EXISTS check_in_common_area

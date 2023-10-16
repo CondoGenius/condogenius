@@ -15,7 +15,8 @@ services:
     image: mysql:latest
     volumes:
       - ./Data/InitializeDatabase.sql:/Data/InitializeDatabase.sql
-    command: bash -c "sleep 80 && mysql -h mysql -uroot -pgenius genius < Data/InitializeDatabase.sql"
+      - ./Data/InsertCommonArea.sql:/Data/InsertCommonArea.sql
+    command: bash -c "sleep 80 && mysql -h mysql -uroot -pgenius genius < Data/InitializeDatabase.sql && mysql -h mysql -uroot -pgenius genius < Data/InsertCommonArea.sql"
     depends_on:
       - mysql
 
