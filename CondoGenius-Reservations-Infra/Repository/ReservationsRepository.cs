@@ -102,9 +102,10 @@ public class ReservationsRepository : BaseRepository, IReservationsRepository
             await conn.OpenAsync();
 
             return (await conn.QueryAsync<Reservation>(_queries.ListReservationsByResident(),
-            new {
-                Id = id 
-            })).ToList();
+                new
+                {
+                    Id = id
+                })).ToList();
         }
         catch (Exception ex)
         {
@@ -129,6 +130,23 @@ public class ReservationsRepository : BaseRepository, IReservationsRepository
         catch (Exception ex)
         {
             Console.WriteLine($"Não foi possível excluir a reserva. Erro: {ex.Message}");
+            throw;
+        }
+    }
+
+    public async Task<List<CommonArea>> ListCommonAreas()
+    {
+        try
+        {
+            await using var conn = GetConnection();
+
+            await conn.OpenAsync();
+
+            return (await conn.QueryAsync<CommonArea>(_queries.ListCommonAreas())).ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Não foi possível obter as áreas comuns. Erro: {ex.Message}");
             throw;
         }
     }

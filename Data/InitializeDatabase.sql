@@ -7,14 +7,14 @@
 CREATE TABLE IF NOT EXISTS roles
 (
     id   INTEGER AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) UNIQUE NOT NULL
+    nameNVARCHAR(255) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS users
 (
     id         INTEGER AUTO_INCREMENT PRIMARY KEY,
-    email      VARCHAR(255) UNIQUE NOT NULL,
-    password   VARCHAR(255)        NOT NULL,
+    email      NVARCHAR(255) UNIQUE NOT NULL,
+    password   NVARCHAR(255)        NOT NULL,
     is_active  BOOLEAN             NOT NULL,
     role_id    INTEGER             NOT NULL,
     created_at DATETIME            NOT NULL,
@@ -25,9 +25,9 @@ CREATE TABLE IF NOT EXISTS users
 CREATE TABLE IF NOT EXISTS administrators
 (
     id         INTEGER AUTO_INCREMENT PRIMARY KEY,
-    cpf        VARCHAR(255) NOT NULL,
-    email      VARCHAR(255) NOT NULL,
-    name       varchar(255) NOT NULL,
+    cpf        NVARCHAR(255) NOT NULL,
+    email      NVARCHAR(255) NOT NULL,
+    name       Nvarchar(255) NOT NULL,
     user_id    INTEGER,
     created_at DATETIME DEFAULT NOW(),
     updated_at DATETIME ON UPDATE NOW(),
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS residences
     number     INTEGER      NOT NULL,
     floor      INTEGER      NOT NULL,
     block      INTEGER      NOT NULL,
-    complement VARCHAR(255) NOT NULL,
+    complement NVARCHAR(255) NOT NULL,
     created_at DATETIME     NOT NULL,
     updated_at DATETIME     NOT NULL
 );
@@ -50,11 +50,11 @@ CREATE TABLE IF NOT EXISTS residents
     id           INTEGER AUTO_INCREMENT PRIMARY KEY,
     user_id      INTEGER,
     residence_id INTEGER      NOT NULL,
-    cpf          VARCHAR(255) NOT NULL,
-    email        VARCHAR(255) NOT NULL,
-    name         VARCHAR(255) NOT NULL,
-    last_name    VARCHAR(255) NOT NULL,
-    contact      VARCHAR(255) NOT NULL,
+    cpf         NVARCHAR(255) NOT NULL,
+    email       NVARCHAR(255) NOT NULL,
+    name        NVARCHAR(255) NOT NULL,
+    last_name   NVARCHAR(255) NOT NULL,
+    contact     NVARCHAR(255) NOT NULL,
     birthday     DATETIME     NOT NULL,
     created_at   DATETIME,
     updated_at   DATETIME,
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS residents
 CREATE TABLE IF NOT EXISTS delivery_control
 (
     id           INTEGER AUTO_INCREMENT PRIMARY KEY,
-    status       VARCHAR(255) NOT NULL,
+    status      NVARCHAR(255) NOT NULL,
     user_id      INTEGER      NOT NULL,
     delivered_at DATETIME     NOT NULL DEFAULT NOW(),
     received_at  DATETIME,
@@ -80,9 +80,9 @@ CREATE TABLE IF NOT EXISTS delivery_control
 CREATE TABLE IF NOT EXISTS common_area
 (
     id            INTEGER AUTO_INCREMENT PRIMARY KEY,
-    name          VARCHAR(255) NOT NULL,
+    name         NVARCHAR(255) NOT NULL,
     capacity      INTEGER      NOT NULL,
-    business_hour VARCHAR(255) NOT NULL,
+    business_hourNVARCHAR(255) NOT NULL,
     is_active     boolean      NOT NULL,
     image         text,
     created_at    DATETIME     NOT NULL DEFAULT NOW(),
@@ -104,9 +104,9 @@ CREATE TABLE IF NOT EXISTS reserve_common_area
 CREATE TABLE IF NOT EXISTS guest_list
 (
     id         INTEGER AUTO_INCREMENT PRIMARY KEY,
-    name       VARCHAR(255) NOT NULL,
-    phone      VARCHAR(255) NOT NULL,
-    cpf        VARCHAR(255) NOT NULL,
+    name      NVARCHAR(255) NOT NULL,
+    phone     NVARCHAR(255) NOT NULL,
+    cpf       NVARCHAR(255) NOT NULL,
     reserve_id INTEGER NOT NULL,
     created_at DATETIME     NOT NULL DEFAULT NOW(),
     updated_at DATETIME     NOT NULL ON UPDATE NOW(),
@@ -128,8 +128,8 @@ CREATE TABLE IF NOT EXISTS posts
 (
     id          INTEGER AUTO_INCREMENT PRIMARY KEY,
     resident_id INTEGER      NOT NULL,
-    title       VARCHAR(255) NOT NULL,
-    content     VARCHAR(255) NOT NULL,
+    title      NVARCHAR(255) NOT NULL,
+    content    NVARCHAR(255) NOT NULL,
     fixed       BOOLEAN      NOT NULL,
     created_at  DATETIME     NOT NULL,
     updated_at  DATETIME     NOT NULL,
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS comments
     id          INTEGER AUTO_INCREMENT PRIMARY KEY,
     post_id     INTEGER      NOT NULL,
     resident_id INTEGER      NOT NULL,
-    content     VARCHAR(255) NOT NULL,
+    content    NVARCHAR(255) NOT NULL,
     created_at  DATETIME     NOT NULL,
     updated_at  DATETIME     NOT NULL,
     FOREIGN KEY (post_id) REFERENCES posts (id),
@@ -154,8 +154,8 @@ CREATE TABLE IF NOT EXISTS poll
 (
     id          INTEGER AUTO_INCREMENT PRIMARY KEY,
     post_id     INTEGER      NOT NULL,
-    title       VARCHAR(255) NOT NULL,
-    description VARCHAR(255) NOT NULL,
+    title      NVARCHAR(255) NOT NULL,
+    descriptionNVARCHAR(255) NOT NULL,
     created_at  DATETIME     NOT NULL,
     updated_at  DATETIME     NOT NULL,
     FOREIGN KEY (post_id) REFERENCES posts (id)
@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS poll_options
 (
     id         INTEGER AUTO_INCREMENT PRIMARY KEY,
     poll_id    INTEGER      NOT NULL,
-    title      VARCHAR(255) NOT NULL,
+    title     NVARCHAR(255) NOT NULL,
     created_at DATETIME     NOT NULL,
     updated_at DATETIME     NOT NULL,
     FOREIGN KEY (poll_id) REFERENCES poll (id)
@@ -200,8 +200,8 @@ CREATE TABLE IF NOT EXISTS notifications
 (
     id         INTEGER AUTO_INCREMENT PRIMARY KEY,
     user_id    INTEGER      NOT NULL,
-    title      VARCHAR(255) NOT NULL,
-    type       VARCHAR(255) NOT NULL,
+    title     NVARCHAR(255) NOT NULL,
+    type      NVARCHAR(255) NOT NULL,
     type_id    INTEGER      NOT NULL,
     created_at DATETIME     NOT NULL,
     updated_at DATETIME     NOT NULL,
@@ -211,8 +211,8 @@ CREATE TABLE IF NOT EXISTS notifications
 CREATE TABLE IF NOT EXISTS fast_list
 (
     id         INTEGER AUTO_INCREMENT PRIMARY KEY,
-    name       VARCHAR(255) NOT NULL,
-    phone      VARCHAR(255) NOT NULL,
+    name      NVARCHAR(255) NOT NULL,
+    phone     NVARCHAR(255) NOT NULL,
     user_id    INTEGER      NOT NULL,
     status     BOOLEAN      NOT NULL,
     created_at DATETIME     NOT NULL,
@@ -224,9 +224,9 @@ CREATE TABLE IF NOT EXISTS fast_list
 CREATE TABLE IF NOT EXISTS events
 (
     id          INTEGER AUTO_INCREMENT PRIMARY KEY,
-    title       VARCHAR(255) NOT NULL,
-    description VARCHAR(255) NOT NULL,
-    image       VARCHAR(255) NOT NULL,
+    title      NVARCHAR(255) NOT NULL,
+    descriptionNVARCHAR(255) NOT NULL,
+    image      NVARCHAR(255) NOT NULL,
     notify      BOOLEAN      NOT NULL,
     date        DATETIME     NOT NULL,
     created_at  DATETIME     NOT NULL,

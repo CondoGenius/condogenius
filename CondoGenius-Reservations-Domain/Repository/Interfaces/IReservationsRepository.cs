@@ -11,4 +11,5 @@ public interface IReservationsRepository
     public Task<Reservation> ListReservation(int id);
     public Task<List<Reservation>> ListReservationsByResidence(int id);
     public Task<int> DeleteReservation(int id);
+    public Task<List<CommonArea>> ListCommonAreas();
 }

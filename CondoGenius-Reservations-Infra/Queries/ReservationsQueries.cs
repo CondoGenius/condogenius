@@ -38,4 +38,9 @@ public class ReservationsQueries : IReservationsQueries
     {
         return File.ReadAllText("/src/SQLs/DeleteReservation.sql");
     }
+
+    public string ListCommonAreas()
+    {
+        return File.ReadAllText("/src/SQLs/GetCommonAreas.sql");
+    }
 }

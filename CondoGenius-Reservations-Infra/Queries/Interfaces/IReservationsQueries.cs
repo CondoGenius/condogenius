@@ -9,5 +9,5 @@ public interface IReservationsQueries
     string ListReservationsByResident();
     string ListReservationsByCommonArea();
     string DeleteReservation();
-    
+    string ListCommonAreas();
 }

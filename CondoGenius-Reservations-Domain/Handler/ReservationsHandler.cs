@@ -43,4 +43,9 @@ public class ReservationsHandler : IReservationsHandler
     {
         return await _repository.DeleteReservation(id);
     }
+
+    public async Task<List<CommonArea>> ListCommonAreas()
+    {
+        return await _repository.ListCommonAreas();
+    }
 }

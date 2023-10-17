@@ -16,6 +16,12 @@ public class ReservationsController : ControllerBase
         _handler = handler;
     }
 
+    [HttpGet("areas")]
+    public async Task<IActionResult> GetCommonAreas()
+    {
+        return Ok(await _handler.ListCommonAreas());
+    }
+    
     // GET: api/reservations (Read)
     [HttpGet]
     public async Task<IActionResult> GetReservations()
@@ -30,8 +36,8 @@ public class ReservationsController : ControllerBase
         return Ok(await _handler.ListReservation(id));
     }
 
-    // GET: api/reservations/residence/1 (Read)
-    [HttpGet("residence/{id}")]
+    // GET: api/reservations/resident/1 (Read)
+    [HttpGet("resident/{id}")]
     public async Task<IActionResult> GetReservationByResidence([FromRoute] int id)
     {
         return Ok(await _handler.ListReservationsByResidence(id));
@@ -44,15 +50,6 @@ public class ReservationsController : ControllerBase
         var rowsAffected = await _handler.CreateReservation(request);
 
         return rowsAffected == 1 ? Created("", "Registro criado com sucesso!") : BadRequest("Não foi possível criar o registro!");
-    }
-
-    // PUT: api/reservations/1 (Update)
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateReservation([FromRoute] int id)
-    {
-        var rowsAffected = await _handler.UpdateReservation(id);
-
-        return rowsAffected == 1 ? Ok("Registro atualizado com sucesso!") : NoContent();
     }
 
     // DELETE: api/reservations/1 (Delete)
