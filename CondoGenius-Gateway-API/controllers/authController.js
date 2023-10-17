@@ -5,17 +5,20 @@ var config = require('../config/config');
 
 const db = require('../models');
 const User = db.users;
+const Role = db.roles;
 
 
 const authController = {};
 
 authController.register = async (req, res) => {
   try {
-    const { email, password, role_id } = req.body;
+    const { email, password } = req.body;
+
+    var role = await Role.findOne({ where: { name: 'Resident' } });
 
     var hashedPassword = bcrypt.hashSync(password, 8);
 
-    const user = new User({ email, password: hashedPassword, role_id });
+    const user = new User({ email, password: hashedPassword, role_id: role.id });
     await user.save();
 
     const token = jwt.sign({ userId: user.id }, config.secret, {
@@ -58,14 +61,16 @@ authController.login = async (req, res) => {
 
     const token = jwt.sign({ userId: user.id }, config.secret);
 
-    res.status(200).json({ token });
+    var role = await Role.findOne({ where: { id: user.role_id } });
+
+    res.status(200).json({ token: token, user_id: user.id, role: role.name, email: user.email, isLogged: true });
   } catch (error) {
     res.status(401).json({ error: error.message });
   }
 };
 
 authController.logout = async (req, res) => {
-  res.status(200).send({ auth: false, token: null });
+  res.status(200).send({ auth: false, token: null, isLogged: false });
 };
 
 module.exports = authController;
