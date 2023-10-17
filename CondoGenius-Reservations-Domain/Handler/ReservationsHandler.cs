@@ -8,15 +8,32 @@ namespace CondoGenius_Reservations_Domain.Handler;
 public class ReservationsHandler : IReservationsHandler
 {
     private readonly IReservationsRepository _repository;
+    private readonly IGuestListHandler _guestListHandler;
 
-    public ReservationsHandler(IReservationsRepository repository)
+    public ReservationsHandler(IReservationsRepository repository, IGuestListHandler guestListHandler)
     {
         _repository = repository;
+        _guestListHandler = guestListHandler;
     }
 
     public async Task<int> CreateReservation(CreateReservationRequest request)
     {
-        return await _repository.CreateReservation(request);
+        try
+        {
+            var reservationId = await _repository.CreateReservation(request);
+
+            await _guestListHandler.CreateGuest(new CreateGuestListRequest()
+            {
+                ReserveId = reservationId
+            });
+
+            return 1;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Erro no Handler da criação da reserva.");
+            throw;
+        }
     }
 
     public async Task<int> UpdateReservation(int id)
@@ -26,17 +43,35 @@ public class ReservationsHandler : IReservationsHandler
 
     public async Task<List<Reservation>> ListReservations()
     {
-        return await _repository.ListReservations();
+        var reservations = await _repository.ListReservations();
+
+        foreach (var reservation in reservations)
+        {
+            reservation.GuestList = await _guestListHandler.ListGuestListByReservation(reservation.Id);
+        }
+
+        return reservations;
     }
 
     public async Task<Reservation> ListReservation(int id)
     {
-        return await _repository.ListReservation(id);
+        var reservation = await _repository.ListReservation(id);
+
+        reservation.GuestList = await _guestListHandler.ListGuestListByReservation(reservation.Id);
+
+        return reservation;
     }
 
     public async Task<List<Reservation>> ListReservationsByResidence(int id)
     {
-        return await _repository.ListReservationsByResidence(id);
+        var reservations = await _repository.ListReservationsByResidence(id);
+        
+        foreach (var reservation in reservations)
+        {
+            reservation.GuestList = await _guestListHandler.ListGuestListByReservation(reservation.Id);
+        }
+
+        return reservations;
     }
 
     public async Task<int> DeleteReservation(int id)

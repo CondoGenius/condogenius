@@ -24,7 +24,46 @@ public class GuestListRepository : BaseRepository, IGuestListRepository
 
             await conn.OpenAsync();
 
-            return await conn.ExecuteAsync(_queries.CreateGuestList(), request);
+            return await conn.ExecuteAsync(_queries.CreateGuestList(), new { ReserveId = request.ReserveId });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Não foi possível criar o registro de convidado. Erro: {ex.Message}");
+            throw;
+        }
+    }
+
+    public async Task<int> UpdateGuestList(CreateGuestListRequest request)
+    {
+        try
+        {
+            int i = 0;
+
+            await using var conn = GetConnection();
+
+            await conn.OpenAsync();
+
+            if (request.GuestList != null)
+            {
+                foreach (var guest in request.GuestList)
+                {
+                    await conn.ExecuteAsync(_queries.UpdateGuestList(), new
+                    {
+                        ReserveId = request.ReserveId,
+                        Name = guest.Name,
+                        Phone = guest.Phone,
+                        Cpf = guest.Cpf
+                    });
+
+                    i++;
+                }
+            }
+            else
+            {
+                throw new Exception("Lista de convidados vazia!");
+            }
+
+            return i;
         }
         catch (Exception ex)
         {
@@ -78,7 +117,7 @@ public class GuestListRepository : BaseRepository, IGuestListRepository
 
             await conn.OpenAsync();
 
-            return (await conn.QueryAsync<GuestList>(_queries.GetGuestListByReservation(), new { Id = id })).ToList();
+            return (await conn.QueryAsync<GuestList>(_queries.GetGuestListByReservation(), new { ReserveId = id })).ToList();
         }
         catch (Exception ex)
         {

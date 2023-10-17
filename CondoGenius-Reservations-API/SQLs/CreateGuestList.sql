@@ -1,2 +1,2 @@
-﻿INSERT INTO guest_list (name, phone, cpf, reserve_id)
-VALUES (@Name, @Phone, @Cpf, @ReserveId);
+﻿INSERT INTO guest_list (reserve_id)
+VALUES (@ReserveId);

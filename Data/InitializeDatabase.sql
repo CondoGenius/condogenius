@@ -104,12 +104,12 @@ CREATE TABLE IF NOT EXISTS reserve_common_area
 CREATE TABLE IF NOT EXISTS guest_list
 (
     id         INTEGER AUTO_INCREMENT PRIMARY KEY,
-    name       NVARCHAR(255) NOT NULL,
-    phone      NVARCHAR(255) NOT NULL,
-    cpf        NVARCHAR(255) NOT NULL,
-    reserve_id INTEGER       NOT NULL,
-    created_at DATETIME      NOT NULL DEFAULT NOW(),
-    updated_at DATETIME      NOT NULL ON UPDATE NOW(),
+    name       NVARCHAR(255),
+    phone      NVARCHAR(255),
+    cpf        NVARCHAR(255),
+    reserve_id INTEGER  NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT NOW(),
+    updated_at DATETIME ON UPDATE NOW(),
     FOREIGN KEY (reserve_id) REFERENCES reserve_common_area (id)
 );
 
