@@ -84,7 +84,7 @@ const renderButtonRegisterResident = () => (
 const ResidentActions = ({filters, setFilters}) => {
     const residences = useSelector(state => state.residences.list);
 
-    const [ , getAllResidences ] = useResidences();
+    const { getAllResidences } = useResidences();
 
     useEffect(() => {
         getAllResidences();

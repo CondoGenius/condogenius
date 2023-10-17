@@ -1,26 +1,21 @@
 import React, { useEffect } from "react";
+import { MdEdit, MdRemoveCircleOutline } from 'react-icons/md';
+import { Button, Collection, CollectionItem } from 'react-materialize';
 import { useSelector } from 'react-redux';
-import { Collection, CollectionItem, Button, Toast } from 'react-materialize';
-
-import { MdEdit } from 'react-icons/md';
-import { MdRemoveCircleOutline } from 'react-icons/md';
-
-import ModalContent from "../../../../components/modal/modal_content";
 import Loading from "../../../../components/loading/loading";
-
-import './residentList.scss';
+import ModalContent from "../../../../components/modal/modal_content";
+import useResidences from "../../../../states/residences/hooks/useResidences";
+import useResidents from "../../../../states/residents/hooks/useResidents";
 import ResidentFormFields from "../form/resident_form";
 
-import useResidents from "../../../../states/residents/hooks/useResidents";
-import useResidences from "../../../../states/residences/hooks/useResidences";
+import './residentList.scss';
 
 const ResidentList = ({ filters, setFilters }) => {
     const residences = useSelector(state => state.residences.list);
     const residents = useSelector((state) => state.residents.list);
 
-    const [ loadingResidents, , , getResidents, , , deleteResident] = useResidents();
-    const [ , getAllResidences ] = useResidences();
-
+    const { loadingResidents, getResidents, deleteResident } = useResidents();
+    const { getAllResidences } = useResidences();
 
     useEffect(() => {
         getResidents();
@@ -56,7 +51,7 @@ const ResidentList = ({ filters, setFilters }) => {
                         <span className='icon'></span>
                         <span className='icon'></span>
                     </CollectionItem>
-                    {residents.length > 0 ? (
+                    {residents?.length > 0 ? (
                         residents.map((resident) => (
                             <CollectionItem key={resident.id}>
                             <span>

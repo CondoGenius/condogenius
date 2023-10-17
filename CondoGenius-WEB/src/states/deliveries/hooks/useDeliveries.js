@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import DeliveriesService from '../../../services/deliveries/service';
 import { setDeliveriesAction } from '../../../store/deliveries/actions';
-import { setResidentAction } from '../../../store/resident/actions';
+import { setResidentDeliveriesAction } from '../../../store/resident/actions';
 
 const useDeliveries = () => {
     const dispatch = useDispatch();
@@ -16,9 +16,9 @@ const useDeliveries = () => {
         setLoadingDeliveries(false)
 
         if (response?.status === 200) {
-            dispatch(setResidentAction({ deliveries: response.data }));
+            dispatch(setResidentDeliveriesAction({ deliveries: response.data }));
         } else {
-            dispatch(setResidentAction({ error: "Erro ao listar suas entregas." }));
+            dispatch(setResidentDeliveriesAction({ error: "Erro ao listar suas entregas." }));
         }
     };
 
@@ -67,13 +67,13 @@ const useDeliveries = () => {
     };
     
 
-    return [
+    return {
         loadingDeliveries,
         getDeliveriesByResidenceId,
         getDeliveries,
         createDelivery,
         updateDelivery
-    ];
+    };
 };
 
 export default useDeliveries;

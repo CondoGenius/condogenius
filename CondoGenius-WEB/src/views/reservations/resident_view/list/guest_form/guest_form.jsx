@@ -1,17 +1,13 @@
 import { Formik } from 'formik';
 import React, { useState } from 'react';
+import { MdAddBox, MdClear } from 'react-icons/md';
 import { Button, Collection, CollectionItem } from 'react-materialize';
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
-
 import ErrorField from '../../../../../components/utils/errorField';
-
-import './guest_form.scss';
-
 import useReservations from '../../../../../states/reservations/hooks/useReservations.js';
-
-import { MdAddBox, MdClear } from 'react-icons/md';
-import { useSelector } from 'react-redux';
+import './guest_form.scss';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormGuestListSchema = Yup.object().shape({
@@ -23,7 +19,7 @@ const onSubmit = async (values, updateGuestList, getReservationsByUserId, userId
     const response = await updateGuestList(values);
 
     if (response?.status === 200) {
-        toast.success("Lista de convidados atualizada!");
+        toast.success("Lista de convidados atualizada.");
         getReservationsByUserId(userId);
     }
 };
@@ -32,7 +28,7 @@ const GuestForm = ({ guestList, reservationId }) => {
     const [isSubmit, setIsSubmit] = useState(false);
     const user = useSelector((state) => state.user.data)
 
-    const [, , getReservationsByUserId, , , , updateGuestList, ] = useReservations();
+    const { getReservationsByUserId, updateGuestList } = useReservations();
     
     return (
         <Formik        

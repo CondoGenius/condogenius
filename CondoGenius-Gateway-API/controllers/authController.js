@@ -48,7 +48,7 @@ authController.me = async (req, res) => {
 authController.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ where : { email } });
 
     if (!user) throw new Error('Usuário não encontrado!');
 

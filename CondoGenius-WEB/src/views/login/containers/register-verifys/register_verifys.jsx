@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
-import * as Yup from 'yup';
-
+import React, { useEffect, useState } from 'react';
 import { Button } from 'react-materialize';
-import ErrorField from '../../../../components/utils/errorField';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import * as Yup from 'yup';
 import logo from '../../../../assets/condogenius.png';
+import ErrorField from '../../../../components/utils/errorField';
+import useResidents from '../../../../states/residents/hooks/useResidents';
 
 import './register_verifys.scss';
-import useResidents from '../../../../states/residents/hooks/useResidents';
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormLoginSchema = Yup.object().shape({
@@ -59,7 +57,7 @@ const RegisterVerifys = () => {
     const history = useHistory();
     const [isSubmit, setIsSubmit] = useState(false);
     const [messageSubmitLogin, setMessageSubmitLogin] = useState(null);
-    const [, getResidentByCpf , , , , ,] = useResidents();
+    const { getResidentByCpf } = useResidents();
 
     useEffect(() => {
         if(resident?.error) {

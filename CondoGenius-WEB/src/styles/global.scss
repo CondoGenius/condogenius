@@ -10,6 +10,10 @@ body {
     height: 100vh;
 }
 
+button {
+    box-shadow: none !important;
+}
+
 .background_content {
     height: 100vh;
     width: 100%;
@@ -122,4 +126,8 @@ body {
 
 .message_not_result {
     color: $gray;
+}
+
+.display_none {
+    display: none;
 }

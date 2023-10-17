@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useSelector } from "react-redux";
 import { Route, Switch, useHistory } from 'react-router-dom';
 
-
 import Register from './views/login/containers/register/register';
 
 import ComplaintsAdminView from './views/complaints/admin_view/complaints';
@@ -11,6 +10,8 @@ import ComplaintsResidentView from './views/complaints/resident_view/complaints'
 import ReservationsAdminView from './views/reservations/admin_view/reservations';
 import ListReservationsResidentView from './views/reservations/resident_view/list/list_reservations';
 import ReservationsResidentView from './views/reservations/resident_view/reservations';
+
+import MeetingsResidentView from './views/meetings/resident_view/meetings';
 
 import Residents from './views/residents/residents';
 
@@ -46,13 +47,17 @@ const RoutesConfig = () => {
       <Route path="/my-reservations" component={ListReservationsResidentView} />
       <Route path="/list-reservations" component={ReservationsAdminView} />
 
+      {/* Meetings */}
+      {/* <Route path="/meetings-list" component={} /> */}
+      <Route path="/meetings-list" component={MeetingsResidentView} />
+
       {/* Complaints */}
-      <Route path="/complaints" component={ComplaintsAdminView} />
+      <Route path="/complaints-list" component={ComplaintsAdminView} />
       <Route path="/complaints" component={ComplaintsResidentView} />
 
       {/* Deliveries */}
-      <Route path="/deliveries-list" component={DeliveriesAdminView} />
-      <Route path="/deliveries" component={DeliveriesResidentView} />
+      <Route path="/deliveries" component={DeliveriesAdminView} />
+      <Route path="/deliveries-list" component={DeliveriesResidentView} />
 
       <Route path="/profile" exact component={Profile} />
     </Switch>

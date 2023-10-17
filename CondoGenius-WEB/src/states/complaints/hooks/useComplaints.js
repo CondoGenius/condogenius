@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import ComplaintsService from '../../../services/complaints/service';
 
 import { setComplaintsAction } from '../../../store/complaints/actions';
-import { setResidentAction } from '../../../store/resident/actions';
+import { setResidentComplaintsAction } from '../../../store/resident/actions';
 
 const useComplaints = () => {
     const dispatch = useDispatch();
@@ -16,9 +16,9 @@ const useComplaints = () => {
         const response = await ComplaintsService().getComplaintsByResindentId(residentId);
 
         if (response?.status === 200) {
-            dispatch(setResidentAction({ complaints: response.data }));
+            dispatch(setResidentComplaintsAction({ complaints: response.data }));
         } else {
-            dispatch(setResidentAction({ error: "Erro ao listar suas reclamações. Tente novamente mais tarde"}));
+            dispatch(setResidentComplaintsAction({ error: "Erro ao listar suas reclamações."}));
         }
 
         setLoadingComplaints(false);
@@ -41,14 +41,14 @@ const useComplaints = () => {
 
     const createComplaint = async (values) => {
         setLoadingComplaints(true);
-
+        console.log(values)
         const complaint = {
             residence_id: values.residenceId,
             resident_id: values.residentId,
             description: values.description,
             status: 'analysis'
         };
-
+        console.log(complaint)
         const response = await ComplaintsService().createComplaint(complaint);
 
         if (response?.status !== 201) {
@@ -77,13 +77,13 @@ const useComplaints = () => {
         return response;
     };
 
-    return [
+    return {
         loadingComplaints,
         getComplaintsByResindentId,
         getComplaints,
         createComplaint,
         updateComplaint
-    ];
+    };
 
 };
 

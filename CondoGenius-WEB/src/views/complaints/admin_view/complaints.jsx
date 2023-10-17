@@ -1,62 +1,64 @@
 import { Formik } from 'formik';
 import React, { useEffect } from 'react';
+import { MdAddCircle, MdCancel, MdCheckBox, MdInfo } from 'react-icons/md';
 import { Button, Collection, CollectionItem } from 'react-materialize';
 import { useSelector } from "react-redux";
-import { FormatDateZone } from "../../../utils/utils";
-
 import { toast } from 'react-toastify';
+import Loading from '../../../components/loading/loading';
 import ModalContent from "../../../components/modal/modal_content";
 import Tooltip from "../../../components/tooltip/tooltip";
-
-import { MdAddCircle, MdCancel, MdCheckBox, MdInfo } from 'react-icons/md';
-
 import useComplaints from '../../../states/complaints/hooks/useComplaints';
 import useResidences from '../../../states/residences/hooks/useResidences';
+import { FormatDateZone } from "../../../utils/utils";
+
 import './complaints.scss';
 
-const onSubmit = async(values, updateComplaint, getComplaints) => {
-    const response = await updateComplaint(values);
+const renderComplaintMoreInfo = (complaint, updateComplaint, getComplaints) => {
+        
+    const onSubmit = async (values) => {
+        const response = await updateComplaint(values);
 
-    if (response?.status === 200) {
-        getComplaints();
-    }
+        if (response?.status === 200) {
+            toast.success("Status da reclamação atualizada com sucesso.");
+            getComplaints();
+        }
+    };
+    
+    return (
+        <Formik        
+            initialValues={{
+                id: complaint.id,
+                status: ''
+            }}
+            onSubmit={(values) => onSubmit(values)}
+        > 
+        {({
+            values,
+            setValues,
+            handleSubmit
+        }) => (
+            <>
+                {complaint.description}
+                <p>Data: {FormatDateZone(complaint.date)}</p>
+                <div className='complaint_actions_buttons'>
+                    <Button className='green_button' onClick={() => {setValues({...values, status: 'notified'}); handleSubmit()}} modal="close">
+                        Marcar denúncia como notificada
+                    </Button>
+                    <Button className='red_button' onClick={() => {setValues({...values, status: 'disapproved'}); handleSubmit()}}  modal="close">
+                        Marcar denúncia como reprovada
+                    </Button>
+                </div>
+            </>
+        )}
+        </Formik>
+    );
 };
 
-const renderComplaintMoreInfo = ( complaint, updateComplaint) => (
-    <Formik        
-        initialValues={{
-            id: complaint.id,
-            status: ''
-        }}
-        onSubmit={(values) => onSubmit(values)}
-    > 
-    {({
-        values,
-        setValues,
-        handleSubmit
-    }) => (
-        <>
-            {complaint.text}
-            <p>Data: {complaint.date}</p>
-            <div className='complaint_actions_buttons'>
-                <Button className='green_button' onClick={() => {setValues({...values, status: 'notified'}); handleSubmit()}} modal="close">
-                    Marcar denúncia como notificada
-                </Button>
-                <Button className='red_button' onClick={() => {setValues({...values, status: 'disapproved'}); handleSubmit()}}  modal="close">
-                    Marcar denúncia como reprovada
-                </Button>
-            </div>
-        </>
-    )}
-    </Formik>
-);
-
-const ComplaintsUser = () => {
-    const residences = useSelector((state) => state.residences.list);
+const ComplaintsAdmin = () => {
     const complaints = useSelector((state) => state.complaints);
 
-    const [ , getAllResidences ] = useResidences();
-    const [, , getComplaints, , updateComplaint] = useComplaints();
+    const { loadingResidences, getAllResidences } = useResidences();
+    const { loadingComplaints, getComplaints, updateComplaint } = useComplaints();
 
     useEffect(() => {
         getComplaints();
@@ -65,10 +67,16 @@ const ComplaintsUser = () => {
 
     useEffect(() => {
         toast.error(complaints.error)
-      }, [complaints.error]);
+    }, [complaints.error]);
     
     return (
         <>
+            <Loading 
+                show={
+                    loadingResidences ||
+                    loadingComplaints
+                }
+            />
             <div className='header_content'>
                 <h1>Reclamações</h1>    
             </div>
@@ -86,10 +94,10 @@ const ComplaintsUser = () => {
                     complaints.list.map(complaint => (
                         <CollectionItem key={complaint.id}> 
                             <span>
-                            {complaint.resident_name}
+                            {`${complaint.resident_name} ${complaint.resident_last_name}`}
                             </span>
                             <span>
-                            Residência {residences.find((residence) => residence.id === complaint.residence_id)?.number}
+                            Residência {complaint.residence_number}
                             </span>
                             <span className='complaint_list_text'>
                             {complaint.description}
@@ -116,7 +124,7 @@ const ComplaintsUser = () => {
                             </span>
                             <span>
                                 <ModalContent
-                                    header={`Reclamação de ${complaint.name}`}
+                                    header={`Reclamação de ${complaint.resident_name} ${complaint.resident_last_name}`}
                                     trigger={<MdAddCircle />}
                                     children={renderComplaintMoreInfo(complaint, updateComplaint, getComplaints)}
                                     className="complaint"
@@ -133,4 +141,4 @@ const ComplaintsUser = () => {
     );
 };
 
-export default ComplaintsUser;
+export default ComplaintsAdmin;

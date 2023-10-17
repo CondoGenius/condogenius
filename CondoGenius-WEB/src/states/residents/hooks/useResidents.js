@@ -136,7 +136,7 @@ const useResidents = () => {
     };
     
 
-    return [
+    return {
         loadingResidents,
         getResidentByCpf,
         getResidentByUserId,
@@ -144,7 +144,7 @@ const useResidents = () => {
         createResident,
         updateResident,
         deleteResident
-    ];
+    };
 
 };
 

@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-
-import ResidentList from './containers/list/residentList';
-import ResidentActions from './containers/actions/resident_actions';
 import { toast } from 'react-toastify';
+import Loading from '../../components/loading/loading';
+import useResidences from '../../states/residences/hooks/useResidences';
+import useResidents from '../../states/residents/hooks/useResidents';
+import ResidentActions from './containers/actions/resident_actions';
+import ResidentList from './containers/list/residentList';
 
 import './residents.scss';
-import 'materialize-css';
 
 const Residents = () => {
   const residents = useSelector((state) => state.residents);
+  const { loadingResidences } = useResidences();
+  const { loadingResidents }= useResidents();
+
 
   const [filters, setFilters] = useState({
     name: null,
@@ -23,6 +27,12 @@ const Residents = () => {
 
   return (
     <div className='content_residents'>
+      <Loading 
+        show={
+          loadingResidences ||
+          loadingResidents
+        }
+      />
       <div className='header_content'>
         <h1>Moradores</h1>
       </div>

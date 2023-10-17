@@ -25,9 +25,24 @@ const residentReducer = (state = INITIAL_STATE, action) => {
       case "SET_RESIDENT":
         return {
           ...state,
-          data: new ResidentModel({...action.payload?.data}),
+          data: action.payload.data ? new ResidentModel({...action.payload.data}) : state.data,
+          error: action.payload.error
+        }
+      case "SET_DELIVERIES": 
+        return {
+          ...state,
           deliveries: action.payload.deliveries,
+          error: action.payload.error
+        }
+      case "SET_COMPLAINTS": 
+        return {
+          ...state,
           complaints: action.payload.complaints,
+          error: action.payload.error
+        }
+      case "SET_RESERVATIONS": 
+        return {
+          ...state,
           reservations: action.payload.reservations,
           error: action.payload.error
         }

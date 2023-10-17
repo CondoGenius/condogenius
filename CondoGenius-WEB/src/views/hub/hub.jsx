@@ -1,5 +1,4 @@
 import React from "react";
-
 import { publications } from "../../states/hub/mock";
 import CardPublication from "./card_publication/card_publication";
 import FormPublication from "./form_publication/form_publication";

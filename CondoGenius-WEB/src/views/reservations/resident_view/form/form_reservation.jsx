@@ -1,15 +1,13 @@
 import { Formik } from 'formik';
+import { toast } from 'materialize-css';
 import React, { useState } from 'react';
+import { Button } from 'react-materialize';
 import { useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
-
-import { Button } from 'react-materialize';
 import ErrorField from '../../../../components/utils/errorField';
-
 import useReservations from '../../../../states/reservations/hooks/useReservations';
 
-import { toast } from 'materialize-css';
 import './form_reservation.scss';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
@@ -22,7 +20,7 @@ const onSubmit = async (values, createReservation, history) => {
     const response = await createReservation(values);
 
     if (response?.status === 201) {
-        toast.success("Reserva realizada com sucesso!");
+        toast.success("Reserva realizada com sucesso.");
         history.push('/my-reservations');
     }
 };
@@ -72,7 +70,7 @@ const FormReservations = (areaId) => {
     
     const resident = useSelector((state) => state.resident.data);
 
-    const [, , , , createReservation, , , ] = useReservations();
+    const { createReservation } = useReservations();
 
     return (
         <Formik        

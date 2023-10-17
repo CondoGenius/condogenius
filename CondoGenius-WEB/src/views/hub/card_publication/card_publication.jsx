@@ -1,10 +1,7 @@
 import React from "react";
-import { useSelector } from "react-redux";
-
+import { AiFillPushpin, AiOutlinePushpin, AiOutlineSend } from "react-icons/ai";
 import { BsPersonCircle } from "react-icons/bs";
-import { AiFillPushpin } from "react-icons/ai";
-import { AiOutlinePushpin } from "react-icons/ai";
-import { AiOutlineSend } from "react-icons/ai";
+import { useSelector } from "react-redux";
 
 import './card_publication.scss';
 

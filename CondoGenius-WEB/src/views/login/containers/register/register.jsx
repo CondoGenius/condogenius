@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
-import * as Yup from 'yup';
-
-import { Button, Toast } from 'react-materialize';
-import ErrorField from '../../../../components/utils/errorField';
+import React, { useState } from 'react';
+import { Button } from 'react-materialize';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import * as Yup from 'yup';
+import ErrorField from '../../../../components/utils/errorField';
+import useUser from '../../../../states/user/hooks/useUser';
 
 import './register.scss';
-import useUser from '../../../../states/user/hooks/useUser';
-import { useSelector } from 'react-redux';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormLoginSchema = Yup.object().shape({
@@ -32,6 +31,7 @@ const onSubmit = async (values, resident, createUser, setMessageSubmitLogin, his
     const response = await createUser(resident.data.email, values.password);
 
     if (response?.status === 201) {
+        toast.success("Usuário cadastrado no banco de dados! Realize seu primeiro login.")
         history.push('/');
     } else {
         toast.error("Ocorreu um erro no cadastro do usuário. Tente novamente mais tarde ou entre em contato com um administrador.")

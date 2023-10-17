@@ -1,15 +1,12 @@
 import React from "react";
+import { AiOutlineProject } from "react-icons/ai";
+import { Button } from "react-materialize";
 import { useSelector } from "react-redux";
-
+import person from '../../../assets/person.png';
 import ModalContent from "../../../components/modal/modal_content";
 import SurveyForm from "../survey_form/survey_form";
-import person from '../../../assets/person.png';
 
 import './form_publication.scss';
-import { Button } from "react-materialize";
-
-import { AiOutlineProject }from "react-icons/ai";
-
 
 const FormPublication = () => {
     const isAdmin = useSelector((state => state.user.data.isAdmin));

@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { useHistory } from 'react-router-dom';
-import { useSelector } from "react-redux";
-
-import ErrorField from '../../../../components/utils/errorField';
+import { toast } from 'materialize-css';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'react-materialize';
-
-import useResidents from "../../../../states/residents/hooks/useResidents";
+import { useSelector } from "react-redux";
+import { useHistory } from 'react-router-dom';
+import * as Yup from 'yup';
+import ErrorField from '../../../../components/utils/errorField';
 import useResidences from "../../../../states/residences/hooks/useResidences";
+import useResidents from "../../../../states/residents/hooks/useResidents";
 import { FormatDate } from '../../../../utils/utils';
 
 import './resident_form.scss';
-import { toast } from 'materialize-css';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormResidentSchema = Yup.object().shape({
@@ -38,6 +36,7 @@ const onSubmit = async (values, createResident, updateResident, getResidents, hi
     }
 
     if (response.status === 201 || response.status === 200) {
+        document.getElementById('reset_form_resident').click();
         toast.success(messageSuccess);
         getResidents();
     }
@@ -131,27 +130,36 @@ const renderFieldResidenceNumber = (handleChange, handleBlur, values, residences
 );
 
 const renderButtonSubmit = (isValid, errors, handleSubmit, handleReset, setIsSubmit, isEdit) => (
-    <Button 
-        modal={isValid ? "close" : "open"}
-        node="button"
-        type="submit"
-        onClick={() => {
-            setIsSubmit(true);
-            if (isValid) {
-                handleSubmit();
-            }
-        }}
-    >
-        {isEdit ? 'Editar' : 'Cadastrar'}
-    </Button>
+    <div>
+        <Button 
+            modal={isValid ? "close" : "open"}
+            node="button"
+            type="submit"
+            onClick={() => {
+                setIsSubmit(true);
+                if (isValid) {
+                    handleSubmit();
+                }
+            }}
+        >
+            {isEdit ? 'Editar' : 'Cadastrar'}
+        </Button>
+         <Button
+         id="reset_form_resident"
+         className="display_none"
+         onClick={() => {
+           handleReset();
+         }}
+       />
+    </div>
 );
 
 const ResidentFormFields = ({residentEdited}) => {
     const residences = useSelector(state => state.residences.list);
 
     const [isSubmit, setIsSubmit] = useState(false);
-    const [, , , getResidents, createResident, updateResident,] = useResidents();
-    const [ , getAllResidences ] = useResidences();
+    const { getResidents, createResident, updateResident } = useResidents();
+    const { getAllResidences } = useResidences();
     const history = useHistory();
 
     let residenceId = residentEdited ? residences.find((residence) => residence.id === residentEdited.residence_id)?.id : '';
