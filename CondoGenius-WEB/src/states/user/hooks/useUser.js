@@ -14,13 +14,13 @@ const useUser = () => {
 
         if (response?.status === 200) {
             dispatch(setUserAction({
-                id: response.data.id,
-                email: response.data.user,
-                token: response.data.jwtToken,
+                id: response.data.user_id,
+                email: response.data.email,
+                token: response.data.token,
                 role: response.data.role,
-                isLogged: response.data.id ? true : false
+                isLogged: response.data.isLogged
             }));
-            localStorage.setItem("user", JSON.stringify({id: response.data.id, email: response.data.user, token: response.data.jwtToken, role: response.data.role, isLogged: response.data.id ? true : false}));
+            localStorage.setItem("user", JSON.stringify({id: response.data.id, email: response.data.user, token: response.data.token, role: response.data.role, isLogged:  response.data.isLogged}));
         };
 
         setLoadingUser(false);

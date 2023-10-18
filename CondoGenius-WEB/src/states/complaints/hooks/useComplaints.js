@@ -41,14 +41,14 @@ const useComplaints = () => {
 
     const createComplaint = async (values) => {
         setLoadingComplaints(true);
-        console.log(values)
+        
         const complaint = {
             residence_id: values.residenceId,
             resident_id: values.residentId,
             description: values.description,
             status: 'analysis'
         };
-        console.log(complaint)
+
         const response = await ComplaintsService().createComplaint(complaint);
 
         if (response?.status !== 201) {

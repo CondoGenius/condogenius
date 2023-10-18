@@ -1,9 +1,9 @@
 import { Formik } from 'formik';
-import { toast } from 'materialize-css';
 import React, { useState } from 'react';
 import { Button } from 'react-materialize';
 import { useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import ErrorField from '../../../../components/utils/errorField';
 import useReservations from '../../../../states/reservations/hooks/useReservations';
@@ -64,12 +64,12 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => 
     </Button>
 );
 
-const FormReservations = (areaId) => {
+const FormReservations = ({areaId}) => {
     const history = useHistory();
     const [isSubmit, setIsSubmit] = useState(false);
     
     const resident = useSelector((state) => state.resident.data);
-
+    
     const { createReservation } = useReservations();
 
     return (

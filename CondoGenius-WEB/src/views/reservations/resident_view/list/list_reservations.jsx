@@ -13,11 +13,11 @@ import './list_reservations.scss';
 
 const ListReservations = () => {
     const resident = useSelector((state) => state.resident)
-    const { loadingReservations, getAreasFromReservations, getReservationsByUserId, deleteReservation } = useReservations();
+
+    const { loadingReservations, getReservationsByResidentId, deleteReservation } = useReservations();
     
     useEffect(() => {
-        getAreasFromReservations();
-        getReservationsByUserId(resident.data.id);
+        getReservationsByResidentId(resident.data.id);
     }, []);
 
     const submitDeleteReservation = async(e, id) => {
@@ -25,7 +25,7 @@ const ListReservations = () => {
         const response = await deleteReservation(id);
     
         if(response?.status === 200) {
-            getReservationsByUserId(resident.id);
+            getReservationsByResidentId(resident.data.id);
         }
     };
 
@@ -52,13 +52,13 @@ const ListReservations = () => {
                         resident.reservations.map(reservation => (
                             <CollectionItem key={reservation.id}>
                                 <span>
-                                {reservation.name}
+                                {reservation.common_area_name}
                                 </span>
                                 <span>
-                                {FormatDateZone(reservation.date)}
+                                {FormatDateZone(reservation.reserve_date)}
                                 </span>
                                 <ModalContent
-                                    header={`Lista de convidados - ${reservation.name} ${reservation.date}`}
+                                    header={`Lista de convidados - ${reservation.common_area_name} ${FormatDateZone(reservation.reserve_date)}`}
                                     trigger={<span className='guest_list_action'>gerenciar lista de convidados</span>}
                                     children={<GuestForm list={reservation.guestList} reservationId={reservation.id} />}
                                     className="complaint"

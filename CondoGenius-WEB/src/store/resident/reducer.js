@@ -16,7 +16,7 @@ const INITIAL_STATE = {
   }),
   deliveries: [],
   complaints: [],
-  reservations: [], // id, list, guestList
+  reservations: [],
   error: null
 };
 

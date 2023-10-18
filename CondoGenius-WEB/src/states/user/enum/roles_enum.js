@@ -1,6 +1,6 @@
 const RolesUserEnum = {
-    Admin: 'admin',
-    Resident: 'resident'
+    Admin: 'Admin',
+    Resident: 'Resident'
 };
 
 Object.freeze(RolesUserEnum);

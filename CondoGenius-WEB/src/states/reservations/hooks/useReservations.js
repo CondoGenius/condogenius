@@ -13,7 +13,7 @@ const useReservations = () => {
         setLoadingReservations(true);
 
         const response = await ReservationsService().getAreasFromReservations();
-
+        
         if (response?.status === 200) {
             dispatch(setReservationsAction({ areas: response.data }));
         } else {
@@ -24,10 +24,10 @@ const useReservations = () => {
         return response;
     };
 
-    const getReservationsByUserId = async (userId) => {
+    const getReservationsByResidentId = async (residentId) => {
         setLoadingReservations(true);
 
-        const response = await ReservationsService().getReservationsByUserId(userId);
+        const response = await ReservationsService().getReservationsByResidentId(residentId);
 
         if (response?.status === 200) {
             dispatch(setResidentReservationsAction({ reservations: response.data }));
@@ -74,28 +74,13 @@ const useReservations = () => {
         return response;
     };
 
-    // const createGuestList = async (values) => {
-    //     setLoadingReservations(true);
-
-    //     const reservation = {
-         
-    //     };
-
-    //     const response = await ReservationsService().createReservation(reservation);
-
-    //     if (response?.status !== 201) {
-    //         dispatch(setResidentAction({ error: "Erro ao cadastrar reserva." }));
-    //     }
-
-    //     setLoadingReservations(false);
-    //     return response;
-    // };
-
     const updateGuestList = async (values) => {
         setLoadingReservations(false);
 
         const guestList = {
-            
+            reservation_id: values.reservationId,
+            name: values.name,
+            document: values.document,
         };
 
         const response = await ReservationsService().updateGuestList(guestList);
@@ -114,7 +99,7 @@ const useReservations = () => {
         const response = await ReservationsService().deleteReservation(id);
 
         if (response?.status !== 200) {
-            dispatch(setResidentReservationsAction({ error: "Erro ao deletar reserva." }));
+            // dispatch(setResidentReservationsAction({ error: "Erro ao deletar reserva." }));
         }
         
         setLoadingReservations(false);
@@ -125,10 +110,9 @@ const useReservations = () => {
     return {
         loadingReservations,
         getAreasFromReservations,
-        getReservationsByUserId,
+        getReservationsByResidentId,
         getReservations,
         createReservation,
-        // createGuestList,
         updateGuestList,
         deleteReservation
     };
