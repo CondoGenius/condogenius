@@ -1,20 +1,3 @@
-.button_register_content {
-    display: flex;
-    justify-content: flex-end;
-    overflow: hidden;
-    
-    a button {
-        min-width: 10px;
-        max-width: 300px;
-        display: flex;
-        align-items: center;
-        
-        svg {
-            margin: 5px;
-        }
-    }
-}
-
 .magnifying_glass_icon, .refresh_icon {
     width: 30px;
     height: 3em;

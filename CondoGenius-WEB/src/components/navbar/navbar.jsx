@@ -49,6 +49,7 @@ const Navbar = () => {
                     {!user.isAdmin && navLink('/reservations', GiBarbecue, 'Reservas')}
 
                     {!user.isAdmin && navLink('/meetings-list', GiBarbecue, 'Reuniões')}
+                    {user.isAdmin && navLink('/meetings', GiBarbecue, 'Reuniões')}
 
                     {user.isAdmin && navLink('/complaints-list', TiWarning, 'Reclamações')}
                     {!user.isAdmin && navLink('/complaints', TiWarning, 'Reclamações')}
@@ -59,7 +60,7 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="actions_content">
-                {navLink('/profile', BsPersonCircle, 'Perfil')}
+                {!user.isAdmin && navLink('/profile', BsPersonCircle, 'Perfil')}
                 <span className='exit_icon' onClick={() => logout(history)}><MdExitToApp className='logout_icon'/></span>
             </div>
         </div>

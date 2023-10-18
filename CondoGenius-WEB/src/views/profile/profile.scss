@@ -1,0 +1,20 @@
+.profile_content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .image_content {
+        flex: 20%;
+    }
+
+    .profile_form_content {
+        flex: 80%;
+
+        .button_content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}

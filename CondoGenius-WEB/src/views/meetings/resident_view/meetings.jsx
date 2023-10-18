@@ -34,6 +34,7 @@ const Meetings = () => {
                 <Collection>
                 <CollectionItem key="header" className='list_header'>
                     <span>Tema</span>
+                    <span>Responsável</span>
                     <span>Descrição</span>
                     <span>Data</span>
                     <span />
@@ -43,6 +44,9 @@ const Meetings = () => {
                         <CollectionItem key={meeting.id}>
                             <span>
                             {meeting.tittle}
+                            </span>
+                            <span>
+                            {meeting.admin_name}
                             </span>
                             <span>
                             {meeting.description}

@@ -21,6 +21,7 @@ import DeliveriesResidentView from './views/deliveries/resident_view/deliveries'
 import HubDigital from './views/hub/hub';
 import RegisterVerifys from './views/login/containers/register-verifys/register_verifys';
 import Login from './views/login/login';
+import MeetingsAdminView from './views/meetings/admin_view/meetings';
 import Profile from './views/profile/profile';
 
 const RoutesConfig = () => {
@@ -48,7 +49,7 @@ const RoutesConfig = () => {
       <Route path="/list-reservations" component={ReservationsAdminView} />
 
       {/* Meetings */}
-      {/* <Route path="/meetings-list" component={} /> */}
+      <Route path="/meetings" component={MeetingsAdminView} />
       <Route path="/meetings-list" component={MeetingsResidentView} />
 
       {/* Complaints */}

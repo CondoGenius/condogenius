@@ -10,7 +10,7 @@ import './reservations.scss';
 
 const renderGuestListFromReservation = (guestList) => (
     <Collection>
-    {guestList.length > 0 ? (
+    {guestList?.length > 0 ? (
         guestList.map(guest => (
             <CollectionItem key={guest.id}>
                 <span>
@@ -63,16 +63,16 @@ const Reservations = () => {
                         reservations.list.map(reservation => (
                             <CollectionItem key={reservations.id}>
                                 <span>
-                                {`${reservation.name} ${reservation.last_name}`}
+                                {`${reservation.resident_name} ${reservation.resident_last_name}`}
                                 </span>
                                 <span>
-                                {reservation.name}
+                                {reservation.common_area_name}
                                 </span>
                                 <span>
-                                {FormatDateZone(reservation.date)}
+                                {FormatDateZone(reservation.reserve_date)}
                                 </span>
                                 <ModalContent
-                                    header={`Lista de convidados - ${reservation.name} ${reservation.date}`}
+                                    header={`Lista de convidados - ${reservation.common_area_name} ${FormatDateZone(reservation.reserve_date)}`}
                                     trigger={<span className='guest_list_action'>acessar lista de convidados</span>}
                                     children={renderGuestListFromReservation(reservation.guestList)}
                                     className="complaint"
