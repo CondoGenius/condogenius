@@ -12,11 +12,11 @@ const Home = () => {
   const history = useHistory();
   
   useEffect(() => {
-    if (!user.isAdmin && !resident.data) {
+    if (!user?.id || (user.isAdmin && !resident.data)) {
       localStorage.removeItem("user");
       localStorage.removeItem("resident");
       window.location.reload();
-      history.push('/login');
+      history.push('/');
     }
   }, []);
 
