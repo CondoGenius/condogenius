@@ -41,13 +41,14 @@ exports.createResident = async (req, res) => {
 
 exports.listResidents = async (req, res) => {
   try {
-    const { name, cpf, residence_id } = req.query;
+    const { name, cpf, residence_id, email } = req.query;
 
     const cleanedCpf = cpf ? cpf.replace(/[^\d]/g, '') : '';
 
     const whereClause = {
       is_active: 1,
       ...(name && { name }),
+      ...(email && { email }),
       ...(cpf && { cpf: cleanedCpf }),
       ...(residence_id && { residence_id }),
     };
