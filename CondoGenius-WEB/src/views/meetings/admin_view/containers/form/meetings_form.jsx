@@ -56,6 +56,15 @@ const renderFieldDate = (handleChange, handleBlur, values) => (
     />
 );
 
+const renderFieldHour = (handleChange, handleBlur, values) => (
+    <input 
+        id="hour"
+        type="time" 
+        onChange={handleChange}
+        onBlur={handleBlur}
+        value={values.hour} 
+    />
+);
 
 const renderButtonSubmit = (isValid, errors, handleSubmit, handleReset, setIsSubmit) => (
     <div className='button_content'>
@@ -97,7 +106,8 @@ const MeetingsForm = () => {
                 userId: user.id,
                 title: '',
                 description: '',
-                date: ''
+                date: '',
+                hour: ''
             }}
             validationSchema={FormResidentSchema}
             onSubmit={values => {onSubmit(values, createMeeting, getMeetings)}}
@@ -118,8 +128,12 @@ const MeetingsForm = () => {
                 {renderFieldDescription(handleChange, handleBlur, values, residences)}
                 {isSubmit && errors.description && <ErrorField error={errors.description}/>}
           
+
                 {renderFieldDate(handleChange, handleBlur, values, residences)}
                 {isSubmit && errors.date && <ErrorField error={errors.date}/>}
+
+                {renderFieldHour(handleChange, handleBlur, values, residences)}
+                {isSubmit && errors.hour && <ErrorField error={errors.hour}/>}
             
                 {renderButtonSubmit(isValid, errors, handleSubmit, handleReset, setIsSubmit)}
             </div>

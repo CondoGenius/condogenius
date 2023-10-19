@@ -37,6 +37,7 @@ const Meetings = () => {
                     <span>Responsável</span>
                     <span>Descrição</span>
                     <span>Data</span>
+                    <span>Horário</span>
                     <span />
                 </CollectionItem>
                 {meetings.list?.length > 0 ? (
@@ -53,6 +54,9 @@ const Meetings = () => {
                             </span>
                             <span>
                             {FormatDate(meeting.date)}
+                            </span>
+                            <span>
+                            {meeting.hour}
                             </span>
                         </CollectionItem>
                     ))

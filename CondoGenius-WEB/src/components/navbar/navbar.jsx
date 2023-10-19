@@ -9,6 +9,7 @@ import { GiBarbecue } from 'react-icons/gi';
 import { MdExitToApp, MdOutlineHub, MdPeopleAlt } from 'react-icons/md';
 import { TiWarning } from 'react-icons/ti';
 
+import Tooltip from '../tooltip/tooltip';
 import './navbar.scss';
 
 const navLink = (route, icon, name) => {
@@ -60,8 +61,10 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="actions_content">
-                {!user.isAdmin && navLink('/profile', BsPersonCircle, 'Perfil')}
-                <span className='exit_icon' onClick={() => logout(history)}><MdExitToApp className='logout_icon'/></span>
+                {navLink('/profile', BsPersonCircle, 'Perfil')}
+                <Tooltip message={"Sair"}>
+                    <span className='exit_icon' onClick={() => logout(history)}><MdExitToApp className='logout_icon'/></span>
+                </Tooltip>
             </div>
         </div>
     );
