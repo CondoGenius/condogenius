@@ -47,9 +47,18 @@ public class ReservationsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateReservation([FromBody] CreateReservationRequest request)
     {
-        var rowsAffected = await _handler.CreateReservation(request);
+        try
+        {
+            var rowsAffected = await _handler.CreateReservation(request);
 
-        return rowsAffected == 1 ? Created("", "Registro criado com sucesso!") : BadRequest("Não foi possível criar o registro!");
+            return rowsAffected == 1
+                ? Created("", "Registro criado com sucesso!")
+                : BadRequest("Não foi possível criar o registro!");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     // DELETE: api/reservations/1 (Delete)

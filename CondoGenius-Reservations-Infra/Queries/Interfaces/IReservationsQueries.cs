@@ -10,4 +10,5 @@ public interface IReservationsQueries
     string ListReservationsByCommonArea();
     string DeleteReservation();
     string ListCommonAreas();
+    string ListReservationsDateByArea();
 }

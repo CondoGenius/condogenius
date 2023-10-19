@@ -150,4 +150,22 @@ public class ReservationsRepository : BaseRepository, IReservationsRepository
             throw;
         }
     }
+
+    public async Task<List<DateTime>> ListReservationsDateByArea(int areaId)
+    {
+        try
+        {
+            await using var conn = GetConnection();
+
+            await conn.OpenAsync();
+
+            return (await conn.QueryAsync<DateTime>(_queries.ListReservationsDateByArea(), new { Id = areaId }))
+                .ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Não foi possível obter as áreas comuns. Erro: {ex.Message}");
+            throw;
+        }
+    }
 }

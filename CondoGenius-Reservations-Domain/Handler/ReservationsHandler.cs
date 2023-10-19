@@ -20,6 +20,16 @@ public class ReservationsHandler : IReservationsHandler
     {
         try
         {
+            var reservations = await _repository.ListReservationsDateByArea(request.AreaId);
+
+            foreach (var reservation in reservations)
+            {
+                if (reservation.Day == request.Date.Day && reservation.Month == request.Date.Month && reservation.Year == request.Date.Year)
+                {
+                    throw new Exception("Já existe uma reserva para essa data!");
+                }
+            }
+            
             return await _repository.CreateReservation(request);
         }
         catch (Exception ex)
