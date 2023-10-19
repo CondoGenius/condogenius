@@ -9,7 +9,7 @@ import Loading from '../../components/loading/loading';
 import ErrorField from '../../components/utils/errorField';
 import useResidences from '../../states/residences/hooks/useResidences';
 import useResidents from '../../states/residents/hooks/useResidents';
-import { FormatDateZone } from '../../utils/utils';
+import { FormatDate } from '../../utils/utils';
 import './profile.scss';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
@@ -22,13 +22,11 @@ const FormProfileSchema = Yup.object().shape({
     birthday: Yup.string().ensure().required(requiredFieldMessage),
 });
 
-const onSubmit = async (values, createComplaint, getComplaintsByResindentId, resident) => {
-    const response = await createComplaint(values);
+const onSubmit = async (values, updateProfile) => {
+    const response = await updateProfile(values);
   
-    if (response?.status === 201) {
-      document.getElementById('reset_form_complaint').click();
-      toast.success("Reclamação enviada com sucesso.");
-      getComplaintsByResindentId(resident.id);
+    if (response?.status === 200) {
+      toast.success("Perfil atualizado com sucesso.");
     }
 };
 
@@ -136,13 +134,6 @@ const renderButtonSubmit = (isValid, errors, handleSubmit, handleReset, setIsSub
         >
             Salvar
         </Button>
-         <Button
-         id="reset_form_resident"
-         className="display_none"
-         onClick={() => {
-           handleReset();
-         }}
-       />
     </div>
 );
 
@@ -153,13 +144,11 @@ const Profile = () => {
     const residences = useSelector((state) => state.residences);
 
     const { loadingResidences, getAllResidences } = useResidences();
-    const { loadingResidents, updateResident } = useResidents();
+    const { loadingResidents, updateProfile } = useResidents();
     
-
     useEffect(() => {
         getAllResidences();
     }, []);
-
 
     return (
         <>
@@ -186,11 +175,11 @@ const Profile = () => {
                             cpf: resident.data.cpf,
                             contact: resident.data.contact,
                             email: resident.data.email,
-                            birthday: FormatDateZone(resident.data.birthday),
+                            birthday: FormatDate(resident.data.birthday),
                             residenceId: resident.data.residenceId,
                         }}
                         validationSchema={FormProfileSchema}
-                        onSubmit={values => {onSubmit(values, updateResident)}}
+                        onSubmit={values => {onSubmit(values, updateProfile)}}
                         > 
                         {({
                             handleChange,

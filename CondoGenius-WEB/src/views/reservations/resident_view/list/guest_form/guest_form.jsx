@@ -53,7 +53,7 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => 
 
 const GuestForm = ({ guestList, reservationId }) => {
     const [isSubmit, setIsSubmit] = useState(false);
-    const user = useSelector((state) => state.user.data)
+    const user = useSelector((state) => state.user.data);
 
     const { getReservationsByUserId, updateGuestList } = useReservations();
     

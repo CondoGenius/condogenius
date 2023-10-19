@@ -59,7 +59,7 @@ const renderButtonSubmit = (isValid, errors, handleSubmit, handleReset, setIsSub
 const DeliveriesActions = () => {
     const residences = useSelector(state => state.residences.list);
     const user = useSelector(state => state.user.data);
-    
+
     const { getAllResidences } = useResidences();
     const { getDeliveries, createDelivery } = useDeliveries();
 

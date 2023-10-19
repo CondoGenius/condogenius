@@ -5,7 +5,7 @@ import Loading from '../../../components/loading/loading';
 
 import useDeliveries from '../../../states/deliveries/hooks/useDeliveries';
 
-import { FormatDate } from '../../../utils/utils';
+import { FormatDateZone } from '../../../utils/utils';
 
 const Deliveries = () => {
     const resident = useSelector((state) => state.resident.data);
@@ -39,13 +39,13 @@ const Deliveries = () => {
                     deliveries?.map(delivery => (
                         <CollectionItem key={delivery.id}>
                             <span>
-                            {delivery.admin_name ? FormatDate(delivery.admin_name) : '-'}
+                            {delivery.admin_name ?? '-'}
                             </span>
                             <span>
-                            {delivery.received ? FormatDate(delivery.received) : '-'}
+                            {delivery.received_at ? FormatDateZone(delivery.received_at) : '-'}
                             </span>
                             <span>
-                            {delivery.delivered ? FormatDate(delivery.delivered) : '-'}
+                            {delivery.delivered_at ? FormatDateZone(delivery.delivered_at) : '-'}
                             </span>
                             <span>
                             {delivery.status}
