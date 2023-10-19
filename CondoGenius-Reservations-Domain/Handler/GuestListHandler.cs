@@ -29,6 +29,11 @@ public class GuestListHandler : IGuestListHandler
         return await _repository.DeleteGuest(id);
     }
 
+    public async Task<int> DeleteGuestByReservation(int reservationId)
+    {
+        return await _repository.DeleteGuestByReservation(reservationId);
+    }
+
     public async Task<List<GuestList>> GetAllGuests()
     {
         return await _repository.GetAllGuests();

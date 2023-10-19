@@ -43,4 +43,9 @@ public class ReservationsQueries : IReservationsQueries
     {
         return File.ReadAllText("/src/SQLs/GetCommonAreas.sql");
     }
+
+    public string ListReservationsDateByArea()
+    {
+        return File.ReadAllText("/src/SQLs/ListReservationsDateByArea.sql");
+    }
 }
