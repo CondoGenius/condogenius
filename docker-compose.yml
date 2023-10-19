@@ -118,16 +118,6 @@ services:
     ports:
       - "7007:7007"
 
-  condogenius_web:
-    image: web
-    build:
-      context: ./CondoGenius-WEB
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./CondoGenius-WEB:/app
-
 networks:
   db_network:
     driver: bridge

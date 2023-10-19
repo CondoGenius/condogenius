@@ -24,14 +24,12 @@ public class ReservationsRepository : BaseRepository, IReservationsRepository
 
             await conn.OpenAsync();
 
-            var insertedId = await conn.ExecuteScalarAsync<int>(_queries.CreateReservation(), new
+            return await conn.ExecuteAsync(_queries.CreateReservation(), new
             {
                 CommonAreaId = request.AreaId,
                 ResidentId = request.ResidentId,
                 ReserveDate = request.Date,
             });
-
-            return insertedId;
         }
         catch (Exception ex)
         {

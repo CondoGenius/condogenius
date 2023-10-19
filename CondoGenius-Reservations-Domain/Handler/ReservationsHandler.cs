@@ -20,14 +20,7 @@ public class ReservationsHandler : IReservationsHandler
     {
         try
         {
-            var reservationId = await _repository.CreateReservation(request);
-
-            await _guestListHandler.CreateGuest(new CreateGuestListRequest()
-            {
-                ReserveId = reservationId
-            });
-
-            return 1;
+            return await _repository.CreateReservation(request);
         }
         catch (Exception ex)
         {
@@ -36,9 +29,9 @@ public class ReservationsHandler : IReservationsHandler
         }
     }
 
-    public async Task<int> UpdateReservation(int id)
+    public async Task<int> UpdateReservation(int id, DateTime newDate)
     {
-        return await _repository.UpdateReservation(id, DateTime.Now);
+        return await _repository.UpdateReservation(id, newDate);
     }
 
     public async Task<List<Reservation>> ListReservations()
@@ -76,7 +69,11 @@ public class ReservationsHandler : IReservationsHandler
 
     public async Task<int> DeleteReservation(int id)
     {
-        return await _repository.DeleteReservation(id);
+        await _repository.DeleteReservation(id);
+
+        await _guestListHandler.DeleteGuestByReservation(id);
+
+        return 1;
     }
 
     public async Task<List<CommonArea>> ListCommonAreas()
