@@ -106,6 +106,20 @@ services:
     depends_on:
       - mysql
 
+  meetings:
+    build:
+      context: ./CondoGenius-Meetings-Api
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+    command: npm start
+    volumes:
+      - ./meetings:/usr/meetings:cached
+    ports:
+      - "7009:7009"
+    depends_on:
+      - mysql
+
   send-notifications:
     build:
       context: ./CondoGenius-SendNotifications
