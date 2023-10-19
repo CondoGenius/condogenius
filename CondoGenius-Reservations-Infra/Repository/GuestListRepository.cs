@@ -24,7 +24,8 @@ public class GuestListRepository : BaseRepository, IGuestListRepository
 
             await conn.OpenAsync();
 
-            return await conn.ExecuteAsync(_queries.CreateGuestList(), new { ReserveId = request.ReserveId });
+            return await conn.ExecuteAsync(_queries.CreateGuestList(),
+                new { ReserveId = request.ReserveId, Name = request.Name, Cpf = request.Cpf });
         }
         catch (Exception ex)
         {
@@ -37,33 +38,17 @@ public class GuestListRepository : BaseRepository, IGuestListRepository
     {
         try
         {
-            int i = 0;
-
             await using var conn = GetConnection();
 
             await conn.OpenAsync();
 
-            if (request.GuestList != null)
-            {
-                foreach (var guest in request.GuestList)
-                {
-                    await conn.ExecuteAsync(_queries.UpdateGuestList(), new
-                    {
-                        ReserveId = request.ReserveId,
-                        Name = guest.Name,
-                        Phone = guest.Phone,
-                        Cpf = guest.Cpf
-                    });
 
-                    i++;
-                }
-            }
-            else
+            return await conn.ExecuteAsync(_queries.UpdateGuestList(), new
             {
-                throw new Exception("Lista de convidados vazia!");
-            }
-
-            return i;
+                ReserveId = request.ReserveId,
+                Name = request.Name,
+                Cpf = request.Cpf
+            });
         }
         catch (Exception ex)
         {
@@ -83,6 +68,26 @@ public class GuestListRepository : BaseRepository, IGuestListRepository
             return await conn.ExecuteAsync(_queries.DeleteGuestList(), new
             {
                 Id = id
+            });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Não foi possível excluir o registro de convidado. Erro: {ex.Message}");
+            throw;
+        }
+    }
+
+    public async Task<int> DeleteGuestByReservation(int reservationId)
+    {
+        try
+        {
+            await using var conn = GetConnection();
+
+            await conn.OpenAsync();
+
+            return await conn.ExecuteAsync(_queries.DeleteGuestList(), new
+            {
+                Id = reservationId
             });
         }
         catch (Exception ex)
@@ -117,7 +122,8 @@ public class GuestListRepository : BaseRepository, IGuestListRepository
 
             await conn.OpenAsync();
 
-            return (await conn.QueryAsync<GuestList>(_queries.GetGuestListByReservation(), new { ReserveId = id })).ToList();
+            return (await conn.QueryAsync<GuestList>(_queries.GetGuestListByReservation(), new { ReserveId = id }))
+                .ToList();
         }
         catch (Exception ex)
         {

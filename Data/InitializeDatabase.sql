@@ -105,7 +105,6 @@ CREATE TABLE IF NOT EXISTS guest_list
 (
     id         INTEGER AUTO_INCREMENT PRIMARY KEY,
     name       NVARCHAR(255),
-    phone      NVARCHAR(255),
     cpf        NVARCHAR(255),
     reserve_id INTEGER  NOT NULL,
     created_at DATETIME NOT NULL DEFAULT NOW(),

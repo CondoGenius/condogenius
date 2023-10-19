@@ -14,11 +14,11 @@ const INITIAL_STATE = {
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
-    switch (action.type) {
-      case "SET_USER":
+  switch (action.type) {
+    case "SET_USER":
         return {
           ...state,
-          data: action.payload.data
+          data: action.payload.data ? new UserModel({...action.payload.data}) : state.data
         }
       default:
         return state;

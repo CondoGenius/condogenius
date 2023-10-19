@@ -20,14 +20,17 @@ public class ReservationsHandler : IReservationsHandler
     {
         try
         {
-            var reservationId = await _repository.CreateReservation(request);
+            var reservations = await _repository.ListReservationsDateByArea(request.AreaId);
 
-            await _guestListHandler.CreateGuest(new CreateGuestListRequest()
+            foreach (var reservation in reservations)
             {
-                ReserveId = reservationId
-            });
-
-            return 1;
+                if (reservation.Day == request.Date.Day && reservation.Month == request.Date.Month && reservation.Year == request.Date.Year)
+                {
+                    throw new Exception("Já existe uma reserva para essa data!");
+                }
+            }
+            
+            return await _repository.CreateReservation(request);
         }
         catch (Exception ex)
         {
@@ -36,9 +39,9 @@ public class ReservationsHandler : IReservationsHandler
         }
     }
 
-    public async Task<int> UpdateReservation(int id)
+    public async Task<int> UpdateReservation(int id, DateTime newDate)
     {
-        return await _repository.UpdateReservation(id, DateTime.Now);
+        return await _repository.UpdateReservation(id, newDate);
     }
 
     public async Task<List<Reservation>> ListReservations()
@@ -76,7 +79,11 @@ public class ReservationsHandler : IReservationsHandler
 
     public async Task<int> DeleteReservation(int id)
     {
-        return await _repository.DeleteReservation(id);
+        await _repository.DeleteReservation(id);
+
+        await _guestListHandler.DeleteGuestByReservation(id);
+
+        return 1;
     }
 
     public async Task<List<CommonArea>> ListCommonAreas()

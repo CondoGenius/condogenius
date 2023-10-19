@@ -18,7 +18,7 @@ public class DeliveryControl
     public DateTime UpdatedAt { get; set; }
     [JsonProperty("residence_id")]
     public int ResidenceId { get; set; }
-    [JsonProperty("admin_id")]
+    [JsonProperty("admin_name")]
     public string AdminName { get; set; }
     [JsonProperty("admin_email")]
     public string AdminEmail { get; set; }

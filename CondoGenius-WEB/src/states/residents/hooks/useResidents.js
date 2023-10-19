@@ -122,6 +122,54 @@ const useResidents = () => {
         return response;
     };
 
+    const updateProfile = async (values) => {
+        setLoadingResidents(false);
+
+        const resident = {
+            id: values.id,
+            name: values.name,
+            last_name: values.lastName,
+            cpf: values.cpf,
+            email: values.email,
+            birthday: values.birthday,
+            contact: values.contact,
+            residence_id: values.residenceId,
+        };
+
+        const response = await ResidentsService().updateResident(resident);
+
+        if (response?.status === 200) {
+            dispatch(setResidentAction({data: {
+                id: response.data.resident.id, 
+                userId: 2,
+                cpf: response.data.resident.cpf,
+                email: response.data.resident.email,
+                name: response.data.resident.name,
+                lastName: response.data.resident.last_name,
+                contact: response.data.resident.contact,
+                birthday: response.data.resident.birthday,
+                residenceId: response.data.resident.residence_id
+            }
+            }));
+            localStorage.setItem("resident", JSON.stringify({
+                id: response.data.resident.id, 
+                userId: 2,
+                cpf: response.data.resident.cpf,
+                email: response.data.resident.email,
+                name: response.data.resident.name,
+                lastName: response.data.resident.last_name,
+                contact: response.data.resident.contact,
+                birthday: response.data.resident.birthday,
+                residenceId: response.data.resident.residence_id
+            }));
+        } else {
+            dispatch(setResidentAction({ error: "Erro ao atualiazar morador." }));
+        }
+
+        setLoadingResidents(false);
+        return response;
+    };
+
     const deleteResident = async (id) => {
         setLoadingResidents(false);
 
@@ -143,6 +191,7 @@ const useResidents = () => {
         getResidents,
         createResident,
         updateResident,
+        updateProfile,
         deleteResident
     };
 

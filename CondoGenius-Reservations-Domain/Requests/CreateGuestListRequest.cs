@@ -7,6 +7,8 @@ public class CreateGuestListRequest
 {
     [JsonProperty("reserve_id")]
     public int ReserveId { get; set; }
-    [JsonProperty("guest_list")]
-    public List<GuestList>? GuestList { get; set; }
+    [JsonProperty("name")]
+    public string Name { get; set; }
+    [JsonProperty("cpf")]
+    public string Cpf { get; set; }
 }

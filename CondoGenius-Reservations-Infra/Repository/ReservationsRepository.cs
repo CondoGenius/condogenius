@@ -24,14 +24,12 @@ public class ReservationsRepository : BaseRepository, IReservationsRepository
 
             await conn.OpenAsync();
 
-            var insertedId = await conn.ExecuteScalarAsync<int>(_queries.CreateReservation(), new
+            return await conn.ExecuteAsync(_queries.CreateReservation(), new
             {
                 CommonAreaId = request.AreaId,
                 ResidentId = request.ResidentId,
                 ReserveDate = request.Date,
             });
-
-            return insertedId;
         }
         catch (Exception ex)
         {
@@ -145,6 +143,24 @@ public class ReservationsRepository : BaseRepository, IReservationsRepository
             await conn.OpenAsync();
 
             return (await conn.QueryAsync<CommonArea>(_queries.ListCommonAreas())).ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Não foi possível obter as áreas comuns. Erro: {ex.Message}");
+            throw;
+        }
+    }
+
+    public async Task<List<DateTime>> ListReservationsDateByArea(int areaId)
+    {
+        try
+        {
+            await using var conn = GetConnection();
+
+            await conn.OpenAsync();
+
+            return (await conn.QueryAsync<DateTime>(_queries.ListReservationsDateByArea(), new { Id = areaId }))
+                .ToList();
         }
         catch (Exception ex)
         {
