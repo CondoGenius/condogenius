@@ -27,6 +27,7 @@ const useMeetings = () => {
         setLoadingMeetings(true);
 
         const meeting = {
+            user_id: values.userId,
             tittle: values.tittle,
             description: values.description,
             date: values.date,

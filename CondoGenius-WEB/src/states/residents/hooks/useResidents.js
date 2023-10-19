@@ -141,7 +141,7 @@ const useResidents = () => {
         if (response?.status === 200) {
             dispatch(setResidentAction({data: {
                 id: response.data.resident.id, 
-                userId: 2,
+                userId:  response.data.resident.user_id,
                 cpf: response.data.resident.cpf,
                 email: response.data.resident.email,
                 name: response.data.resident.name,
