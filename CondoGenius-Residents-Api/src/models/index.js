@@ -24,5 +24,6 @@ db.sequelize = sequelize;
 
 db.residents = require("../../src/models/ResidentModel.js")(sequelize, Sequelize);
 db.residences = require("../../src/models/ResidenceModel.js")(sequelize, Sequelize);
+db.users = require("../../src/models/UserModel.js")(sequelize, Sequelize);
 
 module.exports = db;

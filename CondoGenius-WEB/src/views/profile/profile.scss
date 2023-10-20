@@ -1,3 +1,5 @@
+@import '../../styles/variables.scss';
+
 .profile_content {
     display: flex;
     flex-direction: row;
@@ -6,6 +8,38 @@
 
     .image_content {
         flex: 20%;
+
+        .contacts_content {
+            padding-top: 30px;
+            font-size: 20px;
+            color: $gray;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        
+            .itens_contact_content {
+                padding-top: 15px;
+                display: flex;
+                justify-content: space-between;
+            }
+            
+            .icon_whats {
+                color: #89d07e;
+            }
+
+            .icon_email {
+                color: $blue;
+            }
+
+            svg {
+                width: 4em;
+                height: 40px;
+
+            }
+
+        }
+        
     }
 
     .profile_form_content {
@@ -15,6 +49,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+
+            button {
+                width: 300px;
+                height: 40px;
+            }
         }
     }
 }

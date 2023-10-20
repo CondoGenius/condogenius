@@ -23,6 +23,7 @@ import RegisterVerifys from './views/login/containers/register-verifys/register_
 import Login from './views/login/login';
 import MeetingsAdminView from './views/meetings/admin_view/meetings';
 import Profile from './views/profile/profile';
+import QuickContactsResidentView from './views/quick_contacts/resident_view/quick_contacts';
 
 const RoutesConfig = () => {
   const user = useSelector(state => state.user.data);
@@ -59,6 +60,10 @@ const RoutesConfig = () => {
       {/* Deliveries */}
       <Route path="/deliveries" component={DeliveriesAdminView} />
       <Route path="/deliveries-list" component={DeliveriesResidentView} />
+
+      {/* Quick Contacts */}
+      <Route path="/quick-contacts-list" component={QuickContactsResidentView} />
+
 
       <Route path="/profile" exact component={Profile} />
     </Switch>

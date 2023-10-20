@@ -80,7 +80,7 @@ const useReservations = () => {
         const guestList = {
             reservation_id: values.reservationId,
             name: values.name,
-            document: values.document,
+            cpf: values.cpf,
         };
 
         const response = await ReservationsService().updateGuestList(guestList);

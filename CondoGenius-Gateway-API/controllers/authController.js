@@ -6,7 +6,7 @@ var config = require('../config/config');
 const db = require('../models');
 const User = db.users;
 const Role = db.roles;
-
+const Resident = db.residents;
 
 const authController = {};
 
@@ -16,10 +16,15 @@ authController.register = async (req, res) => {
 
     var role = await Role.findOne({ where: { name: 'Resident' } });
 
+    var resident = await Resident.findOne({ where: { email: email } });
+
     var hashedPassword = bcrypt.hashSync(password, 8);
 
     const user = new User({ email, password: hashedPassword, role_id: role.id });
     await user.save();
+
+    resident.user_id = user.id;
+    await resident.save();
 
     const token = jwt.sign({ userId: user.id }, config.secret, {
       expiresIn:  86400 // expira em 24 horas

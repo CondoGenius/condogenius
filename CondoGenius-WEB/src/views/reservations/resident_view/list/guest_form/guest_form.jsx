@@ -12,7 +12,7 @@ import './guest_form.scss';
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormGuestListSchema = Yup.object().shape({
     name: Yup.string().ensure().required(requiredFieldMessage),
-    document: Yup.string().ensure().required(requiredFieldMessage),
+    cpf: Yup.string().ensure().required(requiredFieldMessage),
 });
 
 const onSubmit = async (values, updateGuestList, getReservationsByUserId, userId, setIsSubmit) => {
@@ -62,7 +62,7 @@ const GuestForm = ({ guestList, reservationId }) => {
             initialValues={{
                 reservationId: reservationId,
                 name: '',
-                document: '',
+                cpf: '',
             }}
             validationSchema={FormGuestListSchema}
             onSubmit={values => {onSubmit(values, updateGuestList, getReservationsByUserId, user.id, setIsSubmit)}}
@@ -91,14 +91,14 @@ const GuestForm = ({ guestList, reservationId }) => {
                     </div>
                     <div>
                         <input 
-                            id="document"
+                            id="cpf"
                             type="text" 
                             placeholder="Digite o CPF/RG do convidado"
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            value={values.document}
+                            value={values.cpf}
                         />
-                        {isSubmit && errors.document && <ErrorField error={errors.document}/>}
+                        {isSubmit && errors.cpf && <ErrorField error={errors.cpf}/>}
                     </div>
                     {renderButtonSubmit(isValid, handleSubmit, handleReset, setIsSubmit)}
                 </div>

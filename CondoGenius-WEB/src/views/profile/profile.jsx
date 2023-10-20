@@ -1,11 +1,13 @@
 import { Formik } from 'formik';
 import React, { useEffect, useState } from "react";
+import { AiOutlineMail, AiOutlineWhatsApp } from 'react-icons/ai';
 import { Button } from 'react-materialize';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import person from '../../assets/person.png';
 import Loading from '../../components/loading/loading';
+import Tooltip from '../../components/tooltip/tooltip';
 import ErrorField from '../../components/utils/errorField';
 import useResidences from '../../states/residences/hooks/useResidences';
 import useResidents from '../../states/residents/hooks/useResidents';
@@ -165,9 +167,19 @@ const Profile = () => {
                 <div className='profile_content'>
                     <div className="image_content">
                         <img src={person}/>
-                        
+                        <div className='contacts_content'>
+                            <span>Contatos</span>
+                            <div className="itens_contact_content">
+                                <Tooltip message={"Falar com um administrador via Whatsapp"}>
+                                    <a href="https://api.whatsapp.com/send?phone=TELEFONE"><AiOutlineWhatsApp className='icon_whats'/></a>
+                                </Tooltip>
+                                <Tooltip message={"Falar com um administrador via e-mail"}>
+                                    <a href="mailto:${hellen.gurgacz@gmail.com}"><AiOutlineMail className='icon_email'/></a>
+                                </Tooltip>
+                            </div>
+                        </div>
                     </div>
-                    <Formik        
+                    <Formik
                         initialValues={{
                             id: resident.data.id,
                             name: resident.data.name,
@@ -194,20 +206,17 @@ const Profile = () => {
                                 <div className='fields'>
                                     <div class="row">
                                         <form class="col s12">
-                                            <div class="input-field col s4">
+                                            <div class="input-field col s6">
                                                 {renderFieldName(handleChange, handleBlur, values)}
                                                 {isSubmit && errors.name && <ErrorField error={errors.name}/>}
                                             </div>
-                                            <div class="input-field col s4">
+                                            <div class="input-field col s6">
                                                 {renderFieldLastName(handleChange, handleBlur, values)}
                                                 {isSubmit && errors.lastName && <ErrorField error={errors.lastName}/>}
                                             </div>
-                                            <div class="input-field col s4">
-                                                {renderFieldCpf(handleChange, handleBlur, values)}
-                                                {isSubmit && errors.cpf && <ErrorField error={errors.cpf}/>}
-                                            </div>
                                         </form>
                                     </div>
+
                                     <div class="row">
                                         <form class="col s12">
                                             <div class="input-field col s6">
@@ -215,10 +224,16 @@ const Profile = () => {
                                                 {isSubmit && errors.contact && <ErrorField error={errors.contact}/>}
                                             </div>
                                             <div class="input-field col s6">
-                                                {renderFieldEmail(handleChange, handleBlur, values)}
-                                                {isSubmit && errors.email && <ErrorField error={errors.email}/>}
+                                                {renderFieldCpf(handleChange, handleBlur, values)}
+                                                {isSubmit && errors.cpf && <ErrorField error={errors.cpf}/>}
                                             </div>
                                         </form>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            {renderFieldEmail(handleChange, handleBlur, values)}
+                                            {isSubmit && errors.email && <ErrorField error={errors.email}/>}
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <form class="col s12">

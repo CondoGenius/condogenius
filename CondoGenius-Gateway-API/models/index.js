@@ -22,5 +22,6 @@ db.sequelize = sequelize;
 
 db.users = require("../models/UserModel.js")(sequelize, Sequelize);
 db.roles = require("../models/RoleModel.js")(sequelize, Sequelize);
+db.residents = require("../models/ResidentModel.js")(sequelize, Sequelize);
 
 module.exports = db;

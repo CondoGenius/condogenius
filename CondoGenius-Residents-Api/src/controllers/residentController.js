@@ -1,5 +1,6 @@
 const db = require('../models');
 const Resident = db.residents;
+const User = db.users;
 
 // Função para criar um novo residente
 exports.createResident = async (req, res) => {
@@ -41,13 +42,14 @@ exports.createResident = async (req, res) => {
 
 exports.listResidents = async (req, res) => {
   try {
-    const { name, cpf, residence_id } = req.query;
+    const { name, cpf, residence_id, email } = req.query;
 
     const cleanedCpf = cpf ? cpf.replace(/[^\d]/g, '') : '';
 
     const whereClause = {
       is_active: 1,
       ...(name && { name }),
+      ...(email && { email }),
       ...(cpf && { cpf: cleanedCpf }),
       ...(residence_id && { residence_id }),
     };
@@ -135,7 +137,7 @@ exports.updateResident = async (req, res) => {
   try {
     const { id } = req.params;
     const {
-      user_id = null,
+      user_id,
       residence_id,
       cpf,
       email,
@@ -152,7 +154,22 @@ exports.updateResident = async (req, res) => {
       return res.status(404).json({ message: 'Residente não encontrado' });
     }
 
-    cleanedCpf = cpf.replace(/[^\d]/g, '');
+    cleanedCpf = cpf ? cpf.replace(/[^\d]/g, '') : '';
+
+    if (email && resident.user_id) {
+      try {
+        const user = await User.findOne({ where: { id: resident.user_id } });
+        if (user) {
+          await user.update({ email });
+        } else {
+          throw new Error('Usuário não encontrado');
+        }
+      } catch (error) {
+        console.error('Erro ao atualizar email do usuário:', error);
+        res.status(500).json({ message: 'Erro ao atualizar email do usuário' });
+        return;
+      }
+    }
 
     await resident.update({
       user_id,

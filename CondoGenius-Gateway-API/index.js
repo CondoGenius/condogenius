@@ -26,10 +26,10 @@ app.use((req, res, next) => {
   authMiddleware(req, res, next)
 });
 
-router.use("/login/", authController.login)
-router.use("/logout/", authController.logout)
-router.use("/user/me", authController.me)
-router.use("/user/register", authController.register)
+router.post("/login/", authController.login)
+router.post("/logout/", authController.logout)
+router.get("/user/me", authController.me)
+router.post("/user/register", authController.register)
 
 router.use("/residents/", proxy("http://residents:7008/"));
 
