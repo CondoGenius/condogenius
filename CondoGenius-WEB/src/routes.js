@@ -18,7 +18,7 @@ import Residents from './views/residents/residents';
 import DeliveriesAdminView from './views/deliveries/admin_view/deliveries';
 import DeliveriesResidentView from './views/deliveries/resident_view/deliveries';
 
-import HubDigital from './views/hub/hub';
+import HubDigital from './views/hub_digital/hub_digital';
 import RegisterVerifys from './views/login/containers/register-verifys/register_verifys';
 import Login from './views/login/login';
 import MeetingsAdminView from './views/meetings/admin_view/meetings';
