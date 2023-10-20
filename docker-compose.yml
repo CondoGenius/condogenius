@@ -63,14 +63,18 @@ services:
       - "7003:7003"
 
   digital_hub:
-    image: digital_hub
     build:
-      context: ./
-      dockerfile: CondoGenius-DigitalHub-API/Dockerfile
+      context: ./CondoGenius-Hub-Digital
+      dockerfile: Dockerfile
     environment:
-      - ASPNETCORE_URLS=http://0.0.0.0:7004
+      NODE_ENV: Dockerfile
+    command: npm start
+    volumes:
+      - ./hub_digital:/usr/hub_digital:cached
     ports:
       - "7004:7004"
+    depends_on:
+      - mysql
   
   checks:
     image: checks
