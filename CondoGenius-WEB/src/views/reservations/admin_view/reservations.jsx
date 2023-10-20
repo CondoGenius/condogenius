@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import Loading from "../../../components/loading/loading";
 import ModalContent from "../../../components/modal/modal_content";
 import useReservations from "../../../states/reservations/hooks/useReservations";
-import { FormatDateZone } from "../../../utils/utils";
+import { CpfMask, FormatDateZone } from "../../../utils/utils";
 import './reservations.scss';
 
 const renderGuestListFromReservation = (guestList) => (
@@ -17,7 +17,7 @@ const renderGuestListFromReservation = (guestList) => (
                 {guest.name}
                 </span>
                 <span className='guest_list_info'>
-                {guest.document}
+                {CpfMask(guest.cpf)}
                 </span>
             </CollectionItem>
         ))
@@ -74,7 +74,7 @@ const ReservationsAdminView = () => {
                                 <ModalContent
                                     header={`Lista de convidados - ${reservation.common_area_name} ${FormatDateZone(reservation.reserve_date)}`}
                                     trigger={<span className='guest_list_action'>acessar lista de convidados</span>}
-                                    children={renderGuestListFromReservation(reservation.guestList)}
+                                    children={renderGuestListFromReservation(reservation.guest_list)}
                                     className="complaint"
                                 />                     
                         </CollectionItem>

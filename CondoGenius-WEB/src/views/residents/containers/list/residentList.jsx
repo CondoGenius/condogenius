@@ -6,6 +6,7 @@ import Loading from "../../../../components/loading/loading";
 import ModalContent from "../../../../components/modal/modal_content";
 import useResidences from "../../../../states/residences/hooks/useResidences";
 import useResidents from "../../../../states/residents/hooks/useResidents";
+import { CpfMask } from "../../../../utils/utils";
 import ResidentFormFields from "../form/resident_form";
 
 import './residentList.scss';
@@ -64,7 +65,7 @@ const ResidentList = ({ filters }) => {
                                 {resident.email}
                             </span>
                             <span>
-                                {resident.cpf}
+                                {CpfMask(resident.cpf)}
                             </span>
                             <span className='icon'>
                                 <ModalContent 

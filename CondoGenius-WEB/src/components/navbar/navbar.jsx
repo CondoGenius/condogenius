@@ -64,7 +64,7 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="actions_content">
-                {navLink('/profile', BsPersonCircle, 'Perfil')}
+                {!user.isAdmin && navLink('/profile', BsPersonCircle, 'Perfil')}
                 <Tooltip message={"Sair"}>
                     <span className='exit_icon' onClick={() => logout(history)}><MdExitToApp className='logout_icon'/></span>
                 </Tooltip>
