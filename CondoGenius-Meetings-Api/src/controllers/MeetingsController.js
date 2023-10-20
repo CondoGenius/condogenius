@@ -1,25 +1,21 @@
 const db = require('../models');
 const Meeting = db.meetings;
 
-exports.createMeeting = (req, res) => {
+exports.createMeeting = async (req, res) => {
   try {
     const {
       title,
       description,
       date,
-      time,
-      is_active = true,
-      condominium_id,
+      hour,
       user_id
     } = req.body;
 
-    const newMeeting = Meeting.create({
+    const newMeeting = await Meeting.create({
       title,
       description,
       date,
-      time,
-      is_active,
-      condominium_id,
+      hour,
       user_id,
       created_at: new Date(),
       updated_at: new Date()
@@ -33,21 +29,46 @@ exports.createMeeting = (req, res) => {
 
 exports.listMeetings = async (req, res) => {
   try {
-    const { condominium_id } = req.query;
+    const meetings = await Meeting.findAll();
 
-    const whereClause = {
-      is_active: 1,
-      ...(condominium_id && { condominium_id }),
-    };
+    res.status(200).json(meetings);
+  } catch (error) {
+    console.error('Erro ao listar reuniões:', error);
+    res.status(500).json({ message: 'Erro ao listar reuniões' });
+  }
+};
+
+exports.listMeetingsByUserId = async (req, res) => {
+  try {
+    const { user_id } = req.params;
 
     const meetings = await Meeting.findAll({
-      where: whereClause,
+      where: {
+        user_id: user_id
+      }
     });
 
     res.status(200).json(meetings);
   } catch (error) {
     console.error('Erro ao listar reuniões:', error);
     res.status(500).json({ message: 'Erro ao listar reuniões' });
+  }
+};
+
+exports.getMeeting = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const meeting = await Meeting.findByPk(id);
+
+    if (!meeting) {
+      return res.status(404).json({ message: 'Reunião não encontrada' });
+    }
+
+    res.status(200).json(meeting);
+  } catch (error) {
+    console.error('Erro ao listar reunião:', error);
+    res.status(500).json({ message: 'Erro ao listar reunião' });
   }
 };
 

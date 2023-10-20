@@ -42,55 +42,55 @@ services:
       - mysql
 
 
-  # complaints:
-  #   image: complaints
-  #   build:
-  #     context: ./
-  #     dockerfile: CondoGenius-Complaints-API/Dockerfile
-  #   environment:
-  #     - ASPNETCORE_URLS=http://0.0.0.0:7002
-  #   ports:
-  #     - "7002:7002"
+  complaints:
+    image: complaints
+    build:
+      context: ./
+      dockerfile: CondoGenius-Complaints-API/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:7002
+    ports:
+      - "7002:7002"
 
-  # deliveries:
-  #   image: deliveries
-  #   build:
-  #     context: ./
-  #     dockerfile: CondoGenius-Deliveries-API/Dockerfile
-  #   environment:
-  #     - ASPNETCORE_URLS=http://0.0.0.0:7003
-  #   ports:
-  #     - "7003:7003"
+  deliveries:
+    image: deliveries
+    build:
+      context: ./
+      dockerfile: CondoGenius-Deliveries-API/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:7003
+    ports:
+      - "7003:7003"
 
-  # digital_hub:
-  #   image: digital_hub
-  #   build:
-  #     context: ./
-  #     dockerfile: CondoGenius-DigitalHub-API/Dockerfile
-  #   environment:
-  #     - ASPNETCORE_URLS=http://0.0.0.0:7004
-  #   ports:
-  #     - "7004:7004"
+  digital_hub:
+    image: digital_hub
+    build:
+      context: ./
+      dockerfile: CondoGenius-DigitalHub-API/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:7004
+    ports:
+      - "7004:7004"
   
-  # checks:
-  #   image: checks
-  #   build:
-  #     context: ./
-  #     dockerfile: CondoGenius-Checks-API/Dockerfile
-  #   environment:
-  #     - ASPNETCORE_URLS=http://0.0.0.0:7005
-  #   ports:
-  #     - "7005:7005"
+  checks:
+    image: checks
+    build:
+      context: ./
+      dockerfile: CondoGenius-Checks-API/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:7005
+    ports:
+      - "7005:7005"
 
-  # reservations:
-  #   image: reservations
-  #   build:
-  #     context: ./
-  #     dockerfile: CondoGenius-Reservations-API/Dockerfile
-  #   environment:
-  #     - ASPNETCORE_URLS=http://0.0.0.0:7006
-  #   ports:
-  #     - "7006:7006"
+  reservations:
+    image: reservations
+    build:
+      context: ./
+      dockerfile: CondoGenius-Reservations-API/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:7006
+    ports:
+      - "7006:7006"
 
   residents:
     build:
@@ -106,41 +106,41 @@ services:
     depends_on:
       - mysql
 
-  # meetings:
-  #   build:
-  #     context: ./CondoGenius-Meetings-Api
-  #     dockerfile: Dockerfile
-  #   environment:
-  #     NODE_ENV: development
-  #   command: npm start
-  #   volumes:
-  #     - ./meetings:/usr/meetings:cached
-  #   ports:
-  #     - "7009:7009"
-  #   depends_on:
-  #     - mysql
+  meetings:
+    build:
+      context: ./CondoGenius-Meetings-Api
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+    command: npm start
+    volumes:
+      - ./meetings:/usr/meetings:cached
+    ports:
+      - "7009:7009"
+    depends_on:
+      - mysql
 
-  # send-notifications:
-  #   build:
-  #     context: ./CondoGenius-SendNotifications
-  #     dockerfile: Dockerfile
-  #   environment:
-  #     NODE_ENV: development
-  #   command: npm start
-  #   volumes:
-  #     - ./send-notifications:/usr/send-notifications
-  #   ports:
-  #     - "7007:7007"
+  send-notifications:
+    build:
+      context: ./CondoGenius-SendNotifications
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+    command: npm start
+    volumes:
+      - ./send-notifications:/usr/send-notifications
+    ports:
+      - "7007:7007"
 
-  # condogenius_web:
-  #   image: web
-  #   build:
-  #     context: ./CondoGenius-WEB
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - ./CondoGenius-WEB:/app
+  condogenius_web:
+    image: web
+    build:
+      context: ./CondoGenius-WEB
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./CondoGenius-WEB:/app
 
 networks:
   db_network:
