@@ -7,30 +7,30 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import ErrorField from '../../../../../components/utils/errorField';
 import useReservations from '../../../../../states/reservations/hooks/useReservations.js';
+import { CpfMask } from '../../../../../utils/utils';
 import './guest_form.scss';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormGuestListSchema = Yup.object().shape({
-    name: Yup.string().ensure().required(requiredFieldMessage),
-    cpf: Yup.string().ensure().required(requiredFieldMessage),
+    name: Yup.string().required(requiredFieldMessage),
+    cpf: Yup.string().required(requiredFieldMessage).min(13, 'O CPF deve ter 11 dígitos.'),
 });
 
-const onSubmit = async (values, updateGuestList, getReservationsByUserId, userId, setIsSubmit) => {
+const onSubmit = async (values, updateGuestList, getReservationsByResidentId, residentId, setIsSubmit) => {
     setIsSubmit()
 
     const response = await updateGuestList(values);
 
-    if (response?.status === 200) {
+    if (response?.status === 201) {
         document.getElementById('reset_form_guest').click();
         toast.success("Lista de convidados atualizada.");
-        getReservationsByUserId(userId);
+        getReservationsByResidentId(residentId);
     }
 };
 
 const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => (
     <div>
       <Button 
-        modal={isValid ? "close" : "open"}
         onClick={(e) => {
             setIsSubmit(true);
             if (isValid) {
@@ -49,13 +49,23 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => 
         }}
       />
     </div>
-  );
+);
 
 const GuestForm = ({ guestList, reservationId }) => {
     const [isSubmit, setIsSubmit] = useState(false);
-    const user = useSelector((state) => state.user.data);
+    const resident = useSelector((state) => state.resident.data);
 
-    const { getReservationsByUserId, updateGuestList } = useReservations();
+    const { getReservationsByResidentId, updateGuestList, deleteFromGuestList } = useReservations();
+
+    const removeGuest = async (e, id) => {
+        e.preventDefault();
+        const response = await deleteFromGuestList(id);
+
+        if (response?.status === 200) {
+            toast.success("Convidado removido.");
+            getReservationsByResidentId(resident.id);
+        }
+    };
     
     return (
         <Formik        
@@ -65,7 +75,7 @@ const GuestForm = ({ guestList, reservationId }) => {
                 cpf: '',
             }}
             validationSchema={FormGuestListSchema}
-            onSubmit={values => {onSubmit(values, updateGuestList, getReservationsByUserId, user.id, setIsSubmit)}}
+            onSubmit={values => {onSubmit(values, updateGuestList, getReservationsByResidentId, resident.id, setIsSubmit)}}
         > 
         {({
             handleChange,
@@ -96,7 +106,8 @@ const GuestForm = ({ guestList, reservationId }) => {
                             placeholder="Digite o CPF/RG do convidado"
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            value={values.cpf}
+                            value={CpfMask(values.cpf)} 
+                            maxLength={13}
                         />
                         {isSubmit && errors.cpf && <ErrorField error={errors.cpf}/>}
                     </div>
@@ -105,15 +116,15 @@ const GuestForm = ({ guestList, reservationId }) => {
                 <Collection>
                 {guestList?.length > 0 ? (
                         guestList.map(guest => (
-                            <CollectionItem key={guest.id}>
+                            <CollectionItem key={guest.id} className="guest_list_content">
                                 <span>
                                 {guest.name}
                                 </span>
-                                <span className='guest_list_info'>
-                                {guest.document}
-                                </span>
                                 <span>
-                                    <MdClear />
+                                {CpfMask(guest.cpf)}
+                                </span>
+                                <span className='guest_list_info_remove'>
+                                    <MdClear onClick={(e) => removeGuest(e, guest.id)}/>
                                 </span>
                         </CollectionItem>
                         ))

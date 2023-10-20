@@ -12,6 +12,7 @@ import Tooltip from "../../../../components/tooltip/tooltip";
 import useResidences from "../../../../states/residences/hooks/useResidences";
 import ResidentFormFields from "../form/resident_form";
 
+import { CpfMask } from '../../../../utils/utils';
 import './resident_actions.scss';
 
 const onSubmit = (values, setFilters) => {
@@ -44,7 +45,8 @@ const renderFieldFilterByCpf = (handleChange, handleBlur, values) => (
         type="text"
         placeholder="Busque pelo CPF do morador"
         onChange={handleChange}
-        value={values.cpf} 
+        value={CpfMask(values.cpf)} 
+        maxLength={13}
         handleBlur={handleBlur}
     />
 );

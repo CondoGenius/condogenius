@@ -62,6 +62,16 @@ const ReservationsService = () => {
           .catch(err => err);
     };
 
+    const deleteFromGuestList = async (id) => {
+        return axios.delete(`http://localhost:7006/api/guestList/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        .then(res => res)
+        .catch(err => err);
+    };
+
     const deleteReservation = async (id) => {
         // lembrar de deletar tambem guestList relacionado a essa reserva
         return axios.delete(`http://localhost:7006/api/reservations/${id}`, {
@@ -79,6 +89,7 @@ const ReservationsService = () => {
         getReservations,
         createReservation,
         updateGuestList,
+        deleteFromGuestList,
         deleteReservation
     };
 

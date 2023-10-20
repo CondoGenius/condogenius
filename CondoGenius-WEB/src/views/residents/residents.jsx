@@ -39,7 +39,7 @@ const Residents = () => {
 
       <ResidentActions filters={filters} setFilters={setFilters} />
       
-      <ResidentList filters={filters} setFilters={setFilters}/>
+      <ResidentList filters={filters} />
     </div>
   );
 }

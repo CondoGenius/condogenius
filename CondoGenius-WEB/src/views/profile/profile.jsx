@@ -11,15 +11,15 @@ import Tooltip from '../../components/tooltip/tooltip';
 import ErrorField from '../../components/utils/errorField';
 import useResidences from '../../states/residences/hooks/useResidences';
 import useResidents from '../../states/residents/hooks/useResidents';
-import { FormatDate } from '../../utils/utils';
+import { CpfMask, FormatDate, PhoneMask } from '../../utils/utils';
 import './profile.scss';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormProfileSchema = Yup.object().shape({
     name: Yup.string().required(requiredFieldMessage),
     lastName: Yup.string().required(requiredFieldMessage),
-    cpf: Yup.string().required(requiredFieldMessage),
-    contact: Yup.string().required(requiredFieldMessage),
+    cpf: Yup.string().required(requiredFieldMessage).min(13, 'O CPF deve ter 11 dígitos.'),
+    contact: Yup.string().required(requiredFieldMessage).min(14, 'O contato deve ter no mínimo 10 dígitos.'),
     email: Yup.string().ensure().required(requiredFieldMessage),
     birthday: Yup.string().ensure().required(requiredFieldMessage),
 });
@@ -61,7 +61,8 @@ const renderFieldCpf = (handleChange, handleBlur, values) => (
         placeholder="Digite o CPF"
         onChange={handleChange}
         onBlur={handleBlur}
-        value={values.cpf} 
+        value={CpfMask(values.cpf)} 
+        maxLength={13}
     />
 );
 
@@ -69,10 +70,11 @@ const renderFieldContact = (handleChange, handleBlur, values) => (
     <input 
         id="contact"
         type="text" 
-        placeholder="Digite o contato"
+        placeholder="Digite o contato com DDD"
         onChange={handleChange}
         onBlur={handleBlur}
-        value={values.contact} 
+        value={PhoneMask(values.contact)}
+        maxLength={15}
     />
 );
 
@@ -121,7 +123,7 @@ const renderFieldResidenceNumber = (handleChange, handleBlur, values, residences
     </select>
 );
 
-const renderButtonSubmit = (isValid, errors, handleSubmit, handleReset, setIsSubmit, isEdit) => (
+const renderButtonSubmit = (values,isValid, errors, handleSubmit, handleReset, setIsSubmit, isEdit) => (
     <div className='button_content'>
         <Button 
             modal={isValid ? "close" : "open"}
@@ -248,7 +250,7 @@ const Profile = () => {
                                         </form>
                                     </div>
                                     <div className='actions'>
-                                        {renderButtonSubmit(isValid, errors, handleSubmit, handleReset, setIsSubmit)}
+                                        {renderButtonSubmit(values,isValid, errors, handleSubmit, handleReset, setIsSubmit)}
                                     </div>
                                 </div>
                             </div>

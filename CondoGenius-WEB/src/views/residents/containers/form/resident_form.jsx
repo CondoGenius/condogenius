@@ -8,16 +8,15 @@ import * as Yup from 'yup';
 import ErrorField from '../../../../components/utils/errorField';
 import useResidences from "../../../../states/residences/hooks/useResidences";
 import useResidents from "../../../../states/residents/hooks/useResidents";
-import { FormatDate } from '../../../../utils/utils';
-
+import { CpfMask, FormatDate, PhoneMask } from '../../../../utils/utils';
 import './resident_form.scss';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormResidentSchema = Yup.object().shape({
     name: Yup.string().ensure().required(requiredFieldMessage),
     lastName: Yup.string().ensure().required(requiredFieldMessage),
-    cpf: Yup.string().ensure().required(requiredFieldMessage),
-    contact: Yup.string().ensure().required(requiredFieldMessage),
+    cpf: Yup.string().required(requiredFieldMessage).min(13, 'O CPF deve ter 11 dígitos.'),
+    contact: Yup.string().required(requiredFieldMessage).min(14, 'O contato deve ter no mínimo 10 dígitos.'),
     email: Yup.string().ensure().required(requiredFieldMessage),
     birthday: Yup.string().ensure().required(requiredFieldMessage),
     residenceId: Yup.string().ensure().required(requiredFieldMessage)
@@ -71,7 +70,8 @@ const renderFieldCpf = (handleChange, handleBlur, values) => (
         placeholder="Digite o CPF"
         onChange={handleChange}
         onBlur={handleBlur}
-        value={values.cpf} 
+        value={CpfMask(values.cpf)} 
+        maxLength={13}
     />
 );
 
@@ -79,10 +79,11 @@ const renderFieldContact = (handleChange, handleBlur, values) => (
     <input 
         id="contact"
         type="text" 
-        placeholder="Digite o contato"
+        placeholder="Digite o contato com DDD"
         onChange={handleChange}
         onBlur={handleBlur}
-        value={values.contact} 
+        value={PhoneMask(values.contact)}
+        maxLength={15}
     />
 );
 

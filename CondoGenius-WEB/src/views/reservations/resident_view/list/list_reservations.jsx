@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { MdRemoveCircleOutline } from 'react-icons/md';
-import { Collection, CollectionItem } from 'react-materialize';
+import { Button, Collection, CollectionItem } from 'react-materialize';
 import { useSelector } from 'react-redux';
 import HeaderBackPage from '../../../../components/header-back-page/header_back_page';
 import Loading from "../../../../components/loading/loading";
@@ -15,7 +15,7 @@ const ListReservations = () => {
     const resident = useSelector((state) => state.resident)
 
     const { loadingReservations, getReservationsByResidentId, deleteReservation } = useReservations();
-    
+
     useEffect(() => {
         getReservationsByResidentId(resident.data.id);
     }, []);
@@ -60,10 +60,24 @@ const ListReservations = () => {
                                 <ModalContent
                                     header={`Lista de convidados - ${reservation.common_area_name} ${FormatDateZone(reservation.reserve_date)}`}
                                     trigger={<span className='guest_list_action'>gerenciar lista de convidados</span>}
-                                    children={<GuestForm list={reservation.guestList} reservationId={reservation.id} />}
+                                    children={<GuestForm guestList={reservation.guest_list} reservationId={reservation.id} />}
                                     className="complaint"
                                 />
-                                <span><MdRemoveCircleOutline onClick={(e) => {submitDeleteReservation(e, reservation.id)}}/></span>
+                                <ModalContent 
+                                    header="Excluir morador"
+                                    trigger={<span><MdRemoveCircleOutline /></span>}
+                                    children={
+                                        <span>
+                                            <div>Tem certeza que deseja remover sua reserva para {reservation.common_area_name} no dia {FormatDateZone(reservation.reserve_date)}?</div>
+                                            <div className="button_delete_resident_content">
+                                                <Button modal="close" node="button" className="red_button" onClick={(e) => {submitDeleteReservation(e, reservation.id)}}>
+                                                    Confirmar
+                                                </Button>
+                                            </div>
+                                        </span>
+                                    }
+                                    className="delete"
+                                />
                         </CollectionItem>
                         ))
                     ) : (
