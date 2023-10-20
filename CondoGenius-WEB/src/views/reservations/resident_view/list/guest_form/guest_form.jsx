@@ -1,5 +1,5 @@
 import { Formik } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdAddBox, MdClear } from 'react-icons/md';
 import { Button, Collection, CollectionItem } from 'react-materialize';
 import { useSelector } from 'react-redux';
@@ -23,7 +23,7 @@ const onSubmit = async (values, updateGuestList, getReservationsByResidentId, re
 
     if (response?.status === 201) {
         document.getElementById('reset_form_guest').click();
-        toast.success("Lista de convidados atualizada.");
+        toast.success("Convidado adicionado.");
         getReservationsByResidentId(residentId);
     }
 };
@@ -53,7 +53,7 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => 
 
 const GuestForm = ({ guestList, reservationId }) => {
     const [isSubmit, setIsSubmit] = useState(false);
-    const resident = useSelector((state) => state.resident.data);
+    const resident = useSelector((state) => state.resident);
 
     const { getReservationsByResidentId, updateGuestList, deleteFromGuestList } = useReservations();
 
@@ -63,9 +63,13 @@ const GuestForm = ({ guestList, reservationId }) => {
 
         if (response?.status === 200) {
             toast.success("Convidado removido.");
-            getReservationsByResidentId(resident.id);
+            getReservationsByResidentId(resident.data.id);
         }
     };
+
+    useEffect(() => {
+        toast.error(resident.error)
+      }, [resident.error]);
     
     return (
         <Formik        
@@ -75,7 +79,7 @@ const GuestForm = ({ guestList, reservationId }) => {
                 cpf: '',
             }}
             validationSchema={FormGuestListSchema}
-            onSubmit={values => {onSubmit(values, updateGuestList, getReservationsByResidentId, resident.id, setIsSubmit)}}
+            onSubmit={values => {onSubmit(values, updateGuestList, getReservationsByResidentId, resident.data.id, setIsSubmit)}}
         > 
         {({
             handleChange,
