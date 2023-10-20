@@ -63,6 +63,18 @@ CREATE TABLE IF NOT EXISTS residents
     FOREIGN KEY (residence_id) REFERENCES residences (id)
 );
 
+CREATE TABLE IF NOT EXISTS meetings
+(
+    id          INTEGER AUTO_INCREMENT PRIMARY KEY,
+    user_id     INTEGER       NOT NULL,
+    title       NVARCHAR(255) NOT NULL,
+    description NVARCHAR(255) NOT NULL,
+    date        DATETIME      NOT NULL,
+    hour        NVARCHAR(255) NOT NULL,
+    created_at  DATETIME      NOT NULL,
+    updated_at  DATETIME      NOT NULL,
+);
+
 CREATE TABLE IF NOT EXISTS delivery_control
 (
     id           INTEGER AUTO_INCREMENT PRIMARY KEY,

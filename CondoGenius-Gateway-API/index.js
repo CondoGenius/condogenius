@@ -32,6 +32,7 @@ router.get("/user/me", authController.me)
 router.post("/user/register", authController.register)
 
 router.use("/residents/", proxy("http://residents:7008/"));
+router.use("/meetings/", proxy("http://meetings:7009/"));
 
 app.use("/gateway", router)
 
