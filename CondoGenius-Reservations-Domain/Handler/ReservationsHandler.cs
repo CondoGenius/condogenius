@@ -79,9 +79,8 @@ public class ReservationsHandler : IReservationsHandler
 
     public async Task<int> DeleteReservation(int id)
     {
-        await _repository.DeleteReservation(id);
-
         await _guestListHandler.DeleteGuestByReservation(id);
+        await _repository.DeleteReservation(id);
 
         return 1;
     }
