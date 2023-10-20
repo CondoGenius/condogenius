@@ -130,7 +130,7 @@ const renderFieldResidenceNumber = (handleChange, handleBlur, values, residences
     </select>
 );
 
-const renderButtonSubmit = (isValid, errors, handleSubmit, handleReset, setIsSubmit, isEdit) => (
+const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit, isEdit) => (
     <div>
         <Button 
             modal={isValid ? "close" : "open"}
@@ -239,7 +239,7 @@ const ResidentFormFields = ({residentEdited}) => {
                                 </form>
                             </div>
                             <div className='actions'>
-                                {renderButtonSubmit(isValid, errors, handleSubmit, handleReset, setIsSubmit, residentEdited)}
+                                {renderButtonSubmit(isValid, handleSubmit, handleReset, setIsSubmit, residentEdited)}
                             </div>
                         </div>
                     </div>

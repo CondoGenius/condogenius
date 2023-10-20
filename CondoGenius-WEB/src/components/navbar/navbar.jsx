@@ -60,6 +60,7 @@ const Navbar = () => {
                     {user.isAdmin && navLink('/deliveries', BsBoxSeamFill, 'Entregas')}
 
                     {!user.isAdmin && navLink('/quick-contacts-list', AiOutlineContacts, 'Lista rápida')}
+                    {user.isAdmin && navLink('/quick-contacts', AiOutlineContacts, 'Lista rápida')}
 
                 </ul>
             </div>

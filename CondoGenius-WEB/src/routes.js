@@ -23,6 +23,7 @@ import RegisterVerifys from './views/login/containers/register-verifys/register_
 import Login from './views/login/login';
 import MeetingsAdminView from './views/meetings/admin_view/meetings';
 import Profile from './views/profile/profile';
+import QuickContactsAdminView from './views/quick_contacts/admin_view/quick_contacts';
 import QuickContactsResidentView from './views/quick_contacts/resident_view/quick_contacts';
 
 const RoutesConfig = () => {
@@ -63,7 +64,7 @@ const RoutesConfig = () => {
 
       {/* Quick Contacts */}
       <Route path="/quick-contacts-list" component={QuickContactsResidentView} />
-
+      <Route path="/quick-contacts" component={QuickContactsAdminView} />
 
       <Route path="/profile" exact component={Profile} />
     </Switch>

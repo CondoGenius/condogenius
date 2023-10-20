@@ -9,8 +9,6 @@ import useResidents from "../../../../states/residents/hooks/useResidents";
 import { CpfMask } from "../../../../utils/utils";
 import ResidentFormFields from "../form/resident_form";
 
-import './residentList.scss';
-
 const ResidentList = ({ filters }) => {
     const residences = useSelector(state => state.residences.list);
     const residents = useSelector((state) => state.residents.list);
