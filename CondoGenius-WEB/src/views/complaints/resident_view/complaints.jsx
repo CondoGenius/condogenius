@@ -12,7 +12,7 @@ import ComplaintForm from './containers/form/complaint_form';
 
 import './complaints.scss';
 
-const ComplaintsResident = () => {
+const ComplaintsResidentView = () => {
   const resident = useSelector((state) => state.resident);
   const { loadingComplaints, getComplaintsByResindentId } = useComplaints();
 
@@ -98,4 +98,4 @@ const ComplaintsResident = () => {
   );
 };
 
-export default ComplaintsResident;
+export default ComplaintsResidentView;

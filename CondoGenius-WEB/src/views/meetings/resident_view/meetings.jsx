@@ -7,7 +7,7 @@ import useMeetings from '../../../states/meetings/hooks/useMeetings';
 import { FormatDate } from '../../../utils/utils';
 
 
-const Meetings = () => {
+const MeetingsResidentView = () => {
     const meetings = useSelector((state) => state.meetings);
 
     const { loadingMeetings, getMeetings } = useMeetings();
@@ -69,4 +69,4 @@ const Meetings = () => {
     );
 };
 
-export default Meetings;
+export default MeetingsResidentView;

@@ -16,3 +16,16 @@ export const FormatDateZone = (date) => {
         return '';
     }
 };
+
+export const FormatPhone = (phone) => {
+    const number = phone.replace(/\D/g, '');
+  
+    if (number.length === 8) {
+      return number.slice(0, 4) + '-' + number.slice(4);
+    } else if (number.length === 9) {
+      return number[0] + '-' + number.slice(1, 5) + '-' + number.slice(5);
+    } else {
+      return number;
+    }
+};
+  

@@ -4,6 +4,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 
 import logo from '../../assets/condogenius.png';
 
+import { AiOutlineContacts } from 'react-icons/ai';
 import { BsBoxSeamFill, BsPersonCircle } from 'react-icons/bs';
 import { GiBarbecue } from 'react-icons/gi';
 import { MdExitToApp, MdOutlineHub, MdPeopleAlt } from 'react-icons/md';
@@ -57,6 +58,8 @@ const Navbar = () => {
 
                     {!user.isAdmin && navLink('/deliveries-list', BsBoxSeamFill, 'Entregas')}
                     {user.isAdmin && navLink('/deliveries', BsBoxSeamFill, 'Entregas')}
+
+                    {!user.isAdmin && navLink('/quick-contacts-list', AiOutlineContacts, 'Lista rápida')}
 
                 </ul>
             </div>

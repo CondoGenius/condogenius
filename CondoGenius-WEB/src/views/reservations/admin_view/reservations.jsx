@@ -28,7 +28,7 @@ const renderGuestListFromReservation = (guestList) => (
     </Collection>
 );
 
-const Reservations = () => {
+const ReservationsAdminView = () => {
     const reservations = useSelector((state) => state.reservations);
 
     const { loadingReservations, getReservations } = useReservations();
@@ -88,4 +88,4 @@ const Reservations = () => {
     )
 };
 
-export default Reservations;
+export default ReservationsAdminView;

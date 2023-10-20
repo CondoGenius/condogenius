@@ -7,8 +7,7 @@ import useResidences from "../../../states/residences/hooks/useResidences";
 import DeliveriesActions from "./containers/actions/deliveries_actions";
 import DelivriesList from "./containers/list/deliveries_list";
 
-
-const Deliveries = () => {
+const DeliveriesAdminView = () => {
     const deliveries = useSelector((state) => state.deliveries);
 
     const { loadingResidences } = useResidences();
@@ -37,4 +36,4 @@ const Deliveries = () => {
     );
 };
 
-export default Deliveries;
+export default DeliveriesAdminView;

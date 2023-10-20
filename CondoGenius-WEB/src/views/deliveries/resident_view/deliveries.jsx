@@ -7,7 +7,7 @@ import useDeliveries from '../../../states/deliveries/hooks/useDeliveries';
 
 import { FormatDateZone } from '../../../utils/utils';
 
-const Deliveries = () => {
+const DeliveriesResidentView = () => {
     const resident = useSelector((state) => state.resident.data);
     const deliveries = useSelector((state) => state.resident.deliveries);
 
@@ -61,4 +61,4 @@ const Deliveries = () => {
     );
 };
 
-export default Deliveries;
+export default DeliveriesResidentView;

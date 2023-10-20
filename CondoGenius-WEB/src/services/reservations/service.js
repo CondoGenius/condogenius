@@ -52,7 +52,7 @@ const ReservationsService = () => {
     };
 
     const updateGuestList = async (list) => {
-        return axios.put(`http://localhost:7006/api/guestList`, list, {
+        return axios.post(`http://localhost:7006/api/guestList`, list, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 ContentType: 'application/json',

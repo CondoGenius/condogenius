@@ -54,7 +54,7 @@ const renderComplaintMoreInfo = (complaint, updateComplaint, getComplaints) => {
     );
 };
 
-const ComplaintsAdmin = () => {
+const ComplaintsAdminView = () => {
     const complaints = useSelector((state) => state.complaints);
 
     const { loadingResidences, getAllResidences } = useResidences();
@@ -141,4 +141,4 @@ const ComplaintsAdmin = () => {
     );
 };
 
-export default ComplaintsAdmin;
+export default ComplaintsAdminView;

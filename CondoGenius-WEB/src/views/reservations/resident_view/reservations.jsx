@@ -11,7 +11,7 @@ import FormReservations from './form/form_reservation';
 
 import './reservations.scss';
 
-const Reservations = () => {
+const ReservationsResidentView = () => {
   const resident = useSelector((state) => state.resident);
   const reservations = useSelector((state) => state.reservations.areas);
 
@@ -70,4 +70,4 @@ const Reservations = () => {
   );
 };
 
-export default Reservations;
+export default ReservationsResidentView;
