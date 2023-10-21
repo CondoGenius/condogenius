@@ -4,6 +4,7 @@ using CondoGenius_Reservations_Infra.Queries.Interfaces;
 using Dapper;
 using Global.Shared;
 using Global.Shared.Database.Entities;
+using MySql.Data.MySqlClient;
 
 namespace CondoGenius_Reservations_Infra.Repository;
 
@@ -27,9 +28,14 @@ public class GuestListRepository : BaseRepository, IGuestListRepository
             return await conn.ExecuteAsync(_queries.CreateGuestList(),
                 new { ReserveId = request.ReserveId, Name = request.Name, Cpf = request.Cpf });
         }
-        catch (Exception ex)
+        catch (MySqlException)
         {
-            Console.WriteLine($"Não foi possível criar o registro de convidado. Erro: {ex.Message}");
+            Console.WriteLine($"Erro no banco de dados");
+            throw;
+        }
+        catch (Exception)
+        {
+            Console.WriteLine($"Não foi possível criar o registro de convidado.");
             throw;
         }
     }
@@ -85,7 +91,7 @@ public class GuestListRepository : BaseRepository, IGuestListRepository
 
             await conn.OpenAsync();
 
-            return await conn.ExecuteAsync(_queries.DeleteGuestList(), new
+            return await conn.ExecuteAsync(_queries.DeleteGuestListByReservation(), new
             {
                 Id = reservationId
             });

@@ -24,12 +24,13 @@ public class ReservationsHandler : IReservationsHandler
 
             foreach (var reservation in reservations)
             {
-                if (reservation.Day == request.Date.Day && reservation.Month == request.Date.Month && reservation.Year == request.Date.Year)
+                if (reservation.Day == request.Date.Day && reservation.Month == request.Date.Month &&
+                    reservation.Year == request.Date.Year)
                 {
                     throw new Exception("Já existe uma reserva para essa data!");
                 }
             }
-            
+
             return await _repository.CreateReservation(request);
         }
         catch (Exception ex)
@@ -68,7 +69,7 @@ public class ReservationsHandler : IReservationsHandler
     public async Task<List<Reservation>> ListReservationsByResidence(int id)
     {
         var reservations = await _repository.ListReservationsByResidence(id);
-        
+
         foreach (var reservation in reservations)
         {
             reservation.GuestList = await _guestListHandler.ListGuestListByReservation(reservation.Id);
@@ -80,6 +81,7 @@ public class ReservationsHandler : IReservationsHandler
     public async Task<int> DeleteReservation(int id)
     {
         await _guestListHandler.DeleteGuestByReservation(id);
+
         await _repository.DeleteReservation(id);
 
         return 1;

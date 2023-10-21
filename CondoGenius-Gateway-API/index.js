@@ -31,6 +31,9 @@ router.post("/logout/", authController.logout)
 router.get("/user/me", authController.me)
 router.post("/user/register", authController.register)
 
+//RESERVATIONS
+router.use("/api/reservations", proxy("http://reservations:7006"))
+
 router.use("/residents/", proxy("http://residents:7008/"));
 
 app.use("/gateway", router)

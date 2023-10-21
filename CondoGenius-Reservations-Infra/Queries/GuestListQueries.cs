@@ -28,4 +28,9 @@ public class GuestListQueries : IGuestListQueries
     {
         return File.ReadAllText("/src/SQLs/DeleteGuestList.sql");
     }
+
+    public string DeleteGuestListByReservation()
+    {
+        return File.ReadAllText("/src/SQLs/DeleteGuestListByReservation.sql");
+    }
 }

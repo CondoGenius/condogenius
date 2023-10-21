@@ -1,8 +1,9 @@
 -- escreva um script SQL para usar o banco de dados genius
 -- e criar a tabela de usuários com os atributos: email, senha, is_active, e role_id
 
-
 -- use genius;
+
+ALTER DATABASE genius DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS roles
 (
