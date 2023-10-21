@@ -40,7 +40,7 @@ const renderComplaintMoreInfo = (complaint, updateComplaint, getComplaints) => {
             <>
                 {complaint.description}
                 <p>Data: {FormatDateZone(complaint.date)}</p>
-                <div className='complaint_actions_buttons'>
+                <div className='modal_actions_button_content'>
                     <Button className='green_button' onClick={() => {setValues({...values, status: 'notified'}); handleSubmit()}} modal="close">
                         Marcar denúncia como notificada
                     </Button>
