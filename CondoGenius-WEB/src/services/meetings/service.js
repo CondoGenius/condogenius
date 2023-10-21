@@ -2,13 +2,13 @@
 import axios from 'axios';
 
 const MeetingsService = () => {
-    const token = localStorage.getItem('user')?.token;
+    const token = JSON.parse(localStorage.getItem('user')).token;
 
     const getMeetings = () => {
-        return axios.get(`http://localhost:7008/api/meetings`, 
+        return axios.get(`http://localhost:5000/gateway/meetings/api/meetings`, 
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         },
         )
@@ -19,9 +19,9 @@ const MeetingsService = () => {
 
     const createMeeting = (meeting) => {
 
-        return axios.post(`http://localhost:7008/api/meetings`, meeting, {
+        return axios.post(`http://localhost:5000/gateway/meetings/api/meetings`, meeting, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
                 ContentType: 'application/json',
             },
           })
@@ -30,10 +30,10 @@ const MeetingsService = () => {
     };
 
     const deleteMeeting = (id) => {
-        return axios.delete(`http://localhost:7008/api/meetings/${id}`, 
+        return axios.delete(`http://localhost:5000/gateway/meetings/api/meetings/${id}`, 
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         }
         )

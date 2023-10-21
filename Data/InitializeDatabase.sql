@@ -66,15 +66,16 @@ CREATE TABLE IF NOT EXISTS residents
 
 CREATE TABLE IF NOT EXISTS meetings
 (
-    id          INTEGER AUTO_INCREMENT PRIMARY KEY,
-    user_id     INTEGER       NOT NULL,
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    user_id     INT           NOT NULL,
     title       NVARCHAR(255) NOT NULL,
     description NVARCHAR(255) NOT NULL,
     date        DATETIME      NOT NULL,
     hour        NVARCHAR(255) NOT NULL,
     created_at  DATETIME      NOT NULL,
-    updated_at  DATETIME      NOT NULL,
+    updated_at  DATETIME      NOT NULL
 );
+
 
 CREATE TABLE IF NOT EXISTS delivery_control
 (
@@ -250,7 +251,7 @@ VALUES ('Admin'),
        ('Resident');
 
 INSERT INTO users(email, password, is_active, role_id)
-VALUES ('admin@condogenius.com.br', 'admin', 1, 1);
+VALUES ('admin@condogenius.com.br', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 1);
 
 INSERT INTO administrators (user_id, cpf, email, name)
 VALUES (1, '10412515090', 'admin@condogenius.com.br', 'Hellen');
