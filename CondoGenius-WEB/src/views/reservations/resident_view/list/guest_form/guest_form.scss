@@ -11,5 +11,17 @@
         width: 100% !important;
         margin: 0px 10px !important;
     }
-    
+}
+
+.guest_list_content {
+    display: flex;
+
+    span {
+        flex: 33%;
+    }
+
+    .guest_list_info_remove {
+        display: flex;
+        justify-content: end;
+    }
 }

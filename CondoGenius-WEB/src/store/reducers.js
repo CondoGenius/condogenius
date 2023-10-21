@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import complaints from './complaints/reducer';
 import deliveries from './deliveries/reducer';
+import hubDigital from './hub_digital/reducer';
 import meetings from './meetings/reducer';
 import quickContacts from './quick_contacts/reducer';
 import reservations from './reservations/reducer';
@@ -19,5 +20,6 @@ export default combineReducers({
   complaints,
   reservations,
   meetings,
-  quickContacts
+  quickContacts,
+  hubDigital
 });

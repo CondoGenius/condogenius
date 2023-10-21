@@ -1,7 +1,6 @@
 import { Formik } from 'formik';
-import React, { useEffect } from "react";
+import React from "react";
 import { Button } from "react-materialize";
-import { useSelector } from "react-redux";
 
 import { FiRefreshCcw } from 'react-icons/fi';
 import { MdAddBox } from 'react-icons/md';
@@ -9,49 +8,37 @@ import { PiMagnifyingGlassBold } from 'react-icons/pi';
 
 import ModalContent from "../../../../components/modal/modal_content";
 import Tooltip from "../../../../components/tooltip/tooltip";
-import useResidences from "../../../../states/residences/hooks/useResidences";
-import ResidentFormFields from "../form/resident_form";
 
-import { CpfMask } from '../../../../utils/utils';
-import './resident_actions.scss';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import useQuickContacts from '../../../../states/quick_contacts/hooks/useQuickContacts';
+import QuickContactsFormFields from '../../admin_view/containers/form/quick_contacts_form';
+
 
 const onSubmit = (values, setFilters) => {
     setFilters({
+        type: values.type !== '' ? values.type : null,
         name: values.name !== '' ? values.name : null,
-        cpf: values.cpf !== '' ? values.cpf :  null,
-        residenceId: values.residenceId !== '' ? values.residenceId : null
     });
 };
 
 const clearFilters = (e, setFilters) => {
     e.preventDefault();
-    setFilters({name: null, cpf: null, residenceId: null});
+    setFilters({type: '', name: ''});
 };
 
 const renderFieldFilterByName = (handleChange, handleBlur, values) => (
     <input 
         id="name"
         type="text"
-        placeholder="Busque pelo nome do morador"
+        placeholder="Digite o nome do contato"
         onChange={handleChange}
         value={values.name}
         handleBlur={handleBlur}
     />
 );
 
-const renderFieldFilterByCpf = (handleChange, handleBlur, values) => (
-    <input 
-        id="cpf"
-        type="text"
-        placeholder="Busque pelo CPF do morador"
-        onChange={handleChange}
-        value={CpfMask(values.cpf)} 
-        maxLength={13}
-        handleBlur={handleBlur}
-    />
-);
-
-const renderFieldFilterByResidenceNumber = (handleChange, handleBlur, values, residences) => (
+const renderFieldFilterByType = (handleChange, handleBlur, values) => (
     <select
         className="browser-default"
         name="residenceId"
@@ -60,44 +47,34 @@ const renderFieldFilterByResidenceNumber = (handleChange, handleBlur, values, re
         value={values.residenceId}
     >
         <option value="" disabled hidden>Selecione a residência</option>
-        {
-            residences?.map(residence => (
-                <option
-                    key={residence.id}
-                    value={residence.id}
-                >
-                    Residência {residence.number}
-                </option>
-            ))
-        }
+        <option value="academia">Academia</option>
+        <option value="comida">Comida</option>
+       
     </select>
 );
 
-
-const renderButtonRegisterResident = () => (
+const renderButtonQuickContactRegister = () => (
     <ModalContent
-        header="Cadastrar morador"
-        trigger={<Button><MdAddBox /> Cadastrar novo morador</Button>}
-        children={<ResidentFormFields/>}
+        header="Cadastrar novo contato"
+        trigger={<Button><MdAddBox /> Cadastrar novo contato</Button>}
+        children={<QuickContactsFormFields/>}
         className="create"
     />
 );
 
-const ResidentActions = ({filters, setFilters}) => {
-    const residences = useSelector(state => state.residences.list);
-
-    const { getAllResidences } = useResidences();
+const QuickContactsActions = ({filters, setFilters}) => {
+    const user = useSelector((state) => state.user.data);
+    const { getQuickContacts } = useQuickContacts();
 
     useEffect(() => {
-        getAllResidences();
-    }, []);
+        getQuickContacts(filters);
+    }, [filters])
 
     return (
         <Formik        
             initialValues={{
+                type: '',
                 name: '',
-                cpf: '',
-                residenceId: ''
             }}
             onSubmit={(values) => onSubmit(values, setFilters)}
         > 
@@ -114,10 +91,7 @@ const ResidentActions = ({filters, setFilters}) => {
                                 {renderFieldFilterByName(handleChange, handleBlur, values)}
                             </div>
                             <div class="input-field col s3">
-                                {renderFieldFilterByCpf(handleChange, handleBlur, values)}
-                            </div>
-                            <div class="input-field col s3">
-                                {renderFieldFilterByResidenceNumber(handleChange, handleBlur, values, residences)}
+                                {renderFieldFilterByType(handleChange, handleBlur, values)}
                             </div>
                             <div class="input-field col s05">
                                 <Tooltip
@@ -133,9 +107,11 @@ const ResidentActions = ({filters, setFilters}) => {
                                     <FiRefreshCcw className="refresh_icon" onClick={(e) => clearFilters(e, setFilters)} />
                                 </Tooltip>
                             </div>
-                            <div class="input-field col s2 button_register_content">
-                                {renderButtonRegisterResident()}
-                            </div>
+                            {user.isAdmin && 
+                                <div class="input-field col s2 button_register_content">
+                                    {renderButtonQuickContactRegister()}
+                                </div>
+                            }
                         </form>
                     </div>
                 </div>
@@ -144,4 +120,4 @@ const ResidentActions = ({filters, setFilters}) => {
     )
 };
 
-export default ResidentActions;
+export default QuickContactsActions;

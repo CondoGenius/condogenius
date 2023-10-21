@@ -1,0 +1,4 @@
+export const HubDigitalActionsType = {
+    SET_PUBLICATIONS: 'SET_PUBLICATIONS',
+    SET_MY_PUBLICATIONS: 'SET_MY_PUBLICATIONS'
+};

@@ -5,7 +5,7 @@ import Loading from '../../components/loading/loading';
 import useResidences from '../../states/residences/hooks/useResidences';
 import useResidents from '../../states/residents/hooks/useResidents';
 import ResidentActions from './containers/actions/resident_actions';
-import ResidentList from './containers/list/residentList';
+import ResidentList from './containers/list/resident_list';
 
 import './residents.scss';
 
@@ -39,7 +39,7 @@ const Residents = () => {
 
       <ResidentActions filters={filters} setFilters={setFilters} />
       
-      <ResidentList filters={filters} setFilters={setFilters}/>
+      <ResidentList filters={filters} />
     </div>
   );
 }

@@ -6,11 +6,10 @@ import Loading from "../../../../components/loading/loading";
 import ModalContent from "../../../../components/modal/modal_content";
 import useResidences from "../../../../states/residences/hooks/useResidences";
 import useResidents from "../../../../states/residents/hooks/useResidents";
+import { CpfMask } from "../../../../utils/utils";
 import ResidentFormFields from "../form/resident_form";
 
-import './residentList.scss';
-
-const ResidentList = ({ filters, setFilters }) => {
+const ResidentList = ({ filters }) => {
     const residences = useSelector(state => state.residences.list);
     const residents = useSelector((state) => state.residents.list);
 
@@ -64,7 +63,7 @@ const ResidentList = ({ filters, setFilters }) => {
                                 {resident.email}
                             </span>
                             <span>
-                                {resident.cpf}
+                                {CpfMask(resident.cpf)}
                             </span>
                             <span className='icon'>
                                 <ModalContent 
@@ -76,19 +75,19 @@ const ResidentList = ({ filters, setFilters }) => {
                             </span>
                             <span className='icon'>
                                 <ModalContent 
-                                header="Excluir morador"
-                                trigger={<MdRemoveCircleOutline />}
-                                children={
-                                    <div>
-                                    <div>Tem certeza que deseja remover {resident.name} como morador do condomínio?</div>
-                                    <div className="button_delete_resident_content">
-                                        <Button modal="close" node="button" className="red_button" onClick={() => deleteResidentSubmit(resident.id)}>
-                                        Confirmar
-                                        </Button>
-                                    </div>
-                                    </div>
-                                }
-                                className="delete"
+                                    header="Excluir morador"
+                                    trigger={<MdRemoveCircleOutline />}
+                                    children={
+                                        <div>
+                                        <div>Tem certeza que deseja remover {resident.name} como morador do condomínio?</div>
+                                        <div className="button_delete_resident_content">
+                                            <Button modal="close" node="button" className="red_button" onClick={() => deleteResidentSubmit(resident.id)}>
+                                            Confirmar
+                                            </Button>
+                                        </div>
+                                        </div>
+                                    }
+                                    className="delete"
                                 />
                             </span>
                             </CollectionItem>

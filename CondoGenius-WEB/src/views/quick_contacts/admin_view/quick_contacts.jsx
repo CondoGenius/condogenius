@@ -3,18 +3,16 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Loading from "../../../components/loading/loading";
 import useQuickContacts from '../../../states/quick_contacts/hooks/useQuickContacts';
-import { QuickContactsActionType } from '../../../store/quick_contacts/types';
-import QuickContactslist from '../containers/list/list_quick_contacts';
+import QuickContactsActions from '../containers/actions/actions_quick_contacts';
 
 
-const QuickContactsResidentView = () => {
+const QuickContactsAdminView = () => {
     const quickContacts = useSelector((state) => state.quickContacts);
-
+    
     const [filters, setFilters] = useState({
         type: '',
         name: ''
     });
-
 
     const { loadingQuickContacts, getQuickContacts } = useQuickContacts();
 
@@ -27,7 +25,7 @@ const QuickContactsResidentView = () => {
     }, [quickContacts.error]);
     
     return (
-        <div> 
+        <div>
             <Loading
                 show={
                     loadingQuickContacts
@@ -37,12 +35,10 @@ const QuickContactsResidentView = () => {
             <h1>Lista de Contatos rápidos</h1>
             </div>
 
-           <QuickContactsActionType filters={filters} setFilters={setFilters} />
-
-           <QuickContactslist />
+           <QuickContactsActions filters={filters} setFilters={setFilters} />
            
         </div>
     );
 };
 
-export default QuickContactsResidentView;
+export default QuickContactsAdminView;

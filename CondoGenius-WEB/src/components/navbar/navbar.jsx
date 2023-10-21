@@ -60,11 +60,12 @@ const Navbar = () => {
                     {user.isAdmin && navLink('/deliveries', BsBoxSeamFill, 'Entregas')}
 
                     {!user.isAdmin && navLink('/quick-contacts-list', AiOutlineContacts, 'Lista rápida')}
+                    {user.isAdmin && navLink('/quick-contacts', AiOutlineContacts, 'Lista rápida')}
 
                 </ul>
             </div>
             <div className="actions_content">
-                {navLink('/profile', BsPersonCircle, 'Perfil')}
+                {!user.isAdmin && navLink('/profile', BsPersonCircle, 'Perfil')}
                 <Tooltip message={"Sair"}>
                     <span className='exit_icon' onClick={() => logout(history)}><MdExitToApp className='logout_icon'/></span>
                 </Tooltip>

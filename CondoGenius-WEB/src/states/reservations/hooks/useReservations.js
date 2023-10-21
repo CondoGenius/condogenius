@@ -78,15 +78,28 @@ const useReservations = () => {
         setLoadingReservations(false);
 
         const guestList = {
-            reservation_id: values.reservationId,
+            reserve_id: values.reservationId,
             name: values.name,
             cpf: values.cpf,
         };
 
         const response = await ReservationsService().updateGuestList(guestList);
 
-        if (response?.status !== 200) {
+        if (response?.status !== 201) {
             dispatch(setResidentReservationsAction({ error: "Erro ao atualiazar lista de convidados." }));
+        }
+
+        setLoadingReservations(false);
+        return response;
+    };
+
+    const deleteFromGuestList = async (id) => {
+        setLoadingReservations(false);
+
+        const response = await ReservationsService().deleteFromGuestList(id);
+
+        if (response?.status !== 200) {
+            dispatch(setResidentReservationsAction({ error: "Erro ao remover convidado." }));
         }
 
         setLoadingReservations(false);
@@ -99,7 +112,7 @@ const useReservations = () => {
         const response = await ReservationsService().deleteReservation(id);
 
         if (response?.status !== 200) {
-            // dispatch(setResidentReservationsAction({ error: "Erro ao deletar reserva." }));
+            dispatch(setResidentReservationsAction({ error: "Erro ao deletar reserva." }));
         }
         
         setLoadingReservations(false);
@@ -114,6 +127,7 @@ const useReservations = () => {
         getReservations,
         createReservation,
         updateGuestList,
+        deleteFromGuestList,
         deleteReservation
     };
 
