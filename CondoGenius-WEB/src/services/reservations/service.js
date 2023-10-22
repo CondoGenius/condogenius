@@ -2,13 +2,13 @@
 import axios from 'axios';
 
 const ReservationsService = () => {
-    const token = localStorage.getItem('user')?.token;
+    const token = JSON.parse(localStorage.getItem('user')).token;
 
     const getAreasFromReservations = async () => {
-        return axios.get(`http://localhost:7006/api/reservations/areas`, 
+        return axios.get(`http://localhost:5000/gateway/api/reservations/areas`, 
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         },
         )
@@ -17,10 +17,10 @@ const ReservationsService = () => {
     };
 
     const getReservationsByResidentId = async (residentId) => {
-        return axios.get(`http://localhost:7006/api/reservations/resident/${residentId}`, 
+        return axios.get(`http://localhost:5000/gateway/api/reservations/resident/${residentId}`, 
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         },
         )
@@ -29,10 +29,10 @@ const ReservationsService = () => {
     };
 
     const getReservations = async  () => {
-        return axios.get(`http://localhost:7006/api/reservations`,
+        return axios.get(`http://localhost:5000/gateway/api/reservations`,
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         },
         )
@@ -41,9 +41,9 @@ const ReservationsService = () => {
     };
 
     const createReservation = async (reservation) => {
-        return axios.post(`http://localhost:7006/api/reservations`, reservation, {
+        return axios.post(`http://localhost:5000/gateway/api/reservations`, reservation, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
                 ContentType: 'application/json',
             },
           })
@@ -52,9 +52,9 @@ const ReservationsService = () => {
     };
 
     const updateGuestList = async (list) => {
-        return axios.post(`http://localhost:7006/api/guestList`, list, {
+        return axios.post(`http://localhost:5000/gateway/api/reservations/guest`, list, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
                 ContentType: 'application/json',
             },
           })
@@ -63,9 +63,9 @@ const ReservationsService = () => {
     };
 
     const deleteFromGuestList = async (id) => {
-        return axios.delete(`http://localhost:7006/api/guestList/${id}`, {
+        return axios.delete(`http://localhost:5000/gateway/api/reservations/guest/${id}`, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         })
         .then(res => res)
@@ -73,10 +73,9 @@ const ReservationsService = () => {
     };
 
     const deleteReservation = async (id) => {
-        // lembrar de deletar tambem guestList relacionado a essa reserva
-        return axios.delete(`http://localhost:7006/api/reservations/${id}`, {
+        return axios.delete(`http://localhost:5000/gateway/api/reservations/${id}`, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         })
         .then(res => res)

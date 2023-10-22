@@ -18,7 +18,7 @@ const ReservationsResidentView = () => {
   const { loadingReservations, getAreasFromReservations } = useReservations();
 
   useEffect(() => {
-    toast.error(resident.error)
+    toast.error(resident.error);
   }, [resident.error]);
 
   useEffect(() => {

@@ -78,7 +78,7 @@ const useReservations = () => {
         setLoadingReservations(false);
 
         const guestList = {
-            reserve_id: values.reservationId,
+            reservation_id: values.reservationId,
             name: values.name,
             cpf: values.cpf,
         };
