@@ -2,13 +2,13 @@
 import axios from 'axios';
 
 const ResidentsService = () => {
-    const token = localStorage.getItem('user')?.token;
+    const token = JSON.parse(localStorage.getItem('user')).token;
 
     const getResidentByCpf = (cpf) => {
-        return axios.get(`http://localhost:7008/api/residents/cpf/${cpf}`, 
+        return axios.get(`http://localhost:5000/gateway/residents/api/residents/cpf/${cpf}`, 
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         },
         )
@@ -17,10 +17,10 @@ const ResidentsService = () => {
     };
 
     const getResidentByUserId = (userId) => {
-        return axios.get(`http://localhost:7008/api/residents/user/${userId}`, 
+        return axios.get(`http://localhost:5000/gateway/residents/api/residents/id/${userId}`, 
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         },
         )
@@ -29,10 +29,10 @@ const ResidentsService = () => {
     };
 
     const getResidents =  (filters) => {
-        return axios.get(`http://localhost:7008/api/residents`, 
+        return axios.get(`http://localhost:5000/gateway/residents/api/residents`, 
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
             params: {
                 name: filters?.name,
@@ -46,9 +46,9 @@ const ResidentsService = () => {
     };
 
     const createResident = (resident) => {
-        return axios.post(`http://localhost:7008/api/residents`, resident, {
+        return axios.post(`http://localhost:5000/gateway/residents/api/residents`, resident, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
                 ContentType: 'application/json',
             },
           })
@@ -57,9 +57,9 @@ const ResidentsService = () => {
     };
 
     const updateResident = (resident) => {
-        return axios.put(`http://localhost:7008/api/residents/${resident.id}`, resident, {
+        return axios.put(`http://localhost:5000/gateway/residents/api/residents/${resident.id}`, resident, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
           })
           .then(res => res)
@@ -67,10 +67,10 @@ const ResidentsService = () => {
     };
 
     const deleteResident = (id) => {
-        return axios.delete(`http://localhost:7008/api/residents/${id}`, 
+        return axios.delete(`http://localhost:5000/gateway/residents/api/residents/${id}`, 
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         }
         )

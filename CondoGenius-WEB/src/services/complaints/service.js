@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const ComplaintsService = () => {
-    const token = localStorage.getItem('user')?.token;
+    const token = JSON.parse(localStorage.getItem('user')).token;
 
     const getComplaintsByResindentId =  (residentId) => {
         return axios.get(`http://localhost:7002/api/complaints/resident/${residentId}`, 

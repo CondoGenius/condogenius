@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const DeliveriesService = () => {
-    const token = localStorage.getItem('user')?.token;
+    const token = JSON.parse(localStorage.getItem('user')).token;
 
     const getDeliveriesByResidenceId = async (residenceId) => {
         return axios.get(`http://localhost:7003/api/deliveries/residence/${residenceId}`, 

@@ -45,3 +45,21 @@ export const PhoneMask = (value) => {
   value = value.replace(/(\d)(\d{4})$/,"$1-$2")
   return value
 };
+
+export const VerifyQuantityDays = (date) => {
+  const publicationDate = new Date(date);
+  const currentDate = new Date();
+
+  const timeDiff = currentDate.getTime() - publicationDate.getTime();
+  const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+
+  if (daysDiff === 0) {
+    return 'hoje'
+  } else if (daysDiff === 1) {
+    return 'há 1 dia'
+  } else {
+    return `há ${daysDiff} dias`
+  }
+
+
+};

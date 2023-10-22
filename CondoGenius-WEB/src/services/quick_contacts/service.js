@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const QuickContactsService = () => {
-    const token = localStorage.getItem('user')?.token;
+    const token = JSON.parse(localStorage.getItem('user')).token;
 
     const getQuickContacts = (filters) => {
         return axios.get(`http://localhost:7008/api/quick-contacts`, 
