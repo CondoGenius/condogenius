@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import complaints from './complaints/reducer';
+import condominium from './condominium/reducer';
 import deliveries from './deliveries/reducer';
 import hubDigital from './hub_digital/reducer';
 import meetings from './meetings/reducer';
@@ -21,5 +22,6 @@ export default combineReducers({
   reservations,
   meetings,
   quickContacts,
-  hubDigital
+  hubDigital,
+  condominium
 });

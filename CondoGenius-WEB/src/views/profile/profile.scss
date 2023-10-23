@@ -7,9 +7,12 @@
     align-items: center;
 
     .image_content {
+        display: flex;
+        flex-direction: column;
         flex: 20%;
 
         .contacts_content {
+            position: relative;
             padding-top: 30px;
             font-size: 20px;
             color: $gray;
@@ -44,6 +47,12 @@
 
     .profile_form_content {
         flex: 80%;
+
+       select {
+            &:hover {
+                cursor: not-allowed;
+            }
+        }
 
         .button_content {
             display: flex;

@@ -5,7 +5,7 @@ namespace CondoGenius_Reservations_Domain.Requests;
 
 public class CreateGuestListRequest
 {
-    [JsonProperty("reserve_id")]
+    [JsonProperty("reservation_id")]
     public int ReserveId { get; set; }
     [JsonProperty("name")]
     public string Name { get; set; }

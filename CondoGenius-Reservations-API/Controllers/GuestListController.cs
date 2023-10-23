@@ -1,11 +1,12 @@
 ﻿using CondoGenius_Reservations_Domain.Handler.Interfaces;
 using CondoGenius_Reservations_Domain.Requests;
 using Microsoft.AspNetCore.Mvc;
+using MySql.Data.MySqlClient;
 
 namespace CondoGenius_Reservations_API.Controllers;
 
 [ApiController]
-[Route("api/guestlist")]
+[Route("guest")]
 public class GuestListController : ControllerBase
 {
     private readonly IGuestListHandler _handler;
@@ -15,45 +16,84 @@ public class GuestListController : ControllerBase
         _handler = handler;
     }
 
-    // GET: api/guestlist (Read)
+    // GET: /guest (Read)
     [HttpGet]
     public async Task<IActionResult> GetGuestLists()
     {
-        return Ok(await _handler.GetAllGuests());
+        try
+        {
+            return Ok(await _handler.GetAllGuests());
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
-    // GET: api/guestlists/reservation/1 (Read)
+    // GET: /guest/reservation/1 (Read)
     [HttpGet("reservation/{id}")]
     public async Task<IActionResult> ListGuestListByReservation([FromRoute] int reservationId)
     {
-        return Ok(await _handler.ListGuestListByReservation(reservationId));
+        try
+        {
+            return Ok(await _handler.ListGuestListByReservation(reservationId));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
-    
-    // GET: api/guestlists
+
+    // PUT: /guest
     [HttpPut]
     public async Task<IActionResult> UpdateGuestList([FromBody] CreateGuestListRequest request)
     {
-        return Ok($"Inserido {await _handler.UpdateGuestList(request)} convidados");
+        try
+        {
+            return Ok($"Inserido {await _handler.UpdateGuestList(request)} convidados");
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
-    // POST: api/guestlists (Create)
+    // POST: /guest (Create)
     [HttpPost]
     public async Task<IActionResult> CreateGuestList([FromBody] CreateGuestListRequest request)
     {
-        var rowsAffected = await _handler.CreateGuest(request);
+        try
+        {
+            var rowsAffected = await _handler.CreateGuest(request);
 
-        return rowsAffected == 1
-            ? Created("", "Registro criado com sucesso!")
-            : BadRequest("Não foi possível criar o registro!");
+            return rowsAffected == 1
+                ? Created("", "Registro criado com sucesso!")
+                : BadRequest("Não foi possível criar o registro!");
+        }
+        catch (MySqlException e)
+        {
+            return BadRequest("Erro ao inserir convidado. Verifique se a reserva existe ou sua conexão.");
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
 
-// DELETE: api/guestlists/1 (Delete)
+// DELETE: /guest/1 (Delete)
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteGuestList([FromRoute] int id)
     {
-        var rowsAffected = await _handler.DeleteGuest(id);
+        try
+        {
+            var rowsAffected = await _handler.DeleteGuest(id);
 
-        return rowsAffected == 1 ? Ok("Registro deletado com sucesso!") : NoContent();
+            return rowsAffected == 1 ? Ok("Registro deletado com sucesso!") : NoContent();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 }

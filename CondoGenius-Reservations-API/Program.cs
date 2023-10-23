@@ -1,3 +1,4 @@
+using System.Globalization;
 using CondoGenius_Reservations_Domain.Handler;
 using CondoGenius_Reservations_Domain.Handler.Interfaces;
 using CondoGenius_Reservations_Domain.Repository.Interfaces;
@@ -22,6 +23,11 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
         }
     };
 });
+
+var cultureInfo = new CultureInfo("pt-BR");
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

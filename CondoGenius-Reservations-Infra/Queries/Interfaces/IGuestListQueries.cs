@@ -7,4 +7,5 @@ public interface IGuestListQueries
     string GetGuestListByReservation();
     string ListGuestLists();
     string DeleteGuestList();
+    string DeleteGuestListByReservation();
 }

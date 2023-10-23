@@ -148,3 +148,20 @@ button {
         }
     }
 }
+
+.modal_actions_button_content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.button_content_open_modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        margin-right: 5px;
+    }
+}

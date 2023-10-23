@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { MdRemoveCircleOutline } from 'react-icons/md';
 import { Button, Collection, CollectionItem } from 'react-materialize';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import HeaderBackPage from '../../../../components/header-back-page/header_back_page';
 import Loading from "../../../../components/loading/loading";
 import ModalContent from "../../../../components/modal/modal_content";
@@ -19,6 +20,11 @@ const ListReservations = () => {
     useEffect(() => {
         getReservationsByResidentId(resident.data.id);
     }, []);
+
+
+  useEffect(() => {
+    toast.error(resident.error);
+  }, [resident.error]);
 
     const submitDeleteReservation = async(e, id) => {
         e.preventDefault();

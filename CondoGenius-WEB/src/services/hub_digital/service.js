@@ -2,13 +2,13 @@
 import axios from 'axios';
 
 const HubDigitalService = () => {
-    const token = localStorage.getItem('user')?.token;
+    const token = JSON.parse(localStorage.getItem('user')).token;
 
     const getPublications =  () => {
         return axios.get(`http://localhost:7008/api/hub-digital`, 
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         },
         )
@@ -20,7 +20,7 @@ const HubDigitalService = () => {
         return axios.get(`http://localhost:7008/api/hub-digital/${userId}`, 
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         },
         )
@@ -31,7 +31,7 @@ const HubDigitalService = () => {
     const createPublication = (post) => {
         return axios.post(`http://localhost:7008/api/hub-digital`, post, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
                 ContentType: 'application/json',
             },
           })
@@ -43,7 +43,7 @@ const HubDigitalService = () => {
         return axios.delete(`http://localhost:7008/api/hub-digital/${id}`, 
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         }
         )

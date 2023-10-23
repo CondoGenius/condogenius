@@ -2,6 +2,7 @@ import { Formik } from 'formik';
 import React, { useState } from "react";
 import { Button } from "react-materialize";
 import { useSelector } from "react-redux";
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import ErrorField from '../../../../../components/utils/errorField';
 import useMeetings from '../../../../../states/meetings/hooks/useMeetings';
@@ -12,7 +13,8 @@ const requiredFieldMessage = 'Este campo é obrigatório';
 const FormResidentSchema = Yup.object().shape({
     title: Yup.string().ensure().required(requiredFieldMessage),
     description: Yup.string().ensure().required(requiredFieldMessage),
-    date: Yup.string().ensure().required(requiredFieldMessage)
+    date: Yup.string().ensure().required(requiredFieldMessage),
+    hour: Yup.string().ensure().required(requiredFieldMessage)
 });
 
 const onSubmit = async (values, createMeeting, getMeetings) => {
@@ -20,6 +22,7 @@ const onSubmit = async (values, createMeeting, getMeetings) => {
 
     if (response.status === 201) {
         document.getElementById('reset_form_meetings').click();
+        toast.success("Reunião cadastrada com sucesso")
         getMeetings();
     }
 };
@@ -66,7 +69,7 @@ const renderFieldHour = (handleChange, handleBlur, values) => (
     />
 );
 
-const renderButtonSubmit = (isValid, errors, handleSubmit, handleReset, setIsSubmit) => (
+const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => (
     <div className='button_content'>
         <Button 
             modal={isValid ? "close" : "open"}
@@ -135,7 +138,7 @@ const MeetingsForm = () => {
                 {renderFieldHour(handleChange, handleBlur, values, residences)}
                 {isSubmit && errors.hour && <ErrorField error={errors.hour}/>}
             
-                {renderButtonSubmit(isValid, errors, handleSubmit, handleReset, setIsSubmit)}
+                {renderButtonSubmit(isValid, handleSubmit, handleReset, setIsSubmit)}
             </div>
         )}
     </Formik>

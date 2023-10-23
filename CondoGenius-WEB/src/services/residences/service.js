@@ -2,13 +2,13 @@
 import axios from 'axios';
 
 const ResidenceService = () => {
-    const token = localStorage.getItem('user').token;
+    const token = JSON.parse(localStorage.getItem('user')).token;
 
     const getAllResidences =  () => {
-        return axios.get(`http://localhost:7008/api/residences`,
+        return axios.get(`http://localhost:5000/gateway/residents/api/residences`,
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         }
         )

@@ -9,11 +9,10 @@ import useMeetings from "../../../states/meetings/hooks/useMeetings";
 import { FormatDate } from '../../../utils/utils';
 import MeetingsForm from './containers/form/meetings_form';
 
-
 const MeetingsAdminView = () => {
     const meetings = useSelector((state) => state.meetings);
 
-    const { loadingMeetings, getMeetings, createMeeting, deleteMeeting } = useMeetings();
+    const { loadingMeetings, getMeetings, deleteMeeting } = useMeetings();
 
     useEffect(() => {
         getMeetings();
@@ -27,7 +26,7 @@ const MeetingsAdminView = () => {
         e.preventDefault();
         const response = await deleteMeeting(meetingId);
 
-        if (response === 200) {
+        if (response?.status === 200) {
             toast.success("Reunião cancelada com sucesso");
             getMeetings();
         };
@@ -44,8 +43,8 @@ const MeetingsAdminView = () => {
             </div>
             <div className="button_register_content">
                 <ModalContent
-                    header={`Nova reclamação`}
-                    trigger={<Button><MdAddBox />Cadastar nova reunião</Button>}
+                    header={`Nova reunião`}
+                    trigger={<Button className='button_content_open_modal'><MdAddBox />Cadastrar nova reunião</Button>}
                     children={<MeetingsForm />}
                     className="complaint"
                 />
@@ -56,21 +55,36 @@ const MeetingsAdminView = () => {
                     <span>Tema</span>
                     <span>Descrição</span>
                     <span>Data</span>
+                    <span />
                 </CollectionItem>
                 {meetings.list?.length > 0 ? (
                     meetings.list.map(meeting => (
                         <CollectionItem key={meeting.id}>
                             <span>
-                            {meeting.tittle}
+                            {meeting.title}
                             </span>
                             <span>
                             {meeting.description}
                             </span>
                             <span>
-                            {FormatDate(meeting.date)}
+                            {FormatDate(meeting.date)} às {meeting.hour}
                             </span>
                             <span>
-                                <MdRemoveCircleOutline onClick={(e) => submitDeleteMeeting(e, meeting.id)}/>
+                                <ModalContent 
+                                    header="Excluir morador"
+                                    trigger={<MdRemoveCircleOutline/>}
+                                    children={
+                                        <span>
+                                            <div>Tem certeza que deseja cancelar essa reunião?</div>
+                                            <div className="modal_actions_button_content">
+                                                <Button modal="close" node="button" className="red_button" onClick={(e) => submitDeleteMeeting(e, meeting.id)}>
+                                                    Confirmar
+                                                </Button>
+                                            </div>
+                                        </span>
+                                    }
+                                    className="delete"
+                                />
                             </span>
                         </CollectionItem>
                     ))

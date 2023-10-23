@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace CondoGenius_Reservations_API.Controllers;
 
 [ApiController]
-[Route("api/reservations")]
+[Route("/")]
 public class ReservationsController : ControllerBase
 {
     private readonly IReservationsHandler _handler;
@@ -19,28 +19,56 @@ public class ReservationsController : ControllerBase
     [HttpGet("areas")]
     public async Task<IActionResult> GetCommonAreas()
     {
-        return Ok(await _handler.ListCommonAreas());
+        try
+        {
+            return Ok(await _handler.ListCommonAreas());
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
-    
+
     // GET: api/reservations (Read)
     [HttpGet]
     public async Task<IActionResult> GetReservations()
     {
-        return Ok(await _handler.ListReservations());
+        try
+        {
+            return Ok(await _handler.ListReservations());
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     // GET: api/reservations/1 (Read)
     [HttpGet("{id}")]
     public async Task<IActionResult> GetReservation([FromRoute] int id)
     {
-        return Ok(await _handler.ListReservation(id));
+        try
+        {
+            return Ok(await _handler.ListReservation(id));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     // GET: api/reservations/resident/1 (Read)
     [HttpGet("resident/{id}")]
     public async Task<IActionResult> GetReservationByResidence([FromRoute] int id)
     {
-        return Ok(await _handler.ListReservationsByResidence(id));
+        try
+        {
+            return Ok(await _handler.ListReservationsByResidence(id));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     // POST: api/reservations (Create)
@@ -65,8 +93,15 @@ public class ReservationsController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteReservation([FromRoute] int id)
     {
-        var rowsAffected = await _handler.DeleteReservation(id);
-        
-        return rowsAffected == 1 ? Ok("Registro deletado com sucesso!") : NoContent();
+        try
+        {
+            var rowsAffected = await _handler.DeleteReservation(id);
+
+            return rowsAffected == 1 ? Ok("Registro deletado com sucesso!") : NoContent();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }

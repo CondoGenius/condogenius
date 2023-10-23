@@ -28,10 +28,10 @@ const useMeetings = () => {
 
         const meeting = {
             user_id: values.userId,
-            tittle: values.tittle,
+            title: values.title,
             description: values.description,
             date: values.date,
-            hour: values.hours
+            hour: values.hour
         };
 
         const response = await MeetingsService().createMeeting(meeting);
@@ -50,7 +50,7 @@ const useMeetings = () => {
         const response = await MeetingsService().deleteMeeting(id);
 
         if (response?.status !== 200) {
-            dispatch(setMeetingsAction({ error: "Erro ao deletar morador." }));
+            dispatch(setMeetingsAction({ error: "Erro ao deletar reunião." }));
         }
         
         setLoadingMeetings(false);

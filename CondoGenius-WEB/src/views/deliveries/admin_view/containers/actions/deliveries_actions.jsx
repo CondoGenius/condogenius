@@ -1,5 +1,6 @@
 import { Formik } from 'formik';
 import React, { useEffect, useState } from "react";
+import { MdAddBox } from 'react-icons/md';
 import { Button } from "react-materialize";
 import { useSelector } from "react-redux";
 import * as Yup from 'yup';
@@ -44,6 +45,7 @@ const renderFieldResidenceNumber = (handleChange, handleBlur, values, residences
 
 const renderButtonSubmit = (isValid, errors, handleSubmit, handleReset, setIsSubmit) => (
     <Button 
+        className='button_content_open_modal'
         onClick={(e) => {
             setIsSubmit(true);
             if (isValid) {
@@ -52,7 +54,7 @@ const renderButtonSubmit = (isValid, errors, handleSubmit, handleReset, setIsSub
             }
         }}
     >
-        Cadastrar entrega
+        <MdAddBox /> Cadastrar entrega
     </Button>
 );
 
