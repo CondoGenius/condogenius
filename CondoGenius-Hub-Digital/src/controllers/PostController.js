@@ -34,13 +34,13 @@ exports.listPosts = async (req, res) => {
   }
 };
 
-exports.listPostsByUserId = async (req, res) => {
+exports.listPostsByResidentId = async (req, res) => {
   try {
-    const { user_id } = req.params;
+    const { resident_id } = req.params;
 
     const posts = await Post.findAll({
       where: {
-        user_id: user_id
+        resident_id: resident_id
       }
     });
 
@@ -96,7 +96,7 @@ exports.updatePost = async (req, res) => {
   }
 };
 
-exposts.deletePost = async (req, res) => {
+exports.deletePost = async (req, res) => {
   try {
     const { id } = req.params;
 
