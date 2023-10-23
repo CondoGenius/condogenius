@@ -38,7 +38,6 @@ const renderFieldName = (handleChange, handleBlur, values) => (
         <input 
             id="name"
             type="text" 
-            placeholder="Digite o nome"
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.name} 
@@ -52,7 +51,6 @@ const renderFieldLastName = (handleChange, handleBlur, values) => (
         <input 
             id="lastName"
             type="text" 
-            placeholder="Digite o sobrenome"
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.lastName} 
@@ -66,7 +64,6 @@ const renderFieldCpf = (handleChange, handleBlur, values) => (
         <input 
             id="cpf"
             type="text" 
-            placeholder="Digite o CPF"
             onChange={handleChange}
             onBlur={handleBlur}
             value={CpfMask(values.cpf)} 
@@ -81,7 +78,6 @@ const renderFieldContact = (handleChange, handleBlur, values) => (
         <input 
             id="contact"
             type="text" 
-            placeholder="Digite o contato com DDD"
             onChange={handleChange}
             onBlur={handleBlur}
             value={PhoneMask(values.contact)}
@@ -89,7 +85,6 @@ const renderFieldContact = (handleChange, handleBlur, values) => (
         />
         <label for="contact" class="active">Contato</label>
     </div>
-
 );
 
 const renderFieldEmail = (handleChange, handleBlur, values) => (
@@ -97,7 +92,6 @@ const renderFieldEmail = (handleChange, handleBlur, values) => (
         <input 
             id="email"
             type="text" 
-            placeholder="Digite o e-mail"
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.email} 
@@ -117,7 +111,6 @@ const renderFieldBirthday = (handleChange, handleBlur, values) => (
         />
         <label for="birthday" class="active">Data de nascimento</label>
     </div>
-
 );
 
 const renderFieldResidenceNumber = (handleChange, handleBlur, values, residences) => (

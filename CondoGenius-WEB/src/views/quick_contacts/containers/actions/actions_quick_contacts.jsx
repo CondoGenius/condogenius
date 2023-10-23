@@ -56,7 +56,7 @@ const renderFieldFilterByType = (handleChange, handleBlur, values) => (
 const renderButtonQuickContactRegister = () => (
     <ModalContent
         header="Cadastrar novo contato"
-        trigger={<Button><MdAddBox /> Cadastrar novo contato</Button>}
+        trigger={<Button className='button_content_open_modal'><MdAddBox /> Cadastrar novo contato</Button>}
         children={<QuickContactsFormFields/>}
         className="create"
     />
