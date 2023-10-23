@@ -7,6 +7,7 @@ exports.createPost = async (req, res) => {
       title,
       description,
       content,
+      fixed,
       resident_id
     } = req.body;
 
@@ -15,6 +16,7 @@ exports.createPost = async (req, res) => {
       description,
       resident_id,
       content,
+      fixed,
       created_at: new Date(),
       updated_at: new Date()
     });
@@ -78,6 +80,7 @@ exports.updatePost = async (req, res) => {
       title,
       description,
       content,
+      fixed,
       resident_id
     } = req.body;
 
@@ -86,6 +89,7 @@ exports.updatePost = async (req, res) => {
       description,
       resident_id,
       content,
+      fixed,
       updated_at: new Date()
     }, {
       where: {
