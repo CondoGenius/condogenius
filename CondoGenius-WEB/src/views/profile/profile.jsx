@@ -279,10 +279,12 @@ const Profile = () => {
                                         </form>
                                     </div>
                                     <div class="row">
-                                        <div class="input-field col s12">
-                                            {renderFieldEmail(handleChange, handleBlur, values)}
-                                            {isSubmit && errors.email && <ErrorField error={errors.email}/>}
-                                        </div>
+                                        <form class="col s12">
+                                            <div class="input-field col s12">
+                                                {renderFieldEmail(handleChange, handleBlur, values)}
+                                                {isSubmit && errors.email && <ErrorField error={errors.email}/>}
+                                            </div>
+                                        </form>
                                     </div>
                                     <div class="row">
                                         <form class="col s12">
