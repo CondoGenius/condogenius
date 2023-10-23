@@ -41,6 +41,23 @@ exports.listComments = async (req, res) => {
   }
 };
 
+exports.getComment = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const comment = await Comment.findOne({
+      where: {
+        id: id
+      }
+    });
+
+    res.status(200).json(comment);
+  } catch (error) {
+    console.error('Erro ao listar comentários:', error);
+    res.status(500).json({ message: 'Erro ao listar comentários' });
+  }
+};
+
 exports.updateComment = async (req, res) => {
   try {
     const { id } = req.params

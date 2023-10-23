@@ -53,6 +53,43 @@ exports.updatePoll = async (req, res) => {
   }
 };
 
+exports.getPoll = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const poll = await Poll.findOne({
+      where: {
+        id: id
+      },
+      include: [{
+        model: PollOption
+      }]
+    });
+
+    res.status(200).json(poll);
+  } catch (error) {
+    console.error('Erro ao listar enquete:', error);
+    res.status(500).json({ message: 'Erro ao listar enquete' });
+  }
+};
+
+exports.deletePoll = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const poll = await Poll.destroy({
+      where: {
+        id: id
+      }
+    });
+
+    res.status(200).json({ message: 'Enquete removida com sucesso', poll: poll });
+  } catch (error) {
+    console.error('Erro ao remover enquete:', error);
+    res.status(500).json({ message: 'Erro ao remover enquete' });
+  }
+};
+
 exports.addPollOption = async (req, res) => {
   try {
     const {
