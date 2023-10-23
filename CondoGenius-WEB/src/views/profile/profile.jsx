@@ -9,6 +9,7 @@ import person from '../../assets/person.png';
 import Loading from '../../components/loading/loading';
 import Tooltip from '../../components/tooltip/tooltip';
 import ErrorField from '../../components/utils/errorField';
+import useCondominium from '../../states/condominium/hooks/useCondominium';
 import useResidences from '../../states/residences/hooks/useResidences';
 import useResidents from '../../states/residents/hooks/useResidents';
 import { CpfMask, FormatDate, PhoneMask } from '../../utils/utils';
@@ -146,20 +147,41 @@ const Profile = () => {
 
     const resident = useSelector((state) => state.resident);
     const residences = useSelector((state) => state.residences);
+    const user = useSelector((state) => state.user);
+    const condominium = useSelector((state) => state.condominium);
 
     const { loadingResidences, getAllResidences } = useResidences();
     const { loadingResidents, updateProfile } = useResidents();
+    const { loadingCondominium, getInfoCondominiumByUserId } = useCondominium();
     
     useEffect(() => {
         getAllResidences();
+        getInfoCondominiumByUserId(user.data.id);
     }, []);
+
+    useEffect(() => {
+        toast.error(resident.error)
+    }, [resident.error]);
+
+    useEffect(() => {
+        toast.error(residences.error)
+    }, [residences.error]);
+
+    useEffect(() => {
+        toast.error(user.error)
+    }, [user.error]);
+
+    useEffect(() => {
+        toast.error(condominium.error)
+    }, [condominium.error]);
 
     return (
         <>
             <Loading 
                 show={
                     loadingResidences ||
-                    loadingResidents
+                    loadingResidents ||
+                    loadingCondominium
                 }
             />
             <div>
@@ -173,10 +195,10 @@ const Profile = () => {
                             <span>Contatos</span>
                             <div className="itens_contact_content">
                                 <Tooltip message={"Falar com um administrador via Whatsapp"}>
-                                    <a href="https://api.whatsapp.com/send?phone=TELEFONE"><AiOutlineWhatsApp className='icon_whats'/></a>
+                                    <a href={`https://api.whatsapp.com/send?phone=${condominium.data.phone}`}><AiOutlineWhatsApp className='icon_whats'/></a>
                                 </Tooltip>
                                 <Tooltip message={"Falar com um administrador via e-mail"}>
-                                    <a href="mailto:${hellen.gurgacz@gmail.com}"><AiOutlineMail className='icon_email'/></a>
+                                    <a href={`mailto:${condominium.data.email}`}><AiOutlineMail className='icon_email'/></a>
                                 </Tooltip>
                             </div>
                         </div>
