@@ -17,7 +17,7 @@ const useCondominium = () => {
         if (response?.status === 200) {
             dispatch(setCondominiumAction({ data: response.data }));
         } else {
-            dispatch(setCondominiumAction({ error: "Erro ao listar entregas." }));
+            dispatch(setCondominiumAction({ error: "Erro pegar dados de contato do condomínio" }));
         }
     };
     
