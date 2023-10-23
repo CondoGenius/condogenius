@@ -6,6 +6,7 @@ exports.createPost = async (req, res) => {
     const {
       title,
       description,
+      content,
       resident_id
     } = req.body;
 
@@ -13,6 +14,7 @@ exports.createPost = async (req, res) => {
       title,
       description,
       resident_id,
+      content,
       created_at: new Date(),
       updated_at: new Date()
     });
@@ -75,6 +77,7 @@ exports.updatePost = async (req, res) => {
     const {
       title,
       description,
+      content,
       resident_id
     } = req.body;
 
@@ -82,6 +85,7 @@ exports.updatePost = async (req, res) => {
       title,
       description,
       resident_id,
+      content,
       updated_at: new Date()
     }, {
       where: {
