@@ -42,15 +42,26 @@ const useHubDigital = () => {
 
         const post = {
             user_id: values.userId,
-            type: values.type,
             description: values.description,
-            options: values.options,
         };
 
         const response = await HubDigitalService().createPublication(post);
 
         if (response?.status !== 201) {
-            dispatch(setPublicationsActions({ error: "Erro ao cadastrar publicação." }));
+            dispatch(setPublicationsActions({ error: "Erro ao publicar post." }));
+        }
+
+        setLoadingHubDigital(false);
+        return response;
+    };
+
+    const updatePublication = async (postId) => {
+        setLoadingHubDigital(true);
+
+        const response = await HubDigitalService().createPublication(postId);
+
+        if (response?.status !== 200) {
+            dispatch(setPublicationsActions({ error: "Erro ao fixar post." }));
         }
 
         setLoadingHubDigital(false);
@@ -76,6 +87,7 @@ const useHubDigital = () => {
         getPublications,
         getPublicationsByUserId,
         createPublication,
+        updatePublication,
         deletePublication
     };
 

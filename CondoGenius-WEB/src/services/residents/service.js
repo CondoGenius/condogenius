@@ -2,16 +2,10 @@
 import axios from 'axios';
 
 const ResidentsService = () => {
-    const token = JSON.parse(localStorage.getItem('user')).token;
+    const token = JSON.parse(localStorage.getItem('user'))?.token;
 
     const getResidentByCpf = (cpf) => {
-        return axios.get(`http://localhost:5000/gateway/residents/api/residents/cpf/${cpf}`, 
-        {
-            headers: {
-                'x-access-token': `${token}`,
-            },
-        },
-        )
+        return axios.get(`http://localhost:7008/api/residents/cpf/${cpf}`)
         .then(res => res)
         .catch(err => err);
     };

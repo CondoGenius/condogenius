@@ -19,6 +19,7 @@ import DeliveriesAdminView from './views/deliveries/admin_view/deliveries';
 import DeliveriesResidentView from './views/deliveries/resident_view/deliveries';
 
 import HubDigital from './views/hub_digital/hub_digital';
+import MyPublications from './views/hub_digital/my_publications_list/my_publications_list';
 import RegisterVerifys from './views/login/containers/register-verifys/register_verifys';
 import Login from './views/login/login';
 import MeetingsAdminView from './views/meetings/admin_view/meetings';
@@ -41,6 +42,7 @@ const RoutesConfig = () => {
     <Switch>
       {/* Hub Digital */}
       <Route path="/hub" exact component={HubDigital} />
+      <Route path="/my-publications" exact component={MyPublications} />
 
       {/* Residents */}
       <Route path="/residents" exact component={Residents} />

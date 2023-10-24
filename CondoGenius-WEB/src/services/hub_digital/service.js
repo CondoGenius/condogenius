@@ -29,10 +29,20 @@ const HubDigitalService = () => {
     };
 
     const createPublication = (post) => {
-        return axios.post(`http://localhost:7008/api/hub-digital`, post, {
+        return axios.post(`http://localhost:7004/api/post`, post, {
             headers: {
                 'x-access-token': `${token}`,
                 ContentType: 'application/json',
+            },
+          })
+          .then(res => res)
+          .catch(err => err);
+    };
+
+    const updatePublication = (postId) => {
+        return axios.put(`http://localhost:7004/api/post${postId}`, {
+            headers: {
+                'x-access-token': `${token}`,
             },
           })
           .then(res => res)
@@ -55,6 +65,7 @@ const HubDigitalService = () => {
         getPublications,
         getPublicationsByUserId,
         createPublication,
+        updatePublication,
         deletePublication
     };
 
