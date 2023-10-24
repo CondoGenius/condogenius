@@ -9,4 +9,5 @@
        adm.email             as AdminEmail
 FROM delivery_control delivery
          INNER JOIN residences residence ON delivery.residence_id = residence.id
-         INNER JOIN administrators adm ON delivery.user_id = adm.id;
+         INNER JOIN administrators adm ON delivery.user_id = adm.id
+ORDER BY received_at DESC;

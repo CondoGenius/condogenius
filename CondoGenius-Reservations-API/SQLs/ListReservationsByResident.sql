@@ -8,3 +8,4 @@ FROM reserve_common_area r
          INNER JOIN common_area ca on r.common_area_id = ca.id
          INNER JOIN residents r2 on r.resident_id = r2.id
 WHERE r.resident_id = @Id
+ORDER BY reserve_date DESC;

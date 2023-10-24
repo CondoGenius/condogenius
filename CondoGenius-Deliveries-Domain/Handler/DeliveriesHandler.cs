@@ -1,6 +1,7 @@
 ﻿using CondoGenius_Deliveries_Domain.Handler.Interfaces;
 using CondoGenius_Deliveries_Domain.Repository.Interfaces;
 using CondoGenius_Deliveries_Domain.Requests;
+using CondoGenius_Firebase;
 using Global.Shared.Database.Entities;
 
 namespace CondoGenius_Deliveries_Domain.Handler;
@@ -16,7 +17,20 @@ public class DeliveriesHandler : IDeliveriesHandler
 
     public async Task<int> CreateDelivery(CreateDeliveryRequest request)
     {
-        return await _repository.CreateDelivery(request);
+        var createdRows = await _repository.CreateDelivery(request);
+
+        try
+        {
+            var firebase = new Firebase();
+            await firebase.SendNotification("Psiu! Sua encomenda chegou", "Sua encomenda foi recebida na portaria");
+            Console.WriteLine("Notificação enviada!");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Erro ao enviar notificação. Erro: " + e);
+        }
+
+        return createdRows;
     }
     public async Task<List<DeliveryControl>> ListDeliveries()
     {

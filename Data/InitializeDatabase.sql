@@ -13,13 +13,14 @@ CREATE TABLE IF NOT EXISTS roles
 
 CREATE TABLE IF NOT EXISTS users
 (
-    id         INTEGER AUTO_INCREMENT PRIMARY KEY,
-    email      NVARCHAR(255) UNIQUE NOT NULL,
-    password   NVARCHAR(255)        NOT NULL,
-    is_active  BOOLEAN              NOT NULL,
-    role_id    INTEGER              NOT NULL,
-    created_at DATETIME             NOT NULL,
-    updated_at DATETIME             NOT NULL,
+    id           INTEGER AUTO_INCREMENT PRIMARY KEY,
+    email        NVARCHAR(255) UNIQUE NOT NULL,
+    password     NVARCHAR(255)        NOT NULL,
+    device_token VARCHAR(255),
+    is_active    BOOLEAN              NOT NULL,
+    role_id      INTEGER              NOT NULL,
+    created_at   DATETIME             NOT NULL,
+    updated_at   DATETIME             NOT NULL,
     FOREIGN KEY (role_id) REFERENCES roles (id)
 );
 
@@ -83,7 +84,7 @@ CREATE TABLE IF NOT EXISTS delivery_control
     status       NVARCHAR(255) NOT NULL,
     user_id      INTEGER       NOT NULL,
     delivered_at DATETIME      NOT NULL DEFAULT NOW(),
-    received_at  DATETIME,
+    received_at  DATETIME               DEFAULT NOW(),
     residence_id INTEGER       NOT NULL,
     created_at   DATETIME      NOT NULL DEFAULT NOW(),
     updated_at   DATETIME ON UPDATE NOW(),
