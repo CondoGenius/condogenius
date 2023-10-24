@@ -65,6 +65,23 @@ exports.listResidents = async (req, res) => {
   }
 };
 
+exports.listResidentsByResidence = async (req, res) => {
+  try {
+    const { residence_id } = req.params;
+
+    
+    const residents = await Resident.findAll({
+      where: {residence_id,
+        is_active: 1},
+    });
+
+    res.status(200).json(residents);
+  } catch (error) {
+    console.error('Erro ao listar residentes:', error);
+    res.status(500).json({ message: 'Erro ao listar residentes' });
+  }
+};
+
 exports.listResidentById = async (req, res) => {
   try {
     const { id } = req.params;

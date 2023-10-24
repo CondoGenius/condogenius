@@ -7,6 +7,8 @@ router.post('/create', residentController.createResident);
 
 router.get('/list', residentController.listResidents);
 
+router.get('/list/residence/:id', residentController.listResidentsByResidence)
+
 router.get('/list/:id', residentController.listResidentById);
 
 router.put('/update/:id', residentController.updateResident);

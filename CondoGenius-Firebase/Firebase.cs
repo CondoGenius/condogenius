@@ -16,7 +16,7 @@ public class Firebase
         });
     }
 
-    public Task SendNotification(string title, string body)
+    public Task SendNotification(string title, string body, string deviceToken)
     {
         var message = new FirebaseAdmin.Messaging.Message
         {
@@ -25,7 +25,7 @@ public class Firebase
                 Title = title,
                 Body = body
             },
-            Token = ""
+            Token = deviceToken
         };
 
         return FirebaseAdmin.Messaging.FirebaseMessaging.DefaultInstance.SendAsync(message);
