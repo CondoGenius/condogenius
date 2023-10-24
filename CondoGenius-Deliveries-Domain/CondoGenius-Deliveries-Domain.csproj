@@ -8,7 +8,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\CondoGenius-Firebase\CondoGenius-Firebase.csproj" />
       <ProjectReference Include="..\Global.Shared\Global.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FirebaseAdmin" Version="2.4.0" />
+      <PackageReference Include="Flurl" Version="3.0.7" />
+      <PackageReference Include="Flurl.Http" Version="3.2.4" />
     </ItemGroup>
 
 </Project>

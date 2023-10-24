@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS residents
     last_name    NVARCHAR(255) NOT NULL,
     contact      NVARCHAR(255) NOT NULL,
     birthday     DATETIME      NOT NULL,
+    device_token VARCHAR(400),
     created_at   DATETIME,
     updated_at   DATETIME,
     is_active    BOOLEAN       NOT NULL,
@@ -83,7 +84,7 @@ CREATE TABLE IF NOT EXISTS delivery_control
     status       NVARCHAR(255) NOT NULL,
     user_id      INTEGER       NOT NULL,
     delivered_at DATETIME      NOT NULL DEFAULT NOW(),
-    received_at  DATETIME,
+    received_at  DATETIME               DEFAULT NOW(),
     residence_id INTEGER       NOT NULL,
     created_at   DATETIME      NOT NULL DEFAULT NOW(),
     updated_at   DATETIME ON UPDATE NOW(),
@@ -266,14 +267,14 @@ VALUES (202, 2, 'B', 'Apartment 202', NOW(), NOW());
 INSERT INTO residences (number, floor, block, complement, created_at, updated_at)
 VALUES (303, 3, 'C', 'Apartment 303', NOW(), NOW());
 
-INSERT INTO residents (user_id, residence_id, cpf, email, name, last_name, contact, created_at, updated_at, is_active,
+INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at, updated_at, is_active,
                        birthday)
-VALUES (1, 1, '12345678900', 'joao@email.com', 'João', 'Silva', '+55 11 1234-5678', NOW(), NOW(), 1, "2000-01-31");
+VALUES (1, 1, '12345678900', 'joao@email.com','lalalla', 'João', 'Silva', '+55 11 1234-5678', NOW(), NOW(), 1, "2000-01-31");
 
 
-INSERT INTO residents (user_id, residence_id, cpf, email, name, last_name, contact, created_at, updated_at, is_active,
+INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at, updated_at, is_active,
                        birthday)
-VALUES (null, 2, '98765432100', 'maria@email.com', 'Maria', 'Luz', '+55 11 1234-5678', NOW(), NOW(), 1, "2000-01-31");
+VALUES (null, 2, '98765432100', 'maria@email.com', 'lalalala', 'Maria', 'Luz', '+55 11 1234-5678', NOW(), NOW(), 1, "2000-01-31");
 
 INSERT INTO delivery_control (status, user_id, residence_id)
 VALUES ('Na portaria', 1, 1);

@@ -6,13 +6,17 @@ exports.createPost = async (req, res) => {
     const {
       title,
       description,
-      user_id
+      content,
+      fixed,
+      resident_id
     } = req.body;
 
     const newPost = await Post.create({
       title,
       description,
-      user_id,
+      resident_id,
+      content,
+      fixed,
       created_at: new Date(),
       updated_at: new Date()
     });
@@ -34,13 +38,13 @@ exports.listPosts = async (req, res) => {
   }
 };
 
-exports.listPostsByUserId = async (req, res) => {
+exports.listPostsByResidentId = async (req, res) => {
   try {
-    const { user_id } = req.params;
+    const { resident_id } = req.params;
 
     const posts = await Post.findAll({
       where: {
-        user_id: user_id
+        resident_id: resident_id
       }
     });
 
@@ -75,13 +79,17 @@ exports.updatePost = async (req, res) => {
     const {
       title,
       description,
-      user_id
+      content,
+      fixed,
+      resident_id
     } = req.body;
 
     const post = await Post.update({
       title,
       description,
-      user_id,
+      resident_id,
+      content,
+      fixed,
       updated_at: new Date()
     }, {
       where: {
@@ -96,7 +104,7 @@ exports.updatePost = async (req, res) => {
   }
 };
 
-exposts.deletePost = async (req, res) => {
+exports.deletePost = async (req, res) => {
   try {
     const { id } = req.params;
 

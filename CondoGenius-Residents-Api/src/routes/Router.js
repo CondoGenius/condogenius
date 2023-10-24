@@ -7,6 +7,7 @@ module.exports = app => {
   // Residents routes
   router.post("/residents/", residents.createResident);
   router.get("/residents/", residents.listResidents);
+  router.get('/residents/residence/:residence_id', residents.listResidentsByResidence)
   router.get("/residents/id/:id", residents.listResidentById);
   router.get("/residents/cpf/:cpf", residents.listResidentByCpf)
   router.get("/residents/user/:user_id", residents.listResidentByUserId)

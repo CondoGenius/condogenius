@@ -24,6 +24,10 @@ module.exports = (sequelize, Sequelize) => {
     birthday: {
       type: Sequelize.DATE
     },
+    deviceToken: {
+      type: Sequelize.STRING,
+      field: 'device_token'
+    },
     createdAt: {
       type: Sequelize.DATE,
       field: 'created_at' 
