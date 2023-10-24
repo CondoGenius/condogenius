@@ -12,7 +12,7 @@ public class Firebase
         FirebaseApp = FirebaseApp.Create(new AppOptions
         {
             Credential = GoogleCredential.FromFile("/condogenius-firebaseadmin-key.json"),
-            ProjectId = "1:780347999304:android:f551c4687d6e9d3fab447d",
+            ProjectId = "780347999304",
         });
     }
 
