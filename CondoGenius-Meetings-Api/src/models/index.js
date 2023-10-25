@@ -21,5 +21,6 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.meetings = require("../../src/models/MeetingModel.js")(sequelize, Sequelize);
+db.admins = require("../../src/models/AdminModel.js")(sequelize, Sequelize);
 
 module.exports = db;

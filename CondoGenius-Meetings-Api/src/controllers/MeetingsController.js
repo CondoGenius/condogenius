@@ -2,8 +2,9 @@ const db = require('../models');
 const { Op } = require('sequelize');
 
 const Meeting = db.meetings;
+const Admin = db.admins;
 
-const gateway_url = "http://gateway:5000/gateway/"
+const gateway_url = "http://localhost:5000/gateway/"
 
 exports.createMeeting = async (req, res) => {
   try {
@@ -50,14 +51,14 @@ exports.createMeeting = async (req, res) => {
       return res.status(400).json({ errors: [ { invalid_date: "Já existe uma reunião planejada para este horário!" } ] });
     }
   
-    // const admin = await fetch(gateway_url + "admin/" + user_id)
+    const admin = await Admin.findOne({ where: { user_id: user_id } });
 
-    // if (!admin) {
-    //   return res.status(404).json({ message: 'Você precisa ser um administrador para executar esta ação!' });
-    // }
+    if (!admin) {
+      return res.status(400).json({ message: 'Você precisa ser um administrador para executar esta ação!' });
+    }
 
-    // var admin_name = admin.name + " " + admin.last_name
-    var admin_name = ""
+    var admin_name = admin.name + " " + admin.last_name
+    // var admin_name = ""
 
     const newMeeting = await Meeting.create({
       title,
