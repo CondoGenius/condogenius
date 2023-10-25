@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "condogenius-125bd",
+  "private_key_id": "78fb865ddcb2f5b4867208cc5d3d21a907e81876",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC8wN5i+drIz25U\n4/JxjH8QYxG2X//jfdqyh3Pt9OGtXBBPaJwzGf9ttWzjyWSBqDQlLBpgVQo/j13D\nBfU1yvgQqGcmun0jozkqvOa99M1xg4+sOrYAyzr21DNefTlJSFruuoqF6VE8nII6\nPeWATXp4EYyy55ydypaHwhPzasWO6Z+/3Gf4b4E2T5yIRAiq+z8NF5Yv3IiLgGUz\nJA3oNOdDT6N4hiHpFtA6rord9DQ+LJzr/tfsNLAKr0OivupS7H1rLnix/GpzJikA\n6WIdkXfaIcifUKpCuhqTaycZunmAu6NwIVT9HqoQMRlrNCgI7v/ZqH1e4A9YF5wy\nZlSymJO7AgMBAAECggEAFSVORKxVFFYYuC3pRUtGGOHgZBwRIL1CuOlv1WKvvaoo\nsZy4kwkAkpvWnRY8ykG7xcZRFiWwxjobePO76tDYRZV4KOCPkGSCzQTonLNGKMdi\nWxsgtKoP6wMO1jEVL96JQWFoj2P6E948wKWahmsnozfkGU7VPuApSQA3F/gINeBJ\nDHp5mt0xcnhfAkZMYXO+F+LV/cWNe7x0Lf4bNdrmIUwhxykYR2F8xj7dD+/NsZO+\n6E3vncJWL9OnTLD4VuUQXewgHHAXZl0vgmXqlfVEmL+z/IHYp+P9BvmbalwNVlJm\nmKSxsi73c3yjVkC4RjmXGmSA1X8C4NFRhIOeYJVlsQKBgQDpNoTifrwTWbTORv8I\nm2DAsTa8UxMON6OAwPHVduyLCZP1aD4tvGXDlBKv6a9Z67Rv6GCuiPFevAyH6C0e\ngXk0mShQ4KEeZckVhTHW2cHwDiZnb3sNnrzcmG1JE0VYjQYhX+G2wgbLZENwKE0D\n/OPVfWeyX4uBo1SmvNuErQOMNwKBgQDPMkIt6QqErVSHusX9Ei3uTDmhAbFx6hNt\nvYA2fcL0zO+qUpHA+ND7pQR7qs6YBmhCWf2z0ulcP/8p5jb22Y97w0rp8UneaWT1\n7giuoBOA5HLhkCU1pmhTAc28aetXZw+k9vWL/8tzwDfmquB/XjJzPB5e1lS/6/xF\nGm1+E0IanQKBgCZjlxRBkGwPBDhAb5LXIOIXSc9OTYC1n/B90lE1NlLczMJE2pdk\nv8umAD181iSTLCyPr/qLCFBz3AwzJ9oxreX+oChQEbWTQ7qLJl0bk1UUvzWfoD3p\nt2UIolS5G10sOaocwmb3IW8xnfhEagkSA98MuZkfKTO50yFvTSNV55OZAoGBAI/a\nKAJyAuB86uxVa3K59XO2LmivoUAisRyG7gZnKD0IL/mD3DgrSAT+2+70dv0rraUr\nj64S5/wpXoH7mPunryvROijUYmHtsK/idNqwvvnFIlGi34KxJ0tCPFHtA/0py73P\nzElH7jxOH0GiL72ea85/1eIoUqzxLbPYll5rBoEtAoGBAKB++HmIfKf7tmxH/6al\nGQhmme7l0di6L1z8Yf1N7m+B1FQjYsMadyggE712OODvLOIff3785ZUJRtrN/7Fa\nWdM3rtJ9jKhet17afRfkjZHbcKGZOF5aSJITDSwbbubIJqA/5cchHGTKOYJvTX+E\nxQheUriKtMSiF5Nb1SQtf5V5\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-3m0ky@condogenius-125bd.iam.gserviceaccount.com",
+  "client_id": "118108335778232894819",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-3m0ky%40condogenius-125bd.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
