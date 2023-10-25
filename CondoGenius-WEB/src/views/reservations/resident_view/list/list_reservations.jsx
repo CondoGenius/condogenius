@@ -31,6 +31,7 @@ const ListReservations = () => {
         const response = await deleteReservation(id);
     
         if(response?.status === 200) {
+            toast.success("Reserva cancelada com sucesso.")
             getReservationsByResidentId(resident.data.id);
         }
     };
@@ -70,12 +71,12 @@ const ListReservations = () => {
                                     className="complaint"
                                 />
                                 <ModalContent 
-                                    header="Excluir reserva"
+                                    header="Cancelar reserva"
                                     trigger={<span><MdRemoveCircleOutline /></span>}
                                     children={
                                         <span>
                                             <div>Tem certeza que deseja remover sua reserva para {reservation.common_area_name} no dia {FormatDateZone(reservation.reserve_date)}?</div>
-                                            <div className="button_delete_resident_content">
+                                            <div className="modal_actions_button_content">
                                                 <Button modal="close" node="button" className="red_button" onClick={(e) => {submitDeleteReservation(e, reservation.id)}}>
                                                     Confirmar
                                                 </Button>
