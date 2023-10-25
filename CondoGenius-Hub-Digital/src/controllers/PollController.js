@@ -9,6 +9,7 @@ exports.createPoll = async (req, res) => {
       post_id,
       title,
       description,
+      // porcentagem de votos 
       user_id
     } = req.body;
 
