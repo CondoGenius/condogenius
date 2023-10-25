@@ -30,7 +30,7 @@ router.post("/login/", authController.login)
 router.post("/logout/", authController.logout)
 router.get("/user/me", authController.me)
 router.post("/user/register", authController.register)
-router.get("/admin/:id", authController.getAdminById)
+router.get("/admin/:user_id", authController.getAdminByUserId)
 
 //RESERVATIONS
 router.use("/api/reservations", proxy("http://reservations:7006"))

@@ -73,7 +73,9 @@ CREATE TABLE IF NOT EXISTS meetings
     title       NVARCHAR(255) NOT NULL,
     description NVARCHAR(255) NOT NULL,
     date        DATETIME      NOT NULL,
+    end_date    DATETIME      NOT NULL,
     hour        NVARCHAR(255) NOT NULL,
+    duration    NVARCHAR(255) NOT NULL,
     created_at  DATETIME      NOT NULL,
     updated_at  DATETIME      NOT NULL
 );

@@ -12,7 +12,13 @@ module.exports = (sequelize, Sequelize) => {
     date: {
       type: Sequelize.DATE
     },
+    end_date: {
+      type: Sequelize.DATE
+    },
     hour: {
+      type: Sequelize.STRING
+    },
+    duration: {
       type: Sequelize.STRING
     },
     createdAt: {

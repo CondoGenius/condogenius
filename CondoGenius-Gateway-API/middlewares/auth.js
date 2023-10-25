@@ -4,7 +4,7 @@ const config = require('../config/config');
 function authMiddleware(req, res, next) {
   const token = req.header('x-access-token');
 
-  if (req.url === '/gateway/login' || req.url === '/gateway/user/register' || req.url === '/gateway/user/me' || req.url === '/gateway/logout') {
+  if (req.url === '/gateway/login' || req.url === '/gateway/user/register' || req.url === '/gateway/user/me' || req.url === '/gateway/logout' || req.url === '/gatewAY/admin') {
     return next();
   }
 

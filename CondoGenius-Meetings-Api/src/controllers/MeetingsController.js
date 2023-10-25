@@ -1,5 +1,9 @@
 const db = require('../models');
+const { Op } = require('sequelize');
+
 const Meeting = db.meetings;
+
+const gateway_url = "http://gateway:5000/gateway/"
 
 exports.createMeeting = async (req, res) => {
   try {
@@ -8,21 +12,68 @@ exports.createMeeting = async (req, res) => {
       description,
       date,
       hour,
+      duration,
       user_id
     } = req.body;
+
+
+    const meetingDate = new Date(`${date}T${hour}:00`);
+    
+    if (isNaN(meetingDate)) {
+      console.log(date, hour, meetingDate)
+      return res.status(400).json({ errors: [{ invalid_date: "Data ou hora inválida!" }] });
+    }
+
+    const [durationHours, durationMinutes] = duration.split(":");
+    const meetingEndDate = new Date(meetingDate);
+    meetingEndDate.setHours(meetingDate.getHours() + parseInt(durationHours), meetingDate.getMinutes() + parseInt(durationMinutes), 0, 0);
+
+    // Verifica se já existe uma reunião para o mesmo dia e horário
+    const existingMeeting = await Meeting.findOne({
+      where: {
+        [Op.and]: [
+          {
+            date: {
+              [Op.lt]: meetingEndDate // Verifica se a data da nova reunião é antes do fim da reunião existente
+            }
+          },
+          {
+            end_date: {
+              [Op.gt]: meetingDate // Verifica se a data do fim da nova reunião é depois do início da reunião existente
+            }
+          }
+        ]
+      }
+    });
+
+    if (existingMeeting) {
+      return res.status(400).json({ errors: [ { invalid_date: "Já existe uma reunião planejada para este horário!" } ] });
+    }
+  
+    // const admin = await fetch(gateway_url + "admin/" + user_id)
+
+    // if (!admin) {
+    //   return res.status(404).json({ message: 'Você precisa ser um administrador para executar esta ação!' });
+    // }
+
+    // var admin_name = admin.name + " " + admin.last_name
+    var admin_name = ""
 
     const newMeeting = await Meeting.create({
       title,
       description,
-      date,
+      date: meetingDate,
       hour,
+      duration,
       user_id,
+      end_date: meetingEndDate,
       created_at: new Date(),
       updated_at: new Date()
     });
 
-    res.status(201).json({ message: 'Reunião criada com sucesso', meeting: newMeeting });
+    res.status(201).json({ message: 'Reunião criada com sucesso', meeting: newMeeting, admin_name: admin_name});
   } catch (error) { 
+    console.log(error)
     res.status(500).json({ message: 'Erro ao criar reunião' });
   } 
 };

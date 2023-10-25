@@ -79,13 +79,13 @@ authController.logout = async (req, res) => {
   res.status(200).send({ auth: false, token: null, isLogged: false });
 };
 
-authController.getAdminById = async (req, res) => {
+authController.getAdminByUserId = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { user_id } = req.params;
 
     const admin = await Admin.findOne({
       where: {
-        id: id
+        user_id: user_id
       }
     });
 
