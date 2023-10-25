@@ -28,7 +28,6 @@ const CardContent = () => {
                                 </Card>
                             }
                             children={FormReservations(area.id)}
-                            className="complaint"
                         />
                     </Col>
                 ))}

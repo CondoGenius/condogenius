@@ -82,7 +82,6 @@ const ListReservations = () => {
                                             </div>
                                         </span>
                                     }
-                                    className="delete"
                                 />
                         </CollectionItem>
                         ))

@@ -1,5 +1,23 @@
 @import '../../../styles/variables.scss';
 
+.complaint_container {
+    .list_view ul li {
+        height: 75px;
+    
+        span {
+            width: 20.5% !important;
+        }
+    
+        .complaint_list_text {
+            margin: 0;
+            width: 80% !important;
+        }
+    
+        .complaint_list_body {
+            width: 80% !important;
+        }
+    }
+}
 
 .form_complaint {
     display: flex;
@@ -7,7 +25,7 @@
 }
 
 .complaint_field {
-    height: 300px;
+    height: 300px !important;
     border: solid 2px #D7D7D7;
 }
 
@@ -21,22 +39,5 @@
         width: 400px;
         font-weight: bold;
         height: 45px;
-    }
-}
-
-.list_view ul li {
-    height: 75px;
-
-    span {
-        width: 20.5% !important;
-    }
-
-    .complaint_list_text {
-        margin: 0;
-        width: 80% !important;
-    }
-
-    .complaint_list_body {
-        width: 80% !important;
     }
 }

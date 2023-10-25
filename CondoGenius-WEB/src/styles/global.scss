@@ -45,18 +45,19 @@ button {
         border: none;
     
         li {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          width: 100%;
-          border-bottom: none !important;
-          border-radius: 49px;
-          box-shadow: 0px 3px 6px $shadow-color;
-          margin-bottom: 10px !important;
-          background: #FFFFFF 0% 0% no-repeat padding-box;
-          font: normal normal normal 1.1vw/1.2vw Helvetica Neue;
-          letter-spacing: 0px;
-          padding: 5px 20px !important;
+            height: 55px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+            border-bottom: none !important;
+            border-radius: 49px;
+            box-shadow: 0px 3px 6px $shadow-color;
+            margin-bottom: 10px !important;
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            font: normal normal normal 1.1vw/1.2vw Helvetica Neue;
+            letter-spacing: 0px;
+            padding: 5px 20px !important;
           
             &:hover {
                 box-shadow: 0px 5px 8px $shadow-color;
@@ -108,7 +109,8 @@ button {
 }
 
 .complaint_list_status {
-    display: flex;
+    display: flex !important;
+    align-items: center;
     padding-left: 20px;
   
     .complaint_status_notified {
@@ -154,6 +156,10 @@ button {
     align-items: center;
     justify-content: center;
     margin-top: 15px;
+    
+    button {
+        margin: 5px;
+    }
 }
 
 .button_content_open_modal {

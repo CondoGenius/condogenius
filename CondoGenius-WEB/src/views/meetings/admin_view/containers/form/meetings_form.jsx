@@ -104,6 +104,7 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => 
     </div>
 );
 
+
 const MeetingsForm = () => {
     const residences = useSelector(state => state.residences.list);
     const user = useSelector(state => state.user.data);

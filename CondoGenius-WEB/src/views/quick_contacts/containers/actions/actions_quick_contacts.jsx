@@ -22,9 +22,10 @@ const onSubmit = (values, setFilters) => {
     });
 };
 
-const clearFilters = (e, setFilters) => {
+const clearFilters = (e, setFilters, handleReset) => {
     e.preventDefault();
     setFilters({type: '', name: ''});
+    handleReset();
 };
 
 const renderFieldFilterByName = (handleChange, handleBlur, values) => (
@@ -58,7 +59,6 @@ const renderButtonQuickContactRegister = () => (
         header="Cadastrar novo contato"
         trigger={<Button className='button_content_open_modal'><MdAddBox /> Cadastrar novo contato</Button>}
         children={<QuickContactsFormFields/>}
-        className="create"
     />
 );
 
@@ -82,7 +82,8 @@ const QuickContactsActions = ({filters, setFilters}) => {
                 handleChange,
                 handleBlur,
                 values,
-                handleSubmit
+                handleSubmit,
+                handleReset
             }) => (
                 <div className="filter_content">
                     <div class="row">
@@ -104,7 +105,7 @@ const QuickContactsActions = ({filters, setFilters}) => {
                                 <Tooltip
                                     message={"Limpar filtros"}
                                 >
-                                    <FiRefreshCcw className="refresh_icon" onClick={(e) => clearFilters(e, setFilters)} />
+                                    <FiRefreshCcw className="refresh_icon" onClick={(e) => clearFilters(e, setFilters, handleReset)} />
                                 </Tooltip>
                             </div>
                             {user.isAdmin && 

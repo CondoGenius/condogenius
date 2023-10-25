@@ -87,7 +87,6 @@ const ResidentList = ({ filters }) => {
                                         </div>
                                         </div>
                                     }
-                                    className="delete"
                                 />
                             </span>
                             </CollectionItem>

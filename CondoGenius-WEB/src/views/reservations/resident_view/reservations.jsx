@@ -58,7 +58,6 @@ const ReservationsResidentView = () => {
                               </Card>
                           }
                           children={<FormReservations areaId={area.id} />}
-                          className="complaint"
                       />
                   </Col>
               ))}

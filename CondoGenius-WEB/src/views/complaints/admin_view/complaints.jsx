@@ -70,7 +70,7 @@ const ComplaintsAdminView = () => {
     }, [complaints.error]);
     
     return (
-        <>
+        <div className='complaint_container'>
             <Loading 
                 show={
                     loadingResidences ||
@@ -127,7 +127,6 @@ const ComplaintsAdminView = () => {
                                     header={`Reclamação de ${complaint.resident_name} ${complaint.resident_last_name}`}
                                     trigger={<MdAddCircle />}
                                     children={renderComplaintMoreInfo(complaint, updateComplaint, getComplaints)}
-                                    className="complaint"
                                 />
                             </span>
                         </CollectionItem>
@@ -137,7 +136,7 @@ const ComplaintsAdminView = () => {
                 )}
                 </Collection>
             </div>
-        </>
+        </div>
     );
 };
 

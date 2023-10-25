@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Modal, Button } from "react-materialize";
+import { Button, Modal } from "react-materialize";
 
-import { MdClose } from 'react-icons/md'
+import { MdClose } from 'react-icons/md';
 
 import './modal_content.scss';
 
@@ -16,7 +16,6 @@ const ModalContent = ({header, trigger, children, className }) => {
                     <MdClose />
                 </Button>
             }
-            className={className}
         >
             {children}
         </Modal>

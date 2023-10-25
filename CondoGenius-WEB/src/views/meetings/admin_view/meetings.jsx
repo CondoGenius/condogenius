@@ -6,8 +6,10 @@ import { toast } from 'react-toastify';
 import Loading from "../../../components/loading/loading";
 import ModalContent from '../../../components/modal/modal_content';
 import useMeetings from "../../../states/meetings/hooks/useMeetings";
-import { FormatDate } from '../../../utils/utils';
+import { FormatDateZone } from '../../../utils/utils';
 import MeetingsForm from './containers/form/meetings_form';
+
+import '../meetings.scss';
 
 const MeetingsAdminView = () => {
     const meetings = useSelector((state) => state.meetings);
@@ -32,7 +34,7 @@ const MeetingsAdminView = () => {
         };
     }
     return (
-        <div> 
+        <div className='meetings_container'> 
             <Loading
                 show={
                     loadingMeetings
@@ -46,30 +48,29 @@ const MeetingsAdminView = () => {
                     header={`Nova reunião`}
                     trigger={<Button className='button_content_open_modal'><MdAddBox />Cadastrar nova reunião</Button>}
                     children={<MeetingsForm />}
-                    className="complaint"
                 />
             </div>
             <div className='list_view'>
                 <Collection>
                 <CollectionItem key="header" className='list_header'>
-                    <span>Tema</span>
-                    <span>Descrição</span>
+                    <span className='meeting_list_title'>Tema</span>
+                    <span className='meeting_list_description'>Descrição</span>
                     <span>Data</span>
                     <span />
                 </CollectionItem>
                 {meetings.list?.length > 0 ? (
                     meetings.list.map(meeting => (
                         <CollectionItem key={meeting.id}>
-                            <span>
+                            <span className='meeting_list_title'>
                             {meeting.title}
                             </span>
-                            <span>
+                            <span className='meeting_list_description'>
                             {meeting.description}
                             </span>
                             <span>
-                            {FormatDate(meeting.date)} às {meeting.hour}
+                            {FormatDateZone(meeting.date)} às {meeting.hour}
                             </span>
-                            <span>
+                            <span className='button_delete_container'>
                                 <ModalContent 
                                     header="Excluir morador"
                                     trigger={<MdRemoveCircleOutline/>}
@@ -83,7 +84,6 @@ const MeetingsAdminView = () => {
                                             </div>
                                         </span>
                                     }
-                                    className="delete"
                                 />
                             </span>
                         </CollectionItem>

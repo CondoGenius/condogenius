@@ -1,0 +1,21 @@
+.meetings_container {
+    .list_view ul li {
+        height: 75px;
+    }
+
+    .meeting_list_title {
+        width: 40% !important;
+
+    }
+
+    .meeting_list_description {
+        width: 60% !important;
+    }
+
+    .button_delete_container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+}

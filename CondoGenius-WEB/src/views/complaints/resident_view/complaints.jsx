@@ -25,7 +25,7 @@ const ComplaintsResidentView = () => {
   }, [resident.error]);
 
   return (
-    <>
+    <div className='complaint_container'>
       <Loading show={ loadingComplaints } />
       <div className="header_content">
         <h1>Reclamações</h1>
@@ -35,7 +35,6 @@ const ComplaintsResidentView = () => {
           header={`Nova reclamação`}
           trigger={<Button>Enviar nova reclamação</Button>}
           children={ComplaintForm()}
-          className="complaint"
         />
       </div>
       <div>
@@ -83,7 +82,6 @@ const ComplaintsResidentView = () => {
                           <p>Data: {FormatDateZone(complaint.date)}</p>
                         </>
                       }
-                      className="complaint"
                     />
                   </span>
                 </CollectionItem>
@@ -94,7 +92,7 @@ const ComplaintsResidentView = () => {
           </Collection>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

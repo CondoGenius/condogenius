@@ -1,16 +1,18 @@
-.list_view ul li {
-    height: 75px;
-
-    span {
-        width: 30.5% !important;
-    }
-
-    .complaint_list_text {
-        margin: 0;
-        width: 70% !important;
-    }
-
-    .complaint_list_body {
-        width: 70% !important;
+.complaint_container {
+    .list_view ul li {
+        height: 75px;
+    
+        span {
+            width: 30.5% !important;
+        }
+    
+        .complaint_list_text {
+            margin: 0;
+            width: 70% !important;
+        }
+    
+        .complaint_list_body {
+            width: 70% !important;
+        }
     }
 }

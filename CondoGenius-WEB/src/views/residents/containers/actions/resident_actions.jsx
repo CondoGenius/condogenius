@@ -23,9 +23,10 @@ const onSubmit = (values, setFilters) => {
     });
 };
 
-const clearFilters = (e, setFilters) => {
+const clearFilters = (e, setFilters, handleReset) => {
     e.preventDefault();
     setFilters({name: null, cpf: null, residenceId: null});
+    handleReset();
 };
 
 const renderFieldFilterByName = (handleChange, handleBlur, values) => (
@@ -79,7 +80,6 @@ const renderButtonRegisterResident = () => (
         header="Cadastrar morador"
         trigger={<Button className='button_content_open_modal'><MdAddBox /> Cadastrar morador</Button>}
         children={<ResidentFormFields/>}
-        className="create"
     />
 );
 
@@ -105,7 +105,8 @@ const ResidentActions = ({filters, setFilters}) => {
                 handleChange,
                 handleBlur,
                 values,
-                handleSubmit
+                handleSubmit,
+                handleReset
             }) => (
                 <div className="filter_content">
                     <div class="row">
@@ -130,7 +131,7 @@ const ResidentActions = ({filters, setFilters}) => {
                                 <Tooltip
                                     message={"Limpar filtros"}
                                 >
-                                    <FiRefreshCcw className="refresh_icon" onClick={(e) => clearFilters(e, setFilters)} />
+                                    <FiRefreshCcw className="refresh_icon" onClick={(e) => clearFilters(e, setFilters, handleReset)} />
                                 </Tooltip>
                             </div>
                             <div class="input-field col s2 button_register_content">

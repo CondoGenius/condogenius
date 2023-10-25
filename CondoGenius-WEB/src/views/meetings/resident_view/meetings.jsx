@@ -4,8 +4,9 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Loading from "../../../components/loading/loading";
 import useMeetings from '../../../states/meetings/hooks/useMeetings';
-import { FormatDate } from '../../../utils/utils';
+import { FormatDateZone } from '../../../utils/utils';
 
+import '../meetings.scss';
 
 const MeetingsResidentView = () => {
     const meetings = useSelector((state) => state.meetings);
@@ -21,7 +22,7 @@ const MeetingsResidentView = () => {
     }, [meetings.error]);
     
     return (
-        <div> 
+        <div className='meetings_container'> 
             <Loading
                 show={
                     loadingMeetings
@@ -33,30 +34,25 @@ const MeetingsResidentView = () => {
             <div className='list_view'>
                 <Collection>
                 <CollectionItem key="header" className='list_header'>
-                    <span>Tema</span>
                     <span>Responsável</span>
-                    <span>Descrição</span>
+                    <span className='meeting_list_title'>Tema</span>
+                    <span className='meeting_list_description'>Descrição</span>
                     <span>Data</span>
-                    <span>Horário</span>
-                    <span />
                 </CollectionItem>
                 {meetings.list?.length > 0 ? (
                     meetings.list.map(meeting => (
                         <CollectionItem key={meeting.id}>
                             <span>
-                            {meeting.tittle}
-                            </span>
-                            <span>
                             {meeting.admin_name}
                             </span>
-                            <span>
+                            <span className='meeting_list_title'>
+                            {meeting.title}
+                            </span>
+                            <span className='meeting_list_description'>
                             {meeting.description}
                             </span>
                             <span>
-                            {FormatDate(meeting.date)}
-                            </span>
-                            <span>
-                            {meeting.hour}
+                            {FormatDateZone(meeting.date)} às {meeting.hour}
                             </span>
                         </CollectionItem>
                     ))
