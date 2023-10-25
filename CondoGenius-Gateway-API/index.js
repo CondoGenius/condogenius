@@ -30,10 +30,12 @@ router.post("/login/", authController.login)
 router.post("/logout/", authController.logout)
 router.get("/user/me", authController.me)
 router.post("/user/register", authController.register)
+router.get("/admin/:id", authController.getAdminById)
 
 //RESERVATIONS
 router.use("/api/reservations", proxy("http://reservations:7006"))
 
+router.use("/hub_digital/", proxy("http://hub_digital:7004/"));
 router.use("/residents/", proxy("http://residents:7008/"));
 router.use("/meetings/", proxy("http://meetings:7009/"));
 
