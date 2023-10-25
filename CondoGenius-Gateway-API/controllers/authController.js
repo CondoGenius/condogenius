@@ -7,6 +7,7 @@ const db = require('../models');
 const User = db.users;
 const Role = db.roles;
 const Resident = db.residents;
+const Admin = db.admins;
 
 const authController = {};
 
@@ -76,6 +77,23 @@ authController.login = async (req, res) => {
 
 authController.logout = async (req, res) => {
   res.status(200).send({ auth: false, token: null, isLogged: false });
+};
+
+authController.getAdminById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const admin = await Admin.findOne({
+      where: {
+        id: id
+      }
+    });
+
+    res.status(200).json(admin);
+  } catch (error) {
+    console.error('Erro ao listar admin:', error);
+    res.status(500).json({ message: 'Erro ao listar admin' });
+  }
 };
 
 module.exports = authController;

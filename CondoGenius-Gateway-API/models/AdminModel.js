@@ -1,16 +1,16 @@
 module.exports = (sequelize, Sequelize) => {
-  const Post = sequelize.define("post", {
+  const Admin = sequelize.define("administrator", {
     user_id: {
       type: Sequelize.INTEGER
     },
-    title: {
+    name: {
       type: Sequelize.STRING
     },
-    content: {
+    email: {
       type: Sequelize.STRING
     },
-    fixed: {
-      type: Sequelize.INTEGER
+    cpf: {
+      type: Sequelize.STRING
     },
     createdAt: {
       type: Sequelize.DATE,
@@ -22,5 +22,5 @@ module.exports = (sequelize, Sequelize) => {
     }
   });
 
-  return Post;
-}
+  return Admin;
+};

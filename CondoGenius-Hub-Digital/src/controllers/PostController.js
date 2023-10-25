@@ -1,6 +1,8 @@
 const db = require('../models');
 const Post = db.posts;
 
+const residents_service_url = "http://residents:7008/api/residents/"
+
 exports.createPost = async (req, res) => {
   try {
     const {
@@ -8,20 +10,24 @@ exports.createPost = async (req, res) => {
       description,
       content,
       fixed,
-      resident_id
+      user_id
     } = req.body;
 
     const newPost = await Post.create({
       title,
       description,
-      resident_id,
+      user_id,
       content,
       fixed,
       created_at: new Date(),
       updated_at: new Date()
     });
 
-    res.status(201).json({ message: 'Post criado com sucesso', post: newPost });
+    const resident = await fetch(residents_service_url + "user/" + user_id)
+    console.log(resident)
+    // usar user_id para pegar o nome do residente
+
+    res.status(201).json({ message: 'Post criado com sucesso', post: newPost, name: resident.name, last_name: resident.last_name });
   } catch (error) { 
     res.status(500).json({ message: 'Erro ao criar post' });
   } 
@@ -40,11 +46,11 @@ exports.listPosts = async (req, res) => {
 
 exports.listPostsByResidentId = async (req, res) => {
   try {
-    const { resident_id } = req.params;
+    const { user_id } = req.params;
 
     const posts = await Post.findAll({
       where: {
-        resident_id: resident_id
+        user_id: user_id
       }
     });
 
@@ -81,13 +87,13 @@ exports.updatePost = async (req, res) => {
       description,
       content,
       fixed,
-      resident_id
+      user_id
     } = req.body;
 
     const post = await Post.update({
       title,
       description,
-      resident_id,
+      user_id,
       content,
       fixed,
       updated_at: new Date()
