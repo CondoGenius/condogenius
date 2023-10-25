@@ -1,15 +1,35 @@
+import { Formik } from 'formik';
 import React from "react";
 import { AiOutlineProject } from "react-icons/ai";
 import { Button } from "react-materialize";
 import { useSelector } from "react-redux";
+import * as Yup from 'yup';
 import person from '../../../assets/person.png';
 import ModalContent from "../../../components/modal/modal_content";
+import ErrorField from '../../../components/utils/errorField';
+import useHubDigital from "../../../states/hub_diigtal/hooks/useHubDigital";
 import SurveyForm from "../survey_form/survey_form";
 
 import './form_publication.scss';
 
+const requiredFieldMessage = 'Este campo é obrigatório';
+const FormPublicationSchema = Yup.object().shape({
+    description: Yup.string().ensure().required(requiredFieldMessage),
+});
+
+const onSubmit = async (values, createPublication, getPublications) => {
+    const response = await createPublication(values);
+
+    if (response.status === 201) {
+        getPublications();
+    }
+}
+
 const FormPublication = () => {
     const isAdmin = useSelector((state => state.user.data.isAdmin));
+    const user = useSelector((state => state.user.data));
+
+    const {  createPublication, getPublications } = useHubDigital();
 
     return (
         <div>
@@ -18,24 +38,51 @@ const FormPublication = () => {
                     <img src={person} />
                 </div>
                 <div className="form_publication">
-                    <div>
-                        <textarea placeholder="Compartilhe avisos, notícias e informações relevantes à comunidade do condomínio"/>
-                        </div>
-                        <div className="actions_publication">
-                            {isAdmin && (
-                                <ModalContent
-                                    header={`Criar enquete`}
-                                    trigger={
-                                        <div className="survey_content">
-                                            <AiOutlineProject />Criar enquete
-                                        </div>
-                                    }
-                                    children={<SurveyForm />}
-                                    className="complaint"
+                    <Formik        
+                    initialValues={{
+                        userId: user.id,
+                        description: ''
+                    }}
+                    validationSchema={FormPublicationSchema}
+                    onSubmit={(values) => {onSubmit(values, createPublication, getPublications)}}
+                > 
+                    {({
+                        handleChange,
+                        handleBlur,
+                        values,
+                        handleSubmit,
+                        handleReset,
+                        isValid,
+                        errors
+                    }) => (
+                        <>
+                            <div>
+                                <textarea 
+                                    id="description"
+                                    placeholder="Compartilhe avisos, notícias e informações relevantes à comunidade do condomínio"
+                                    onChange={handleChange}
+                                    value={values.description}
                                 />
-                            )}
-                            <Button>Compartilhar publicação</Button>
-                    </div>
+                                {errors.description && <ErrorField error={errors.description}/>}
+                            </div>
+                            <div className="actions_publication">
+                                {isAdmin && (
+                                    <ModalContent
+                                        header={`Criar enquete`}
+                                        trigger={
+                                            <div className="survey_content">
+                                                <AiOutlineProject />Criar enquete
+                                            </div>
+                                        }
+                                        children={<SurveyForm />}
+                                        className="complaint"
+                                    />
+                                )}
+                                <Button onClick={handleSubmit}>Compartilhar publicação</Button>
+                        </div>
+                        </>
+                    )}
+                </Formik>
                 </div>
             </div>
             

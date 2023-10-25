@@ -1,0 +1,21 @@
+@import '../../../styles/variables.scss';
+
+.deliveried_status_content {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    .deliveried_icon {
+        color: green;
+    }
+
+    .button_submit_delivered {
+        border-radius: 10px;
+        background-color: $yellow !important;
+        font-weight: bold;
+    
+        &:hover {
+            background-color: #ead161 !important;
+        }
+    }
+}

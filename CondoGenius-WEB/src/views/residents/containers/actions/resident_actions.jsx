@@ -77,7 +77,7 @@ const renderFieldFilterByResidenceNumber = (handleChange, handleBlur, values, re
 const renderButtonRegisterResident = () => (
     <ModalContent
         header="Cadastrar morador"
-        trigger={<Button className='button_content_open_modal'><MdAddBox /> Cadastrar novo morador</Button>}
+        trigger={<Button className='button_content_open_modal'><MdAddBox /> Cadastrar morador</Button>}
         children={<ResidentFormFields/>}
         className="create"
     />

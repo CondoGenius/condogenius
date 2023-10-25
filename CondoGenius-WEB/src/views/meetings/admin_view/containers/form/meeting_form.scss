@@ -1,17 +1,9 @@
 .meeting_form_content {
-    display: flex;
-    flex-direction: column;
-
-    input, textarea {
-        margin-top: 15px !important;
-    }
-
     textarea {
         height: 100px;
     }
 
     .button_content {
-        margin-top: 20px;
         display: flex;
         align-items: center;
         justify-content: center;

@@ -42,92 +42,108 @@ const onSubmit = async (values, createResident, updateResident, getResidents, hi
 };
 
 const renderFieldName = (handleChange, handleBlur, values) => (
-    <input 
-        id="name"
-        type="text" 
-        placeholder="Digite o nome"
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={values.name} 
-    />
+    <div class="input-field">
+        <input 
+            id="name"
+            type="text" 
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.name} 
+        />
+        <label for="name" class="active">Nome</label>
+    </div>
 );
 
 const renderFieldLastName = (handleChange, handleBlur, values) => (
-    <input 
-        id="lastName"
-        type="text" 
-        placeholder="Digite o sobrenome"
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={values.lastName} 
-    />
+    <div class="input-field">
+        <input 
+            id="lastName"
+            type="text" 
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.lastName} 
+        />
+        <label for="lastName" class="active">Sobrenome</label>
+    </div>
 );
 
 const renderFieldCpf = (handleChange, handleBlur, values) => (
-    <input 
-        id="cpf"
-        type="text" 
-        placeholder="Digite o CPF"
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={CpfMask(values.cpf)} 
-        maxLength={13}
-    />
+    <div class="input-field">
+        <input 
+            id="cpf"
+            type="text" 
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={CpfMask(values.cpf)} 
+            maxLength={13}
+        />
+        <label for="lastName" class="active">CPF</label>
+    </div>
 );
 
 const renderFieldContact = (handleChange, handleBlur, values) => (
-    <input 
-        id="contact"
-        type="text" 
-        placeholder="Digite o contato com DDD"
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={PhoneMask(values.contact)}
-        maxLength={15}
-    />
+    <div class="input-field">
+        <input 
+            id="contact"
+            type="text" 
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={PhoneMask(values.contact)}
+            maxLength={15}
+        />
+        <label for="contact" class="active">Contato</label>
+    </div>
 );
 
 const renderFieldEmail = (handleChange, handleBlur, values) => (
-    <input 
-        id="email"
-        type="text" 
-        placeholder="Digite o e-mail"
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={values.email} 
-    />
+    <div class="input-field">
+        <input 
+            id="email"
+            type="text" 
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.email} 
+        />
+        <label for="email" class="active">E-mail</label>
+    </div>
 );
 
 const renderFieldBirthday = (handleChange, handleBlur, values) => (
-    <input 
-        id="birthday"
-        type="date" 
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={values.birthday} 
-    />
+    <div class="input-field">
+        <input 
+            id="birthday"
+            type="date" 
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.birthday} 
+        />
+        <label for="birthday" class="active">Data de nascimento</label>
+    </div>
 );
 
 const renderFieldResidenceNumber = (handleChange, handleBlur, values, residences) => (
-    <select
-        className="browser-default"
-        name="residenceId"
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={values.residenceId}
-    >
-        <option value="" disabled hidden>Selecione a residência</option>
-        {
-            residences?.map(residence => (
-                <option
-                    key={residence.id}
-                    value={residence.id}
-                >
-                    Residência {residence.number}
-                </option>
-            ))
-        }
-    </select>
+    <div>
+        <label for="residence" class="active">Residência</label>
+        <select
+            className="browser-default"
+            name="residenceId"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.residenceId}
+        >
+            <option value="" disabled hidden>Selecione a residência</option>
+            {
+                residences?.map(residence => (
+                    <option
+                        key={residence.id}
+                        value={residence.id}
+                    >
+                        Residência {residence.number}
+                    </option>
+                ))
+            }
+        </select>
+    </div>
 );
 
 const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit, isEdit) => (

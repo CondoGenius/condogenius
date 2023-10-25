@@ -28,45 +28,55 @@ const onSubmit = async (values, createMeeting, getMeetings) => {
 };
 
 const renderFieldTitle = (handleChange, handleBlur, values) => (
-    <input 
-        id="title"
-        type="text"
-        placeholder="Digite o tema da reunião"
-        onChange={handleChange}
-        value={values.title}
-        handleBlur={handleBlur}
-    />
+    <div class="input-field">
+        <input 
+            id="title"
+            type="text"
+            onChange={handleChange}
+            value={values.title}
+            handleBlur={handleBlur}
+        />
+        <label for="title" class="active">Tema da reunião</label>
+    </div>
 );
 
 const renderFieldDescription = (handleChange, handleBlur, values) => (
-    <textarea 
-        id="description"
-        type="text"
-        placeholder="Digite uma descrição para a reunião"
-        onChange={handleChange}
-        value={values.description}
-        handleBlur={handleBlur}
-    />
+    <div class="input-field">
+        <textarea 
+            id="description"
+            type="text"
+            onChange={handleChange}
+            value={values.description}
+            handleBlur={handleBlur}
+        />
+        <label for="description" class="active">Descrição</label>
+    </div>
 );
 
 const renderFieldDate = (handleChange, handleBlur, values) => (
-    <input 
-        id="date"
-        type="date" 
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={values.date} 
-    />
+    <div class="input-field">
+        <input 
+            id="date"
+            type="date" 
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.date} 
+        />
+        <label for="description" class="active">Data</label>
+    </div>
 );
 
 const renderFieldHour = (handleChange, handleBlur, values) => (
-    <input 
-        id="hour"
-        type="time" 
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={values.hour} 
-    />
+    <div class="input-field">
+        <input 
+            id="hour"
+            type="time" 
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.hour} 
+        />
+        <label for="hour" class="active">Hora</label>
+    </div>
 );
 
 const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => (
@@ -125,18 +135,30 @@ const MeetingsForm = () => {
             errors
         }) => (
             <div className="meeting_form_content">
-                {renderFieldTitle(handleChange, handleBlur, values, residences)}
-                {isSubmit && errors.title && <ErrorField error={errors.title}/>}
-         
-                {renderFieldDescription(handleChange, handleBlur, values, residences)}
-                {isSubmit && errors.description && <ErrorField error={errors.description}/>}
-          
-
-                {renderFieldDate(handleChange, handleBlur, values, residences)}
-                {isSubmit && errors.date && <ErrorField error={errors.date}/>}
-
-                {renderFieldHour(handleChange, handleBlur, values, residences)}
-                {isSubmit && errors.hour && <ErrorField error={errors.hour}/>}
+                 <div class="row">
+                    <form class="col s12">
+                        {renderFieldTitle(handleChange, handleBlur, values, residences)}
+                        {isSubmit && errors.title && <ErrorField error={errors.title}/>}
+                    </form>
+                 </div>
+                 <div class="row">
+                    <form class="col s12">
+                        {renderFieldDescription(handleChange, handleBlur, values, residences)}
+                        {isSubmit && errors.description && <ErrorField error={errors.description}/>}
+                    </form>
+                 </div>
+                <div class="row">
+                  <form class="col s12">
+                    <div class="input-field col s6">
+                        {renderFieldDate(handleChange, handleBlur, values, residences)}
+                        {isSubmit && errors.date && <ErrorField error={errors.date}/>}
+                    </div>
+                    <div class="input-field col s6">
+                        {renderFieldHour(handleChange, handleBlur, values, residences)}
+                        {isSubmit && errors.hour && <ErrorField error={errors.hour}/>}
+                    </div>
+                  </form>
+                 </div>
             
                 {renderButtonSubmit(isValid, handleSubmit, handleReset, setIsSubmit)}
             </div>

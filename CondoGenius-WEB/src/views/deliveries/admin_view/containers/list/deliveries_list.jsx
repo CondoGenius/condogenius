@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
+import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { Button, Collection, CollectionItem } from 'react-materialize';
 import { useSelector } from "react-redux";
 import { toast } from 'react-toastify';
+import Tooltip from "../../../../../components/tooltip/tooltip";
 import useDeliveries from "../../../../../states/deliveries/hooks/useDeliveries";
 import useResidences from "../../../../../states/residences/hooks/useResidences";
 import { FormatDateZone } from "../../../../../utils/utils";
@@ -54,8 +56,13 @@ const DelivriesList = () => {
                             <span>
                             {delivery.status}
                             </span>
-                            <span>
-                            {delivery.status === 'Na portaria' && <Button onClick={(e) => updateStatus(e, delivery.id, updateDelivery, getDeliveries)}>Marcar como entregue</Button>}
+                            <span className="deliveried_status_content">
+                            {delivery.status === 'Na portaria' ?
+                            (<Button className="button_submit_delivered" onClick={(e) => updateStatus(e, delivery.id, updateDelivery, getDeliveries)}>Marcar como entregue</Button>) : (
+                                <Tooltip message={"Entregue"}>
+                                    <AiOutlineCheckCircle className="deliveried_icon"/>
+                                </Tooltip>
+                            )}
                             </span>
                         </CollectionItem>
                     ))

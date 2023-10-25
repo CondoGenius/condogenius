@@ -160,6 +160,9 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
+    word-wrap: none;
+    font-size: 85%;
+    white-space: nowrap;
 
     svg {
         margin-right: 5px;

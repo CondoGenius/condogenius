@@ -7,6 +7,8 @@ import useResidences from "../../../states/residences/hooks/useResidences";
 import DeliveriesActions from "./containers/actions/deliveries_actions";
 import DelivriesList from "./containers/list/deliveries_list";
 
+import './deliveries.scss';
+
 const DeliveriesAdminView = () => {
     const deliveries = useSelector((state) => state.deliveries);
 

@@ -253,6 +253,7 @@ VALUES ('Admin'),
 
 INSERT INTO users(email, password, is_active, role_id)
 VALUES ('admin@condogenius.com.br', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 1);
+VALUES ('maria@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 2, 2);
 
 INSERT INTO administrators (user_id, cpf, email, name)
 VALUES (1, '10412515090', 'admin@condogenius.com.br', 'Hellen');

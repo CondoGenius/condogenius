@@ -2,17 +2,18 @@ import React from "react";
 import { AiFillPushpin, AiOutlinePushpin, AiOutlineSend } from "react-icons/ai";
 import { BsPersonCircle } from "react-icons/bs";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import useHubDigital from "../../../states/hub_diigtal/hooks/useHubDigital";
 import { VerifyQuantityDays } from "../../../utils/utils";
 
 import './card_publication.scss';
-
 
 const renderSurvey = (survey) => {
 
     const setPorcent = (value) => {
         const progressBar = document.getElementById('progress-bar');
         progressBar.style.width = value + '%';
-    }
+    };
 
     return (
       <div>
@@ -38,6 +39,17 @@ const renderSurvey = (survey) => {
 const CardPublication = ({publication}) => {
     const isAdmin = useSelector((state => state.user.data.isAdmin));
 
+    const { updatePublication } = useHubDigital();
+
+    const submitFixedPost = async (e) => {
+        e.preventDefault();
+        const response = await updatePublication(publication.id);
+
+        if (response.status === 200) {
+            toast.success("Fixação alterada com sucesso");
+        }
+    };
+
     return (
     <div className="publication_content">
         <div className="user_info">
@@ -48,8 +60,8 @@ const CardPublication = ({publication}) => {
                 </div>
             </div>
             <div className="fixed_info">
-                {publication.is_fixed && <AiFillPushpin className="pin_icon"/>}
-                {!publication.is_fixed && isAdmin && <AiOutlinePushpin className="pin_icon"/>}
+                {publication.is_fixed && <AiFillPushpin className="pin_icon" onClick={(e) => isAdmin && submitFixedPost(e)}/>}
+                {!publication.is_fixed && isAdmin && <AiOutlinePushpin className="pin_icon" onClick={(e) => submitFixedPost(e)}/>}
             </div>
         </div>
         <div className="publication_info">
