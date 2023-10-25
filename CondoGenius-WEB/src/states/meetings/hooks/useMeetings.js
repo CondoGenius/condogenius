@@ -31,7 +31,8 @@ const useMeetings = () => {
             title: values.title,
             description: values.description,
             date: values.date,
-            hour: values.hour
+            hour: values.hour,
+            duration: values.duration
         };
 
         const response = await MeetingsService().createMeeting(meeting);

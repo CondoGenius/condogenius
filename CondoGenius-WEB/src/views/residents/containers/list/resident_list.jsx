@@ -4,6 +4,7 @@ import { Button, Collection, CollectionItem } from 'react-materialize';
 import { useSelector } from 'react-redux';
 import Loading from "../../../../components/loading/loading";
 import ModalContent from "../../../../components/modal/modal_content";
+import Tooltip from "../../../../components/tooltip/tooltip";
 import useResidences from "../../../../states/residences/hooks/useResidences";
 import useResidents from "../../../../states/residents/hooks/useResidents";
 import { CpfMask } from "../../../../utils/utils";
@@ -66,14 +67,17 @@ const ResidentList = ({ filters }) => {
                                 {CpfMask(resident.cpf)}
                             </span>
                             <span className='icon'>
-                                <ModalContent 
-                                header="Editar morador"
-                                trigger={<MdEdit />}
-                                children={<ResidentFormFields residentEdited={resident}/>}
-                                className="update"
-                                />
+                                <Tooltip message={"Editar"}>
+                                    <ModalContent 
+                                    header="Editar morador"
+                                    trigger={<MdEdit />}
+                                    children={<ResidentFormFields residentEdited={resident}/>}
+                                    className="update"
+                                    />
+                                </Tooltip>
                             </span>
                             <span className='icon'>
+                            <Tooltip message={"Excluir"}>
                                 <ModalContent 
                                     header="Excluir morador"
                                     trigger={<MdRemoveCircleOutline />}
@@ -88,6 +92,7 @@ const ResidentList = ({ filters }) => {
                                         </div>
                                     }
                                 />
+                            </Tooltip>
                             </span>
                             </CollectionItem>
                         ))

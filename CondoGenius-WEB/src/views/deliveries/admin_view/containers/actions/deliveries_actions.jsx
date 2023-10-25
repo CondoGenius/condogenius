@@ -13,11 +13,12 @@ const FormResidentSchema = Yup.object().shape({
     residenceId: Yup.string().ensure().required(requiredFieldMessage)
 });
 
-const onSubmit = async (values, createDelivery, getDeliveries) => {
+const onSubmit = async (values, createDelivery, getDeliveries, resetForm) => {
     const response = await createDelivery(values);
 
     if (response.status === 201) {
         getDeliveries();
+        resetForm();
     }
 };
 
@@ -43,7 +44,7 @@ const renderFieldResidenceNumber = (handleChange, handleBlur, values, residences
     </select>
 );
 
-const renderButtonSubmit = (isValid, errors, handleSubmit, handleReset, setIsSubmit) => (
+const renderButtonSubmit = (isValid, errors, handleSubmit, setIsSubmit) => (
     <Button 
         className='button_content_open_modal'
         onClick={(e) => {
@@ -57,6 +58,7 @@ const renderButtonSubmit = (isValid, errors, handleSubmit, handleReset, setIsSub
         <MdAddBox /> Cadastrar entrega
     </Button>
 );
+
 
 const DeliveriesActions = () => {
     const residences = useSelector(state => state.residences.list);
@@ -78,14 +80,13 @@ const DeliveriesActions = () => {
                 residenceId: '',
             }}
             validationSchema={FormResidentSchema}
-            onSubmit={values => {onSubmit(values, createDelivery, getDeliveries)}}
+            onSubmit={(values, {resetForm}) => {onSubmit(values, createDelivery, getDeliveries, resetForm)}}
         > 
         {({
             handleChange,
             handleBlur,
             values,
             handleSubmit,
-            handleReset,
             isValid,
             errors
         }) => (
@@ -98,7 +99,7 @@ const DeliveriesActions = () => {
                         </div>
                         
                         <div class="input-field col s3">
-                            {renderButtonSubmit(isValid, errors, handleSubmit, handleReset, setIsSubmit)}
+                            {renderButtonSubmit(isValid, errors, handleSubmit, setIsSubmit)}
                         </div>
                     </form>
                 </div>

@@ -72,7 +72,7 @@ const MeetingsAdminView = () => {
                             </span>
                             <span className='button_delete_container'>
                                 <ModalContent 
-                                    header="Excluir morador"
+                                    header="Cancelar reunião"
                                     trigger={<MdRemoveCircleOutline/>}
                                     children={
                                         <span>

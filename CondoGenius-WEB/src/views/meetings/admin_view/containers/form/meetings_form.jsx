@@ -14,7 +14,8 @@ const FormResidentSchema = Yup.object().shape({
     title: Yup.string().ensure().required(requiredFieldMessage),
     description: Yup.string().ensure().required(requiredFieldMessage),
     date: Yup.string().ensure().required(requiredFieldMessage),
-    hour: Yup.string().ensure().required(requiredFieldMessage)
+    hour: Yup.string().ensure().required(requiredFieldMessage),
+    duration: Yup.string().ensure().required(requiredFieldMessage)
 });
 
 const onSubmit = async (values, createMeeting, getMeetings) => {
@@ -79,6 +80,19 @@ const renderFieldHour = (handleChange, handleBlur, values) => (
     </div>
 );
 
+const renderFieldDuration = (handleChange, handleBlur, values) => (
+    <div class="input-field">
+        <input 
+            id="duration"
+            type="time" 
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.duration} 
+        />
+        <label for="duration" class="active">Duração</label>
+    </div>
+);
+
 const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => (
     <div className='button_content'>
         <Button 
@@ -121,7 +135,8 @@ const MeetingsForm = () => {
                 title: '',
                 description: '',
                 date: '',
-                hour: ''
+                hour: '',
+                duration: ''
             }}
             validationSchema={FormResidentSchema}
             onSubmit={values => {onSubmit(values, createMeeting, getMeetings)}}
@@ -150,13 +165,17 @@ const MeetingsForm = () => {
                  </div>
                 <div class="row">
                   <form class="col s12">
-                    <div class="input-field col s6">
+                    <div class="input-field col s4">
                         {renderFieldDate(handleChange, handleBlur, values, residences)}
                         {isSubmit && errors.date && <ErrorField error={errors.date}/>}
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s4">
                         {renderFieldHour(handleChange, handleBlur, values, residences)}
                         {isSubmit && errors.hour && <ErrorField error={errors.hour}/>}
+                    </div>
+                    <div class="input-field col s4">
+                        {renderFieldDuration(handleChange, handleBlur, values, residences)}
+                        {isSubmit && errors.duration && <ErrorField error={errors.duration}/>}
                     </div>
                   </form>
                  </div>

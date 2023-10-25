@@ -70,7 +70,7 @@ const ListReservations = () => {
                                     className="complaint"
                                 />
                                 <ModalContent 
-                                    header="Excluir morador"
+                                    header="Excluir reserva"
                                     trigger={<span><MdRemoveCircleOutline /></span>}
                                     children={
                                         <span>

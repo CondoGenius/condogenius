@@ -13,7 +13,7 @@ const DeliveriesAdminView = () => {
     const deliveries = useSelector((state) => state.deliveries);
 
     const { loadingResidences } = useResidences();
-    const { loadingDeliveries }= useDeliveries();
+    const { loadingDeliveries } = useDeliveries();
 
     useEffect(() => {
         toast.error(deliveries.error)

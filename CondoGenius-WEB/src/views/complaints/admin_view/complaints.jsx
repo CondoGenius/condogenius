@@ -38,8 +38,8 @@ const renderComplaintMoreInfo = (complaint, updateComplaint, getComplaints) => {
             handleSubmit
         }) => (
             <>
-                {complaint.description}
-                <p>Data: {FormatDateZone(complaint.date)}</p>
+                <span className='complaint_description'>{complaint.description}</span>
+                <p className='complaint_date'>Data: {FormatDateZone(complaint.date)}</p>
                 <div className='modal_actions_button_content'>
                     <Button className='green_button' onClick={() => {setValues({...values, status: 'notified'}); handleSubmit()}} modal="close">
                         Marcar denúncia como notificada
@@ -123,11 +123,13 @@ const ComplaintsAdminView = () => {
                                 }
                             </span>
                             <span>
-                                <ModalContent
-                                    header={`Reclamação de ${complaint.resident_name} ${complaint.resident_last_name}`}
-                                    trigger={<MdAddCircle />}
-                                    children={renderComplaintMoreInfo(complaint, updateComplaint, getComplaints)}
-                                />
+                                <Tooltip message={"Mais detalhes"}>
+                                    <ModalContent
+                                        header={`Reclamação de ${complaint.resident_name} ${complaint.resident_last_name}`}
+                                        trigger={<MdAddCircle />}
+                                        children={renderComplaintMoreInfo(complaint, updateComplaint, getComplaints)}
+                                    />
+                                </Tooltip>
                             </span>
                         </CollectionItem>
                     ))
