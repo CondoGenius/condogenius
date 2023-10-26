@@ -7,4 +7,4 @@
 FROM reserve_common_area r
          INNER JOIN common_area ca ON r.common_area_id = ca.id
          INNER JOIN residents r2 on r.resident_id = r2.id
-ORDER BY created_at DESC;
+ORDER BY r.created_at DESC;
