@@ -10,4 +10,5 @@
 FROM complaints c
          JOIN residents r ON c.resident_id = r.id
          JOIN residences rs ON c.residence_to_complaint_id = rs.id
-WHERE rs.id = @ResidenceId;
+WHERE rs.id = @ResidenceId
+ORDER BY c.created_at DESC;

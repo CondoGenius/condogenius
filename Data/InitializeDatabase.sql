@@ -261,7 +261,7 @@ INSERT INTO users(email, password, is_active, role_id)
 VALUES ('maria@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2);
 
 INSERT INTO users(email, password, is_active, role_id)
-VALUES ('carlos@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 3);
+VALUES ('carlos@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2);
 
 INSERT INTO administrators (user_id, cpf, email, name, last_name)
 VALUES (1, '10412515090', 'admin@condogenius.com.br', 'Hellen', 'Gurgacz');
@@ -290,29 +290,45 @@ VALUES (203, 2, 'B', 'Apartment 203', NOW(), NOW());
 INSERT INTO residences (number, floor, block, complement, created_at, updated_at)
 VALUES (100, 1, 'A', 'Apartment 100', NOW(), NOW());
 
-INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at, updated_at, is_active, birthday)
-VALUES (1, 1, '12345678900', 'joao@email.com','lalalla', 'João', 'Silva', '+55 11 1234-5678', NOW(), NOW(), 1, "2000-01-31");
+INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
+                       updated_at, is_active, birthday)
+VALUES (1, 1, '12345678900', 'joao@email.com', 'lalalla', 'João', 'Silva', '+55 11 1234-5678', NOW(), NOW(), 1,
+        "2000-01-31");
 
-INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at, updated_at, is_active, birthday)
-VALUES (2, 2, '98765432100', 'maria@email.com', 'lalalala', 'Maria', 'Luz', '+55 11 1234-5678', NOW(), NOW(), 1, "2000-01-31");
+INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
+                       updated_at, is_active, birthday)
+VALUES (2, 2, '98765432100', 'maria@email.com', 'lalalala', 'Maria', 'Luz', '+55 11 1234-5678', NOW(), NOW(), 1,
+        "2000-01-31");
 
-INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at, updated_at, is_active, birthday)
-VALUES (3, 3, '11122233344', 'carlos@email.com', 'lalalala', 'Carlos', 'Martinez', '+55 11 9876-5432', NOW(), NOW(), 1, '1995-08-15');
+INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
+                       updated_at, is_active, birthday)
+VALUES (3, 3, '11122233344', 'carlos@email.com', 'lalalala', 'Carlos', 'Martinez', '+55 11 9876-5432', NOW(), NOW(), 1,
+        '1995-08-15');
 
-INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at, updated_at, is_active, birthday)
-VALUES (null, 4, '55566677788', 'ana@email.com', 'lalalala', 'Ana', 'Pereira', '+55 11 5555-1234', NOW(), NOW(), 1, '1988-03-22');
+INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
+                       updated_at, is_active, birthday)
+VALUES (null, 4, '55566677788', 'ana@email.com', 'lalalala', 'Ana', 'Pereira', '+55 11 5555-1234', NOW(), NOW(), 1,
+        '1988-03-22');
 
-INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at, updated_at, is_active, birthday)
-VALUES (null, 5, '99900011122', 'pedro@email.com', 'lalalala', 'Pedro', 'Ferreira', '+55 11 9876-8765', NOW(), NOW(), 1, '1990-12-10');
+INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
+                       updated_at, is_active, birthday)
+VALUES (null, 5, '99900011122', 'pedro@email.com', 'lalalala', 'Pedro', 'Ferreira', '+55 11 9876-8765', NOW(), NOW(), 1,
+        '1990-12-10');
 
-INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at, updated_at, is_active, birthday)
-VALUES (null, 6, '33322211144', 'laura@email.com', 'lalalala', 'Laura', 'Rodriguez', '+55 11 8765-4321', NOW(), NOW(), 1, '1993-05-28');
+INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
+                       updated_at, is_active, birthday)
+VALUES (null, 6, '33322211144', 'laura@email.com', 'lalalala', 'Laura', 'Rodriguez', '+55 11 8765-4321', NOW(), NOW(),
+        1, '1993-05-28');
 
-INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at, updated_at, is_active, birthday)
-VALUES (null, 7, '77788899911', 'gabriel@email.com', 'lalalala', 'Gabriel', 'Santos', '+55 11 7777-9876', NOW(), NOW(), 1, '1986-09-17');
+INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
+                       updated_at, is_active, birthday)
+VALUES (null, 7, '77788899911', 'gabriel@email.com', 'lalalala', 'Gabriel', 'Santos', '+55 11 7777-9876', NOW(), NOW(),
+        1, '1986-09-17');
 
-INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at, updated_at, is_active, birthday)
-VALUES (null, 8, '44455566677', 'isabela@email.com', 'lalalala', 'Isabela', 'Oliveira', '+55 11 5555-6789', NOW(), NOW(), 1, '1998-11-03');
+INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
+                       updated_at, is_active, birthday)
+VALUES (null, 8, '44455566677', 'isabela@email.com', 'lalalala', 'Isabela', 'Oliveira', '+55 11 5555-6789', NOW(),
+        NOW(), 1, '1998-11-03');
 
 
 INSERT INTO delivery_control (status, user_id, residence_id)
@@ -331,20 +347,26 @@ INSERT INTO meetings (user_id, title, description, date, hour, created_at, updat
 VALUES (1, 'Assembleia Geral', 'Revisão das regras da comunidade', '2023-11-15', '18:30', NOW(), NOW());
 
 INSERT INTO meetings (user_id, title, description, date, hour, created_at, updated_at)
-VALUES (1, 'Reunião do Comitê de Segurança', 'Discussão de preocupações de segurança', '2023-11-20', '16:45', NOW(), NOW());
+VALUES (1, 'Reunião do Comitê de Segurança', 'Discussão de preocupações de segurança', '2023-11-20', '16:45', NOW(),
+        NOW());
 
 INSERT INTO meetings (user_id, title, description, date, hour, created_at, updated_at)
 VALUES (1, 'Reunião do Comitê de Pais', 'Planejamento de eventos para crianças', '2023-11-25', '14:00', NOW(), NOW());
 
 
-INSERT INTO `genius`.`complaints` (`id`, `resident_id`, `description`, `residence_to_complaint_id`, `status`, `created_at`, `updated_at`) 
-VALUES (1, 2, 'Crianças jogando bola até tarde da noite todos os dias, atingindo meu quintal.', 2, 'analysis', '2023-10-25 17:53:56', '0000-00-00 00:00:00');
+INSERT INTO `genius`.`complaints` (`id`, `resident_id`, `description`, `residence_to_complaint_id`, `status`,
+                                   `created_at`, `updated_at`)
+VALUES (1, 2, 'Crianças jogando bola até tarde da noite todos os dias, atingindo meu quintal.', 2, 'analysis',
+        '2023-10-25 17:53:56', '0000-00-00 00:00:00');
 
-INSERT INTO `genius`.`complaints` (`id`, `resident_id`, `description`, `residence_to_complaint_id`, `status`, `created_at`, `updated_at`) 
+INSERT INTO `genius`.`complaints` (`id`, `resident_id`, `description`, `residence_to_complaint_id`, `status`,
+                                   `created_at`, `updated_at`)
 VALUES (2, 2, 'Música até tarde muito alta no vizinho.', 2, 'notified', '2023-10-25 17:53:56', '0000-00-00 00:00:00');
 
-INSERT INTO `genius`.`complaints` (`id`, `resident_id`, `description`, `residence_to_complaint_id`, `status`, `created_at`, `updated_at`) 
-VALUES (3, 3, 'Barulho alto vindo do apartamento ao lado.', 3, 'disapproved ', '2023-10-25 18:10:00', '0000-00-00 00:00:00');
+INSERT INTO `genius`.`complaints` (`id`, `resident_id`, `description`, `residence_to_complaint_id`, `status`,
+                                   `created_at`, `updated_at`)
+VALUES (3, 3, 'Barulho alto vindo do apartamento ao lado.', 3, 'disapproved ', '2023-10-25 18:10:00',
+        '0000-00-00 00:00:00');
 
 
 INSERT INTO reserve_common_area (common_area_id, resident_id, reserve_date, created_at, updated_at)

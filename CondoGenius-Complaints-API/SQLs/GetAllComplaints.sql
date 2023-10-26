@@ -9,4 +9,5 @@
        c.created_at  AS Date
 FROM complaints c
          INNER JOIN residents r ON c.resident_id = r.id
-         INNER JOIN residences rs ON c.residence_to_complaint_id = rs.id;
+         INNER JOIN residences rs ON c.residence_to_complaint_id = rs.id
+ORDER BY c.created_at DESC;
