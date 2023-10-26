@@ -58,7 +58,6 @@ exports.createMeeting = async (req, res) => {
     }
 
     var admin_name = admin.name + " " + admin.last_name
-    // var admin_name = ""
 
     const newMeeting = await Meeting.create({
       title,
@@ -81,9 +80,19 @@ exports.createMeeting = async (req, res) => {
 
 exports.listMeetings = async (req, res) => {
   try {
+
+    const admin = await Admin.findOne();
+    console.log(admin)
+
+    if (!admin) {
+      return res.status(400).json({ message: 'Nenhum registro encontrado na tabela Admin.' });
+    }
+
+    var admin_name = admin.name + " " + admin.last_name
+
     const meetings = await Meeting.findAll();
 
-    res.status(200).json(meetings);
+    res.status(200).json({ meetings, admin_name: admin_name });
   } catch (error) {
     console.error('Erro ao listar reuniões:', error);
     res.status(500).json({ message: 'Erro ao listar reuniões' });
@@ -111,13 +120,21 @@ exports.getMeeting = async (req, res) => {
   try {
     const { id } = req.params;
 
+    const admin = await Admin.findOne();
+
+    if (!admin) {
+      return res.status(400).json({ message: 'Nenhum registro encontrado na tabela Admin.' });
+    }
+
+    var admin_name = admin.name + " " + admin.last_name
+
     const meeting = await Meeting.findByPk(id);
 
     if (!meeting) {
       return res.status(404).json({ message: 'Reunião não encontrada' });
     }
 
-    res.status(200).json(meeting);
+    res.status(200).json({ meeting, admin_name: admin_name });
   } catch (error) {
     console.error('Erro ao listar reunião:', error);
     res.status(500).json({ message: 'Erro ao listar reunião' });

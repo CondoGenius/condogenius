@@ -67,9 +67,11 @@ authController.login = async (req, res) => {
 
     const token = jwt.sign({ userId: user.id }, config.secret);
 
+    var resident = await Resident.findOne({ where: { user_id: user.id } });
+
     var role = await Role.findOne({ where: { id: user.role_id } });
 
-    res.status(200).json({ token: token, user_id: user.id, role: role.name, email: user.email, isLogged: true });
+    res.status(200).json({ token: token, user_id: user.id, role: role.name, email: user.email, resident_id: resident.id, isLogged: true });
   } catch (error) {
     res.status(401).json({ error: error.message });
   }
