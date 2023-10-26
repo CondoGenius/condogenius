@@ -261,7 +261,7 @@ INSERT INTO users(email, password, is_active, role_id)
 VALUES ('maria@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2);
 
 INSERT INTO users(email, password, is_active, role_id)
-VALUES ('carlos@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 3);
+VALUES ('carlos@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2);
 
 INSERT INTO administrators (user_id, cpf, email, name, last_name)
 VALUES (1, '10412515090', 'admin@condogenius.com.br', 'Hellen', 'Gurgacz');
