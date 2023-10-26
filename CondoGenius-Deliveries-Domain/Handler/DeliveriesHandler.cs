@@ -11,10 +11,12 @@ namespace CondoGenius_Deliveries_Domain.Handler;
 public class DeliveriesHandler : IDeliveriesHandler
 {
     private readonly IDeliveriesRepository _repository;
+    private readonly IFirebase _firebase;
 
-    public DeliveriesHandler(IDeliveriesRepository repository)
+    public DeliveriesHandler(IDeliveriesRepository repository, IFirebase firebase)
     {
         _repository = repository;
+        _firebase = firebase;
     }
 
     public async Task<int> CreateDelivery(CreateDeliveryRequest request)
@@ -29,8 +31,7 @@ public class DeliveriesHandler : IDeliveriesHandler
             foreach (var resident in residents)
             {
                 Console.WriteLine($"Token: {resident.DeviceToken}");
-                var firebase = new Firebase();
-                await firebase.SendNotification("Psiu! Sua encomenda chegou", 
+                await _firebase.SendNotification("Psiu! Sua encomenda chegou", 
                     "Sua encomenda foi recebida na portaria", resident.DeviceToken);
                 
                 Console.WriteLine("Notificação enviada!");

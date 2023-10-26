@@ -3,7 +3,7 @@ using Google.Apis.Auth.OAuth2;
 
 namespace CondoGenius_Firebase;
 
-public class Firebase
+public class Firebase : IFirebase
 {
     public FirebaseApp FirebaseApp { get; }
 
@@ -16,7 +16,7 @@ public class Firebase
         });
     }
 
-    public Task SendNotification(string title, string body, string deviceToken)
+    public async Task<string> SendNotification(string title, string body, string deviceToken)
     {
         var message = new FirebaseAdmin.Messaging.Message
         {
@@ -28,6 +28,6 @@ public class Firebase
             Token = deviceToken
         };
 
-        return FirebaseAdmin.Messaging.FirebaseMessaging.DefaultInstance.SendAsync(message);
+        return await FirebaseAdmin.Messaging.FirebaseMessaging.DefaultInstance.SendAsync(message);
     }
 }

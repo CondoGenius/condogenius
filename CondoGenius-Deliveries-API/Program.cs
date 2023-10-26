@@ -4,6 +4,7 @@ using CondoGenius_Deliveries_Domain.Repository.Interfaces;
 using CondoGenius_Deliveries_Infra.Queries;
 using CondoGenius_Deliveries_Infra.Queries.Interface;
 using CondoGenius_Deliveries_Infra.Repository;
+using CondoGenius_Firebase;
 using Newtonsoft.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +32,7 @@ builder.Services.AddCors();
 builder.Services.AddSingleton<IDeliveriesHandler, DeliveriesHandler>();
 builder.Services.AddSingleton<IDeliveriesRepository, DeliveriesRepository>();
 builder.Services.AddSingleton<IDeliveriesQueries, DeliveriesQueries>();
+builder.Services.AddScoped<IFirebase, Firebase>();
 
 var app = builder.Build();
 
