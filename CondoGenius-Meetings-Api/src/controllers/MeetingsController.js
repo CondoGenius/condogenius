@@ -22,7 +22,7 @@ exports.createMeeting = async (req, res) => {
     
     if (isNaN(meetingDate)) {
       console.log(date, hour, meetingDate)
-      return res.status(400).json({ errors: [{ invalid_date: "Data ou hora inválida!" }] });
+      return res.status(400).json({ invalid_date: "Data ou hora inválida!" });
     }
 
     const [durationHours, durationMinutes] = duration.split(":");
@@ -48,7 +48,7 @@ exports.createMeeting = async (req, res) => {
     });
 
     if (existingMeeting) {
-      return res.status(400).json({ errors: [ { invalid_date: "Já existe uma reunião planejada para este horário!" } ] });
+      return res.status(400).json({ invalid_date: "Já existe uma reunião planejada para este horário!" });
     }
   
     const admin = await Admin.findOne({ where: { user_id: user_id } });
