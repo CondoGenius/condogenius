@@ -68,6 +68,25 @@ const useHubDigital = () => {
         return response;
     };
 
+    const voteSurvey = async (values) => {
+        setLoadingHubDigital(true);
+
+        const vote = {
+            user_id: values.userId,
+            survey_id: values.surveyId,
+            option: values.option,
+        };
+
+        const response = await HubDigitalService().voteSurvey(vote);
+
+        if (response?.status !== 201) {
+            dispatch(setPublicationsActions({ error: "Erro ao votar." }));
+        }
+
+        setLoadingHubDigital(false);
+        return response;
+    };
+
     const deletePublication = async (id) => {
         setLoadingHubDigital(false);
 
@@ -88,6 +107,7 @@ const useHubDigital = () => {
         getPublicationsByUserId,
         createPublication,
         updatePublication,
+        voteSurvey,
         deletePublication
     };
 
