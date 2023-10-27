@@ -81,7 +81,7 @@ exports.createMeeting = async (req, res) => {
 exports.listMeetings = async (req, res) => {
   try {
 
-    const meetingsWithAdminNames = await db.sequelize.query(`
+    const data = await db.sequelize.query(`
     SELECT m.*, a.name AS admin_name, a.last_name AS admin_last_name
     FROM meetings m
     INNER JOIN users u ON m.user_id = u.id
@@ -91,7 +91,7 @@ exports.listMeetings = async (req, res) => {
      type: QueryTypes.SELECT
     });
 
-    res.status(200).json({ meetingsWithAdminNames });
+    res.status(200).json({ data });
   } catch (error) {
     console.error('Erro ao listar reuniões:', error);
     res.status(500).json({ message: 'Erro ao listar reuniões' });
