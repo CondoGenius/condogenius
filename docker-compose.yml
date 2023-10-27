@@ -146,6 +146,13 @@ services:
     volumes:
       - ./CondoGenius-WEB:/app
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: condogenius-rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
 networks:
   db_network:
     driver: bridge
