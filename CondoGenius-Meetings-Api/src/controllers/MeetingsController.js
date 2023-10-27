@@ -1,5 +1,5 @@
 const db = require('../models');
-const { Op } = require('sequelize');
+const { Op, QueryTypes } = require('sequelize');
 
 const Meeting = db.meetings;
 const Admin = db.admins;
@@ -81,18 +81,17 @@ exports.createMeeting = async (req, res) => {
 exports.listMeetings = async (req, res) => {
   try {
 
-    const admin = await Admin.findOne();
-    console.log(admin)
+    const meetingsWithAdminNames = await db.sequelize.query(`
+    SELECT m.*, a.name AS admin_name, a.last_name AS admin_last_name
+    FROM meetings m
+    INNER JOIN users u ON m.user_id = u.id
+    INNER JOIN administrators a ON u.id = a.user_id
 
-    if (!admin) {
-      return res.status(400).json({ message: 'Nenhum registro encontrado na tabela Admin.' });
-    }
+     `, {
+     type: QueryTypes.SELECT
+    });
 
-    var admin_name = admin.name + " " + admin.last_name
-
-    const meetings = await Meeting.findAll();
-
-    res.status(200).json({ meetings, admin_name: admin_name });
+    res.status(200).json({ meetingsWithAdminNames });
   } catch (error) {
     console.error('Erro ao listar reuniões:', error);
     res.status(500).json({ message: 'Erro ao listar reuniões' });
