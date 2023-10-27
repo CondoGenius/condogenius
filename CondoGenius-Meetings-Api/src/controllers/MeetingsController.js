@@ -91,7 +91,7 @@ exports.listMeetings = async (req, res) => {
      type: QueryTypes.SELECT
     });
 
-    res.status(200).json({ data });
+    res.status(200).json(data);
   } catch (error) {
     console.error('Erro ao listar reuniões:', error);
     res.status(500).json({ message: 'Erro ao listar reuniões' });
