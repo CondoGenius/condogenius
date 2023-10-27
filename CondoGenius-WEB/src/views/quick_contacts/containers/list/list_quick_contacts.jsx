@@ -22,7 +22,7 @@ const QuickContactslist = () => {
                 <span>Telefone</span>
             </CollectionItem>
             {quickContacts?.length > 0 ? (
-                quickContacts.map(contact => (
+                quickContacts?.map(contact => (
                     <CollectionItem key={contact.id}>
                         <span>
                         {contact.name}

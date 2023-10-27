@@ -43,7 +43,7 @@ const MeetingsResidentView = () => {
                     meetings.list.map(meeting => (
                         <CollectionItem key={meeting.id}>
                             <span>
-                            {meeting.admin_name}
+                            {`${meeting.admin_name} ${meeting.admin_last_name}`}
                             </span>
                             <span className='meeting_list_title'>
                             {meeting.title}

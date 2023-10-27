@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import Loading from "../../../components/loading/loading";
+import Loading from '../../../components/loading/loading';
 import useQuickContacts from '../../../states/quick_contacts/hooks/useQuickContacts';
-import { QuickContactsActionType } from '../../../store/quick_contacts/types';
+import QuickContactsActions from '../containers/actions/actions_quick_contacts';
 import QuickContactslist from '../containers/list/list_quick_contacts';
 
 
@@ -37,7 +37,7 @@ const QuickContactsResidentView = () => {
             <h1>Lista de Contatos rápidos</h1>
             </div>
 
-           <QuickContactsActionType filters={filters} setFilters={setFilters} />
+           <QuickContactsActions filters={filters} setFilters={setFilters} />
 
            <QuickContactslist />
            
