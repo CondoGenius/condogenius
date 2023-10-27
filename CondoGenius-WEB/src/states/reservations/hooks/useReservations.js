@@ -67,7 +67,7 @@ const useReservations = () => {
         const response = await ReservationsService().createReservation(reservation);
 
         if (response?.status !== 201) {
-            dispatch(setResidentReservationsAction({ error: "Erro ao cadastrar reserva." }));
+            dispatch(setResidentReservationsAction({ error: response.response.data}));
         }
 
         setLoadingReservations(false);

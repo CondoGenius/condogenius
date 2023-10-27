@@ -112,7 +112,7 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => 
             id="reset_form_meetings"
             className="display_none"
             onClick={() => {
-            handleReset();
+                handleReset();
             }}
         />
     </div>

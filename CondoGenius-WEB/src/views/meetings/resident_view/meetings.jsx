@@ -10,7 +10,7 @@ import '../meetings.scss';
 
 const MeetingsResidentView = () => {
     const meetings = useSelector((state) => state.meetings);
-
+    
     const { loadingMeetings, getMeetings } = useMeetings();
 
     useEffect(() => {

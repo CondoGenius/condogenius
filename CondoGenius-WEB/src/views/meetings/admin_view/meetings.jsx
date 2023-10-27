@@ -13,6 +13,7 @@ import '../meetings.scss';
 
 const MeetingsAdminView = () => {
     const meetings = useSelector((state) => state.meetings);
+    console.log(meetings)
 
     const { loadingMeetings, getMeetings, deleteMeeting } = useMeetings();
 
