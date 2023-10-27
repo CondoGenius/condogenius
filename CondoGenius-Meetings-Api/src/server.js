@@ -23,7 +23,7 @@ db.sequelize.sync()
     console.log("Failed to sync db: " + err.message);
   });
 
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync().then(() => {
   console.log("Drop and re-sync db.");
 });
 
