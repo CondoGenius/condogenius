@@ -19,7 +19,7 @@ public class GuestListHandler : IGuestListHandler
         List<GuestList> guests = 
             await ListGuestListByReservation(request.ReserveId);
         
-        if(guests.Any(c => c.Cpf == request.Cpf))
+        if(guests != null && guests.Any(c => c.Cpf == request.Cpf))
             throw new Exception("CPF já cadastrado para essa reserva");
         
         return await _repository.CreateGuest(request);
