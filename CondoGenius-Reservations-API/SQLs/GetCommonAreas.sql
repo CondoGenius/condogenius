@@ -5,4 +5,5 @@
     business_hour AS BusinessHour,
     is_active AS IsActive,
     image AS Image
-FROM common_area;
+FROM common_area
+WHERE name not like '%Academia%';

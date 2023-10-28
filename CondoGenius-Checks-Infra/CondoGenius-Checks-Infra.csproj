@@ -13,6 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CondoGenius-Checks-Domain\CondoGenius-Checks-Domain.csproj" />
+      <ProjectReference Include="..\Global.Shared\Global.Shared.csproj" />
     </ItemGroup>
 
 </Project>

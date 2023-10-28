@@ -1,6 +1,11 @@
-﻿namespace CondoGenius_Checks_Domain.Repository.Interfaces;
+﻿using Global.Shared.Database;
 
-public class IChecksRepository
+namespace CondoGenius_Checks_Domain.Repository.Interfaces;
+
+public interface IChecksRepository
 {
-    
+    Task<int> DoCheckIn(int residentId);
+    Task<int> UndoCheckIn(int residentId);
+    Task<ActiveCheckins?> GetActiveCheckins();
+    Task<CheckIn?> GetCheckIn(int residentId);
 }

@@ -4,6 +4,7 @@
 -- use genius;
 
 ALTER DATABASE genius DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+SET GLOBAL time_zone = 'America/Sao_Paulo';
 
 CREATE TABLE IF NOT EXISTS roles
 (
@@ -136,8 +137,7 @@ CREATE TABLE IF NOT EXISTS check_in_common_area
     id             INTEGER AUTO_INCREMENT PRIMARY KEY,
     common_area_id INTEGER  NOT NULL,
     resident_id    INTEGER  NOT NULL,
-    status         boolean  NOT NULL,
-    created_at     DATETIME NOT NULL,
+    created_at     DATETIME NOT NULL DEFAULT NOW(),
     FOREIGN KEY (common_area_id) REFERENCES common_area (id),
     FOREIGN KEY (resident_id) REFERENCES residents (id)
 );

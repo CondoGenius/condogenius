@@ -6,6 +6,7 @@ WORKDIR /src
 COPY ["CondoGenius-Checks-Domain/", "../CondoGenius-Checks-Domain/"]
 COPY ["CondoGenius-Checks-Infra/", "../CondoGenius-Checks-Infra/"]
 COPY ["CondoGenius-Checks-API/", "."]
+COPY ["Global.Shared/", "../Global.Shared/"]
 
 RUN dotnet restore CondoGenius-Checks-API.csproj
 RUN dotnet publish CondoGenius-Checks-API.csproj -c Release -o /app/publish
