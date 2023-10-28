@@ -32,6 +32,13 @@ router.get("/user/me", authController.me)
 router.post("/user/register", authController.register)
 router.get("/admin/:user_id", authController.getAdminByUserId)
 
+
+//COMPLAINTS
+router.use("/api/complaints", proxy("http://complaints:7002"))
+
+//DELIVERIES
+router.use("/api/deliveries", proxy("http://deliveries:7003"))
+
 //RESERVATIONS
 router.use("/api/reservations", proxy("http://reservations:7006"))
 

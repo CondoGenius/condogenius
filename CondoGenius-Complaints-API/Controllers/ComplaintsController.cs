@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace CondoGenius_Complaints_API.Controllers;
 
 [ApiController]
-[Route("api/complaints")]
+[Route("/")]
 public class ComplaintsController : ControllerBase
 {
     private readonly IComplaintsHandler _handler;
@@ -16,21 +16,21 @@ public class ComplaintsController : ControllerBase
         _handler = handler;
     }
 
-    // GET: api/complaints (Read)
+    // GET: / (Read)
     [HttpGet]
     public async Task<IActionResult> GetComplaints()
     {
         return Ok(await _handler.ListComplaints());
     }
 
-    // GET: api/complaints/1 (Read)
+    // GET: /1 (Read)
     [HttpGet("{id}")]
     public async Task<IActionResult> GetComplaint([FromRoute] int id)
     {
         return Ok(await _handler.ListComplaint(id));
     }
     
-    // GET: api/complaints/residence/1 (Read)
+    // GET: /residence/1 (Read)
     [HttpGet("residence/{id}")]
     public async Task<IActionResult> GetComplaintByResidence([FromRoute] int id)
     {

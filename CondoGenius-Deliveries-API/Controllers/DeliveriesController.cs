@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace CondoGenius_Deliveries_API.Controllers;
 
 [ApiController]
-[Route("api/deliveries")]
+[Route("/")]
 public class DeliveriesController : ControllerBase
 {
     private readonly IDeliveriesHandler _handler;
@@ -16,21 +16,21 @@ public class DeliveriesController : ControllerBase
         _handler = handler;
     }
 
-    // GET: api/deliveries (Read)
+    // GET: / (Read)
     [HttpGet]
     public async Task<IActionResult> GetDeliveries()
     {
         return Ok(await _handler.ListDeliveries());
     }
 
-    // GET: api/deliveries/1 (Read)
+    // GET: /1 (Read)
     [HttpGet("{id}")]
     public async Task<IActionResult> GetDelivery([FromRoute] int id)
     {
         return Ok(JsonConvert.SerializeObject(await _handler.ListDelivery(id)));
     }
     
-    // GET: api/deliveries/residence/1 (Read)
+    // GET: /residence/1 (Read)
     [HttpGet("residence/{id}")]
     public async Task<IActionResult> GetDeliveryByResidence([FromRoute] int id)
     {
@@ -46,7 +46,7 @@ public class DeliveriesController : ControllerBase
         return rowsAffected == 1 ? Created("", "Registro criado com sucesso!") : BadRequest("Não foi possível criar o registro!");
     }
 
-    // PUT: api/deliveries/1 (Update)
+    // PUT: /1 (Update)
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateDelivery([FromRoute] int id)
     {
@@ -55,7 +55,7 @@ public class DeliveriesController : ControllerBase
         return rowsAffected == 1 ? Ok("Registro atualizado com sucesso!") : NoContent();
     }
 
-    // DELETE: api/deliveries/1 (Delete)
+    // DELETE: /1 (Delete)
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteDelivery([FromRoute] int id)
     {
