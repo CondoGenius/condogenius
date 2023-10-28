@@ -341,18 +341,18 @@ VALUES ('Na portaria', 1, 3);
 INSERT INTO delivery_control (status, user_id, residence_id)
 VALUES ('Entregue', 1, 2);
 
-INSERT INTO meetings (user_id, title, description, date, hour, created_at, updated_at)
-VALUES (1, 'Reunião do Conselho', 'Discussão de assuntos financeiros', '2023-11-10', '15:00', NOW(), NOW());
+INSERT INTO meetings (user_id, title, description, date, hour, duration, created_at, updated_at)
+VALUES (1, 'Reunião do Conselho', 'Discussão de assuntos financeiros', '2023-11-10', '15:00', '02:00', NOW(), NOW());
 
-INSERT INTO meetings (user_id, title, description, date, hour, created_at, updated_at)
-VALUES (1, 'Assembleia Geral', 'Revisão das regras da comunidade', '2023-11-15', '18:30', NOW(), NOW());
+INSERT INTO meetings (user_id, title, description, date, hour, duration, created_at, updated_at)
+VALUES (1, 'Assembleia Geral', 'Revisão das regras da comunidade', '2023-11-15', '18:30', '01:00',  NOW(), NOW());
 
-INSERT INTO meetings (user_id, title, description, date, hour, created_at, updated_at)
-VALUES (1, 'Reunião do Comitê de Segurança', 'Discussão de preocupações de segurança', '2023-11-20', '16:45', NOW(),
+INSERT INTO meetings (user_id, title, description, date, hour, duration, created_at, updated_at)
+VALUES (1, 'Reunião do Comitê de Segurança', 'Discussão de preocupações de segurança', '2023-11-20', '16:45', '00:30', NOW(),
         NOW());
 
-INSERT INTO meetings (user_id, title, description, date, hour, created_at, updated_at)
-VALUES (1, 'Reunião do Comitê de Pais', 'Planejamento de eventos para crianças', '2023-11-25', '14:00', NOW(), NOW());
+INSERT INTO meetings (user_id, title, description, date, hour, duration, created_at, updated_at)
+VALUES (1, 'Reunião do Comitê de Pais', 'Planejamento de eventos para crianças', '2023-11-25', '14:00', '02:00', NOW(), NOW());
 
 
 INSERT INTO `genius`.`complaints` (`id`, `resident_id`, `description`, `residence_to_complaint_id`, `status`,

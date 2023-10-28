@@ -8,11 +8,19 @@ import { VerifyQuantityDays } from "../../../utils/utils";
 
 import './card_publication.scss';
 
-const renderSurvey = (survey) => {
+const renderSurvey = (survey, userId, voteSurvey) => {
 
     const setPorcent = (value) => {
         const progressBar = document.getElementById('progress-bar');
         progressBar.style.width = value + '%';
+    };
+
+    const submitVote = async (option) => {
+        const response = await voteSurvey({values: {userId, surveyId: survey.id, option}});
+
+        if (response?.status === 201) {
+            toast.success("Voto recebido com sucesso.");
+        }
     };
 
     return (
@@ -22,8 +30,8 @@ const renderSurvey = (survey) => {
         </div>
         <div>
             {survey.options.map(option => (
-                <div>
-                    <span>{option}</span>
+                <div onClick={submitVote(option.value)}>
+                    <span>{option.value}</span>
                     <div class="progress-container">
                         <div class="progress-bar" id="progress-bar" />
                         <div class="percentage" id="percentage"/>
@@ -38,8 +46,9 @@ const renderSurvey = (survey) => {
 
 const CardPublication = ({publication}) => {
     const isAdmin = useSelector((state => state.user.data.isAdmin));
+    const user = useSelector((state => state.user.data));
 
-    const { updatePublication } = useHubDigital();
+    const { updatePublication, voteSurvey } = useHubDigital();
 
     const submitFixedPost = async (e) => {
         e.preventDefault();
@@ -65,7 +74,7 @@ const CardPublication = ({publication}) => {
             </div>
         </div>
         <div className="publication_info">
-            {publication.type === 'enquete' ? publication.description : renderSurvey(publication.survey)}
+            {publication.type === 'enquete' ? publication.description : renderSurvey(publication.survey, user.id, voteSurvey)}
         </div>
         <div className="action_comment">
             <input type="text" placeholder="Adicione um comentário"/><AiOutlineSend />

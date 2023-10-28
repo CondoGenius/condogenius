@@ -36,9 +36,13 @@ const useMeetings = () => {
         };
 
         const response = await MeetingsService().createMeeting(meeting);
-
+        
         if (response?.status !== 201) {
-            dispatch(setMeetingsAction({ error: "Erro ao cadastrar reunião." }));
+            if (response.response?.data?.invalid_date) {
+                dispatch(setMeetingsAction({ error: "Já existe uma reunião planejada para este horário" }));
+            } else {
+                dispatch(setMeetingsAction({ error: "Erro ao cadastrar reunião." }));
+            }
         }
 
         setLoadingMeetings(false);
