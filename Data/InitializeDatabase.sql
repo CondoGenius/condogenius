@@ -68,8 +68,8 @@ CREATE TABLE IF NOT EXISTS residents
 
 CREATE TABLE IF NOT EXISTS meetings
 (
-    id          INT AUTO_INCREMENT PRIMARY KEY,
-    user_id     INT           NOT NULL,
+    id          INTEGER AUTO_INCREMENT PRIMARY KEY,
+    user_id     INTEGER,
     title       NVARCHAR(255) NOT NULL,
     description NVARCHAR(255) NOT NULL,
     date        DATETIME      NOT NULL,
@@ -77,7 +77,8 @@ CREATE TABLE IF NOT EXISTS meetings
     hour        NVARCHAR(255) NOT NULL,
     duration    NVARCHAR(255) NOT NULL,
     created_at  DATETIME      NOT NULL,
-    updated_at  DATETIME      NOT NULL
+    updated_at  DATETIME      NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 
@@ -144,13 +145,13 @@ CREATE TABLE IF NOT EXISTS check_in_common_area
 CREATE TABLE IF NOT EXISTS posts
 (
     id          INTEGER AUTO_INCREMENT PRIMARY KEY,
-    resident_id INTEGER       NOT NULL,
+    user_id INTEGER       NOT NULL,
     title       NVARCHAR(255) NOT NULL,
     content     NVARCHAR(255) NOT NULL,
     fixed       BOOLEAN       NOT NULL,
     created_at  DATETIME      NOT NULL,
     updated_at  DATETIME      NOT NULL,
-    FOREIGN KEY (resident_id) REFERENCES residents (id)
+    FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 

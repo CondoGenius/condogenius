@@ -1,5 +1,6 @@
 const db = require('../models');
 const Post = db.posts;
+const axios = require('axios');
 
 const residents_service_url = "http://residents:7008/api/residents/"
 
@@ -13,7 +14,7 @@ exports.createPost = async (req, res) => {
       user_id
     } = req.body;
 
-    const newPost = await Post.create({
+    const newPost = new Post({
       title,
       description,
       user_id,
@@ -23,11 +24,16 @@ exports.createPost = async (req, res) => {
       updated_at: new Date()
     });
 
-    const resident = await fetch(residents_service_url + "user/" + user_id)
-    console.log(resident)
-    // usar user_id para pegar o nome do residente
 
-    res.status(201).json({ message: 'Post criado com sucesso', post: newPost, name: resident.name, last_name: resident.last_name });
+    const resident = await axios.get(residents_service_url + "user/" + user_id)
+
+    if (resident){
+      await newPost.save();
+      res.status(201).json({ message: 'Post criado com sucesso', post: newPost, name: resident.data.name, last_name: resident.data.last_name });
+    } else {
+      res.status(500).json({ message: 'Erro ao criar post, residente não encontrado!' });
+    }
+
   } catch (error) { 
     res.status(500).json({ message: 'Erro ao criar post' });
   } 
