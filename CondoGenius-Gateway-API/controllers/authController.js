@@ -19,6 +19,10 @@ authController.register = async (req, res) => {
 
     var resident = await Resident.findOne({ where: { email: email } });
 
+    if(resident == null) {
+      throw new Error("Não existe um morador associado a este email. Solicite seu cadastro ao síndico!");
+    }
+
     var hashedPassword = bcrypt.hashSync(password, 8);
 
     const user = new User({ email, password: hashedPassword, role_id: role.id });
