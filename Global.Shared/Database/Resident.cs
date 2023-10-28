@@ -6,6 +6,6 @@ public class Resident
 {
     [JsonProperty("name")]
     public string Name { get; set; }
-    [JsonProperty("deviceToken")]
+    [JsonProperty("device_token")]
     public string DeviceToken { get; set; }
 }

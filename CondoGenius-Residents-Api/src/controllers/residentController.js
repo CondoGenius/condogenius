@@ -161,6 +161,7 @@ exports.updateResident = async (req, res) => {
       name,
       last_name,
       contact,
+      device_token,
       is_active,
       birthday
     } = req.body;
@@ -196,6 +197,7 @@ exports.updateResident = async (req, res) => {
       name,
       last_name,
       contact,
+      device_token,
       is_active,
       birthday: new Date(birthday)
     });
