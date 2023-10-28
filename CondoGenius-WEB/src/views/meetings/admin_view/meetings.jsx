@@ -56,6 +56,7 @@ const MeetingsAdminView = () => {
                     <span className='meeting_list_title'>Tema</span>
                     <span className='meeting_list_description'>Descrição</span>
                     <span>Data</span>
+                    <span>Duração</span>
                     <span />
                 </CollectionItem>
                 {meetings.list?.length > 0 ? (
@@ -69,6 +70,9 @@ const MeetingsAdminView = () => {
                             </span>
                             <span>
                             {FormatDateZone(meeting.date)} às {meeting.hour}
+                            </span>
+                            <span>
+                            {meeting.duration}
                             </span>
                             <span className='button_delete_container'>
                                 <ModalContent 

@@ -68,8 +68,8 @@ CREATE TABLE IF NOT EXISTS residents
 
 CREATE TABLE IF NOT EXISTS meetings
 (
-    id          INT AUTO_INCREMENT PRIMARY KEY,
-    user_id     INT           NOT NULL,
+    id          INTEGER AUTO_INCREMENT PRIMARY KEY,
+    user_id     INTEGER,
     title       NVARCHAR(255) NOT NULL,
     description NVARCHAR(255) NOT NULL,
     date        DATETIME      NOT NULL,
@@ -77,7 +77,8 @@ CREATE TABLE IF NOT EXISTS meetings
     hour        NVARCHAR(255) NOT NULL,
     duration    NVARCHAR(255) NOT NULL,
     created_at  DATETIME      NOT NULL,
-    updated_at  DATETIME      NOT NULL
+    updated_at  DATETIME      NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 
@@ -144,13 +145,13 @@ CREATE TABLE IF NOT EXISTS check_in_common_area
 CREATE TABLE IF NOT EXISTS posts
 (
     id          INTEGER AUTO_INCREMENT PRIMARY KEY,
-    resident_id INTEGER       NOT NULL,
+    user_id INTEGER       NOT NULL,
     title       NVARCHAR(255) NOT NULL,
     content     NVARCHAR(255) NOT NULL,
     fixed       BOOLEAN       NOT NULL,
     created_at  DATETIME      NOT NULL,
     updated_at  DATETIME      NOT NULL,
-    FOREIGN KEY (resident_id) REFERENCES residents (id)
+    FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 
@@ -340,18 +341,18 @@ VALUES ('Na portaria', 1, 3);
 INSERT INTO delivery_control (status, user_id, residence_id)
 VALUES ('Entregue', 1, 2);
 
-INSERT INTO meetings (user_id, title, description, date, hour, created_at, updated_at)
-VALUES (1, 'Reunião do Conselho', 'Discussão de assuntos financeiros', '2023-11-10', '15:00', NOW(), NOW());
+INSERT INTO meetings (user_id, title, description, date, hour, duration, created_at, updated_at)
+VALUES (1, 'Reunião do Conselho', 'Discussão de assuntos financeiros', '2023-11-10', '15:00', '02:00', NOW(), NOW());
 
-INSERT INTO meetings (user_id, title, description, date, hour, created_at, updated_at)
-VALUES (1, 'Assembleia Geral', 'Revisão das regras da comunidade', '2023-11-15', '18:30', NOW(), NOW());
+INSERT INTO meetings (user_id, title, description, date, hour, duration, created_at, updated_at)
+VALUES (1, 'Assembleia Geral', 'Revisão das regras da comunidade', '2023-11-15', '18:30', '01:00',  NOW(), NOW());
 
-INSERT INTO meetings (user_id, title, description, date, hour, created_at, updated_at)
-VALUES (1, 'Reunião do Comitê de Segurança', 'Discussão de preocupações de segurança', '2023-11-20', '16:45', NOW(),
+INSERT INTO meetings (user_id, title, description, date, hour, duration, created_at, updated_at)
+VALUES (1, 'Reunião do Comitê de Segurança', 'Discussão de preocupações de segurança', '2023-11-20', '16:45', '00:30', NOW(),
         NOW());
 
-INSERT INTO meetings (user_id, title, description, date, hour, created_at, updated_at)
-VALUES (1, 'Reunião do Comitê de Pais', 'Planejamento de eventos para crianças', '2023-11-25', '14:00', NOW(), NOW());
+INSERT INTO meetings (user_id, title, description, date, hour, duration, created_at, updated_at)
+VALUES (1, 'Reunião do Comitê de Pais', 'Planejamento de eventos para crianças', '2023-11-25', '14:00', '02:00', NOW(), NOW());
 
 
 INSERT INTO `genius`.`complaints` (`id`, `resident_id`, `description`, `residence_to_complaint_id`, `status`,

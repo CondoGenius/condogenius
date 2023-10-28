@@ -49,6 +49,16 @@ const HubDigitalService = () => {
           .catch(err => err);
     };
 
+    const voteSurvey = (vote) => {
+        return axios.post(`http://localhost:7004/api/survey`, vote, {
+            headers: {
+                'x-access-token': `${token}`,
+            },
+          })
+          .then(res => res)
+          .catch(err => err);
+    };
+
     const deletePublication = (id) => {
         return axios.delete(`http://localhost:7008/api/hub-digital/${id}`, 
         {
@@ -66,6 +76,7 @@ const HubDigitalService = () => {
         getPublicationsByUserId,
         createPublication,
         updatePublication,
+        voteSurvey,
         deletePublication
     };
 

@@ -24,8 +24,9 @@ const onSubmit = async (values, createMeeting, getMeetings) => {
     if (response.status === 201) {
         document.getElementById('reset_form_meetings').click();
         toast.success("Reunião cadastrada com sucesso")
-        getMeetings();
     }
+    
+    getMeetings();
 };
 
 const renderFieldTitle = (handleChange, handleBlur, values) => (
@@ -112,7 +113,7 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => 
             id="reset_form_meetings"
             className="display_none"
             onClick={() => {
-            handleReset();
+                handleReset();
             }}
         />
     </div>

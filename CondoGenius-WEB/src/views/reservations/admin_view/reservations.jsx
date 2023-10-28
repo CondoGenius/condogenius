@@ -63,7 +63,7 @@ const ReservationsAdminView = () => {
                         reservations.list.map(reservation => (
                             <CollectionItem key={reservations.id}>
                                 <span>
-                                {`${reservation.resident_name} ${reservation.resident_last_name}`}
+                                {reservation.resident_name}
                                 </span>
                                 <span>
                                 {reservation.common_area_name}
