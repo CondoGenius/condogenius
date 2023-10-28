@@ -124,18 +124,6 @@ services:
     depends_on:
       - mysql
 
-  send-notifications:
-    build:
-      context: ./CondoGenius-SendNotifications
-      dockerfile: Dockerfile
-    environment:
-      NODE_ENV: development
-    command: npm start
-    volumes:
-      - ./send-notifications:/usr/send-notifications
-    ports:
-      - "7007:7007"
-
   condogenius_web:
     image: web
     build:
@@ -148,10 +136,26 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-management
-    container_name: condogenius-rabbitmq
     ports:
       - "15672:15672"
       - "5672:5672"
+    expose:
+      - "5672"
+      - "15672"
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 50s
+      timeout: 30s
+      retries: 3
+
+  send-notifications:
+    image: send-notifications
+    build:
+      context: ./
+      dockerfile: CondoGenius-SendNotifications/Dockerfile
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
 
 networks:
   db_network:

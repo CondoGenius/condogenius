@@ -1,4 +1,4 @@
-﻿namespace CondoGenius_Firebase;
+﻿namespace CondoGenius_SendNotifications.Firebase.Interface;
 
 public interface IFirebase
 {

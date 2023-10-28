@@ -1,22 +1,22 @@
-﻿using CondoGenius_Deliveries_Domain.Handler.Interfaces;
+﻿using System.Text;
+using CondoGenius_Deliveries_Domain.Handler.Interfaces;
 using CondoGenius_Deliveries_Domain.Repository.Interfaces;
 using CondoGenius_Deliveries_Domain.Requests;
-using CondoGenius_Firebase;
 using Flurl.Http;
 using Global.Shared.Database;
 using Global.Shared.Database.Entities;
+using Newtonsoft.Json;
+using RabbitMQ.Client;
 
 namespace CondoGenius_Deliveries_Domain.Handler;
 
 public class DeliveriesHandler : IDeliveriesHandler
 {
     private readonly IDeliveriesRepository _repository;
-    private readonly IFirebase _firebase;
 
-    public DeliveriesHandler(IDeliveriesRepository repository, IFirebase firebase)
+    public DeliveriesHandler(IDeliveriesRepository repository)
     {
         _repository = repository;
-        _firebase = firebase;
     }
 
     public async Task<int> CreateDelivery(CreateDeliveryRequest request)
@@ -30,11 +30,24 @@ public class DeliveriesHandler : IDeliveriesHandler
         {
             foreach (var resident in residents)
             {
-                Console.WriteLine($"Token: {resident.DeviceToken}");
-                await _firebase.SendNotification("Psiu! Sua encomenda chegou", 
-                    "Sua encomenda foi recebida na portaria", resident.DeviceToken);
+                Console.WriteLine($"Mandando mensagem para fila..");
                 
-                Console.WriteLine("Notificação enviada!");
+                var factory = new ConnectionFactory { HostName = "condogenius-rabbitmq-1" };
+                using var connection = factory.CreateConnection();
+                using var channel = connection.CreateModel();
+                
+                var message = new
+                {
+                    Title = "Psiu! Você recebeu uma encomenda",
+                    Body = "Retire a qualquer momento na portaria.",
+                    DeviceToken = resident.DeviceToken
+                };
+                var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
+
+                channel.BasicPublish(exchange: "notifications",
+                    routingKey: string.Empty,
+                    basicProperties: null,
+                    body: body);
             }
         }
         catch (Exception e)

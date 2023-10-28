@@ -1,20 +1,11 @@
-# Use uma imagem base do Node.js, com uma versão específica
-FROM node:14
+﻿FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine
 
-# Diretório de trabalho dentro do contêiner
-WORKDIR /app
+WORKDIR /src
+COPY ["CondoGenius-SendNotifications/", "."]
+COPY ["condogenius-firebaseadmin-key.json", "../condogenius-firebaseadmin-key.json"]
 
-# Copie o arquivo package.json e package-lock.json para o diretório de trabalho
-COPY package*.json ./
+RUN dotnet restore CondoGenius-SendNotifications.csproj
+RUN dotnet publish CondoGenius-SendNotifications.csproj -c Release -o /app/publish
 
-# Instale as dependências
-RUN npm install
-
-# Copie todo o conteúdo do diretório de origem para o diretório de trabalho no contêiner
-COPY . .
-
-# Expõe a porta em que o microserviço irá escutar
-EXPOSE 7007
-
-# Comando para iniciar o microserviço
-# CMD ["npm", "start"]
+WORKDIR /app/publish
+ENTRYPOINT ["dotnet", "CondoGenius-SendNotifications.dll"]

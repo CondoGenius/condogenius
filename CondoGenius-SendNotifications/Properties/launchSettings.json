@@ -1,0 +1,11 @@
+﻿{
+  "profiles": {
+    "CondoGenius_SendNotifications": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

@@ -6,8 +6,6 @@ WORKDIR /src
 COPY ["CondoGenius-Deliveries-Domain/", "../CondoGenius-Deliveries-Domain/"]
 COPY ["CondoGenius-Deliveries-Infra/", "../CondoGenius-Deliveries-Infra/"]
 COPY ["CondoGenius-Deliveries-API/", "."]
-COPY ["CondoGenius-Firebase/", "../CondoGenius-Firebase/"]
-COPY ["condogenius-firebaseadmin-key.json", "../condogenius-firebaseadmin-key.json"]
 COPY ["Global.Shared/", "../Global.Shared/"]
 
 RUN dotnet restore CondoGenius-Deliveries-API.csproj
