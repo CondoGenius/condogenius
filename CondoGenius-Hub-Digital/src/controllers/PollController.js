@@ -1,20 +1,28 @@
 const db = require('../models');
 const Poll = db.polls;
+const Post = db.posts;
 const PollOption = db.poll_options;
 const PollVote = db.poll_votes;
 
 exports.createPoll = async (req, res) => {
   try {
     const {
-      post_id,
       title,
       description,
-      // porcentagem de votos 
       user_id
     } = req.body;
 
+    const post = await Post.create({
+      title,
+      content: "Enquete " + title + " criada",
+      user_id,
+      fixed: false,
+      created_at: new Date(),
+      updated_at: new Date()
+    });
+
     const newPoll = await Poll.create({
-      post_id,
+      post_id: post.id,
       title,
       description,
       user_id,
@@ -24,6 +32,7 @@ exports.createPoll = async (req, res) => {
 
     res.status(201).json({ message: 'Enquete criada com sucesso', poll: newPoll });
   } catch (error) { 
+    console.log(error)
     res.status(500).json({ message: 'Erro ao criar enquete' });
   } 
 };
@@ -61,13 +70,16 @@ exports.getPoll = async (req, res) => {
     const poll = await Poll.findOne({
       where: {
         id: id
-      },
-      include: [{
-        model: PollOption
-      }]
+      }
     });
 
-    res.status(200).json(poll);
+    const pollOptions = await PollOption.findAll({
+      where: {
+        poll_id: id
+      }
+    });
+
+    res.status(200).json({ poll, pollOptions });
   } catch (error) {
     console.error('Erro ao listar enquete:', error);
     res.status(500).json({ message: 'Erro ao listar enquete' });
@@ -98,9 +110,13 @@ exports.addPollOption = async (req, res) => {
       title
     } = req.body;
 
+
+    // consultar por enquete antes de criar
+
     const newPollOption = await PollOption.create({
       poll_id,
       title,
+      percentage_of_votes: 0,
       created_at: new Date(),
       updated_at: new Date()
     });
@@ -129,14 +145,18 @@ exports.removePollOption = async (req, res) => {
 };
 
 exports.votePoll = async (req, res) => {
+  const t = await db.sequelize.transaction(); // Inicia uma transação Sequelize
+
   try {
     const {
+      survey_id,
       poll_option_id,
-      resident_id
+      user_id
     } = req.body;
 
     var poll_option = await PollOption.findOne({
       where: {
+        poll_id: survey_id,
         id: poll_option_id
       }
     });
@@ -149,7 +169,7 @@ exports.votePoll = async (req, res) => {
     const existingVote = await PollVote.findOne({
       where: {
         poll_option_id: poll_option_id,
-        resident_id: resident_id
+        user_id: user_id
       }
     });
 
@@ -160,14 +180,9 @@ exports.votePoll = async (req, res) => {
      // Verificar se o residente já votou em outras opções desta enquete
      const otherVotes = await PollVote.findOne({
       where: {
-        resident_id: resident_id
-      },
-      include: [{
-        model: PollOption,
-        where: {
-          poll_id: poll_option.poll_id
-        }
-      }]
+        user_id: user_id,
+        poll_id: survey_id
+      }
     });
 
     if (otherVotes) {
@@ -175,15 +190,49 @@ exports.votePoll = async (req, res) => {
       console.log('Voto anterior removido')
     }
 
-    const newPollVote = await Poll.create({
+    const newPollVote = await PollVote.create({
+      poll_id: survey_id,
       poll_option_id,
-      resident_id,
+      user_id,
       created_at: new Date(),
       updated_at: new Date()
     });
 
+     // Contar o número total de votos para cada opção da enquete
+    const totalVotesAllOptions = await PollVote.count({
+      where: {
+        poll_id: survey_id // Filtra por todas as opções desta enquete
+      }
+    });
+
+    const pollOptions = await PollOption.findAll({
+      where: {
+        poll_id: survey_id
+      }
+    });
+
+    for (const option of pollOptions) {
+      const votesForOption = await PollVote.count({
+        where: {
+          poll_option_id: option.id
+        }
+      });
+
+      // Calcule a porcentagem para esta opção da enquete
+      const votePercentage = (votesForOption / totalVotesAllOptions) * 100;
+
+      // Atualize a porcentagem no banco de dados
+      await PollOption.update(
+        { percentage_of_votes: votePercentage },
+        { where: { id: option.id }, transaction: t }
+      );
+    }
+
+    await t.commit(); // Commit da transação
     res.status(201).json({ message: 'Voto computado com sucesso', pollVote: newPollVote });
-  } catch (error) { 
+  } catch (error) {
+    console.error(error);
+    await t.rollback(); // Rollback da transação em caso de erro
     res.status(500).json({ message: 'Erro ao computar voto' });
   } 
 }

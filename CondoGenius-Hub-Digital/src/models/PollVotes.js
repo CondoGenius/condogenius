@@ -1,9 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
-  const PollVote = sequelize.define("poll_votes", {
+  const PollVote = sequelize.define("poll_vote", {
+    poll_id: {
+      type: Sequelize.INTEGER
+    },
     poll_option_id: {
       type: Sequelize.INTEGER
     },
-    resident_id: {
+    user_id: {
       type: Sequelize.INTEGER
     },
     createdAt: {
@@ -15,4 +18,6 @@ module.exports = (sequelize, Sequelize) => {
       field: 'updated_at' 
     }
   });
+
+  return PollVote;
 }

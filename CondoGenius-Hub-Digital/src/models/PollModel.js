@@ -18,4 +18,6 @@ module.exports = (sequelize, Sequelize) => {
       field: 'updated_at' 
     }
   });
+
+  return Poll;
 }

@@ -3,6 +3,9 @@ module.exports = (sequelize, Sequelize) => {
     poll_id: {
       type: Sequelize.INTEGER
     },
+    percentage_of_votes: {
+      type: Sequelize.INTEGER
+    },
     title: {
       type: Sequelize.STRING
     },
@@ -15,4 +18,6 @@ module.exports = (sequelize, Sequelize) => {
       field: 'updated_at' 
     }
   });
+
+  return PollOption;
 }

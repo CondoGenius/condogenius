@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS comments
 );
 
 
-CREATE TABLE IF NOT EXISTS poll
+CREATE TABLE IF NOT EXISTS polls
 (
     id          INTEGER AUTO_INCREMENT PRIMARY KEY,
     post_id     INTEGER       NOT NULL,
@@ -181,24 +181,26 @@ CREATE TABLE IF NOT EXISTS poll
 
 CREATE TABLE IF NOT EXISTS poll_options
 (
-    id         INTEGER AUTO_INCREMENT PRIMARY KEY,
-    poll_id    INTEGER       NOT NULL,
-    title      NVARCHAR(255) NOT NULL,
-    created_at DATETIME      NOT NULL,
-    updated_at DATETIME      NOT NULL,
-    FOREIGN KEY (poll_id) REFERENCES poll (id)
+    id                  INTEGER AUTO_INCREMENT PRIMARY KEY,
+    poll_id             INTEGER       NOT NULL,
+    title               NVARCHAR(255) NOT NULL,
+    percentage_of_votes INTEGER,
+    created_at          DATETIME      NOT NULL,
+    updated_at          DATETIME      NOT NULL,
+    FOREIGN KEY (poll_id) REFERENCES polls (id)
 );
 
 -- OPTEI POR CRIAR UMA TABELA DE VOTOS PARA QUE POSSA SER FEITO UM HISTÓRICO DE VOTOS, SEM QUE SEJA NECESSARIO DESSERIALIZAÇÃO PRA FAZER CONSULTAS
 CREATE TABLE IF NOT EXISTS poll_votes
 (
     id             INTEGER AUTO_INCREMENT PRIMARY KEY,
+    poll_id        INTEGER  NOT NULL,   
     poll_option_id INTEGER  NOT NULL,
-    resident_id    INTEGER  NOT NULL,
+    user_id    INTEGER  NOT NULL,
     created_at     DATETIME NOT NULL,
     updated_at     DATETIME NOT NULL,
     FOREIGN KEY (poll_option_id) REFERENCES poll_options (id),
-    FOREIGN KEY (resident_id) REFERENCES residents (id)
+    FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 CREATE TABLE IF NOT EXISTS complaints
