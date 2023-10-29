@@ -9,10 +9,12 @@ namespace CondoGenius_Checks_Infra.Repository;
 public class ChecksRepository : BaseRepository, IChecksRepository
 {
     private readonly IChecksQueries _queries;
+
     public ChecksRepository(IChecksQueries queries)
     {
         _queries = queries;
     }
+
     public async Task<int> DoCheckIn(int residentId)
     {
         await using var conn = GetConnection();
@@ -56,5 +58,14 @@ public class ChecksRepository : BaseRepository, IChecksRepository
         {
             ResidentId = residentId
         });
+    }
+
+    public async Task<List<CheckIn?>> GetCheckIns()
+    {
+        await using var conn = GetConnection();
+
+        await conn.OpenAsync();
+
+        return (await conn.QueryAsync<CheckIn?>(_queries.GetCheckIns())).ToList();
     }
 }

@@ -7,4 +7,5 @@ public class CheckIn
     public int ResidentId { get; set; }
     public string ResidentName { get; set; }
     public string DeviceToken { get; set; }
+    public DateTime CreatedAt { get; set; }
 }

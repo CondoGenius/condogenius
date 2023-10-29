@@ -6,4 +6,5 @@ public interface IChecksQueries
     string UndoCheckIn();
     string CountActiveCheckIns();
     string ListCheckInByResident();
+    string GetCheckIns();
 }

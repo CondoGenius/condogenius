@@ -153,6 +153,10 @@ services:
     build:
       context: ./
       dockerfile: CondoGenius-SendNotifications/Dockerfile
+    ports:
+      - "9000:9000"
+    environment:
+      - "TZ=America/Sao_Paulo"
     depends_on:
       rabbitmq:
         condition: service_healthy

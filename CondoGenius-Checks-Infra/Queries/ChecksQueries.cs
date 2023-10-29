@@ -23,4 +23,9 @@ public class ChecksQueries : IChecksQueries
     {
         return File.ReadAllText("/src/SQLs/ListCheckInByResident.sql");
     }
+
+    public string GetCheckIns()
+    {
+        return File.ReadAllText("/src/SQLs/ListCheckIns.sql");
+    }
 }

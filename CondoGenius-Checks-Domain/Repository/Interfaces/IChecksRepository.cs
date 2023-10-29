@@ -8,4 +8,5 @@ public interface IChecksRepository
     Task<int> UndoCheckIn(int residentId);
     Task<ActiveCheckins?> GetActiveCheckins();
     Task<CheckIn?> GetCheckIn(int residentId);
+    Task<List<CheckIn?>> GetCheckIns();
 }

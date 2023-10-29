@@ -45,6 +45,11 @@ public class ChecksHandler : IChecksHandler
         return await _repository.GetCheckIn(residentId);
     }
 
+    public async Task<List<CheckIn?>> GetCheckIns()
+    {
+        return await _repository.GetCheckIns();
+    }
+
     private async Task<ActiveCheckins?> GetActiveCheckins()
     {
         return await _repository.GetActiveCheckins();
