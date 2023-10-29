@@ -9,7 +9,8 @@ exports.createPoll = async (req, res) => {
     const {
       title,
       description,
-      user_id
+      user_id,
+      options
     } = req.body;
 
     const post = await Post.create({
@@ -21,7 +22,7 @@ exports.createPoll = async (req, res) => {
       updated_at: new Date()
     });
 
-    const newPoll = await Poll.create({
+    const poll = await Poll.create({
       post_id: post.id,
       title,
       description,
@@ -30,7 +31,20 @@ exports.createPoll = async (req, res) => {
       updated_at: new Date()
     });
 
-    res.status(201).json({ message: 'Enquete criada com sucesso', poll: newPoll });
+    const pollOptions = [];
+    for(const option of options) {
+      const pollOption = await PollOption.create({
+        poll_id: poll.id,
+        title: option,
+        vote_percent: 0, // Inicializa a porcentagem de votos como 0
+        created_at: new Date(),
+        updated_at: new Date()
+      });
+
+      pollOptions.push(pollOption);
+    }
+
+    res.status(201).json({ message: 'Enquete criada com sucesso', poll, pollOptions });
   } catch (error) { 
     console.log(error)
     res.status(500).json({ message: 'Erro ao criar enquete' });
