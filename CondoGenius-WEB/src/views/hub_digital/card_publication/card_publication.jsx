@@ -1,12 +1,22 @@
+import { Formik } from 'formik';
 import React from "react";
 import { AiFillPushpin, AiOutlinePushpin, AiOutlineSend } from "react-icons/ai";
 import { BsPersonCircle } from "react-icons/bs";
+import { ImBin } from "react-icons/im";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import * as Yup from 'yup';
+import Tooltip from "../../../components/tooltip/tooltip";
+import ErrorField from '../../../components/utils/errorField';
 import useHubDigital from "../../../states/hub_diigtal/hooks/useHubDigital";
 import { VerifyQuantityDays } from "../../../utils/utils";
 
 import './card_publication.scss';
+
+const requiredFieldMessage = 'Este campo é obrigatório';
+const CommentSchema = Yup.object().shape({
+    description: Yup.string().ensure().required(requiredFieldMessage),
+});
 
 const renderSurvey = (survey, userId, voteSurvey) => {
 
@@ -48,7 +58,7 @@ const CardPublication = ({publication}) => {
     const isAdmin = useSelector((state => state.user.data.isAdmin));
     const user = useSelector((state => state.user.data));
 
-    const { updatePublication, voteSurvey } = useHubDigital();
+    const { getPublications, createComment, updatePublication, voteSurvey, deletePublication, deleteComment } = useHubDigital();
 
     const submitFixedPost = async (e) => {
         e.preventDefault();
@@ -56,6 +66,27 @@ const CardPublication = ({publication}) => {
 
         if (response.status === 200) {
             toast.success("Fixação alterada com sucesso");
+            getPublications();
+        }
+    };
+
+    const submitDeletePost = async (e) => {
+        e.preventDefault();
+        const response = await deletePublication(publication.id);
+
+        if (response.status === 200) {
+            toast.success("Publicação removida com sucesso.");
+            getPublications();
+        }
+    };
+
+    const submitDeleteComment = async (e) => {
+        e.preventDefault();
+        const response = await deleteComment(publication.id);
+
+        if (response.status === 200) {
+            toast.success("Comentário removido com sucesso.");
+            getPublications();
         }
     };
 
@@ -65,28 +96,83 @@ const CardPublication = ({publication}) => {
             <div className="name_info">
                 <BsPersonCircle />{`${publication.name} ${publication.last_name}`}
                 <div className="day_info">
-                    {VerifyQuantityDays(publication.date)}
+                    {VerifyQuantityDays(publication.createdAt)}
                 </div>
             </div>
             <div className="fixed_info">
-                {publication.is_fixed && <AiFillPushpin className="pin_icon" onClick={(e) => isAdmin && submitFixedPost(e)}/>}
-                {!publication.is_fixed && isAdmin && <AiOutlinePushpin className="pin_icon" onClick={(e) => submitFixedPost(e)}/>}
+                {publication.fixed && <AiFillPushpin className="pin_icon" onClick={(e) => isAdmin && submitFixedPost(e)}/>}
+                {!publication.fixed && isAdmin && <AiOutlinePushpin className="pin_icon" onClick={(e) => submitFixedPost(e)}/>}
+            </div>
+            <div className="delete_icon">
+                {publication.user_id === user.id && 
+                <Tooltip message={"Remover publicação"}>
+                    <ImBin className="bin_icon" onClick={(e) => submitDeletePost(e)}/>
+                </Tooltip>
+                }
             </div>
         </div>
         <div className="publication_info">
-            {publication.type === 'enquete' ? publication.description : renderSurvey(publication.survey, user.id, voteSurvey)}
+            {publication.survey ? renderSurvey(publication.survey, user.id, voteSurvey) : publication.content}
         </div>
         <div className="action_comment">
-            <input type="text" placeholder="Adicione um comentário"/><AiOutlineSend />
+            <Formik        
+                initialValues={{
+                    userId: user.id,
+                    postId: publication.id,
+                    description: ''
+                }}
+                validationSchema={CommentSchema}
+                onSubmit={async (values, {resetForm}) =>{
+                    const response = await createComment(values);
+
+                    if (response?.status === 201) {
+                        toast.success("Comentário publicado com sucesso.");
+                        resetForm();
+                        getPublications();
+                    }
+                }}
+            > 
+            {({
+                handleChange,
+                values,
+                handleSubmit,
+                handleReset,
+                isValid,
+                errors
+            }) => (
+                <>
+                    <span>
+                        <input 
+                            id="description"
+                            type="text" 
+                            placeholder="Adicione um comentário"
+                            onChange={handleChange}
+                            value={values.description}
+                        />
+                        {errors.description && <ErrorField error={errors.description}/>}
+                    </span>
+                    <Tooltip message={"Publicar comentário"}>
+                        <AiOutlineSend onClick={handleSubmit}/>
+                    </Tooltip>
+                </>
+            )}
+            </Formik>
         </div>
         <div className="coments_info">
-        {publication.comments.map(comment => (
+        {publication.comments?.map(comment => (
             <div className="comment_content">
                 <span className="user_info_comment">
                     <BsPersonCircle />`${comment.user_name} ${comment.user_last_name}`
                     <div className="day_info">
                         {VerifyQuantityDays(comment.date)}
                     </div>
+                    <div className="delete_icon">
+                    {comment.user_id === user.id && 
+                    <Tooltip message={"Remover comentário"}>
+                        <ImBin className="bin_icon" onClick={(e) => submitDeleteComment(e)}/>
+                    </Tooltip>
+                    }
+            </div>
                 </span>
                 <span className="comment">
                     {comment.description}

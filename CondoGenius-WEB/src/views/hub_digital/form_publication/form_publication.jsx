@@ -3,6 +3,7 @@ import React from "react";
 import { AiOutlineProject } from "react-icons/ai";
 import { Button } from "react-materialize";
 import { useSelector } from "react-redux";
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import person from '../../../assets/person.png';
 import ModalContent from "../../../components/modal/modal_content";
@@ -17,10 +18,12 @@ const FormPublicationSchema = Yup.object().shape({
     description: Yup.string().ensure().required(requiredFieldMessage),
 });
 
-const onSubmit = async (values, createPublication, getPublications) => {
+const onSubmit = async (values, createPublication, getPublications, resetForm) => {
     const response = await createPublication(values);
 
     if (response.status === 201) {
+        toast.success("Publicação realizada com sucesso.");
+        resetForm();
         getPublications();
     }
 }
@@ -44,8 +47,8 @@ const FormPublication = () => {
                         description: ''
                     }}
                     validationSchema={FormPublicationSchema}
-                    onSubmit={(values) => {onSubmit(values, createPublication, getPublications)}}
-                > 
+                    onSubmit={(values, {resetForm}) => {onSubmit(values, createPublication, getPublications, resetForm)}}
+                    > 
                     {({
                         handleChange,
                         handleBlur,

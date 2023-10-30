@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from "react-redux";
 import HubDigitalService from '../../../services/hub_digital/service';
-import { setPublicationsActions } from '../../../store/hub_digital/actions';
+import { setMyPublicationsActions, setPublicationsActions } from '../../../store/hub_digital/actions';
 
 const useHubDigital = () => {
     const dispatch = useDispatch();
@@ -26,11 +26,11 @@ const useHubDigital = () => {
         setLoadingHubDigital(true);
 
         const response = await HubDigitalService().getPublicationsByUserId(userId);
-
+        console.log(response)
         if (response?.status === 200) {
-            dispatch(setPublicationsActions({ myPublications: response.data }));
+            dispatch(setMyPublicationsActions({ myPublications: response.data }));
         } else {
-            dispatch(setPublicationsActions({ error: "Erro ao listar suas publicações."}));
+            dispatch(setMyPublicationsActions({ error: "Erro ao listar suas publicações."}));
         }
 
         setLoadingHubDigital(false);
@@ -42,13 +42,32 @@ const useHubDigital = () => {
 
         const post = {
             user_id: values.userId,
-            description: values.description,
+            content: values.description,
         };
 
         const response = await HubDigitalService().createPublication(post);
 
         if (response?.status !== 201) {
             dispatch(setPublicationsActions({ error: "Erro ao publicar post." }));
+        }
+
+        setLoadingHubDigital(false);
+        return response;
+    };
+
+    const createComment = async (values) => {
+        setLoadingHubDigital(true);
+
+        const comment = {
+            user_id: values.userId,
+            post_id: values.postId,
+            content: values.description,
+        };
+
+        const response = await HubDigitalService().createComment(comment);
+
+        if (response?.status !== 201) {
+            dispatch(setPublicationsActions({ error: "Erro ao publicar comentário." }));
         }
 
         setLoadingHubDigital(false);
@@ -99,6 +118,19 @@ const useHubDigital = () => {
         setLoadingHubDigital(false);
         return response;
     };
+
+    const deleteComment = async (id) => {
+        setLoadingHubDigital(false);
+
+        const response = await HubDigitalService().deleteComment(id);
+
+        if (response?.status !== 200) {
+            dispatch(setPublicationsActions({ error: "Erro ao deletar comentário."}));
+        }
+        
+        setLoadingHubDigital(false);
+        return response;
+    };
     
 
     return {
@@ -106,9 +138,11 @@ const useHubDigital = () => {
         getPublications,
         getPublicationsByUserId,
         createPublication,
+        createComment,
         updatePublication,
         voteSurvey,
-        deletePublication
+        deletePublication,
+        deleteComment
     };
 
 };
