@@ -2,13 +2,13 @@
 import axios from 'axios';
 
 const ComplaintsService = () => {
-    const token = JSON.parse(localStorage.getItem('user')).token;
+    const token = JSON.parse(localStorage.getItem('user'))?.token;
 
     const getComplaintsByResindentId =  (residentId) => {
-        return axios.get(`http://localhost:7002/api/complaints/resident/${residentId}`, 
+        return axios.get(`http://localhost:5000/gateway/api/complaints/resident/${residentId}`, 
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         },
         )
@@ -17,10 +17,10 @@ const ComplaintsService = () => {
     };
 
     const getComplaints =  () => {
-        return axios.get(`http://localhost:7002/api/complaints`, 
+        return axios.get(`http://localhost:5000/gateway/api/complaints`, 
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         },
         )
@@ -29,9 +29,9 @@ const ComplaintsService = () => {
     };
 
     const createComplaint = (complaint) => {
-        return axios.post(`http://localhost:7002/api/complaints`, complaint, {
+        return axios.post(`http://localhost:5000/gateway/api/complaints`, complaint, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
                 ContentType: 'application/json',
             },
           })
@@ -40,9 +40,9 @@ const ComplaintsService = () => {
     };
 
     const updateComplaint = (complaint) => {
-        return axios.put(`http://localhost:7002/api/complaints/${complaint.id}`, complaint, {
+        return axios.put(`http://localhost:5000/gateway/api/complaints/${complaint.id}`, complaint, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
           })
           .then(res => res)
@@ -50,10 +50,10 @@ const ComplaintsService = () => {
     };
 
     const deleteResident = (id) => {
-        return axios.delete(`http://localhost:7002/api/complaints/${id}`, 
+        return axios.delete(`http://localhost:5000/gateway/api/complaints/${id}`, 
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         }
         )

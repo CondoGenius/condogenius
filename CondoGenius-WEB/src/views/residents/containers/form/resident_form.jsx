@@ -12,10 +12,11 @@ import { CpfMask, FormatDate, PhoneMask } from '../../../../utils/utils';
 import './resident_form.scss';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
+const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
 const FormResidentSchema = Yup.object().shape({
     name: Yup.string().ensure().required(requiredFieldMessage),
     lastName: Yup.string().ensure().required(requiredFieldMessage),
-    cpf: Yup.string().required(requiredFieldMessage).min(13, 'O CPF deve ter 11 dígitos.'),
+    cpf: Yup.string().required(requiredFieldMessage).matches(cpfRegex, 'CPF inválido'),
     contact: Yup.string().required(requiredFieldMessage).min(14, 'O contato deve ter no mínimo 10 dígitos.'),
     email: Yup.string().ensure().required(requiredFieldMessage),
     birthday: Yup.string().ensure().required(requiredFieldMessage),
@@ -75,7 +76,7 @@ const renderFieldCpf = (handleChange, handleBlur, values) => (
             onChange={handleChange}
             onBlur={handleBlur}
             value={CpfMask(values.cpf)} 
-            maxLength={13}
+            maxLength={14}
         />
         <label for="lastName" class="active">CPF</label>
     </div>

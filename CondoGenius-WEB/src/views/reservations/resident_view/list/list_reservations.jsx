@@ -75,7 +75,7 @@ const ListReservations = () => {
                                     trigger={<span><MdRemoveCircleOutline /></span>}
                                     children={
                                         <span>
-                                            <div>Tem certeza que deseja remover sua reserva para {reservation.common_area_name} no dia {FormatDateZone(reservation.reserve_date)}?</div>
+                                            <div>Tem certeza que deseja cancelar sua reserva para {reservation.common_area_name} no dia {FormatDateZone(reservation.reserve_date)}?</div>
                                             <div className="modal_actions_button_content">
                                                 <Button modal="close" node="button" className="red_button" onClick={(e) => {submitDeleteReservation(e, reservation.id)}}>
                                                     Confirmar
