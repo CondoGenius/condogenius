@@ -8,7 +8,7 @@ const QuickContactsService = () => {
         return axios.get(`http://localhost:7008/api/quick-contacts`, 
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
             params: {
                 name: filters?.name,
@@ -24,7 +24,7 @@ const QuickContactsService = () => {
         return axios.get(`http://localhost:7008/api/quick-contacts/all`, 
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         },
         )
@@ -35,7 +35,7 @@ const QuickContactsService = () => {
     const createQuickContactService = async (contact) => {
         return axios.post(`http://localhost:7006/api/quick-contacts`, contact, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
                 ContentType: 'application/json',
             },
           })

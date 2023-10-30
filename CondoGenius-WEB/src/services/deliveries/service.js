@@ -8,7 +8,7 @@ const DeliveriesService = () => {
         return axios.get(`http://localhost:7003/api/deliveries/residence/${residenceId}`, 
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         },
         )
@@ -20,7 +20,7 @@ const DeliveriesService = () => {
         return axios.get(`http://localhost:7003/api/deliveries`, 
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         },
         )
@@ -31,7 +31,7 @@ const DeliveriesService = () => {
     const createDelivery = async (delivery) => {
         return axios.post(`http://localhost:7003/api/deliveries`, delivery, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
                 ContentType: 'application/json',
             },
           })
@@ -42,7 +42,7 @@ const DeliveriesService = () => {
     const updateDelivery = async (id) => {
         return axios.put(`http://localhost:7003/api/deliveries/${id}`, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'x-access-token': `${token}`,
             },
         })
         .then(res => res)
