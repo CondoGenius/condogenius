@@ -50,7 +50,7 @@ exports.listPosts = async (req, res) => {
   }
 };
 
-exports.listPostsByResidentId = async (req, res) => {
+exports.listPostsByUserId = async (req, res) => {
   try {
     const { user_id } = req.params;
 
