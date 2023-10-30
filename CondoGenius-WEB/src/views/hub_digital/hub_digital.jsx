@@ -12,11 +12,15 @@ import './hub_digital.scss';
 
 const HubDigital = () => {
     const hubDigital = useSelector((state) => state.hubDigital);
-    const { loadingHubDigital } = useHubDigital();
+    const { loadingHubDigital, getPublications } = useHubDigital();
 
     useEffect(() => {
         toast.error(hubDigital.error)
-    }, [hubDigital.error])
+    }, [hubDigital.error]);
+
+    useEffect(() => {
+        getPublications();
+    }, []);
 
     return (
         <div>

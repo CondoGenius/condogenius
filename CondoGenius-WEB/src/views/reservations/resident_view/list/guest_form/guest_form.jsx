@@ -11,26 +11,26 @@ import { CpfMask } from '../../../../../utils/utils';
 import './guest_form.scss';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
+const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
 const FormGuestListSchema = Yup.object().shape({
     name: Yup.string().required(requiredFieldMessage),
-    cpf: Yup.string().required(requiredFieldMessage).min(13, 'O CPF deve ter 11 dígitos.'),
+    cpf: Yup.string().required(requiredFieldMessage).matches(cpfRegex, 'CPF inválido')
 });
 
 const onSubmit = async (values, updateGuestList, getReservationsByResidentId, residentId, setIsSubmit) => {
-    setIsSubmit()
-
+    setIsSubmit();
     const response = await updateGuestList(values);
 
     if (response?.status === 201) {
         document.getElementById('reset_form_guest').click();
-        toast.success("Convidado adicionado.");
+        toast.success("Convidado adicionado com sucesso.");
         getReservationsByResidentId(residentId);
     }
 };
 
-const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => (
+const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit, values) => (
     <div>
-      <Button 
+        <Button 
         onClick={(e) => {
             setIsSubmit(true);
             if (isValid) {
@@ -38,18 +38,19 @@ const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => 
                 handleSubmit();
             }
         }}
-      >
+        >
         <MdAddBox /> Adicionar
-      </Button>
-      <Button
+        </Button>
+        <Button
         id="reset_form_guest"
         className="display_none"
         onClick={() => {
-          handleReset();
+            handleReset();
         }}
-      />
+        />
     </div>
 );
+
 
 const GuestForm = ({ guestList, reservationId }) => {
     const [isSubmit, setIsSubmit] = useState(false);
@@ -107,15 +108,15 @@ const GuestForm = ({ guestList, reservationId }) => {
                         <input 
                             id="cpf"
                             type="text" 
-                            placeholder="Digite o CPF/RG do convidado"
+                            placeholder="Digite o CPF do convidado"
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={CpfMask(values.cpf)} 
-                            maxLength={13}
+                            maxLength={14}
                         />
                         {isSubmit && errors.cpf && <ErrorField error={errors.cpf}/>}
                     </div>
-                    {renderButtonSubmit(isValid, handleSubmit, handleReset, setIsSubmit)}
+                    {renderButtonSubmit(isValid, handleSubmit, handleReset, setIsSubmit, values)}
                 </div>
                 <Collection>
                 {guestList?.length > 0 ? (
