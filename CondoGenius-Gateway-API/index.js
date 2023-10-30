@@ -45,7 +45,7 @@ router.use("/api/checks", proxy("http://checks:7005"))
 //RESERVATIONS
 router.use("/api/reservations", proxy("http://reservations:7006"))
 
-router.use("/hub_digital/", proxy("http://hub_digital:7004/"));
+router.use("/hub_digital/", proxy("http://digital_hub:7004/"));
 router.use("/residents/", proxy("http://residents:7008/"));
 router.use("/meetings/", proxy("http://meetings:7009/"));
 
