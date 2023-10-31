@@ -1,15 +1,13 @@
-import FormPublication from "../form_publication/form_publication";
 
 
 import React, { useEffect } from "react";
-import { MdArrowForward } from 'react-icons/md';
 import { useSelector } from "react-redux";
-import { NavLink } from 'react-router-dom';
 import { toast } from "react-toastify";
 import Loading from "../../../components/loading/loading";
 import useHubDigital from "../../../states/hub_diigtal/hooks/useHubDigital";
 import CardPublication from "../card_publication/card_publication";
 
+import HeaderBackPage from "../../../components/header-back-page/header_back_page";
 import '../hub_digital.scss';
 
 const MyPublications = () => {
@@ -34,15 +32,10 @@ const MyPublications = () => {
                     loadingHubDigital
                 }
             />
-            <div className='header_content'>
-                <h1>Hub Digital</h1>
+           <div className='header_content'>
+                <HeaderBackPage route="/hub"/>
+                <h1>Minhas publicações</h1>
             </div>
-            <div className='content_my_publications'>
-                <NavLink to='/my-publications'>
-                    Minhas publicações <MdArrowForward />
-                </NavLink>
-            </div>
-            <FormPublication />
             {myPublications?.length > 0 ? (
                 myPublications.map(publication => (
                     <CardPublication publication={publication} />

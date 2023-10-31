@@ -5,7 +5,7 @@ const HubDigitalService = () => {
     const token = JSON.parse(localStorage.getItem('user')).token;
 
     const getPublications =  () => {
-        return axios.get(`http://localhost:7004/api/post`, 
+        return axios.get(`http://localhost:5000/gateway/hub_digital/api/post`, 
         {
             headers: {
                 'x-access-token': `${token}`,
@@ -17,7 +17,7 @@ const HubDigitalService = () => {
     };
 
     const getPublicationsByUserId =  (userId) => {
-        return axios.get(`http://localhost:7008/api/hub-digital/${userId}`, 
+        return axios.get(`http://localhost:5000/gateway/hub_digital/api/post/user/${userId}`, 
         {
             headers: {
                 'x-access-token': `${token}`,
@@ -29,7 +29,18 @@ const HubDigitalService = () => {
     };
 
     const createPublication = (post) => {
-        return axios.post(`http://localhost:7004/api/post`, post, {
+        return axios.post(`http://localhost:5000/gateway/hub_digital/api/post`, post, {
+            headers: {
+                'x-access-token': `${token}`,
+                ContentType: 'application/json',
+            },
+          })
+          .then(res => res)
+          .catch(err => err);
+    };
+
+    const createComment = (comment) => {
+        return axios.post(`http://localhost:5000/gateway/hub_digital/api/comment`, comment, {
             headers: {
                 'x-access-token': `${token}`,
                 ContentType: 'application/json',
@@ -60,7 +71,19 @@ const HubDigitalService = () => {
     };
 
     const deletePublication = (id) => {
-        return axios.delete(`http://localhost:7008/api/hub-digital/${id}`, 
+        return axios.delete(`http://localhost:5000/gateway/hub_digital/api/post/${id}`, 
+        {
+            headers: {
+                'x-access-token': `${token}`,
+            },
+        }
+        )
+          .then(res => res)
+          .catch(err => err);
+    };
+
+    const deleteComment = (id) => {
+        return axios.delete(`http://localhost:5000/gateway/hub_digital/api/comment/${id}`, 
         {
             headers: {
                 'x-access-token': `${token}`,
@@ -75,9 +98,11 @@ const HubDigitalService = () => {
         getPublications,
         getPublicationsByUserId,
         createPublication,
+        createComment,
         updatePublication,
         voteSurvey,
-        deletePublication
+        deletePublication,
+        deleteComment
     };
 
 };
