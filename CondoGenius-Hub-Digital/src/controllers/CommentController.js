@@ -6,13 +6,13 @@ exports.createComment = async (req, res) => {
   try {
     const {
       post_id,
-      description,
+      content,
       user_id
     } = req.body;
 
     const newComment = await Comment.create({
       post_id,
-      description,
+      content,
       user_id,
       created_at: new Date(),
       updated_at: new Date()
@@ -63,11 +63,11 @@ exports.updateComment = async (req, res) => {
     const { id } = req.params
 
     const {
-      description,
+      content,
     } = req.body;
 
     const comment = await Comment.update({
-      description,
+      content,
       updated_at: new Date()
     }, {
       where: {

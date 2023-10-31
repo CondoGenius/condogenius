@@ -159,12 +159,12 @@ CREATE TABLE IF NOT EXISTS comments
 (
     id          INTEGER AUTO_INCREMENT PRIMARY KEY,
     post_id     INTEGER       NOT NULL,
-    resident_id INTEGER       NOT NULL,
+    user_id INTEGER       NOT NULL,
     content     NVARCHAR(255) NOT NULL,
     created_at  DATETIME      NOT NULL,
     updated_at  DATETIME      NOT NULL,
     FOREIGN KEY (post_id) REFERENCES posts (id),
-    FOREIGN KEY (resident_id) REFERENCES residents (id)
+    FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 

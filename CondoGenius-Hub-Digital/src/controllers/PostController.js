@@ -1,47 +1,100 @@
 const db = require('../models');
 const Post = db.posts;
-const axios = require('axios');
-
-const residents_service_url = "http://residents:7008/api/residents/"
+const Comment = db.comments;
+const User = db.users;
+const Resident = db.residents;
+const Poll = db.polls;
+const PollOption = db.poll_options;
 
 exports.createPost = async (req, res) => {
   try {
     const {
       title,
-      description,
       content,
       fixed,
       user_id
     } = req.body;
 
+    let fixedValue = fixed ? fixed : false;
+
     const newPost = new Post({
       title,
-      description,
       user_id,
       content,
-      fixed,
+      fixed: fixedValue,
       created_at: new Date(),
       updated_at: new Date()
     });
 
-
-    const resident = await axios.get(residents_service_url + "user/" + user_id)
+    const resident = await Resident.findOne({
+      where: {
+        user_id: user_id
+      }
+    });
 
     if (resident){
       await newPost.save();
-      res.status(201).json({ message: 'Post criado com sucesso', post: newPost, name: resident.data.name, last_name: resident.data.last_name });
+      res.status(201).json({ message: 'Post criado com sucesso', post: newPost, name: resident.name, last_name: resident.last_name });
     } else {
       res.status(500).json({ message: 'Erro ao criar post, residente não encontrado!' });
     }
 
   } catch (error) { 
+    console.log(error)
     res.status(500).json({ message: 'Erro ao criar post' });
   } 
 };
 
 exports.listPosts = async (req, res) => {
   try {
-    const posts = await Post.findAll();
+    const posts = await Post.findAll({
+      attributes: { exclude: ['createdAt', 'updatedAt'] },
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['email'],
+          include: [
+            {
+              model: Resident,
+              as: 'resident',
+              attributes: ['name', 'last_name']
+            }
+          ]
+        },
+        {
+          model: Poll,
+          as: 'poll',
+          attributes: ['title', 'description'],
+          include: [
+            {
+              model: PollOption,
+              as: 'options',
+              attributes: ['title', 'percentage_of_votes'],
+            }
+          ]
+
+        },
+        {
+          model: Comment,
+          as: 'comments',
+          include: [
+            {
+              model: User,
+              as: 'user',
+              attributes: ['email'],
+              include: [
+                {
+                  model: Resident,
+                  as: 'resident',
+                  attributes: ['name', 'last_name']
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    });
 
     res.status(200).json(posts);
   } catch (error) {
@@ -50,6 +103,7 @@ exports.listPosts = async (req, res) => {
   }
 };
 
+
 exports.listPostsByUserId = async (req, res) => {
   try {
     const { user_id } = req.params;
@@ -57,7 +111,52 @@ exports.listPostsByUserId = async (req, res) => {
     const posts = await Post.findAll({
       where: {
         user_id: user_id
-      }
+      },
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['email'],
+          include: [
+            {
+              model: Resident,
+              as: 'resident',
+              attributes: ['name', 'last_name']
+            }
+          ]
+        },
+        {
+          model: Poll,
+          as: 'poll',
+          attributes: ['title', 'description'],
+          include: [
+            {
+              model: PollOption,
+              as: 'options',
+              attributes: ['title', 'percentage_of_votes'],
+            }
+          ]
+
+        },
+        {
+          model: Comment,
+          as: 'comments',
+          include: [
+            {
+              model: User,
+              as: 'user',
+              attributes: ['email'],
+              include: [
+                {
+                  model: Resident,
+                  as: 'resident',
+                  attributes: ['name', 'last_name']
+                }
+              ]
+            }
+          ]
+        }
+      ]
     });
 
     res.status(200).json(posts);
@@ -74,7 +173,52 @@ exports.getPost = async (req, res) => {
     const post = await Post.findOne({
       where: {
         id: id
-      }
+      },
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['email'],
+          include: [
+            {
+              model: Resident,
+              as: 'resident',
+              attributes: ['name', 'last_name']
+            }
+          ]
+        },
+        {
+          model: Poll,
+          as: 'poll',
+          attributes: ['title', 'description'],
+          include: [
+            {
+              model: PollOption,
+              as: 'options',
+              attributes: ['title', 'percentage_of_votes'],
+            }
+          ]
+
+        },
+        {
+          model: Comment,
+          as: 'comments',
+          include: [
+            {
+              model: User,
+              as: 'user',
+              attributes: ['email'],
+              include: [
+                {
+                  model: Resident,
+                  as: 'resident',
+                  attributes: ['name', 'last_name']
+                }
+              ]
+            }
+          ]
+        }
+      ]
     });
 
     res.status(200).json(post);

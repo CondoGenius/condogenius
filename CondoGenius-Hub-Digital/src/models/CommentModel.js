@@ -3,7 +3,7 @@ module.exports = (sequelize, Sequelize) => {
     post_id: {
       type: Sequelize.INTEGER
     },
-    resident_id: {
+    user_id: {
       type: Sequelize.INTEGER
     },
     content: {
