@@ -293,10 +293,12 @@ VALUES (203, 2, 'B', 'Apartment 203', NOW(), NOW());
 INSERT INTO residences (number, floor, block, complement, created_at, updated_at)
 VALUES (100, 1, 'A', 'Apartment 100', NOW(), NOW());
 
-INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
-                       updated_at, is_active, birthday)
-VALUES (1, 1, '12345678900', 'joao@email.com', 'lalalla', 'João', 'Silva', '+55 11 1234-5678', NOW(), NOW(), 1,
-        "2000-01-31");
+
+-- removendo pq admin usa o mesmo user_id
+-- INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
+--                        updated_at, is_active, birthday)
+-- VALUES (1, 1, '12345678900', 'joao@email.com', 'lalalla', 'João', 'Silva', '+55 11 1234-5678', NOW(), NOW(), 1,
+--         "2000-01-31");
 
 INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
                        updated_at, is_active, birthday)

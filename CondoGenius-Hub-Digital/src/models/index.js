@@ -27,7 +27,11 @@ db.poll_votes = require("../../src/models/PollVotes.js")(sequelize, Sequelize);
 db.comments     = require("../../src/models/CommentModel.js")(sequelize, Sequelize);
 
 db.users = require("../../src/models/UserModel.js")(sequelize, Sequelize);
+db.administrators = require("../../src/models/AdministratorModel.js")(sequelize, Sequelize);
 db.residents = require("../../src/models/ResidentModel.js")(sequelize, Sequelize);
+
+db.users.hasOne(db.administrators, { foreignKey: "user_id", as: "administrator" });
+db.administrators.belongsTo(db.users, { foreignKey: "user_id", as: "user" });
 
 db.users.hasOne(db.residents, { foreignKey: "user_id", as: "resident" });
 db.residents.belongsTo(db.users, {

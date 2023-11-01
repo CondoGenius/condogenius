@@ -2,6 +2,7 @@ const db = require('../models');
 const Post = db.posts;
 const Comment = db.comments;
 const User = db.users;
+const Admin = db.administrators;
 const Resident = db.residents;
 const Poll = db.polls;
 const PollOption = db.poll_options;
@@ -32,9 +33,19 @@ exports.createPost = async (req, res) => {
       }
     });
 
-    if (resident){
+    const admin = await Admin.findOne({
+      where: {
+        user_id: user_id
+      }
+    });
+
+    if (resident || admin){
       await newPost.save();
-      res.status(201).json({ message: 'Post criado com sucesso', post: newPost, name: resident.name, last_name: resident.last_name });
+
+      let name = resident ? resident.name : admin.name;
+      let last_name = resident ? resident.last_name : admin.last_name;
+
+      res.status(201).json({ message: 'Post criado com sucesso', post: newPost, name: name, last_name: last_name });
     } else {
       res.status(500).json({ message: 'Erro ao criar post, residente não encontrado!' });
     }
@@ -48,7 +59,6 @@ exports.createPost = async (req, res) => {
 exports.listPosts = async (req, res) => {
   try {
     const posts = await Post.findAll({
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
       include: [
         {
           model: User,
@@ -59,13 +69,18 @@ exports.listPosts = async (req, res) => {
               model: Resident,
               as: 'resident',
               attributes: ['name', 'last_name']
+            },
+            {
+              model: Admin,
+              as: 'administrator',
+              attributes: ['name', 'last_name']
             }
           ]
         },
         {
           model: Poll,
           as: 'poll',
-          attributes: ['title', 'description'],
+          attributes: ['description'],
           include: [
             {
               model: PollOption,
@@ -88,12 +103,19 @@ exports.listPosts = async (req, res) => {
                   model: Resident,
                   as: 'resident',
                   attributes: ['name', 'last_name']
+                },
+                {
+                  model: Admin,
+                  as: 'administrator',
+                  attributes: ['name', 'last_name']
                 }
+                // 
               ]
             }
           ]
         }
-      ]
+      ],
+      order: [['createdAt', 'DESC']]
     });
 
     res.status(200).json(posts);
@@ -257,6 +279,32 @@ exports.updatePost = async (req, res) => {
   } catch (error) {
     console.error('Erro ao atualizar post:', error);
     res.status(500).json({ message: 'Erro ao atualizar post' });
+  }
+};
+
+exports.pinPost = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const post = await Post.findOne({
+      where: {
+        id: id
+      }
+    });
+
+    await post.update({
+      fixed: !post.fixed,
+      updated_at: new Date()
+    }, {
+      where: {
+        id: id
+      }
+    });
+
+    res.status(200).json({ message: 'Post fixado com sucesso', post: post });
+  } catch (error) {
+    console.error('Erro ao fixar post:', error);
+    res.status(500).json({ message: 'Erro ao fixar post' });
   }
 };
 
