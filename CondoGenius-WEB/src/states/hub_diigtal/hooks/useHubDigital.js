@@ -26,7 +26,7 @@ const useHubDigital = () => {
         setLoadingHubDigital(true);
 
         const response = await HubDigitalService().getPublicationsByUserId(userId);
-        console.log(response)
+ 
         if (response?.status === 200) {
             dispatch(setMyPublicationsActions({ myPublications: response.data }));
         } else {
@@ -46,6 +46,25 @@ const useHubDigital = () => {
         };
 
         const response = await HubDigitalService().createPublication(post);
+
+        if (response?.status !== 201) {
+            dispatch(setPublicationsActions({ error: "Erro ao publicar post." }));
+        }
+
+        setLoadingHubDigital(false);
+        return response;
+    };
+
+    const createSurvey = async (values) => {
+        setLoadingHubDigital(true);
+
+        const survey = {
+            user_id: values.userId,
+            content: values.description,
+            options: values.inputOpctionsValues
+        };
+
+        const response = await HubDigitalService().createSurvey(survey);
 
         if (response?.status !== 201) {
             dispatch(setPublicationsActions({ error: "Erro ao publicar post." }));
@@ -138,6 +157,7 @@ const useHubDigital = () => {
         getPublications,
         getPublicationsByUserId,
         createPublication,
+        createSurvey,
         createComment,
         updatePublication,
         voteSurvey,

@@ -99,16 +99,22 @@ const CardPublication = ({publication}) => {
                     {VerifyQuantityDays(publication.createdAt)}
                 </div>
             </div>
-            <div className="fixed_info">
-                {publication.fixed && <AiFillPushpin className="pin_icon" onClick={(e) => isAdmin && submitFixedPost(e)}/>}
-                {!publication.fixed && isAdmin && <AiOutlinePushpin className="pin_icon" onClick={(e) => submitFixedPost(e)}/>}
-            </div>
-            <div className="delete_icon">
-                {publication.user_id === user.id && 
-                <Tooltip message={"Remover publicação"}>
-                    <ImBin className="bin_icon" onClick={(e) => submitDeletePost(e)}/>
-                </Tooltip>
-                }
+            <div className='actions_publication'>
+                <div className="fixed_info">
+                    {publication.fixed && <AiFillPushpin className="pin_icon" onClick={(e) => isAdmin && submitFixedPost(e)}/>}
+                    {!publication.fixed && isAdmin && 
+                        <Tooltip message={"Fixar publicação"}>
+                            <AiOutlinePushpin className="pin_icon" onClick={(e) => submitFixedPost(e)}/>
+                        </Tooltip>
+                    }
+                </div>
+                <div className="delete_icon">
+                    {publication.user_id === user.id && 
+                    <Tooltip message={"Remover publicação"}>
+                        <ImBin className="bin_icon" onClick={(e) => submitDeletePost(e)}/>
+                    </Tooltip>
+                    }
+                </div>
             </div>
         </div>
         <div className="publication_info">
@@ -158,31 +164,31 @@ const CardPublication = ({publication}) => {
             )}
             </Formik>
         </div>
-        <div className="coments_info">
+
         {publication.comments?.map(comment => (
             <div className="comment_content">
-                <span className="user_info_comment">
-                    <BsPersonCircle />`${comment.user_name} ${comment.user_last_name}`
-                    <div className="day_info">
-                        {VerifyQuantityDays(comment.date)}
+                <div className="user_info">
+                    <div className="name_info">
+                        <BsPersonCircle />{`${publication.name} ${publication.last_name}`}
+                        <div className="day_info">
+                            {VerifyQuantityDays(comment.createdAt)}
+                        </div>
                     </div>
                     <div className="delete_icon">
-                    {comment.user_id === user.id && 
-                    <Tooltip message={"Remover comentário"}>
-                        <ImBin className="bin_icon" onClick={(e) => submitDeleteComment(e)}/>
-                    </Tooltip>
-                    }
-            </div>
-                </span>
-                <span className="comment">
-                    {comment.description}
-                </span>
+                        {comment.user_id === user.id && 
+                        <Tooltip message={"Remover publicação"}>
+                            <ImBin className="bin_icon" onClick={(e) => submitDeleteComment(e)}/>
+                        </Tooltip>
+                        }
+                    </div>
+                </div>
+                <div className="publication_info">
+                    {comment.content}
+                </div>
             </div>
         ))}
         </div>
-    </div>
     )
-
 };
 
 export default CardPublication;
