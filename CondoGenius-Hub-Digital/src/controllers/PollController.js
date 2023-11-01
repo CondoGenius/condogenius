@@ -15,7 +15,7 @@ exports.createPoll = async (req, res) => {
 
     const post = await Post.create({
       title,
-      content: "Enquete " + title + " criada",
+      content: description,
       user_id,
       fixed: false,
       created_at: new Date(),
@@ -35,7 +35,7 @@ exports.createPoll = async (req, res) => {
       const pollOption = await PollOption.create({
         poll_id: poll.id,
         title: option,
-        vote_percent: 0, // Inicializa a porcentagem de votos como 0
+        percentage_of_votes: 0, // Inicializa a porcentagem de votos como 0
         created_at: new Date(),
         updated_at: new Date()
       });
