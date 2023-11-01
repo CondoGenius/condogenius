@@ -26,7 +26,6 @@ exports.createPoll = async (req, res) => {
       post_id: post.id,
       title,
       description,
-      user_id,
       created_at: new Date(),
       updated_at: new Date()
     });
