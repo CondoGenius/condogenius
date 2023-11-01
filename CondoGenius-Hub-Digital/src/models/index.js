@@ -45,12 +45,6 @@ db.posts.belongsTo(db.users, {
   as: "user",
 });
 
-db.users.hasMany(db.polls, { foreignKey: "user_id", as: "polls" });
-db.polls.belongsTo(db.users, {
-  foreignKey: "user_id",
-  as: "user",
-});
-
 db.users.hasMany(db.comments, { foreignKey: "user_id", as: "comments" });
 db.comments.belongsTo(db.users, {
   foreignKey: "user_id",

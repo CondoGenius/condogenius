@@ -6,6 +6,7 @@ const Admin = db.administrators;
 const Resident = db.residents;
 const Poll = db.polls;
 const PollOption = db.poll_options;
+const PollVote = db.poll_votes;
 
 exports.createPost = async (req, res) => {
   try {
@@ -85,7 +86,7 @@ exports.listPosts = async (req, res) => {
             {
               model: PollOption,
               as: 'options',
-              attributes: ['title', 'percentage_of_votes'],
+              attributes: ['id', 'title', 'percentage_of_votes'],
             }
           ]
 
@@ -313,6 +314,44 @@ exports.pinPost = async (req, res) => {
 exports.deletePost = async (req, res) => {
   try {
     const { id } = req.params;
+
+    const comments = await Comment.destroy({
+      where: {
+        post_id: id
+      }
+    });
+
+    const poll = await Poll.findOne({
+      where: {
+        post_id: id
+      }
+    });
+
+    console.log(poll);
+
+    if (poll) {
+      const pollVotes = await PollVote.destroy({
+        where: {
+          poll_option_id: {
+            [db.Sequelize.Op.in]: db.Sequelize.literal(
+              `(SELECT id FROM poll_options WHERE poll_id IN (SELECT id FROM polls WHERE post_id = ${id}))`
+            ),
+          }
+        }
+      });
+
+      const pollOptions = await PollOption.destroy({
+        where: {
+          poll_id: {
+            [db.Sequelize.Op.in]: db.Sequelize.literal(
+              `(SELECT id FROM polls WHERE post_id = ${id})`
+            ),
+          },
+        }
+      });
+  
+      await poll.destroy();
+    }
 
     const post = await Post.destroy({
       where: {

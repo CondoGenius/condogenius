@@ -163,7 +163,7 @@ CREATE TABLE IF NOT EXISTS comments
     content     NVARCHAR(255) NOT NULL,
     created_at  DATETIME      NOT NULL,
     updated_at  DATETIME      NOT NULL,
-    FOREIGN KEY (post_id) REFERENCES posts (id),
+    FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
@@ -176,7 +176,7 @@ CREATE TABLE IF NOT EXISTS polls
     description NVARCHAR(255) NOT NULL,
     created_at  DATETIME      NOT NULL,
     updated_at  DATETIME      NOT NULL,
-    FOREIGN KEY (post_id) REFERENCES posts (id)
+    FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS poll_options
@@ -199,7 +199,7 @@ CREATE TABLE IF NOT EXISTS poll_votes
     user_id    INTEGER  NOT NULL,
     created_at     DATETIME NOT NULL,
     updated_at     DATETIME NOT NULL,
-    FOREIGN KEY (poll_option_id) REFERENCES poll_options (id),
+    FOREIGN KEY (poll_option_id) REFERENCES poll_options (id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
