@@ -35,22 +35,30 @@
             padding-left: 10px;
         }
 
-        .fixed_info, .delete_icon {
-            svg {
-                width: 20px;
-                height: 2em;
+        .actions_publication {
+            display: flex;
 
-                &:hover {
-                    cursor: pointer;
+            .fixed_info, .delete_icon {
+                margin-right: 5px;
+
+                svg {
+                    width: 20px;
+                    height: 2em;
+    
+                    &:hover {
+                        cursor: pointer;
+                    }
                 }
+            }
+            
+            .delete_icon svg{
+               &:hover {
+                color: $red;
+               }
             }
         }
 
-        .delete_icon svg{
-           &:hover {
-            color: $red;
-           }
-        }
+
     }
 
     .publication_info {
@@ -89,33 +97,14 @@
         }
     }
 
-    .coments_info {
-
-        .comment_content {
-           display: flex;
-           margin: 10px 30px;
-           flex-direction: column;
-
-           .user_info_comment {
-                display: flex;
-                align-items: center;
-                margin: 1px;
-
-                > svg {
-                    width: 15px;
-                    height: 2em;
-                    margin-right: 5px;
-                }
-           }
-
-           .comment {
-                margin: 0px 10px;
-                color: $gray;
-           }
-        }
-        
+    .comment_content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 20px;
     }
-
+        
     .progress-container {
         width: 100%;
         background-color: #f1f1f1;

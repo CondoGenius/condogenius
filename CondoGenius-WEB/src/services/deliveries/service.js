@@ -5,7 +5,7 @@ const DeliveriesService = () => {
     const token = JSON.parse(localStorage.getItem('user')).token;
 
     const getDeliveriesByResidenceId = async (residenceId) => {
-        return axios.get(`http://localhost:7003/api/deliveries/residence/${residenceId}`, 
+        return axios.get(`http://localhost:5000/gateway/api/deliveries/residence/${residenceId}`, 
         {
             headers: {
                 'x-access-token': `${token}`,
@@ -17,7 +17,7 @@ const DeliveriesService = () => {
     };
 
     const getDeliveries = async  () => {
-        return axios.get(`http://localhost:7003/api/deliveries`, 
+        return axios.get(`http://localhost:5000/gateway/api/deliveries`, 
         {
             headers: {
                 'x-access-token': `${token}`,
@@ -29,7 +29,7 @@ const DeliveriesService = () => {
     };
 
     const createDelivery = async (delivery) => {
-        return axios.post(`http://localhost:7003/api/deliveries`, delivery, {
+        return axios.post(`http://localhost:5000/gateway/api/deliveries`, delivery, {
             headers: {
                 'x-access-token': `${token}`,
                 ContentType: 'application/json',
@@ -40,7 +40,7 @@ const DeliveriesService = () => {
     };
 
     const updateDelivery = async (id) => {
-        return axios.put(`http://localhost:7003/api/deliveries/${id}`, {
+        return axios.put(`http://localhost:5000/gateway/api/deliveries/${id}`, {
             headers: {
                 'x-access-token': `${token}`,
             },
