@@ -301,7 +301,9 @@ exports.pinPost = async (req, res) => {
       }
     });
 
-    res.status(200).json({ message: 'Post fixado com sucesso', post: post });
+    let status = post.fixed ? 'desfixado' : 'fixado';
+
+    res.status(200).json({ message: `Post ${status} com sucesso.`, post: post });
   } catch (error) {
     console.error('Erro ao fixar post:', error);
     res.status(500).json({ message: 'Erro ao fixar post' });
