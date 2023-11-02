@@ -174,3 +174,32 @@ button {
         margin-right: 5px;
     }
 }
+
+@media only screen and (min-width: $viewport_desktop) {
+    .list_view {
+
+        ul {
+            li {
+                font: normal normal normal 16px/18px Helvetica Neue;
+
+                span {
+                    svg {
+                        font-size: 22px;
+                    }
+
+                    > div {
+                        font: normal normal normal 16px/18px Helvetica Neue;
+                    }
+                }
+                
+                button {
+                    font: normal normal normal 16px/18px Helvetica Neue !important;
+                }
+            }
+
+            li:first-child {
+                font: normal normal bold 16px/18px Helvetica Neue;
+            }
+        }
+    }
+}

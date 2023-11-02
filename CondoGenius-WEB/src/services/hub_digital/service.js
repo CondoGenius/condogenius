@@ -62,7 +62,7 @@ const HubDigitalService = () => {
     };
 
     const updatePublication = (postId) => {
-        return axios.put(`http://localhost:7004/api/post${postId}`, {
+        return axios.put(`http://localhost:5000/gateway/hub_digital/api/pin/${postId}`, {
             headers: {
                 'x-access-token': `${token}`,
             },
@@ -72,7 +72,7 @@ const HubDigitalService = () => {
     };
 
     const voteSurvey = (vote) => {
-        return axios.post(`http://localhost:7004/api/survey`, vote, {
+        return axios.post(`http://localhost:5000/gateway/hub_digital/api/vote`, vote, {
             headers: {
                 'x-access-token': `${token}`,
             },
