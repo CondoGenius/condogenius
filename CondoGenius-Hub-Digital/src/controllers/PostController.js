@@ -81,7 +81,7 @@ exports.listPosts = async (req, res) => {
         {
           model: Poll,
           as: 'poll',
-          attributes: ['description'],
+          attributes: ['id', 'content'],
           include: [
             {
               model: PollOption,
@@ -208,7 +208,7 @@ exports.listPostsByUserId = async (req, res) => {
         {
           model: Poll,
           as: 'poll',
-          attributes: ['title', 'description'],
+          attributes: ['title', 'content'],
           include: [
             {
               model: PollOption,
@@ -270,7 +270,7 @@ exports.getPost = async (req, res) => {
         {
           model: Poll,
           as: 'poll',
-          attributes: ['title', 'description'],
+          attributes: ['title', 'content'],
           include: [
             {
               model: PollOption,
@@ -314,7 +314,6 @@ exports.updatePost = async (req, res) => {
 
     const {
       title,
-      description,
       content,
       fixed,
       user_id
@@ -322,7 +321,6 @@ exports.updatePost = async (req, res) => {
 
     const post = await Post.update({
       title,
-      description,
       user_id,
       content,
       fixed,

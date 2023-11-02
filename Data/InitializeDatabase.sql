@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS polls
     id          INTEGER AUTO_INCREMENT PRIMARY KEY,
     post_id     INTEGER       NOT NULL,
     title       NVARCHAR(255) NOT NULL,
-    description NVARCHAR(255) NOT NULL,
+    content NVARCHAR(255) NOT NULL,
     created_at  DATETIME      NOT NULL,
     updated_at  DATETIME      NOT NULL,
     FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE
