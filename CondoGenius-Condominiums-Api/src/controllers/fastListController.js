@@ -38,12 +38,12 @@ exports.deleteFastList = async (req, res) => {
     });
 
     if (!fastList) {
-      return res.status(404).send({ message: "Lista não encontrada" });
+      return res.status(404).send({ message: "Contato não encontrado" });
     }
 
     await fastList.destroy();
 
-    res.status(200).send({ message: "Lista deletada com sucesso" });
+    res.status(200).send({ message: "Contato deletado com sucesso" });
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
