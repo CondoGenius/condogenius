@@ -1,14 +1,12 @@
 module.exports = app => {
-  const condominiums = require("../controllers/");
+  const condominiums = require("../controllers/condominiumController");
 
   var router = require("express").Router();
 
-  // Residents routes
-  router.post("/condominiums/", condominiums.createResident);
-  router.get("/condominiums/", condominiums.listcondominiums);
-  router.get('/condominiums/residence/:residence_id', condominiums.listcondominiumsByResidence)
-  router.get("/condominiums/:id", condominiums.listResidentById);
+  router.get("/condominium/:user_id", condominiums.getCondominumByUserID);
   
 
+  
+  
   app.use('/api', router);
 };
