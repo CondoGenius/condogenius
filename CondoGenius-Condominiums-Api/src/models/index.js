@@ -22,5 +22,6 @@ db.sequelize = sequelize;
 
 db.condominiums = require("./CondominiumModel.js")(sequelize, Sequelize);
 db.users = require("./UserModel.js")(sequelize, Sequelize);
+db.fast_lists = require("./FastListModel.js")(sequelize, Sequelize);
 
 module.exports = db;
