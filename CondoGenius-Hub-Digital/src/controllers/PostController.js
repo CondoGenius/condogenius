@@ -116,7 +116,8 @@ exports.listPosts = async (req, res) => {
           ]
         }
       ],
-      order: [['createdAt', 'DESC']]
+      
+      order: [ ['fixed', 'DESC'], ['createdAt', 'DESC']]
     });
 
     const formattedPosts = posts.map(post => {
