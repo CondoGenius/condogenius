@@ -124,6 +124,7 @@ exports.addPollOption = async (req, res) => {
     } = req.body;
 
 
+    console.log(req.body)
     // consultar por enquete antes de criar
 
     const newPollOption = await PollOption.create({
