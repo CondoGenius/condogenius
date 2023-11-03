@@ -203,6 +203,11 @@ exports.listPostsByUserId = async (req, res) => {
               model: Resident,
               as: 'resident',
               attributes: ['name', 'last_name']
+            },
+            {
+              model: Admin,
+              as: 'administrator',
+              attributes: ['name', 'last_name']
             }
           ]
         },
@@ -214,7 +219,7 @@ exports.listPostsByUserId = async (req, res) => {
             {
               model: PollOption,
               as: 'options',
-              attributes: ['title', 'percentage_of_votes'],
+              attributes: [ 'id','title', 'percentage_of_votes'],
             }
           ]
 
@@ -232,15 +237,79 @@ exports.listPostsByUserId = async (req, res) => {
                   model: Resident,
                   as: 'resident',
                   attributes: ['name', 'last_name']
+                },
+                {
+                  model: Admin,
+                  as: 'administrator',
+                  attributes: ['name', 'last_name']
                 }
               ]
             }
           ]
         }
-      ]
+      ],
+
+      order: [ ['fixed', 'DESC'], ['createdAt', 'DESC']]
     });
 
-    res.status(200).json(posts);
+    const formattedPosts = posts.map(post => {
+      const formattedUser = {
+        email: post.user.email,
+        name: null,
+        last_name: null
+      };
+
+      if (post.user.resident) {
+        formattedUser.name = post.user.resident.name;
+        formattedUser.last_name = post.user.resident.last_name;
+      } else if (post.user.administrator) {
+        formattedUser.name = post.user.administrator.name;
+        formattedUser.last_name = post.user.administrator.last_name;
+      }
+
+      const formattedComments = []
+
+      post.comments.forEach(comment => {
+        let formattedComment = {
+          id: comment.id,
+          user_id: comment.user_id,
+          post_id: comment.post_id,
+          content: comment.content,
+          createdAt: comment.createdAt,
+          updatedAt: comment.updatedAt,
+          user: {
+            email: comment.user.email,
+            name: null,
+            last_name: null
+          }
+        };
+
+        if (comment.user.resident) {
+          formattedComment.user.name = comment.user.resident.name;
+          formattedComment.user.last_name = comment.user.resident.last_name;
+        } else if (comment.user.administrator) {
+          formattedComment.user.name = comment.user.administrator.name;
+          formattedComment.user.last_name = comment.user.administrator.last_name;
+        }
+
+        formattedComments.push(formattedComment);
+      });
+
+      return {
+        id: post.id,
+        user_id: post.user_id,
+        title: post.title,
+        content: post.content,
+        fixed: post.fixed,
+        createdAt: post.createdAt,
+        updatedAt: post.updatedAt,
+        user: formattedUser,
+        poll: post.poll,
+        comments: formattedComments,
+      };
+    });
+
+    res.status(200).json(formattedPosts);
   } catch (error) {
     console.error('Erro ao listar posts:', error);
     res.status(500).json({ message: 'Erro ao listar posts' });
@@ -358,7 +427,7 @@ exports.pinPost = async (req, res) => {
       }
     });
 
-    let status = post.fixed ? 'desfixado' : 'fixado';
+    let status = post.fixed ? 'fixado' : 'desfixado';
 
     res.status(200).json({ message: `Post ${status} com sucesso.`, post: post });
   } catch (error) {
