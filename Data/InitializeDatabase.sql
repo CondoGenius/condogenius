@@ -12,15 +12,27 @@ CREATE TABLE IF NOT EXISTS roles
     name NVARCHAR(255) UNIQUE NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS users
+CREATE TABLE IF NOT EXISTS condominiums
 (
     id         INTEGER AUTO_INCREMENT PRIMARY KEY,
-    email      NVARCHAR(255) UNIQUE NOT NULL,
-    password   NVARCHAR(255)        NOT NULL,
-    is_active  BOOLEAN              NOT NULL,
-    role_id    INTEGER              NOT NULL,
-    created_at DATETIME             NOT NULL,
-    updated_at DATETIME             NOT NULL,
+    name       NVARCHAR(255) NOT NULL,
+    phone      NVARCHAR(255) NOT NULL,
+    email      NVARCHAR(255) NOT NULL,
+    address    NVARCHAR(255) NOT NULL,
+    created_at DATETIME      NOT NULL,
+    updated_at DATETIME      NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS users
+(
+    id             INTEGER AUTO_INCREMENT PRIMARY KEY,
+    email          NVARCHAR(255) UNIQUE NOT NULL,
+    password       NVARCHAR(255)        NOT NULL,
+    is_active      BOOLEAN              NOT NULL,
+    role_id        INTEGER              NOT NULL,
+    condominium_id INTEGER              NOT NULL,
+    created_at     DATETIME             NOT NULL,
+    updated_at     DATETIME             NOT NULL,
     FOREIGN KEY (role_id) REFERENCES roles (id)
 );
 
@@ -36,6 +48,15 @@ CREATE TABLE IF NOT EXISTS administrators
     updated_at DATETIME ON UPDATE NOW(),
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
+
+CREATE TABLE IF NOT EXISTS fast_lists
+(
+    id         INTEGER AUTO_INCREMENT PRIMARY KEY,
+    name       NVARCHAR(255) NOT NULL,
+    phone      NVARCHAR(255) NOT NULL,
+    created_at DATETIME      NOT NULL,
+    updated_at DATETIME      NOT NULL
+)
 
 CREATE TABLE IF NOT EXISTS residences
 (
@@ -257,14 +278,27 @@ INSERT INTO roles (name)
 VALUES ('Admin'),
        ('Resident');
 
-INSERT INTO users(email, password, is_active, role_id)
-VALUES ('admin@condogenius.com.br', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 1);
+INSERT INTO condominiums (name, phone, email, address, created_at, updated_at)
+VALUES ('Condomínio Genius', '+55 11 1234-5678', 'condominio.contact@genius.com', 'Rua Genius, 123, São Paulo, SP',
+        NOW(), NOW());
 
-INSERT INTO users(email, password, is_active, role_id)
-VALUES ('maria@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2);
+INSERT INTO users(email, password, is_active, role_id, condominium_id)
+VALUES ('admin@condogenius.com.br', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 1, 1);
 
-INSERT INTO users(email, password, is_active, role_id)
-VALUES ('carlos@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2);
+INSERT INTO users(email, password, is_active, role_id, condominium_id)
+VALUES ('maria@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2, 1);
+
+INSERT INTO users(email, password, is_active, role_id, condominium_id)
+VALUES ('carlos@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2, 1);
+
+INSERT INTO fast_lists(name, phone, created_at, updated_at)
+VALUES ('Maria', '+55 11 1234-5678',  NOW(), NOW());
+
+INSERT INTO fast_lists(name, phone, created_at, updated_at)
+VALUES ('Emergencia', '190', NOW(), NOW());
+
+INSERT INTO fast_lists(name, phone, created_at, updated_at)
+VALUES ('Bombeiros', '193', NOW(), NOW());
 
 INSERT INTO administrators (user_id, cpf, email, name, last_name)
 VALUES (1, '10412515090', 'admin@condogenius.com.br', 'Hellen', 'Gurgacz');
