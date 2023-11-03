@@ -8,14 +8,14 @@ exports.createPoll = async (req, res) => {
   try {
     const {
       title,
-      description,
+      content,
       user_id,
       options
     } = req.body;
 
     const post = await Post.create({
       title,
-      content: "Enquete " + title + " criada",
+      content,
       user_id,
       fixed: false,
       created_at: new Date(),
@@ -25,7 +25,7 @@ exports.createPoll = async (req, res) => {
     const poll = await Poll.create({
       post_id: post.id,
       title,
-      description,
+      content,
       created_at: new Date(),
       updated_at: new Date()
     });
@@ -35,7 +35,7 @@ exports.createPoll = async (req, res) => {
       const pollOption = await PollOption.create({
         poll_id: poll.id,
         title: option,
-        vote_percent: 0, // Inicializa a porcentagem de votos como 0
+        percentage_of_votes: 0, // Inicializa a porcentagem de votos como 0
         created_at: new Date(),
         updated_at: new Date()
       });
@@ -56,12 +56,12 @@ exports.updatePoll = async (req, res) => {
 
     const {
       title,
-      description,
+      content,
     } = req.body;
 
     const poll = await Poll.update({
       title,
-      description,
+      content,
       updated_at: new Date()
     }, {
       where: {
@@ -124,6 +124,7 @@ exports.addPollOption = async (req, res) => {
     } = req.body;
 
 
+    console.log(req.body)
     // consultar por enquete antes de criar
 
     const newPollOption = await PollOption.create({

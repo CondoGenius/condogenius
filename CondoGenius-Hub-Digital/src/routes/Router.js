@@ -12,6 +12,7 @@ module.exports = app => {
   router.get("/post/:id", postsController.getPost); 
   router.get("/post/user/:user_id", postsController.listPostsByUserId)
   router.delete("/post/:id", postsController.deletePost);
+  router.put("/pin/:id", postsController.pinPost);
 
   router.post("/comment/", commentsController.createComment);
   router.get("/comment/", commentsController.listComments);

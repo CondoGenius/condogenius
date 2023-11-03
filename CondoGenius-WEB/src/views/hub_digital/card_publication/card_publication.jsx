@@ -18,11 +18,13 @@ const CommentSchema = Yup.object().shape({
     description: Yup.string().ensure().required(requiredFieldMessage),
 });
 
-const renderSurvey = (survey, userId, voteSurvey) => {
+const renderSurvey = (survey, userId, voteSurvey, getPublications) => {
 
-    const setPorcent = (value) => {
-        const progressBar = document.getElementById('progress-bar');
-        progressBar.style.width = value + '%';
+    const setPorcent = (value, optionId) => {
+        const progressBar = document.getElementById(`progress-bar-${optionId}`);
+        if (progressBar) {
+            progressBar.style.width = value + '%';
+        }
     };
 
     const submitVote = async (option) => {
@@ -31,22 +33,23 @@ const renderSurvey = (survey, userId, voteSurvey) => {
         if (response?.status === 201) {
             toast.success("Voto recebido com sucesso.");
         }
+        getPublications();
     };
 
     return (
-      <div>
+      <div className='survey_content'>
         <div className="survey_question_content">
-            {survey.question}
+            {survey.description}
         </div>
-        <div>
+        <div className='options_content'>
             {survey.options.map(option => (
-                <div onClick={submitVote(option.value)}>
-                    <span>{option.value}</span>
+                <div onClick={() => submitVote(option.id)} className="option_content">
+                    <span>{option.title}</span>
                     <div class="progress-container">
-                        <div class="progress-bar" id="progress-bar" />
+                        <div class="progress-bar" id={`progress-bar-${option.id}`} />
                         <div class="percentage" id="percentage"/>
                     </div>
-                    {setPorcent(option.quantity_votes)}
+                    {setPorcent(50, option.id)}
                 </div>
             ))}
         </div>
@@ -66,8 +69,8 @@ const CardPublication = ({publication}) => {
 
         if (response.status === 200) {
             toast.success("Fixação alterada com sucesso");
-            getPublications();
         }
+        getPublications();
     };
 
     const submitDeletePost = async (e) => {
@@ -76,8 +79,8 @@ const CardPublication = ({publication}) => {
 
         if (response.status === 200) {
             toast.success("Publicação removida com sucesso.");
-            getPublications();
         }
+        getPublications();
     };
 
     const submitDeleteComment = async (e) => {
@@ -86,33 +89,39 @@ const CardPublication = ({publication}) => {
 
         if (response.status === 200) {
             toast.success("Comentário removido com sucesso.");
-            getPublications();
         }
+        getPublications();
     };
 
     return (
     <div className="publication_content">
         <div className="user_info">
             <div className="name_info">
-                <BsPersonCircle />{`${publication.name} ${publication.last_name}`}
+                <BsPersonCircle />{`${publication.user.name} ${publication.user.last_name}`}
                 <div className="day_info">
                     {VerifyQuantityDays(publication.createdAt)}
                 </div>
             </div>
-            <div className="fixed_info">
-                {publication.fixed && <AiFillPushpin className="pin_icon" onClick={(e) => isAdmin && submitFixedPost(e)}/>}
-                {!publication.fixed && isAdmin && <AiOutlinePushpin className="pin_icon" onClick={(e) => submitFixedPost(e)}/>}
-            </div>
-            <div className="delete_icon">
-                {publication.user_id === user.id && 
-                <Tooltip message={"Remover publicação"}>
-                    <ImBin className="bin_icon" onClick={(e) => submitDeletePost(e)}/>
-                </Tooltip>
-                }
+            <div className='actions_publication'>
+                <div className="fixed_info">
+                    {publication.fixed && <AiFillPushpin className="pin_icon" onClick={(e) => isAdmin && submitFixedPost(e)}/>}
+                    {!publication.fixed && isAdmin && 
+                        <Tooltip message={"Fixar publicação"}>
+                            <AiOutlinePushpin className="pin_icon" onClick={(e) => submitFixedPost(e)}/>
+                        </Tooltip>
+                    }
+                </div>
+                <div className="delete_icon">
+                    {publication.user_id === user.id && 
+                    <Tooltip message={"Remover publicação"}>
+                        <ImBin className="bin_icon" onClick={(e) => submitDeletePost(e)}/>
+                    </Tooltip>
+                    }
+                </div>
             </div>
         </div>
         <div className="publication_info">
-            {publication.survey ? renderSurvey(publication.survey, user.id, voteSurvey) : publication.content}
+            {publication.poll ? renderSurvey(publication.poll, user.id, voteSurvey, getPublications) : publication.content}
         </div>
         <div className="action_comment">
             <Formik        
@@ -158,31 +167,31 @@ const CardPublication = ({publication}) => {
             )}
             </Formik>
         </div>
-        <div className="coments_info">
-        {publication.comments?.map(comment => (
+
+        {publication.comments?.map(coment => (
             <div className="comment_content">
-                <span className="user_info_comment">
-                    <BsPersonCircle />`${comment.user_name} ${comment.user_last_name}`
-                    <div className="day_info">
-                        {VerifyQuantityDays(comment.date)}
+                <div className="user_info">
+                    <div className="name_info">
+                        <BsPersonCircle />{`${coment.user.name} ${coment.user.last_name}`}
+                        <div className="day_info">
+                            {VerifyQuantityDays(coment.createdAt)}
+                        </div>
                     </div>
                     <div className="delete_icon">
-                    {comment.user_id === user.id && 
-                    <Tooltip message={"Remover comentário"}>
-                        <ImBin className="bin_icon" onClick={(e) => submitDeleteComment(e)}/>
-                    </Tooltip>
-                    }
-            </div>
-                </span>
-                <span className="comment">
-                    {comment.description}
-                </span>
+                        {coment.user_id === user.id && 
+                        <Tooltip message={"Remover comentário"}>
+                            <ImBin className="bin_icon" onClick={(e) => submitDeleteComment(e)}/>
+                        </Tooltip>
+                        }
+                    </div>
+                </div>
+                <div className="publication_info">
+                    {coment.content}
+                </div>
             </div>
         ))}
         </div>
-    </div>
     )
-
 };
 
 export default CardPublication;

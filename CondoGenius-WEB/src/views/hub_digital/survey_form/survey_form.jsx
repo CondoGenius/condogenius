@@ -1,82 +1,107 @@
-import { Formik } from 'formik';
-import React, { useRef, useState } from "react";
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import React, { useState } from "react";
 import { Button } from "react-materialize";
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
+import ErrorField from '../../../components/utils/errorField';
+import useHubDigital from '../../../states/hub_diigtal/hooks/useHubDigital';
 
 import './survey_form.scss';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormSurveySchema = Yup.object().shape({
-    question: Yup.string().ensure().required(requiredFieldMessage),
-    options: Yup.string().ensure().required(requiredFieldMessage)
+    userId: Yup.number().required(),
+    description: Yup.string().ensure().required(requiredFieldMessage),
+    inputOptionsValues: Yup.array().of(Yup.string()).min(2, 'Ao menos duas opções devem ser preenchidas')
 });
 
-const onSubmit = async (values) => {
-   
-}
-
 const SurveyForm = () => {
-    let [options, setOptions] = useState(2);
-    const [inputValues, setInputValues] = useState(Array(options).fill(""));
-  
-    const optionElements = [];
-  
-    const optionsElement = useRef([]);
-  
+    const [options, setOptions] = useState(2);
+    const [inputOptionsValues, setInputOptionsValues] = useState(Array(options).fill(""));
+
+    const user = useSelector((state => state.user.data));
+    const { createSurvey, getPublications } = useHubDigital();
+
     const handleChangeOption = (index, value) => {
-      const newInputValues = [...inputValues];
-      newInputValues[index] = value;
-      setInputValues(newInputValues);
+        setInputOptionsValues(prevValues => {
+            const newInputValues = [...prevValues];
+            newInputValues[index] = value;
+            return newInputValues;
+        });
     };
-  
-    for (let i = 0; i < options; i++) {
-      optionElements.push(
-        <div key={i}>
-          Opção {i + 1}:
-          <input
-            type="text"
-            name="options"
-            ref={(el) => (optionsElement.current[i] = el)}
-            value={inputValues[i]}
-            onChange={(e) => handleChangeOption(i, e.target.value)}
-          />
-        </div>
-      );
-    }
+
+    const handleAddOption = () => {
+        setOptions(prevOptions => prevOptions + 1);
+        setInputOptionsValues(prevValues => [...prevValues, ""]);
+    };
+
+    const onSubmit = async (values, resetForm) => {
+        const response = await createSurvey({...values, inputOptionsValues: inputOptionsValues});
+
+        if (response.status === 201) {
+            resetForm();
+            setInputOptionsValues(Array(options).fill(""));
+            toast.success("Enquete publicada com sucesso.");
+        }
+
+        getPublications();
+    };
 
     return (
         <Formik        
-                initialValues={{
-                    question: '',
-                    options: []
-                }}
-                validationSchema={FormSurveySchema}
-                onSubmit={values => {onSubmit(values)}}
-            > 
-                {({
-                    handleChange,
-                    handleBlur,
-                    values,
-                    handleSubmit,
-                    handleReset,
-                    isValid,
-                    errors
-                }) => (
-                    <div className="survey_content">
-                        <div className="survey_form">
-                            <label>
-                                Sua pergunta*
-                            </label>
-                            <input />
-                            {optionElements}
-                        </div>
-                        <div className="survey_actions">
-                            <Button onClick={() => setOptions(options++)}>Adicionar opção</Button>
-                            <Button>Compartilhar enquete</Button>
-                        </div>
+            initialValues={{
+                userId: user.id,
+                description: '',
+                inputOptionsValues: inputOptionsValues
+            }}
+            validationSchema={FormSurveySchema}
+            onSubmit={(values, {resetForm}) => onSubmit(values, resetForm)}
+        > 
+            {({
+                handleChange,
+                values,
+                handleSubmit,
+                errors
+            }) => (
+                <Form className="survey_content" onSubmit={handleSubmit}>
+                    <div className="survey_form">
+                        <label htmlFor="description">
+                            Sua pergunta
+                        </label>
+                        <Field 
+                            type="text"
+                            id="description"
+                            name="description"
+                            onChange={handleChange}
+                            value={values.description}
+                        />
+                        <ErrorMessage name="description" component={ErrorField} />
+                        {inputOptionsValues.map((value, i) => (
+                            <div key={i}>
+                                Opção {i + 1}:
+                                <input
+                                    type="text"
+                                    name={`inputOptionsValues.${i}`}
+                                    value={value}
+                                    onChange={(e) => handleChangeOption(i, e.target.value)}
+                                />
+                            </div>
+                        ))}
+                        <ErrorMessage name="inputOptionsValues" component={ErrorField} />
                     </div>
-                )}
-            </Formik>
+                    <div className="survey_actions">
+                        <Button type="button" onClick={handleAddOption}>Adicionar opção</Button>
+                        <Button 
+                            type="submit" 
+                            modal='close'
+                        >
+                            Compartilhar enquete
+                        </Button>
+                    </div>
+                </Form>
+            )}
+        </Formik>
     );
 };
 

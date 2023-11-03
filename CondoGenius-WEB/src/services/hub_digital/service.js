@@ -39,6 +39,17 @@ const HubDigitalService = () => {
           .catch(err => err);
     };
 
+    const createSurvey = (survey) => {
+        return axios.post(`http://localhost:5000/gateway/hub_digital/api/poll`, survey, {
+            headers: {
+                'x-access-token': `${token}`,
+                ContentType: 'application/json',
+            },
+          })
+          .then(res => res)
+          .catch(err => err);
+    };
+
     const createComment = (comment) => {
         return axios.post(`http://localhost:5000/gateway/hub_digital/api/comment`, comment, {
             headers: {
@@ -51,7 +62,7 @@ const HubDigitalService = () => {
     };
 
     const updatePublication = (postId) => {
-        return axios.put(`http://localhost:7004/api/post${postId}`, {
+        return axios.put(`http://localhost:5000/gateway/hub_digital/api/pin/${postId}`, {
             headers: {
                 'x-access-token': `${token}`,
             },
@@ -61,7 +72,7 @@ const HubDigitalService = () => {
     };
 
     const voteSurvey = (vote) => {
-        return axios.post(`http://localhost:7004/api/survey`, vote, {
+        return axios.post(`http://localhost:5000/gateway/hub_digital/api/vote`, vote, {
             headers: {
                 'x-access-token': `${token}`,
             },
@@ -98,6 +109,7 @@ const HubDigitalService = () => {
         getPublications,
         getPublicationsByUserId,
         createPublication,
+        createSurvey,
         createComment,
         updatePublication,
         voteSurvey,

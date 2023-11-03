@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     fixed: {
-      type: Sequelize.INTEGER
+      type: Sequelize.BOOLEAN
     },
     createdAt: {
       type: Sequelize.DATE,

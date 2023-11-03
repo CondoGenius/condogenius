@@ -163,7 +163,7 @@ CREATE TABLE IF NOT EXISTS comments
     content     NVARCHAR(255) NOT NULL,
     created_at  DATETIME      NOT NULL,
     updated_at  DATETIME      NOT NULL,
-    FOREIGN KEY (post_id) REFERENCES posts (id),
+    FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
@@ -173,10 +173,10 @@ CREATE TABLE IF NOT EXISTS polls
     id          INTEGER AUTO_INCREMENT PRIMARY KEY,
     post_id     INTEGER       NOT NULL,
     title       NVARCHAR(255) NOT NULL,
-    description NVARCHAR(255) NOT NULL,
+    content NVARCHAR(255) NOT NULL,
     created_at  DATETIME      NOT NULL,
     updated_at  DATETIME      NOT NULL,
-    FOREIGN KEY (post_id) REFERENCES posts (id)
+    FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS poll_options
@@ -199,7 +199,7 @@ CREATE TABLE IF NOT EXISTS poll_votes
     user_id    INTEGER  NOT NULL,
     created_at     DATETIME NOT NULL,
     updated_at     DATETIME NOT NULL,
-    FOREIGN KEY (poll_option_id) REFERENCES poll_options (id),
+    FOREIGN KEY (poll_option_id) REFERENCES poll_options (id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
@@ -293,10 +293,12 @@ VALUES (203, 2, 'B', 'Apartment 203', NOW(), NOW());
 INSERT INTO residences (number, floor, block, complement, created_at, updated_at)
 VALUES (100, 1, 'A', 'Apartment 100', NOW(), NOW());
 
-INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
-                       updated_at, is_active, birthday)
-VALUES (1, 1, '12345678900', 'joao@email.com', 'lalalla', 'João', 'Silva', '+55 11 1234-5678', NOW(), NOW(), 1,
-        "2000-01-31");
+
+-- removendo pq admin usa o mesmo user_id
+-- INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
+--                        updated_at, is_active, birthday)
+-- VALUES (1, 1, '12345678900', 'joao@email.com', 'lalalla', 'João', 'Silva', '+55 11 1234-5678', NOW(), NOW(), 1,
+--         "2000-01-31");
 
 INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
                        updated_at, is_active, birthday)

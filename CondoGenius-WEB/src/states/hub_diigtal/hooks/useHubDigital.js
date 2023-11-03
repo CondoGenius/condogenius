@@ -26,7 +26,7 @@ const useHubDigital = () => {
         setLoadingHubDigital(true);
 
         const response = await HubDigitalService().getPublicationsByUserId(userId);
-        console.log(response)
+ 
         if (response?.status === 200) {
             dispatch(setMyPublicationsActions({ myPublications: response.data }));
         } else {
@@ -46,6 +46,25 @@ const useHubDigital = () => {
         };
 
         const response = await HubDigitalService().createPublication(post);
+
+        if (response?.status !== 201) {
+            dispatch(setPublicationsActions({ error: "Erro ao publicar post." }));
+        }
+
+        setLoadingHubDigital(false);
+        return response;
+    };
+
+    const createSurvey = async (values) => {
+        setLoadingHubDigital(true);
+        console.log(values  )
+        const survey = {
+            user_id: values.userId,
+            content: values.description,
+            options: values.inputOptionsValues
+        };
+
+        const response = await HubDigitalService().createSurvey(survey);
 
         if (response?.status !== 201) {
             dispatch(setPublicationsActions({ error: "Erro ao publicar post." }));
@@ -77,7 +96,7 @@ const useHubDigital = () => {
     const updatePublication = async (postId) => {
         setLoadingHubDigital(true);
 
-        const response = await HubDigitalService().createPublication(postId);
+        const response = await HubDigitalService().updatePublication(postId);
 
         if (response?.status !== 200) {
             dispatch(setPublicationsActions({ error: "Erro ao fixar post." }));
@@ -89,11 +108,11 @@ const useHubDigital = () => {
 
     const voteSurvey = async (values) => {
         setLoadingHubDigital(true);
-
+        console.log(values)
         const vote = {
             user_id: values.userId,
             survey_id: values.surveyId,
-            option: values.option,
+            pull_option_id: values.option,
         };
 
         const response = await HubDigitalService().voteSurvey(vote);
@@ -138,6 +157,7 @@ const useHubDigital = () => {
         getPublications,
         getPublicationsByUserId,
         createPublication,
+        createSurvey,
         createComment,
         updatePublication,
         voteSurvey,

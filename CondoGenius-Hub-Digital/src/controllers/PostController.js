@@ -2,9 +2,11 @@ const db = require('../models');
 const Post = db.posts;
 const Comment = db.comments;
 const User = db.users;
+const Admin = db.administrators;
 const Resident = db.residents;
 const Poll = db.polls;
 const PollOption = db.poll_options;
+const PollVote = db.poll_votes;
 
 exports.createPost = async (req, res) => {
   try {
@@ -32,9 +34,19 @@ exports.createPost = async (req, res) => {
       }
     });
 
-    if (resident){
+    const admin = await Admin.findOne({
+      where: {
+        user_id: user_id
+      }
+    });
+
+    if (resident || admin){
       await newPost.save();
-      res.status(201).json({ message: 'Post criado com sucesso', post: newPost, name: resident.name, last_name: resident.last_name });
+
+      let name = resident ? resident.name : admin.name;
+      let last_name = resident ? resident.last_name : admin.last_name;
+
+      res.status(201).json({ message: 'Post criado com sucesso', post: newPost, name: name, last_name: last_name });
     } else {
       res.status(500).json({ message: 'Erro ao criar post, residente não encontrado!' });
     }
@@ -48,7 +60,6 @@ exports.createPost = async (req, res) => {
 exports.listPosts = async (req, res) => {
   try {
     const posts = await Post.findAll({
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
       include: [
         {
           model: User,
@@ -59,18 +70,23 @@ exports.listPosts = async (req, res) => {
               model: Resident,
               as: 'resident',
               attributes: ['name', 'last_name']
+            },
+            {
+              model: Admin,
+              as: 'administrator',
+              attributes: ['name', 'last_name']
             }
           ]
         },
         {
           model: Poll,
           as: 'poll',
-          attributes: ['title', 'description'],
+          attributes: ['id', 'content'],
           include: [
             {
               model: PollOption,
               as: 'options',
-              attributes: ['title', 'percentage_of_votes'],
+              attributes: ['id', 'title', 'percentage_of_votes'],
             }
           ]
 
@@ -88,15 +104,80 @@ exports.listPosts = async (req, res) => {
                   model: Resident,
                   as: 'resident',
                   attributes: ['name', 'last_name']
+                },
+                {
+                  model: Admin,
+                  as: 'administrator',
+                  attributes: ['name', 'last_name']
                 }
+                // 
               ]
             }
           ]
         }
-      ]
+      ],
+      
+      order: [ ['fixed', 'DESC'], ['createdAt', 'DESC']]
     });
 
-    res.status(200).json(posts);
+    const formattedPosts = posts.map(post => {
+      const formattedUser = {
+        email: post.user.email,
+        name: null,
+        last_name: null
+      };
+
+      if (post.user.resident) {
+        formattedUser.name = post.user.resident.name;
+        formattedUser.last_name = post.user.resident.last_name;
+      } else if (post.user.administrator) {
+        formattedUser.name = post.user.administrator.name;
+        formattedUser.last_name = post.user.administrator.last_name;
+      }
+
+      const formattedComments = []
+
+      post.comments.forEach(comment => {
+        let formattedComment = {
+          id: comment.id,
+          user_id: comment.user_id,
+          post_id: comment.post_id,
+          content: comment.content,
+          createdAt: comment.createdAt,
+          updatedAt: comment.updatedAt,
+          user: {
+            email: comment.user.email,
+            name: null,
+            last_name: null
+          }
+        };
+
+        if (comment.user.resident) {
+          formattedComment.user.name = comment.user.resident.name;
+          formattedComment.user.last_name = comment.user.resident.last_name;
+        } else if (comment.user.administrator) {
+          formattedComment.user.name = comment.user.administrator.name;
+          formattedComment.user.last_name = comment.user.administrator.last_name;
+        }
+
+        formattedComments.push(formattedComment);
+      });
+
+      return {
+        id: post.id,
+        user_id: post.user_id,
+        title: post.title,
+        content: post.content,
+        fixed: post.fixed,
+        createdAt: post.createdAt,
+        updatedAt: post.updatedAt,
+        user: formattedUser,
+        poll: post.poll,
+        comments: formattedComments,
+      };
+    });
+
+    res.status(200).json(formattedPosts);
   } catch (error) {
     console.error('Erro ao listar posts:', error);
     res.status(500).json({ message: 'Erro ao listar posts' });
@@ -122,18 +203,23 @@ exports.listPostsByUserId = async (req, res) => {
               model: Resident,
               as: 'resident',
               attributes: ['name', 'last_name']
+            },
+            {
+              model: Admin,
+              as: 'administrator',
+              attributes: ['name', 'last_name']
             }
           ]
         },
         {
           model: Poll,
           as: 'poll',
-          attributes: ['title', 'description'],
+          attributes: ['title', 'content'],
           include: [
             {
               model: PollOption,
               as: 'options',
-              attributes: ['title', 'percentage_of_votes'],
+              attributes: [ 'id','title', 'percentage_of_votes'],
             }
           ]
 
@@ -151,15 +237,79 @@ exports.listPostsByUserId = async (req, res) => {
                   model: Resident,
                   as: 'resident',
                   attributes: ['name', 'last_name']
+                },
+                {
+                  model: Admin,
+                  as: 'administrator',
+                  attributes: ['name', 'last_name']
                 }
               ]
             }
           ]
         }
-      ]
+      ],
+
+      order: [ ['fixed', 'DESC'], ['createdAt', 'DESC']]
     });
 
-    res.status(200).json(posts);
+    const formattedPosts = posts.map(post => {
+      const formattedUser = {
+        email: post.user.email,
+        name: null,
+        last_name: null
+      };
+
+      if (post.user.resident) {
+        formattedUser.name = post.user.resident.name;
+        formattedUser.last_name = post.user.resident.last_name;
+      } else if (post.user.administrator) {
+        formattedUser.name = post.user.administrator.name;
+        formattedUser.last_name = post.user.administrator.last_name;
+      }
+
+      const formattedComments = []
+
+      post.comments.forEach(comment => {
+        let formattedComment = {
+          id: comment.id,
+          user_id: comment.user_id,
+          post_id: comment.post_id,
+          content: comment.content,
+          createdAt: comment.createdAt,
+          updatedAt: comment.updatedAt,
+          user: {
+            email: comment.user.email,
+            name: null,
+            last_name: null
+          }
+        };
+
+        if (comment.user.resident) {
+          formattedComment.user.name = comment.user.resident.name;
+          formattedComment.user.last_name = comment.user.resident.last_name;
+        } else if (comment.user.administrator) {
+          formattedComment.user.name = comment.user.administrator.name;
+          formattedComment.user.last_name = comment.user.administrator.last_name;
+        }
+
+        formattedComments.push(formattedComment);
+      });
+
+      return {
+        id: post.id,
+        user_id: post.user_id,
+        title: post.title,
+        content: post.content,
+        fixed: post.fixed,
+        createdAt: post.createdAt,
+        updatedAt: post.updatedAt,
+        user: formattedUser,
+        poll: post.poll,
+        comments: formattedComments,
+      };
+    });
+
+    res.status(200).json(formattedPosts);
   } catch (error) {
     console.error('Erro ao listar posts:', error);
     res.status(500).json({ message: 'Erro ao listar posts' });
@@ -190,7 +340,7 @@ exports.getPost = async (req, res) => {
         {
           model: Poll,
           as: 'poll',
-          attributes: ['title', 'description'],
+          attributes: ['title', 'content'],
           include: [
             {
               model: PollOption,
@@ -234,7 +384,6 @@ exports.updatePost = async (req, res) => {
 
     const {
       title,
-      description,
       content,
       fixed,
       user_id
@@ -242,7 +391,6 @@ exports.updatePost = async (req, res) => {
 
     const post = await Post.update({
       title,
-      description,
       user_id,
       content,
       fixed,
@@ -260,9 +408,75 @@ exports.updatePost = async (req, res) => {
   }
 };
 
+exports.pinPost = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const post = await Post.findOne({
+      where: {
+        id: id
+      }
+    });
+
+    await post.update({
+      fixed: !post.fixed,
+      updated_at: new Date()
+    }, {
+      where: {
+        id: id
+      }
+    });
+
+    let status = post.fixed ? 'fixado' : 'desfixado';
+
+    res.status(200).json({ message: `Post ${status} com sucesso.`, post: post });
+  } catch (error) {
+    console.error('Erro ao fixar post:', error);
+    res.status(500).json({ message: 'Erro ao fixar post' });
+  }
+};
+
 exports.deletePost = async (req, res) => {
   try {
     const { id } = req.params;
+
+    const comments = await Comment.destroy({
+      where: {
+        post_id: id
+      }
+    });
+
+    const poll = await Poll.findOne({
+      where: {
+        post_id: id
+      }
+    });
+
+    console.log(poll);
+
+    if (poll) {
+      const pollVotes = await PollVote.destroy({
+        where: {
+          poll_option_id: {
+            [db.Sequelize.Op.in]: db.Sequelize.literal(
+              `(SELECT id FROM poll_options WHERE poll_id IN (SELECT id FROM polls WHERE post_id = ${id}))`
+            ),
+          }
+        }
+      });
+
+      const pollOptions = await PollOption.destroy({
+        where: {
+          poll_id: {
+            [db.Sequelize.Op.in]: db.Sequelize.literal(
+              `(SELECT id FROM polls WHERE post_id = ${id})`
+            ),
+          },
+        }
+      });
+  
+      await poll.destroy();
+    }
 
     const post = await Post.destroy({
       where: {
