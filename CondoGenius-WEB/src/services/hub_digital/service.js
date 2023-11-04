@@ -62,13 +62,15 @@ const HubDigitalService = () => {
     };
 
     const updatePublication = (postId) => {
-        return axios.put(`http://localhost:5000/gateway/hub_digital/api/pin/${postId}`, {
+        return axios.put(`http://localhost:5000/gateway/hub_digital/api/pin/${postId}`, {},
+        {
             headers: {
                 'x-access-token': `${token}`,
             },
-          })
-          .then(res => res)
-          .catch(err => err);
+        },
+        )
+        .then(res => res)
+        .catch(err => err);
     };
 
     const voteSurvey = (vote) => {
