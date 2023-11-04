@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS fast_lists
     phone      NVARCHAR(255) NOT NULL,
     created_at DATETIME      NOT NULL,
     updated_at DATETIME      NOT NULL
-)
+);
 
 CREATE TABLE IF NOT EXISTS residences
 (
