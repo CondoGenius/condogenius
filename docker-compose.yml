@@ -42,25 +42,25 @@ services:
       - mysql
 
 
-  # complaints:
-  #   image: complaints
-  #   build:
-  #     context: ./
-  #     dockerfile: CondoGenius-Complaints-API/Dockerfile
-  #   environment:
-  #     - ASPNETCORE_URLS=http://0.0.0.0:7002
-  #   ports:
-  #     - "7002:7002"
+  complaints:
+    image: complaints
+    build:
+      context: ./
+      dockerfile: CondoGenius-Complaints-API/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:7002
+    ports:
+      - "7002:7002"
 
-  # deliveries:
-  #   image: deliveries
-  #   build:
-  #     context: ./
-  #     dockerfile: CondoGenius-Deliveries-API/Dockerfile
-  #   environment:
-  #     - ASPNETCORE_URLS=http://0.0.0.0:7003
-  #   ports:
-  #     - "7003:7003"
+  deliveries:
+    image: deliveries
+    build:
+      context: ./
+      dockerfile: CondoGenius-Deliveries-API/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:7003
+    ports:
+      - "7003:7003"
 
   digital_hub:
     build:
@@ -76,25 +76,25 @@ services:
     depends_on:
       - mysql
   
-  # checks:
-  #   image: checks
-  #   build:
-  #     context: ./
-  #     dockerfile: CondoGenius-Checks-API/Dockerfile
-  #   environment:
-  #     - ASPNETCORE_URLS=http://0.0.0.0:7005
-  #   ports:
-  #     - "7005:7005"
+  checks:
+    image: checks
+    build:
+      context: ./
+      dockerfile: CondoGenius-Checks-API/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:7005
+    ports:
+      - "7005:7005"
 
-  # reservations:
-  #   image: reservations
-  #   build:
-  #     context: ./
-  #     dockerfile: CondoGenius-Reservations-API/Dockerfile
-  #   environment:
-  #     - ASPNETCORE_URLS=http://0.0.0.0:7006
-  #   ports:
-  #     - "7006:7006"
+  reservations:
+    image: reservations
+    build:
+      context: ./
+      dockerfile: CondoGenius-Reservations-API/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:7006
+    ports:
+      - "7006:7006"
 
   residents:
     build:
@@ -138,42 +138,42 @@ services:
     depends_on:
       - mysql
 
-  # condogenius_web:
-  #   image: web
-  #   build:
-  #     context: ./CondoGenius-WEB
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - ./CondoGenius-WEB:/app
+  condogenius_web:
+    image: web
+    build:
+      context: ./CondoGenius-WEB
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./CondoGenius-WEB:/app
 
-  # rabbitmq:
-  #   image: rabbitmq:3-management
-  #   ports:
-  #     - "15672:15672"
-  #     - "5672:5672"
-  #   expose:
-  #     - "5672"
-  #     - "15672"
-  #   healthcheck:
-  #     test: rabbitmq-diagnostics -q ping
-  #     interval: 50s
-  #     timeout: 30s
-  #     retries: 3
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    expose:
+      - "5672"
+      - "15672"
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 50s
+      timeout: 30s
+      retries: 3
 
-  # send-notifications:
-  #   image: send-notifications
-  #   build:
-  #     context: ./
-  #     dockerfile: CondoGenius-SendNotifications/Dockerfile
-  #   ports:
-  #     - "9000:9000"
-  #   environment:
-  #     - "TZ=America/Sao_Paulo"
-  #   depends_on:
-  #     rabbitmq:
-  #       condition: service_healthy
+  send-notifications:
+    image: send-notifications
+    build:
+      context: ./
+      dockerfile: CondoGenius-SendNotifications/Dockerfile
+    ports:
+      - "9000:9000"
+    environment:
+      - "TZ=America/Sao_Paulo"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
 
 networks:
   db_network:
