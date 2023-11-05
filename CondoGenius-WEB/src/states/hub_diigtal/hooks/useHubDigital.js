@@ -108,11 +108,10 @@ const useHubDigital = () => {
 
     const voteSurvey = async (values) => {
         setLoadingHubDigital(true);
-        console.log(values)
         const vote = {
-            user_id: values.userId,
-            survey_id: values.surveyId,
-            pull_option_id: values.option,
+            user_id: values.values.userId,
+            survey_id: values.values.surveyId,
+            poll_option_id: values.values.option,
         };
 
         const response = await HubDigitalService().voteSurvey(vote);

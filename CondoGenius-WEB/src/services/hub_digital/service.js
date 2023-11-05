@@ -76,12 +76,14 @@ const HubDigitalService = () => {
     const voteSurvey = (vote) => {
         return axios.post(`http://localhost:5000/gateway/hub_digital/api/vote`, vote, {
             headers: {
-                'x-access-token': `${token}`,
+                ContentType: 'application/json',
+                'x-access-token': token
             },
-          })
-          .then(res => res)
-          .catch(err => err);
+        })
+        .then(res => res)
+        .catch(err => err);
     };
+    
 
     const deletePublication = (id) => {
         return axios.delete(`http://localhost:5000/gateway/hub_digital/api/post/${id}`, 
