@@ -15,7 +15,7 @@ module.exports = app => {
   router.put("/pin/:id", postsController.pinPost);
 
   router.post("/comment/", commentsController.createComment);
-  router.get("/comment/", commentsController.listComments);
+  router.get("/comment/:post_id", commentsController.listComments);
   router.get("/comment/:id", commentsController.getComment);
   router.delete("/comment/:id", commentsController.deleteComment);
 
