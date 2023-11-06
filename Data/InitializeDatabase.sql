@@ -405,5 +405,5 @@ VALUES (2, 2, 'Música até tarde muito alta no vizinho.', 2, 'notified', '2023-
 
 INSERT INTO `genius`.`complaints` (`id`, `resident_id`, `description`, `residence_to_complaint_id`, `status`,
                                    `created_at`, `updated_at`)
-VALUES (3, 3, 'Barulho alto vindo do apartamento ao lado.', 3, 'disapproved ', '2023-10-25 18:10:00',
+VALUES (3, 3, 'Barulho alto vindo do apartamento ao lado.', 3, 'disapproved', '2023-10-25 18:10:00',
         '0000-00-00 00:00:00');
