@@ -206,6 +206,7 @@ CREATE TABLE IF NOT EXISTS poll_options
     poll_id             INTEGER       NOT NULL,
     title               NVARCHAR(255) NOT NULL,
     percentage_of_votes INTEGER,
+    quantity_of_votes   INTEGER,
     created_at          DATETIME      NOT NULL,
     updated_at          DATETIME      NOT NULL,
     FOREIGN KEY (poll_id) REFERENCES polls (id)

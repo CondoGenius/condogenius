@@ -86,9 +86,10 @@ const CardPublication = ({publication}) => {
         getPublicationsByUserId(user.id);
     };
 
-    const submitDeleteComment = async (e) => {
+    const submitDeleteComment = async (e, comment_id) => {
         e.preventDefault();
-        const response = await deleteComment(publication.id);
+
+        const response = await deleteComment(comment_id);
 
         if (response.status === 200) {
             toast.success("Comentário removido com sucesso.");
@@ -184,7 +185,7 @@ const CardPublication = ({publication}) => {
                     <div className="delete_icon">
                         {coment.user_id === user.id && 
                         <Tooltip message={"Remover comentário"}>
-                            <ImBin className="bin_icon" onClick={(e) => submitDeleteComment(e)}/>
+                            <ImBin className="bin_icon" onClick={(e) => submitDeleteComment(e, coment.id)}/>
                         </Tooltip>
                         }
                     </div>

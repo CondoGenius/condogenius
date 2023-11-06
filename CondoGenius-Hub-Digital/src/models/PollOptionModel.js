@@ -6,6 +6,9 @@ module.exports = (sequelize, Sequelize) => {
     percentage_of_votes: {
       type: Sequelize.INTEGER
     },
+    quantity_of_votes: {
+      type: Sequelize.INTEGER
+    },
     title: {
       type: Sequelize.STRING
     },

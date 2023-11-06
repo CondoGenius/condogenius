@@ -69,4 +69,10 @@ db.comments.belongsTo(db.posts, {
   as: "post",
 });
 
+db.poll_options.hasMany(db.poll_votes, {  foreignKey: 'poll_option_id', as: "votes" });
+db.poll_votes.belongsTo(db.poll_options, {
+  foreignKey: "poll_option_id",
+  as: "poll_option",
+});
+
 module.exports = db;

@@ -20,7 +20,10 @@ db.sequelize.sync()
   });
 
 app.use(cors());
+
 app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   authMiddleware(req, res, next)
