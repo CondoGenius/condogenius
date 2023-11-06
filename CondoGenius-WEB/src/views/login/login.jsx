@@ -78,7 +78,7 @@ const Login = () => {
     const [isSubmit, setIsSubmit] = useState(false);
     const { loadingUser, authUserLogin } = useUser();
     const { loadingResidents, getResidentByUserId } = useResidents();
-    const [messageSubmitLogin, setMessageSubmitLogin] = useState(null);
+    const [ messageSubmitLogin, setMessageSubmitLogin ] = useState(null);
     
     return (
         <div className='background_content'>

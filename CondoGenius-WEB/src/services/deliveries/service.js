@@ -40,7 +40,7 @@ const DeliveriesService = () => {
     };
 
     const updateDelivery = async (id) => {
-        return axios.put(`http://localhost:5000/gateway/api/deliveries/${id}`, {
+        return axios.put(`http://localhost:5000/gateway/api/deliveries/${id}`, id,  {
             headers: {
                 'x-access-token': `${token}`,
             },

@@ -109,6 +109,10 @@
     .survey_content {
         width: 100%;
 
+        .survey_question_content {
+            padding-bottom: 5px;
+        }
+
         .options_content {
             width: 100%;
 
@@ -126,7 +130,7 @@
             .progress-bar {
                 width: 0;
                 height: 30px;
-                background-color: #4caf50;
+                background-color: #4caf50 !important;
                 text-align: center;
                 line-height: 30px;
                 color: white;

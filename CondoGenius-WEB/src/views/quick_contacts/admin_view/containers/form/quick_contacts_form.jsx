@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
-import { toast } from 'materialize-css';
 import React, { useState } from 'react';
 import { Button } from 'react-materialize';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import ErrorField from '../../../../../components/utils/errorField';
 import useQuickContacts from '../../../../../states/quick_contacts/hooks/useQuickContacts';
@@ -14,14 +14,14 @@ const FormResidentSchema = Yup.object().shape({
 });
 
 const onSubmit = async (values, createQuickContact, getQuickContacts) => {
-
     const response = await createQuickContact(values);
 
     if (response.status === 201 || response.status === 200) {
         document.getElementById('reset_form_quick_contact').click();
         toast.success("Contato cadastrado com sucesso");
-        getQuickContacts();
     }
+    
+    getQuickContacts();
 };
 
 const renderFieldName = (handleChange, handleBlur, values) => (
@@ -38,28 +38,34 @@ const renderFieldName = (handleChange, handleBlur, values) => (
 const renderFieldType = (handleChange, handleBlur, values) => (
     <select
         className="browser-default"
-        name="residenceId"
+        name="type"
         onChange={handleChange}
         onBlur={handleBlur}
-        value={values.residenceId}
+        value={values.type}
     >
-        <option value="" disabled hidden>Selecione a residência</option>
-        <option value="academia">Academia</option>
-        <option value="comida">Comida</option>
-       
+        <option value="" disabled hidden>Selecione o tipo</option>
+        <option value="mercados">Mercados</option>
+        <option value="emergencia">Emergênciais</option>
+        <option value="hospitais">Hospitais</option>
+        <option value="gas">Gás</option>
+        <option value="academia">Academias</option>
+        <option value="Deliveries">Academias</option>
+        <option value="outros">Outros</option>
     </select>
 );
 
 const renderFieldContact = (handleChange, handleBlur, values) => (
-    <input 
-        id="contact"
-        type="text" 
-        placeholder="Digite o contato com DDD"
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={PhoneMask(values.contact)}
-        maxLength={15}
-    />
+    <div class="input-field">
+        <input 
+            id="contact"
+            type="text" 
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={PhoneMask(values.contact)}
+            maxLength={15}
+        />
+        <label for="contact" class="active">Contato</label>
+    </div>
 );
 
 const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => (

@@ -24,8 +24,9 @@ const onSubmit = async (values, createPublication, getPublications, resetForm) =
     if (response.status === 201) {
         toast.success("Publicação realizada com sucesso.");
         resetForm();
-        getPublications();
     }
+
+    getPublications();
 }
 
 const FormPublication = () => {
@@ -51,11 +52,8 @@ const FormPublication = () => {
                     > 
                     {({
                         handleChange,
-                        handleBlur,
                         values,
                         handleSubmit,
-                        handleReset,
-                        isValid,
                         errors
                     }) => (
                         <>

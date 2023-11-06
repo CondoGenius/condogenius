@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import Loading from "../../../components/loading/loading";
 import useQuickContacts from '../../../states/quick_contacts/hooks/useQuickContacts';
 import QuickContactsActions from '../containers/actions/actions_quick_contacts';
-
+import QuickContactslist from '../containers/list/list_quick_contacts';
 
 const QuickContactsAdminView = () => {
     const quickContacts = useSelector((state) => state.quickContacts);
@@ -36,6 +36,8 @@ const QuickContactsAdminView = () => {
             </div>
 
            <QuickContactsActions filters={filters} setFilters={setFilters} />
+
+           <QuickContactslist />
            
         </div>
     );
