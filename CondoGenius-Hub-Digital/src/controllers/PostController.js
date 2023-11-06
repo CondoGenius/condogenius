@@ -144,9 +144,9 @@ exports.listPosts = async (req, res) => {
 
       const formattedComments = []
 
-      post.comments.forEach(comment => {
+      post?.comments?.forEach(comment => {
         let formattedComment = {
-          id: comment.id,
+          id: comment?.id,
           user_id: comment.user_id,
           post_id: comment.post_id,
           content: comment.content,
@@ -172,23 +172,23 @@ exports.listPosts = async (req, res) => {
 
       const poll = post.poll;
 
-      const formattedOptions = poll.options.map(option => {
+      const formattedOptions = poll?.options?.map(option => {
         const formattedVotes = option.votes.map(vote => {
           return vote.user_id;
         });
 
         return {
-          id: option.id,
+          id: option?.id,
           title: option.title,
-          percentage_of_votes: option.percentage_of_votes,
-          quantity_of_votes: option.quantity_of_votes,
+          percentage_of_votes: option?.percentage_of_votes,
+          quantity_of_votes: option?.quantity_of_votes,
           votes: formattedVotes
         };
       });
 
       const formattedPoll =  {
-        id: poll.id,
-        content: poll.content,
+        id: poll?.id,
+        content: poll?.content,
         options: formattedOptions
       };
 
