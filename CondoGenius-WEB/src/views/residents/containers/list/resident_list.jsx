@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { MdEdit, MdRemoveCircleOutline } from 'react-icons/md';
 import { Button, Collection, CollectionItem } from 'react-materialize';
 import { useSelector } from 'react-redux';
+import { toast } from "react-toastify";
 import Loading from "../../../../components/loading/loading";
 import ModalContent from "../../../../components/modal/modal_content";
 import Tooltip from "../../../../components/tooltip/tooltip";
@@ -29,8 +30,9 @@ const ResidentList = ({ filters }) => {
     const deleteResidentSubmit = async (id) => {
         const response = await deleteResident(id);
         if(response.status === 200) {
-            getResidents();
+            toast.success("Morador removido com sucesso.")
         }
+        getResidents();
     };
 
     return (

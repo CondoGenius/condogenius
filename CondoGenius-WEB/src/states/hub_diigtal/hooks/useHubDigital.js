@@ -57,7 +57,7 @@ const useHubDigital = () => {
 
     const createSurvey = async (values) => {
         setLoadingHubDigital(true);
-        console.log(values  )
+
         const survey = {
             user_id: values.userId,
             content: values.description,
@@ -93,10 +93,10 @@ const useHubDigital = () => {
         return response;
     };
 
-    const updatePublication = async (postId) => {
+    const fixPublication = async (postId) => {
         setLoadingHubDigital(true);
 
-        const response = await HubDigitalService().updatePublication(postId);
+        const response = await HubDigitalService().fixPublication(postId);
 
         if (response?.status !== 200) {
             dispatch(setPublicationsActions({ error: "Erro ao fixar post." }));
@@ -108,11 +108,11 @@ const useHubDigital = () => {
 
     const voteSurvey = async (values) => {
         setLoadingHubDigital(true);
-        console.log(values)
+
         const vote = {
             user_id: values.userId,
             survey_id: values.surveyId,
-            pull_option_id: values.option,
+            poll_option_id: values.option,
         };
 
         const response = await HubDigitalService().voteSurvey(vote);
@@ -159,7 +159,7 @@ const useHubDigital = () => {
         createPublication,
         createSurvey,
         createComment,
-        updatePublication,
+        fixPublication,
         voteSurvey,
         deletePublication,
         deleteComment

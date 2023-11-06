@@ -1,14 +1,27 @@
 import { useEffect } from 'react';
-import { Collection, CollectionItem } from 'react-materialize';
+import { MdRemoveCircleOutline } from 'react-icons/md';
+import { Button, Collection, CollectionItem } from 'react-materialize';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import ModalContent from '../../../../components/modal/modal_content';
+import Tooltip from '../../../../components/tooltip/tooltip';
 import useQuickContacts from '../../../../states/quick_contacts/hooks/useQuickContacts';
 import { FormatPhone } from '../../../../utils/utils';
 
 
 const QuickContactslist = () => {
+    const user = useSelector((state) => state.user.data);
     const quickContacts = useSelector((state) => state.quickContacts.list);
 
-    const { getQuickContacts } = useQuickContacts();
+    const { getQuickContacts, deleteQuickContact } = useQuickContacts();
+
+    const onSubmitDeleteQuickContact = async (id) => {
+        const response = await deleteQuickContact(id);
+        if(response.status === 200) {
+            toast.success("Contato removido com sucesso.")
+        }
+        getQuickContacts();
+    };
 
     useEffect(() => {
         getQuickContacts();
@@ -20,6 +33,7 @@ const QuickContactslist = () => {
             <CollectionItem key="header" className='list_header'>
                 <span>Nome</span>
                 <span>Telefone</span>
+                <span />
             </CollectionItem>
             {quickContacts?.length > 0 ? (
                 quickContacts?.map(contact => (
@@ -30,6 +44,26 @@ const QuickContactslist = () => {
                         <span>
                         {FormatPhone(contact.phone)}
                         </span>
+                        {user.isAdmin &&
+                            <span>
+                                <Tooltip message={"Excluir"}>
+                                    <ModalContent 
+                                        header="Excluir contato"
+                                        trigger={<MdRemoveCircleOutline />}
+                                        children={
+                                        <div>
+                                            <div>Tem certeza que deseja remover o contato de {contact.name}?</div>
+                                            <div className="modal_actions_button_content">
+                                                <Button modal="close" node="button" className="red_button" onClick={() => onSubmitDeleteQuickContact(contact.id)}>
+                                                Confirmar
+                                                </Button>
+                                            </div>
+                                        </div>
+                                        }
+                                    />
+                                </Tooltip>
+                            </span>
+                        }
                     </CollectionItem>
                 ))
             ) : (

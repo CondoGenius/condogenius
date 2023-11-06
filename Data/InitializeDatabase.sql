@@ -406,5 +406,3 @@ INSERT INTO `genius`.`complaints` (`id`, `resident_id`, `description`, `residenc
                                    `created_at`, `updated_at`)
 VALUES (3, 3, 'Barulho alto vindo do apartamento ao lado.', 3, 'disapproved ', '2023-10-25 18:10:00',
         '0000-00-00 00:00:00');
-
-

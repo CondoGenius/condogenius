@@ -209,7 +209,7 @@ const Profile = () => {
                 </div>
                 <div className='profile_content'>
                     <div className="image_content">
-                        <img src={person}/>
+                        <img src={person} alt="person_icon"/>
                         <div className='contacts_content'>
                             <span>Contatos úteis</span>
                             <div className="itens_contact_content">

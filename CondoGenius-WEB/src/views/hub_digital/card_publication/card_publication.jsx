@@ -19,7 +19,7 @@ const CommentSchema = Yup.object().shape({
 });
 
 const renderSurvey = (survey, userId, voteSurvey, getPublications) => {
-
+    
     const setPorcent = (value, optionId) => {
         const progressBar = document.getElementById(`progress-bar-${optionId}`);
         if (progressBar) {
@@ -28,7 +28,7 @@ const renderSurvey = (survey, userId, voteSurvey, getPublications) => {
     };
 
     const submitVote = async (option) => {
-        const response = await voteSurvey({values: {userId, surveyId: survey.id, option}});
+        const response = await voteSurvey({userId, surveyId: survey.id, option});
 
         if (response?.status === 201) {
             toast.success("Voto recebido com sucesso.");
@@ -39,7 +39,7 @@ const renderSurvey = (survey, userId, voteSurvey, getPublications) => {
     return (
       <div className='survey_content'>
         <div className="survey_question_content">
-            {survey.description}
+            {survey.content}
         </div>
         <div className='options_content'>
             {survey.options.map(option => (
@@ -49,7 +49,7 @@ const renderSurvey = (survey, userId, voteSurvey, getPublications) => {
                         <div class="progress-bar" id={`progress-bar-${option.id}`} />
                         <div class="percentage" id="percentage"/>
                     </div>
-                    {setPorcent(50, option.id)}
+                    {setPorcent(option.percentage_of_votes, option.id)}
                 </div>
             ))}
         </div>
@@ -61,16 +61,18 @@ const CardPublication = ({publication}) => {
     const isAdmin = useSelector((state => state.user.data.isAdmin));
     const user = useSelector((state => state.user.data));
 
-    const { getPublications, createComment, updatePublication, voteSurvey, deletePublication, deleteComment } = useHubDigital();
+    const { getPublications, getPublicationsByUserId, createComment, fixPublication, voteSurvey, deletePublication, deleteComment } = useHubDigital();
 
     const submitFixedPost = async (e) => {
         e.preventDefault();
-        const response = await updatePublication(publication.id);
+        const response = await fixPublication(publication.id);
 
         if (response.status === 200) {
-            toast.success("Fixação alterada com sucesso");
+            toast.success(response.data.message);
         }
+        
         getPublications();
+        getPublicationsByUserId(user.id);
     };
 
     const submitDeletePost = async (e) => {
@@ -81,6 +83,7 @@ const CardPublication = ({publication}) => {
             toast.success("Publicação removida com sucesso.");
         }
         getPublications();
+        getPublicationsByUserId(user.id);
     };
 
     const submitDeleteComment = async (e) => {
@@ -91,6 +94,7 @@ const CardPublication = ({publication}) => {
             toast.success("Comentário removido com sucesso.");
         }
         getPublications();
+        getPublicationsByUserId(user.id);
     };
 
     return (
@@ -106,7 +110,7 @@ const CardPublication = ({publication}) => {
                 <div className="fixed_info">
                     {publication.fixed && <AiFillPushpin className="pin_icon" onClick={(e) => isAdmin && submitFixedPost(e)}/>}
                     {!publication.fixed && isAdmin && 
-                        <Tooltip message={"Fixar publicação"}>
+                        <Tooltip message="Fixar publicação">
                             <AiOutlinePushpin className="pin_icon" onClick={(e) => submitFixedPost(e)}/>
                         </Tooltip>
                     }
@@ -137,8 +141,8 @@ const CardPublication = ({publication}) => {
                     if (response?.status === 201) {
                         toast.success("Comentário publicado com sucesso.");
                         resetForm();
-                        getPublications();
                     }
+                    getPublications();
                 }}
             > 
             {({

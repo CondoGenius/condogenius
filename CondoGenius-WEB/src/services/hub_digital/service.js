@@ -61,8 +61,8 @@ const HubDigitalService = () => {
           .catch(err => err);
     };
 
-    const updatePublication = (postId) => {
-        return axios.put(`http://localhost:5000/gateway/hub_digital/api/pin/${postId}`, {
+    const fixPublication = (postId) => {
+        return axios.put(`http://localhost:5000/gateway/hub_digital/api/pin/${postId}`, postId, {
             headers: {
                 'x-access-token': `${token}`,
             },
@@ -111,7 +111,7 @@ const HubDigitalService = () => {
         createPublication,
         createSurvey,
         createComment,
-        updatePublication,
+        fixPublication,
         voteSurvey,
         deletePublication,
         deleteComment
