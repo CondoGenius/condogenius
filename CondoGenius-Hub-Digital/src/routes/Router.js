@@ -16,7 +16,7 @@ module.exports = app => {
 
   router.post("/comment/", commentsController.createComment);
   router.get("/comment/:post_id", commentsController.listComments);
-  router.get("/comment/:id", commentsController.getComment);
+  router.get("/comment/id/:id", commentsController.getComment);
   router.delete("/comment/:id", commentsController.deleteComment);
 
   router.post("/poll/", pollController.createPoll);
