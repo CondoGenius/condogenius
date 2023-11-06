@@ -257,6 +257,7 @@ CREATE TABLE IF NOT EXISTS fast_list
     phone      NVARCHAR(255) NOT NULL,
     user_id    INTEGER       NOT NULL,
     status     BOOLEAN       NOT NULL,
+    type       NVARCHAR(255) NOT NULL,
     created_at DATETIME      NOT NULL,
     updated_at DATETIME      NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id)
