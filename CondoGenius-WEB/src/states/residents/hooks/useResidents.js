@@ -16,6 +16,7 @@ const useResidents = () => {
 
         if (response?.status === 200) {
             dispatch(setResidentAction({ data: response.data }));
+            localStorage.setItem("resident", JSON.stringify({...response.data, isLogged: false}));
         } else {
             dispatch(setResidentAction({ error: "CPF não identificado na nossa base de dados. Procure um administrador"}));
         }

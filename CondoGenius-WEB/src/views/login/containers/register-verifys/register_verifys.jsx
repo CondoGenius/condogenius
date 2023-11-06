@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import logo from '../../../../assets/condogenius.png';
 import ErrorField from '../../../../components/utils/errorField';
 import useResidents from '../../../../states/residents/hooks/useResidents';
+import { CpfMask } from '../../../../utils/utils';
 
 import './register_verifys.scss';
 
@@ -33,7 +34,8 @@ const renderFieldDocument = (handleChange, handleBlur, values, setMessageSubmitL
             setMessageSubmitLogin("");
         }}
         onBlur={handleBlur}
-        value={values.document} 
+        value={CpfMask(values.document)} 
+        maxLength={14}
     />
 );
 
