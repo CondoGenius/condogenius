@@ -36,6 +36,7 @@ exports.createPoll = async (req, res) => {
         poll_id: poll.id,
         title: option,
         percentage_of_votes: 0, // Inicializa a porcentagem de votos como 0
+        quantity_of_votes: 0, // Inicializa a quantidade de votos como 0
         created_at: new Date(),
         updated_at: new Date()
       });
@@ -131,6 +132,7 @@ exports.addPollOption = async (req, res) => {
       poll_id,
       title,
       percentage_of_votes: 0,
+      quantity_of_votes: 0,
       created_at: new Date(),
       updated_at: new Date()
     });
@@ -237,7 +239,7 @@ exports.votePoll = async (req, res) => {
 
       // Atualize a porcentagem no banco de dados
       await PollOption.update(
-        { percentage_of_votes: votePercentage },
+        { percentage_of_votes: votePercentage, quantity_of_votes: votesForOption, updated_at: new Date() },
         { where: { id: option.id }, transaction: t }
       );
     }
