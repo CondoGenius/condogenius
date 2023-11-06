@@ -296,7 +296,7 @@ INSERT INTO fast_lists(name, phone, created_at, updated_at)
 VALUES ('Maria', '+55 11 1234-5678',  NOW(), NOW());
 
 INSERT INTO fast_lists(name, phone, created_at, updated_at)
-VALUES ('Emergencia', '190', NOW(), NOW());
+VALUES ('Emergência', '190', NOW(), NOW());
 
 INSERT INTO fast_lists(name, phone, created_at, updated_at)
 VALUES ('Bombeiros', '193', NOW(), NOW());
