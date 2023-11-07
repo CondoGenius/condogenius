@@ -37,7 +37,9 @@ const HubDigital = () => {
                     Minhas publicações <MdArrowForward />
                 </NavLink>
             </div>
+            
             <FormPublication />
+
             {hubDigital?.publications?.length > 0 ? (
                 hubDigital?.publications.map(publication => (
                     <CardPublication publication={publication} />
