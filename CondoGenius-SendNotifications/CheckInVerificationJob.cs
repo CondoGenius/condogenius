@@ -32,7 +32,7 @@ public class CheckInVerificationJob
         {
             foreach (var checkin in checkins)
             {
-                if (checkin?.CreatedAt.AddMinutes(10) <= DateTime.Now)
+                if (checkin?.CreatedAt.AddMinutes(10) <= DateTime.UtcNow.AddHours(-3))
                 {
                     await _handler.UndoCheckIn(checkin.ResidentId);
 
