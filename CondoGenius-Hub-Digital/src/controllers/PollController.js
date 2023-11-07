@@ -161,40 +161,40 @@ exports.removePollOption = async (req, res) => {
 };
 
 exports.votePoll = async (req, res) => {
+  const {
+    survey_id,
+    poll_option_id,
+    user_id
+  } = req.body;
+
+  var poll_option = await PollOption.findOne({
+    where: {
+      poll_id: survey_id,
+      id: poll_option_id
+    }
+  });
+
+  if (!poll_option) {
+    return res.status(404).json({ message: 'Opção de enquete não encontrada' });
+  }
+
+  // Verificar se o residente já votou nesta opção
+  const existingVote = await PollVote.findOne({
+    where: {
+      poll_option_id: poll_option_id,
+      user_id: user_id
+    }
+  });
+
+  if (existingVote) {
+    return res.status(400).json({ message: 'Este residente já votou nesta enquete' });
+  }
+  
   const t = await db.sequelize.transaction(); // Inicia uma transação Sequelize
 
   try {
-    const {
-      survey_id,
-      poll_option_id,
-      user_id
-    } = req.body;
-
-    var poll_option = await PollOption.findOne({
-      where: {
-        poll_id: survey_id,
-        id: poll_option_id
-      }
-    });
-
-    if (!poll_option) {
-      return res.status(404).json({ message: 'Opção de enquete não encontrada' });
-    }
-
-    // Verificar se o residente já votou nesta opção
-    const existingVote = await PollVote.findOne({
-      where: {
-        poll_option_id: poll_option_id,
-        user_id: user_id
-      }
-    });
-
-    if (existingVote) {
-      return res.status(400).json({ message: 'Este residente já votou nesta enquete' });
-    }
-
      // Verificar se o residente já votou em outras opções desta enquete
-     const otherVotes = await PollVote.findOne({
+    const otherVotes = await PollVote.findOne({
       where: {
         user_id: user_id,
         poll_id: survey_id
@@ -227,20 +227,29 @@ exports.votePoll = async (req, res) => {
       }
     });
 
-    for (const option of pollOptions) {
-      const votesForOption = await PollVote.count({
-        where: {
-          poll_option_id: option.id
-        }
-      });
+    const voteCounts = await PollVote.findAll({
+      attributes: ['poll_option_id', [db.sequelize.fn('COUNT', db.sequelize.col('poll_option_id')), 'vote_count']],
+      where: {
+        poll_id: survey_id
+      },
+      group: ['poll_option_id']
+    });
+
+     // Atualize as porcentagens de votos na tabela PollOption
+    for (const voteCount of voteCounts) {
+      const { poll_option_id, vote_count } = voteCount.dataValues;
+      const totalVotes = vote_count;
 
       // Calcule a porcentagem para esta opção da enquete
-      const votePercentage = (votesForOption / totalVotesAllOptions) * 100;
+      const votePercentage = (totalVotes / totalVotesAllOptions) * 100;
 
       // Atualize a porcentagem no banco de dados
       await PollOption.update(
-        { percentage_of_votes: votePercentage, quantity_of_votes: votesForOption, updated_at: new Date() },
-        { where: { id: option.id }, transaction: t }
+        { percentage_of_votes: votePercentage, quantity_of_votes: totalVotes, updated_at: new Date() },
+        {
+          where: { id: poll_option_id },
+          transaction: t
+        }
       );
     }
 
