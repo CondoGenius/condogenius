@@ -33,7 +33,7 @@ const QuickContactslist = () => {
             <CollectionItem key="header" className='list_header'>
                 <span>Nome</span>
                 <span>Telefone</span>
-                <span />
+                {user.isAdmin && <span />}
             </CollectionItem>
             {quickContacts?.length > 0 ? (
                 quickContacts?.map(contact => (
