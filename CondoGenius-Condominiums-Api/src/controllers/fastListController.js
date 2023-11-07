@@ -3,11 +3,12 @@ const FastList = db.fast_lists;
 
 exports.createFastList = async (req, res) => {
   try {
-    const { name, phone } = req.body;
+    const { name, phone, type } = req.body;
 
     const fastList = await FastList.create({
       name,
-      phone
+      phone,
+      type
     });
 
     res.status(201).send(fastList);
@@ -18,7 +19,17 @@ exports.createFastList = async (req, res) => {
 
 exports.getFastList = async (req, res) => {
   try {
-    const fastList = await FastList.findAll();
+    const { name, phone, type } = req.query;
+
+    const whereClause = {
+      ...(name && { name }),
+      ...(phone && { phone }),
+      ...(type && { type }),
+    };
+
+    const fastList = await FastList.findAll({
+      where: whereClause,
+    });
 
     res.status(200).send(fastList);
   } catch (error) {

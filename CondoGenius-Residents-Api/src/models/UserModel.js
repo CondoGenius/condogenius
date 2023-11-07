@@ -23,11 +23,6 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-    condominium_id: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      field: 'condominium_id'
-    },
     createdAt: {
       type: Sequelize.DATE,
       field: 'created_at' 
