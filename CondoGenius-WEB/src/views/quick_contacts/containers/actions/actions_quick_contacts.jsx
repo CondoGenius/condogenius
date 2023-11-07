@@ -42,10 +42,10 @@ const renderFieldFilterByName = (handleChange, handleBlur, values) => (
 const renderFieldFilterByType = (handleChange, handleBlur, values) => (
     <select
         className="browser-default"
-        name="residenceId"
+        name="type"
         onChange={handleChange}
         onBlur={handleBlur}
-        value={values.residenceId}
+        value={values.type}
     >
         <option value="" disabled hidden>Selecione o tipo</option>
         <option value="mercados">Mercados</option>

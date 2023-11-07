@@ -19,13 +19,6 @@ const CommentSchema = Yup.object().shape({
 });
 
 const renderSurvey = (survey, userId, voteSurvey, getPublications) => {
-    
-    const setPorcent = (value, optionId) => {
-        const progressBar = document.getElementById(`progress-bar-${optionId}`);
-        if (progressBar) {
-            progressBar.style.width = value + '%';
-        }
-    };
 
     const submitVote = async (option) => {
         const response = await voteSurvey({userId, surveyId: survey.id, option});
@@ -46,10 +39,9 @@ const renderSurvey = (survey, userId, voteSurvey, getPublications) => {
                 <div onClick={() => submitVote(option.id)} className="option_content">
                     <span>{option.title}</span>
                     <div class="progress-container">
-                        <div class="progress-bar" id={`progress-bar-${option.id}`} />
+                        <div class="progress-bar" id={`progress-bar-${option.id}`} style={{ width: `${option.percentage_of_votes}%` }}/>
                         <div class="percentage" id="percentage"/>
                     </div>
-                    {setPorcent(option.percentage_of_votes, option.id)}
                 </div>
             ))}
         </div>
@@ -126,7 +118,7 @@ const CardPublication = ({publication}) => {
             </div>
         </div>
         <div className="publication_info">
-            {publication.poll ? renderSurvey(publication.poll, user.id, voteSurvey, getPublications) : publication.content}
+            {Object.keys(publication.poll).length ? renderSurvey(publication.poll, user.id, voteSurvey, getPublications) : publication.content}
         </div>
         <div className="action_comment">
             <Formik        
