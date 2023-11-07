@@ -17,9 +17,10 @@ const onSubmit = async (values, createDelivery, getDeliveries, resetForm) => {
     const response = await createDelivery(values);
 
     if (response.status === 201) {
-        getDeliveries();
         resetForm();
     }
+    
+    getDeliveries();
 };
 
 const renderFieldResidenceNumber = (handleChange, handleBlur, values, residences) => (

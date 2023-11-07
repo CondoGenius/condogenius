@@ -19,8 +19,9 @@ const onSubmit = async (values, createComplaint, getComplaintsByResindentId, res
   if (response?.status === 201) {
     document.getElementById('reset_form_complaint').click();
     toast.success("Reclamação enviada com sucesso.");
-    getComplaintsByResindentId(resident.id);
   }
+  
+  getComplaintsByResindentId(resident.id);
 }
 
 const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => (

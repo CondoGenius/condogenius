@@ -32,6 +32,7 @@ const ResidentList = ({ filters }) => {
         if(response.status === 200) {
             toast.success("Morador removido com sucesso.")
         }
+        
         getResidents();
     };
 

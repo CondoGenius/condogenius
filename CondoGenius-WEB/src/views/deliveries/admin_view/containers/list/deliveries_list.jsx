@@ -14,8 +14,9 @@ const updateStatus = async (e, id, updateDelivery, getDeliveries) => {
 
     if(response?.status === 200) {
         toast.success("Entrega atualizada com sucesso");
-        getDeliveries();
     }
+    
+    getDeliveries();
 };
 
 const DelivriesList = () => {

@@ -24,8 +24,9 @@ const onSubmit = async (values, updateGuestList, getReservationsByResidentId, re
     if (response?.status === 201) {
         document.getElementById('reset_form_guest').click();
         toast.success("Convidado adicionado com sucesso.");
-        getReservationsByResidentId(residentId);
     }
+    
+    getReservationsByResidentId(residentId);
 };
 
 const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit, values) => (
@@ -64,8 +65,9 @@ const GuestForm = ({ guestList, reservationId }) => {
 
         if (response?.status === 200) {
             toast.success("Convidado removido.");
-            getReservationsByResidentId(resident.data.id);
         }
+        
+        getReservationsByResidentId(resident.data.id);
     };
 
     useEffect(() => {

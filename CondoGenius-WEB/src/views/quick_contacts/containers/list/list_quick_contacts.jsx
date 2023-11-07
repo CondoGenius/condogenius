@@ -17,9 +17,11 @@ const QuickContactslist = () => {
 
     const onSubmitDeleteQuickContact = async (id) => {
         const response = await deleteQuickContact(id);
+        
         if(response.status === 200) {
             toast.success("Contato removido com sucesso.")
         }
+
         getQuickContacts();
     };
 

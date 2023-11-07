@@ -20,8 +20,9 @@ const renderComplaintMoreInfo = (complaint, updateComplaint, getComplaints) => {
 
         if (response?.status === 200) {
             toast.success("Status da reclamação atualizada com sucesso.");
-            getComplaints();
         }
+        
+        getComplaints();
     };
     
     return (

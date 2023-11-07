@@ -32,8 +32,9 @@ const ListReservations = () => {
     
         if(response?.status === 200) {
             toast.success("Reserva cancelada com sucesso.")
-            getReservationsByResidentId(resident.data.id);
         }
+        
+        getReservationsByResidentId(resident.data.id);
     };
 
     return (

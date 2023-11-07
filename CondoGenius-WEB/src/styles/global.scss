@@ -6,7 +6,7 @@
 }
 
 body {
-    font-family: 'Montserrat' !important;
+    font-family: 'Montserrat';
     height: 100vh;
 }
 
@@ -181,12 +181,25 @@ button {
 
         ul {
             li {
+                font-size: 16px/18px;
 
                 span {
                     svg {
                         font-size: 22px;
                     }
+
+                    > div {
+                        font-size: 16px/18px;
+                    }
                 }
+                
+                button {
+                    font-size: 16px/18px;
+                }
+            }
+
+            li:first-child {
+                font-size: 16px/18px;
             }
         }
     }

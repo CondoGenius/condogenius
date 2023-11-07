@@ -48,8 +48,7 @@ const renderFieldType = (handleChange, handleBlur, values) => (
         <option value="emergencia">Emergênciais</option>
         <option value="hospitais">Hospitais</option>
         <option value="gas">Gás</option>
-        <option value="academia">Academias</option>
-        <option value="Deliveries">Academias</option>
+        <option value="Deliveries">Deliveries</option>
         <option value="outros">Outros</option>
     </select>
 );

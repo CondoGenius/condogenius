@@ -26,6 +26,7 @@ const renderSurvey = (survey, userId, voteSurvey, getPublications) => {
         if (response?.status === 201) {
             toast.success("Voto recebido com sucesso.");
         }
+        
         getPublications();
     };
 
@@ -74,6 +75,7 @@ const CardPublication = ({publication}) => {
         if (response.status === 200) {
             toast.success("Publicação removida com sucesso.");
         }
+        
         getPublications();
         getPublicationsByUserId(user.id);
     };
@@ -86,6 +88,7 @@ const CardPublication = ({publication}) => {
         if (response.status === 200) {
             toast.success("Comentário removido com sucesso.");
         }
+        
         getPublications();
         getPublicationsByUserId(user.id);
     };
@@ -135,6 +138,7 @@ const CardPublication = ({publication}) => {
                         toast.success("Comentário publicado com sucesso.");
                         resetForm();
                     }
+                    
                     getPublications();
                 }}
             > 

@@ -30,8 +30,9 @@ const MeetingsAdminView = () => {
 
         if (response?.status === 200) {
             toast.success("Reunião cancelada com sucesso");
-            getMeetings();
         };
+        
+        getMeetings();
     }
     return (
         <div className='meetings_container'> 
