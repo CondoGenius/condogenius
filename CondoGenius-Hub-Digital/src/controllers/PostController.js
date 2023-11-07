@@ -248,7 +248,14 @@ exports.listPostsByUserId = async (req, res) => {
             {
               model: PollOption,
               as: 'options',
-              attributes: [ 'id','title', 'percentage_of_votes'],
+              attributes: ['id', 'title', 'percentage_of_votes', 'quantity_of_votes'],
+              include: [
+                {
+                  model: PollVote,
+                  as: 'votes',
+                  attributes: ['user_id']
+                }
+              ]
             }
           ]
 
@@ -298,7 +305,7 @@ exports.listPostsByUserId = async (req, res) => {
 
       const formattedComments = []
 
-      post.comments.forEach(comment => {
+      post?.comments?.forEach(comment => {
         let formattedComment = {
           id: comment.id,
           user_id: comment.user_id,
@@ -324,6 +331,28 @@ exports.listPostsByUserId = async (req, res) => {
         formattedComments.push(formattedComment);
       });
 
+      const poll = post.poll;
+
+      const formattedOptions = poll?.options?.map(option => {
+        const formattedVotes = option.votes.map(vote => {
+          return vote.user_id;
+        });
+
+        return {
+          id: option?.id,
+          title: option.title,
+          percentage_of_votes: option?.percentage_of_votes,
+          quantity_of_votes: option?.quantity_of_votes,
+          votes: formattedVotes
+        };
+      });
+
+      const formattedPoll =  {
+        id: poll?.id,
+        content: poll?.content,
+        options: formattedOptions
+      };
+
       return {
         id: post.id,
         user_id: post.user_id,
@@ -333,7 +362,7 @@ exports.listPostsByUserId = async (req, res) => {
         createdAt: post.createdAt,
         updatedAt: post.updatedAt,
         user: formattedUser,
-        poll: post.poll,
+        poll: formattedPoll,
         comments: formattedComments,
       };
     });
