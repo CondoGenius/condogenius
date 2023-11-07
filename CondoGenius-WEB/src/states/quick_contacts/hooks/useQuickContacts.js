@@ -8,10 +8,10 @@ const useQuickContacts = () => {
     const dispatch = useDispatch();
     const [loadingQuickContacts, setLoadingQuickContacts] = useState(false);
 
-    const getQuickContacts = async () => {
+    const getQuickContacts = async (filters) => {
         setLoadingQuickContacts(true);
 
-        const response = await QuickContactsService().getQuickContacts();
+        const response = await QuickContactsService().getQuickContacts(filters);
 
         if (response?.status === 200) {
             dispatch(setQuickContactsAction({ list: response.data }));
