@@ -47,6 +47,7 @@ const renderFieldFilterByType = (handleChange, handleBlur, values) => (
         onBlur={handleBlur}
         value={values.type}
     >
+        <option value="" disabled hidden>Selecione o tipo</option>
         <option value="mercados">Mercados</option>
         <option value="emergencia">Emergênciais</option>
         <option value="hospitais">Hospitais</option>
