@@ -49,15 +49,6 @@ CREATE TABLE IF NOT EXISTS administrators
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
-CREATE TABLE IF NOT EXISTS fast_lists
-(
-    id         INTEGER AUTO_INCREMENT PRIMARY KEY,
-    name       NVARCHAR(255) NOT NULL,
-    phone      NVARCHAR(255) NOT NULL,
-    created_at DATETIME      NOT NULL,
-    updated_at DATETIME      NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS residences
 (
     id         INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -250,7 +241,7 @@ CREATE TABLE IF NOT EXISTS notifications
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
-CREATE TABLE IF NOT EXISTS fast_list
+CREATE TABLE IF NOT EXISTS fast_lists
 (
     id         INTEGER AUTO_INCREMENT PRIMARY KEY,
     name       NVARCHAR(255) NOT NULL,
