@@ -124,7 +124,7 @@ const CardPublication = ({publication}) => {
             {Object.keys(publication.poll).length ? renderSurvey(publication.poll, user.id, voteSurvey, getPublications) : publication.content}
         </div>
         <div className="action_comment">
-            <Formik        
+            <Formik
                 initialValues={{
                     userId: user.id,
                     postId: publication.id,
@@ -132,7 +132,13 @@ const CardPublication = ({publication}) => {
                 }}
                 validationSchema={CommentSchema}
                 onSubmit={async (values, {resetForm}) =>{
-                    const response = await createComment(values);
+                    let comment = {
+                        userId: user.id,
+                        postId: publication.id,
+                        description: values.description
+                    }
+
+                    const response = await createComment(comment);
 
                     if (response?.status === 201) {
                         toast.success("Comentário publicado com sucesso.");
