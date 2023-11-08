@@ -158,7 +158,6 @@ CREATE TABLE IF NOT EXISTS posts
 (
     id          INTEGER AUTO_INCREMENT PRIMARY KEY,
     user_id INTEGER       NOT NULL,
-    title       NVARCHAR(255) NOT NULL,
     content     NVARCHAR(255) NOT NULL,
     fixed       BOOLEAN       NOT NULL,
     created_at  DATETIME      NOT NULL,

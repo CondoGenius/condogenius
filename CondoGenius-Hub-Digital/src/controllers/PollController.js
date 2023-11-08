@@ -14,7 +14,6 @@ exports.createPoll = async (req, res) => {
     } = req.body;
 
     const post = await Post.create({
-      title,
       content,
       user_id,
       fixed: false,

@@ -11,7 +11,6 @@ const PollVote = db.poll_votes;
 exports.createPost = async (req, res) => {
   try {
     const {
-      title,
       content,
       fixed,
       user_id
@@ -20,7 +19,6 @@ exports.createPost = async (req, res) => {
     let fixedValue = fixed ? fixed : false;
 
     const newPost = new Post({
-      title,
       user_id,
       content,
       fixed: fixedValue,
@@ -86,7 +84,7 @@ exports.listPosts = async (req, res) => {
             {
               model: PollOption,
               as: 'options',
-              attributes: ['id', 'title', 'percentage_of_votes', 'quantity_of_votes'],
+              attributes: ['id', 'percentage_of_votes', 'quantity_of_votes'],
               include: [
                 {
                   model: PollVote,
@@ -195,7 +193,6 @@ exports.listPosts = async (req, res) => {
       return {
         id: post.id,
         user_id: post.user_id,
-        title: post.title,
         content: post.content,
         fixed: post.fixed,
         createdAt: post.createdAt,
@@ -356,7 +353,6 @@ exports.listPostsByUserId = async (req, res) => {
       return {
         id: post.id,
         user_id: post.user_id,
-        title: post.title,
         content: post.content,
         fixed: post.fixed,
         createdAt: post.createdAt,
