@@ -9,6 +9,9 @@ COPY ["condogenius-firebaseadmin-key.json", "../condogenius-firebaseadmin-key.js
 COPY ["CondoGenius-Checks-Domain/", "../CondoGenius-Checks-Domain/"]
 COPY ["CondoGenius-Checks-Infra/", "../CondoGenius-Checks-Infra/"]
 COPY ["CondoGenius-Checks-API/SQLs", "./SQLs"]
+COPY ["CondoGenius-Reservations-Domain/", "../CondoGenius-Reservations-Domain/"]
+COPY ["CondoGenius-Reservations-Infra/", "../CondoGenius-Reservations-Infra/"]
+COPY ["CondoGenius-Reservations-API/SQLs", "./SQLs"]
 COPY ["Global.Shared/", "../Global.Shared/"]
 
 RUN dotnet restore CondoGenius-SendNotifications.csproj
