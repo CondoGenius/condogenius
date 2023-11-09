@@ -84,7 +84,7 @@ exports.listPosts = async (req, res) => {
             {
               model: PollOption,
               as: 'options',
-              attributes: ['id', 'percentage_of_votes', 'quantity_of_votes'],
+              attributes: ['id', 'title', 'percentage_of_votes', 'quantity_of_votes'],
               include: [
                 {
                   model: PollVote,
