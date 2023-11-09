@@ -10,13 +10,15 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: genius
       MYSQL_DATABASE: genius
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
 
   mysql-init:
     image: mysql:latest
     volumes:
       - ./Data/InitializeDatabase.sql:/Data/InitializeDatabase.sql
       - ./Data/InsertCommonArea.sql:/Data/InsertCommonArea.sql
-    command: bash -c "sleep 80 && mysql -h mysql -uroot -pgenius genius < Data/InitializeDatabase.sql && mysql -h mysql -uroot -pgenius genius < Data/InsertCommonArea.sql"
+    command: bash -c "sleep 80 && mysql -h mysql -uroot -pgenius genius --default-character-set=utf8mb4 < Data/InitializeDatabase.sql && mysql -h mysql -uroot -pgenius genius --default-character-set=utf8mb4 < Data/InsertCommonArea.sql"
     depends_on:
       - mysql
 

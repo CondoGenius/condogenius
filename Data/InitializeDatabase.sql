@@ -2,8 +2,9 @@
 -- e criar a tabela de usuários com os atributos: email, senha, is_active, e role_id
 
 -- use genius;
+CREATE DATABASE IF NOT EXISTS genius CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE genius;
 
-ALTER DATABASE genius DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 SET GLOBAL time_zone = 'America/Sao_Paulo';
 
 CREATE TABLE IF NOT EXISTS roles
