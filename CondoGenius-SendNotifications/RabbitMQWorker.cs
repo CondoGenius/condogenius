@@ -2,6 +2,8 @@ using System.Text;
 using CondoGenius_SendNotifications.Firebase.Interface;
 using CondoGenius_SendNotifications.Models;
 using FirebaseAdmin.Messaging;
+using Flurl.Http;
+using Global.Shared.Database;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -37,7 +39,20 @@ public class RabbitMQWorker : BackgroundService
 
             try
             {
-                await _firebase.SendNotification(message.Title, message.Body, message.DeviceToken);
+                if (message.DeviceToken == "all")
+                {
+                    var residentUrl = $"http://residents:7008/api/residents";
+                    var residents = await residentUrl.GetJsonAsync<List<Resident>>();
+
+                    foreach (var resident in residents)
+                    {
+                        await _firebase.SendNotification(message.Title, message.Body, resident.DeviceToken);
+                    }
+                }
+                else
+                {
+                    await _firebase.SendNotification(message.Title, message.Body, message.DeviceToken);
+                }
             }
             catch (FirebaseMessagingException e)
             {
