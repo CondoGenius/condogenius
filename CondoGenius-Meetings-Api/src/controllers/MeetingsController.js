@@ -4,6 +4,8 @@ const { Op, QueryTypes } = require('sequelize');
 const Meeting = db.meetings;
 const Admin = db.admins;
 
+const sendMessage = require('../services/publisherService');
+
 const gateway_url = "http://localhost:5000/gateway/"
 
 exports.createMeeting = async (req, res) => {
@@ -70,6 +72,14 @@ exports.createMeeting = async (req, res) => {
       created_at: new Date(),
       updated_at: new Date()
     });
+
+    let message = {
+      "title": `Reunião ${title} agendada!`,
+      "body": "Uma nova reunião foi criada, acesse o sistema para mais detalhes.",
+      "deviceToken": "all"
+    }
+
+    await sendMessage(message);
 
     res.status(201).json({ message: 'Reunião criada com sucesso', meeting: newMeeting, admin_name: admin_name});
   } catch (error) { 
