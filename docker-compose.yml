@@ -140,15 +140,15 @@ services:
     depends_on:
       - mysql
 
-#  condogenius_web:
-#    image: web
-#    build:
-#      context: ./CondoGenius-WEB
-#      dockerfile: Dockerfile
-#    ports:
-#      - "3000:3000"
-#    volumes:
-#      - ./CondoGenius-WEB:/app
+  condogenius_web:
+    image: web
+    build:
+      context: ./CondoGenius-WEB
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./CondoGenius-WEB:/app
 
   rabbitmq:
     image: rabbitmq:3-management
