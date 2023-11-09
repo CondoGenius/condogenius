@@ -213,44 +213,20 @@ exports.votePoll = async (req, res) => {
       updated_at: new Date()
     });
 
-     // Contar o número total de votos para cada opção da enquete
+     // Calcule o total de votos para todas as opções
     const totalVotesAllOptions = await PollVote.count({
-      where: {
-        poll_id: survey_id // Filtra por todas as opções desta enquete
-      }
+      where: { poll_id: survey_id },
+      transaction: t
     });
 
-    const pollOptions = await PollOption.findAll({
-      where: {
-        poll_id: survey_id
-      }
-    });
-
-    const voteCounts = await PollVote.findAll({
-      attributes: ['poll_option_id', [db.sequelize.fn('COUNT', db.sequelize.col('poll_option_id')), 'vote_count']],
-      where: {
-        poll_id: survey_id
+    // Atualize as porcentagens de votos para todas as opções de enquete
+    await PollOption.update(
+      { 
+        percentage_of_votes: db.Sequelize.literal(`(SELECT COUNT(*) FROM poll_votes WHERE poll_option_id = poll_options.id) / ${totalVotesAllOptions} * 100`),
+        quantity_of_votes: db.Sequelize.literal(`(SELECT COUNT(*) FROM poll_votes WHERE poll_option_id = poll_options.id)`)
       },
-      group: ['poll_option_id']
-    });
-
-     // Atualize as porcentagens de votos na tabela PollOption
-    for (const voteCount of voteCounts) {
-      const { poll_option_id, vote_count } = voteCount.dataValues;
-      const totalVotes = vote_count;
-
-      // Calcule a porcentagem para esta opção da enquete
-      const votePercentage = (totalVotes / totalVotesAllOptions) * 100;
-
-      // Atualize a porcentagem no banco de dados
-      await PollOption.update(
-        { percentage_of_votes: votePercentage, quantity_of_votes: totalVotes, updated_at: new Date() },
-        {
-          where: { id: poll_option_id },
-          transaction: t
-        }
-      );
-    }
+      { where: { poll_id: survey_id }, transaction: t }
+    );
 
     await t.commit(); // Commit da transação
     res.status(201).json({ message: 'Voto computado com sucesso', pollVote: newPollVote });
