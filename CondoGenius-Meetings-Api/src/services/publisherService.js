@@ -1,7 +1,7 @@
 const amqp = require('amqplib');
 
 async function sendMessage(message) {
-  const connection = await amqp.connect('amqp://condogenius-rabbitmq-1'); // URL do seu servidor RabbitMQ
+  const connection = await amqp.connect('amqp://rabbitmq'); // URL do seu servidor RabbitMQ
   const channel = await connection.createChannel();
   const exchangeName = 'notifications'; // Nome da sua exchange
 

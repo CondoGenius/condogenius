@@ -125,6 +125,7 @@ services:
       - "7009:7009"
     depends_on:
       - mysql
+      - rabbitmq
 
   condominiums:
     build:
