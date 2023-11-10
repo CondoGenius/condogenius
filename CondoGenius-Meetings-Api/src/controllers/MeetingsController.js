@@ -74,7 +74,7 @@ exports.createMeeting = async (req, res) => {
     });
 
     let message = {
-      "title": `Reunião ${title} agendada!`,
+      "title": `${title} agendada!`,
       "body": "Uma nova reunião foi criada, acesse o sistema para mais detalhes.",
       "deviceToken": "all"
     }

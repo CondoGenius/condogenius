@@ -6,10 +6,10 @@ async function sendMessage(message) {
   const exchangeName = 'notifications'; // Nome da sua exchange
 
   // Assert a exchange para garantir que ela exista
-  await channel.assertExchange(exchangeName, 'direct', { durable: false }); // Tipo de exchange: 'direct', 'fanout', ou 'topic'
+  await channel.assertExchange(exchangeName, 'fanout', { durable: false }); // Tipo de exchange: 'direct', 'fanout', ou 'topic'
 
   // Enviar mensagem para a exchange com uma chave de roteamento
-  channel.publish(exchangeName, '', Buffer.from(message));
+  channel.publish(exchangeName, '', Buffer.from(JSON.stringify(message)));
   console.log(`Mensagem enviada para a exchange: ${message}`);
 
   // Fechar a conexão e o canal após enviar a mensagem
