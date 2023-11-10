@@ -162,6 +162,14 @@ exports.deleteMeeting = async (req, res) => {
 
     await meeting.destroy();
 
+    let message = {
+      "title": `Reunião ${title} cancelada!`,
+      "body": "Uma reunião foi cancelada, acesse o sistema para mais detalhes.",
+      "deviceToken": "all"
+    }
+
+    await sendMessage(message);
+
     res.status(200).json({ message: 'Reunião deletada com sucesso' });
   } catch (error) {
     console.error('Erro ao deletar reunião:', error);
