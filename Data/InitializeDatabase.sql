@@ -246,12 +246,10 @@ CREATE TABLE IF NOT EXISTS fast_lists
     id         INTEGER AUTO_INCREMENT PRIMARY KEY,
     name       NVARCHAR(255) NOT NULL,
     phone      NVARCHAR(255) NOT NULL,
-    user_id    INTEGER       NOT NULL,
     status     BOOLEAN       NOT NULL,
     type       NVARCHAR(255) NOT NULL,
     created_at DATETIME      NOT NULL,
-    updated_at DATETIME      NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    updated_at DATETIME      NOT NULL
 );
 
 
@@ -284,17 +282,17 @@ VALUES ('maria@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s
 INSERT INTO users(email, password, is_active, role_id, condominium_id)
 VALUES ('carlos@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2, 1);
 
-INSERT INTO fast_lists (name, phone, user_id, status, type, created_at, updated_at) 
-VALUES ('Gas Company', '41 99678-8651', 1, 1, 'gas', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO fast_lists (name, phone, status, type, created_at, updated_at) 
+VALUES ('Gas Company', '41 99678-8651', 1, 'gas', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
-INSERT INTO fast_lists (name, phone, user_id, status, type, created_at, updated_at) 
-VALUES ('Emergência', '911', 1, 1, 'emergencia', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO fast_lists (name, phone, status, type, created_at, updated_at) 
+VALUES ('Emergência', '911', 1, 'emergencia', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
-INSERT INTO fast_lists (name, phone, user_id, status, type, created_at, updated_at) 
-VALUES ('Hospital Erastinho', '41 9872-1782', 1, 1, 'hospitais', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO fast_lists (name, phone, status, type, created_at, updated_at) 
+VALUES ('Hospital Erastinho', '41 9872-1782', 1, 'hospitais', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
-INSERT INTO fast_lists (name, phone, user_id, status, type, created_at, updated_at) 
-VALUES ('Polícia', '999', 1, 1, 'ermegencia', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO fast_lists (name, phone, status, type, created_at, updated_at) 
+VALUES ('Polícia', '999', 1, 'ermegencia', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT INTO administrators (user_id, cpf, email, name, last_name)
 VALUES (1, '10412515090', 'admin@condogenius.com.br', 'Hellen', 'Gurgacz');
