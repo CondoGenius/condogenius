@@ -1,9 +1,9 @@
 import { Formik } from 'formik';
-import { toast } from 'materialize-css';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-materialize';
 import { useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import ErrorField from '../../../../components/utils/errorField';
 import useResidences from "../../../../states/residences/hooks/useResidences";
