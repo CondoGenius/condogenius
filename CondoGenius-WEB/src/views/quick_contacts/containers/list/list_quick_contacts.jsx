@@ -44,7 +44,7 @@ const QuickContactslist = () => {
                         {contact.name}
                         </span>
                         <span>
-                        {FormatPhone(contact.phone)}
+                        {FormatPhone(contact.contact)}
                         </span>
                         {user.isAdmin &&
                             <span>

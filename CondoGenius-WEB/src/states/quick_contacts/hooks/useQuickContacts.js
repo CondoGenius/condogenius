@@ -29,7 +29,7 @@ const useQuickContacts = () => {
         const contact = {
             type: values.type,
             name: values.name,
-            phone: values.contact
+            contact: values.contact
         };
 
         const response = await QuickContactsService().createQuickContact(contact);
