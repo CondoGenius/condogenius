@@ -6,7 +6,7 @@ import logo from '../../assets/condogenius.png';
 
 import { AiOutlineContacts } from 'react-icons/ai';
 import { BsBoxSeamFill, BsPersonCircle } from 'react-icons/bs';
-import { GiBarbecue } from 'react-icons/gi';
+import { GiBarbecue, GiNotebook } from 'react-icons/gi';
 import { MdExitToApp, MdOutlineHub, MdPeopleAlt } from 'react-icons/md';
 import { TiWarning } from 'react-icons/ti';
 
@@ -50,8 +50,8 @@ const Navbar = () => {
                     {/* Resident routes */}
                     {!user.isAdmin && navLink('/reservations', GiBarbecue, 'Reservas')}
 
-                    {!user.isAdmin && navLink('/meetings-list', GiBarbecue, 'Reuniões')}
-                    {user.isAdmin && navLink('/meetings', GiBarbecue, 'Reuniões')}
+                    {!user.isAdmin && navLink('/meetings-list', GiNotebook, 'Reuniões')}
+                    {user.isAdmin && navLink('/meetings', GiNotebook, 'Reuniões')}
 
                     {user.isAdmin && navLink('/complaints-list', TiWarning, 'Reclamações')}
                     {!user.isAdmin && navLink('/complaints', TiWarning, 'Reclamações')}
