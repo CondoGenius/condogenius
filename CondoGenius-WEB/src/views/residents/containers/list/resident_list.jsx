@@ -87,7 +87,7 @@ const ResidentList = ({ filters }) => {
                                     children={
                                         <div>
                                         <div>Tem certeza que deseja remover {resident.name} como morador do condomínio?</div>
-                                        <div className="button_delete_resident_content">
+                                        <div className="modal_actions_button_content">
                                             <Button modal="close" node="button" className="red_button" onClick={() => deleteResidentSubmit(resident.id)}>
                                             Confirmar
                                             </Button>

@@ -307,7 +307,7 @@ INSERT INTO residences (number, floor, block, complement, created_at, updated_at
 VALUES (303, 3, 'C', 'Apartment 303', NOW(), NOW());
 
 INSERT INTO residences (number, floor, block, complement, created_at, updated_at)
-VALUES (303, 3, 'D', 'Apartment 304', NOW(), NOW());
+VALUES (304, 3, 'D', 'Apartment 304', NOW(), NOW());
 
 INSERT INTO residences (number, floor, block, complement, created_at, updated_at)
 VALUES (404, 4, 'C', 'Apartment 404', NOW(), NOW());
