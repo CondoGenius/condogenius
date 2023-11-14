@@ -227,7 +227,7 @@ const Profile = () => {
                             id: resident.data.id,
                             name: resident.data.name,
                             lastName: resident.data.lastName,
-                            cpf: resident.data.cpf,
+                            cpf: CpfMask(resident.data.cpf),
                             contact: resident.data.contact,
                             email: resident.data.email,
                             birthday: FormatDate(resident.data.birthday),

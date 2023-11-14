@@ -47,7 +47,7 @@ const renderFieldFilterByCpf = (handleChange, handleBlur, values) => (
         placeholder="Busque pelo CPF do morador"
         onChange={handleChange}
         value={CpfMask(values.cpf)} 
-        maxLength={13}
+        maxLength={14}
         handleBlur={handleBlur}
     />
 );

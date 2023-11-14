@@ -52,7 +52,7 @@ const renderFieldDate = (handleChange, handleBlur, values) => (
     />
 );
 
-const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => (
+const renderButtonSubmit = (isValid, handleSubmit, setIsSubmit) => (
     <Button 
         type="submit"
         onClick={() => {
@@ -110,7 +110,7 @@ const FormReservations = ({areaId}) => {
                     </div>
                     
                     <div className='actions'>
-                        {renderButtonSubmit(isValid, handleSubmit, handleReset, setIsSubmit)}
+                        {renderButtonSubmit(isValid, handleSubmit, setIsSubmit)}
                     </div>
                 </div>
             </div>

@@ -194,7 +194,7 @@ const ResidentFormFields = ({residentEdited}) => {
                 id: residentEdited?.id ?? '',
                 name: residentEdited?.name ?? '',
                 lastName: residentEdited?.last_name ?? '',
-                cpf: residentEdited?.cpf ?? '',
+                cpf: CpfMask(residentEdited?.cpf) ?? '',
                 contact: residentEdited?.contact ?? '',
                 email: residentEdited?.email ?? '',
                 birthday,

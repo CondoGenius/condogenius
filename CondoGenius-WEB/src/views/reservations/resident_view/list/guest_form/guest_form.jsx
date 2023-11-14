@@ -17,38 +17,31 @@ const FormGuestListSchema = Yup.object().shape({
     cpf: Yup.string().required(requiredFieldMessage).matches(cpfRegex, 'CPF inválido')
 });
 
-const onSubmit = async (values, updateGuestList, getReservationsByResidentId, residentId, setIsSubmit) => {
+const onSubmit = async (values, updateGuestList, getReservationsByResidentId, residentId, setIsSubmit, resetForm) => {
     setIsSubmit();
     const response = await updateGuestList(values);
 
     if (response?.status === 201) {
-        document.getElementById('reset_form_guest').click();
+        resetForm();
         toast.success("Convidado adicionado com sucesso.");
     }
     
     getReservationsByResidentId(residentId);
 };
 
-const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit, values) => (
+const renderButtonSubmit = (isValid, handleSubmit, setIsSubmit) => (
     <div>
         <Button 
-        onClick={(e) => {
-            setIsSubmit(true);
-            if (isValid) {
-                e.preventDefault();
-                handleSubmit();
-            }
-        }}
-        >
-        <MdAddBox /> Adicionar
+            onClick={(e) => {
+                setIsSubmit(true);
+                if (isValid) {
+                    e.preventDefault();
+                    handleSubmit();
+                }
+            }}
+            >
+            <MdAddBox /> Adicionar
         </Button>
-        <Button
-        id="reset_form_guest"
-        className="display_none"
-        onClick={() => {
-            handleReset();
-        }}
-        />
     </div>
 );
 
@@ -82,22 +75,22 @@ const GuestForm = ({ guestList, reservationId }) => {
                 cpf: '',
             }}
             validationSchema={FormGuestListSchema}
-            onSubmit={values => {onSubmit(values, updateGuestList, getReservationsByResidentId, resident.data.id, setIsSubmit)}}
+            onSubmit={(values, {resetForm})  => {onSubmit(values, updateGuestList, getReservationsByResidentId, resident.data.id, setIsSubmit, resetForm)}}
         > 
         {({
             handleChange,
             handleBlur,
             values,
             handleSubmit,
-            handleReset,
             isValid,
-            errors
+            errors,
         }) => (
             <div>
                 <div className='guest_list_fields'>
                     <div>
                         <input 
                             id="name"
+                            name="name"
                             type="text" 
                             placeholder="Digite o nome do convidado"
                             onChange={handleChange}
@@ -109,6 +102,7 @@ const GuestForm = ({ guestList, reservationId }) => {
                     <div>
                         <input 
                             id="cpf"
+                            name="cpf"
                             type="text" 
                             placeholder="Digite o CPF do convidado"
                             onChange={handleChange}
@@ -118,7 +112,7 @@ const GuestForm = ({ guestList, reservationId }) => {
                         />
                         {isSubmit && errors.cpf && <ErrorField error={errors.cpf}/>}
                     </div>
-                    {renderButtonSubmit(isValid, handleSubmit, handleReset, setIsSubmit, values)}
+                    {renderButtonSubmit(isValid, handleSubmit, setIsSubmit)}
                 </div>
                 <Collection>
                 {guestList?.length > 0 ? (
