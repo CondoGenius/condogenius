@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { FaRegCopy } from "react-icons/fa6";
 import { MdRemoveCircleOutline } from 'react-icons/md';
 import { Button, Collection, CollectionItem } from 'react-materialize';
 import { useSelector } from 'react-redux';
@@ -7,7 +8,7 @@ import ModalContent from '../../../../components/modal/modal_content';
 import Tooltip from '../../../../components/tooltip/tooltip';
 import useQuickContacts from '../../../../states/quick_contacts/hooks/useQuickContacts';
 import { FormatPhone } from '../../../../utils/utils';
-
+import './list_quick_contacts.scss';
 
 const QuickContactslist = () => {
     const user = useSelector((state) => state.user.data);
@@ -24,6 +25,16 @@ const QuickContactslist = () => {
 
         getQuickContacts();
     };
+
+    const submitCopyPhone = (phone) => {
+        navigator.clipboard.writeText(phone)
+            .then(function() {
+                toast.success("Contato copiado para área de trasnferência")
+            })
+            .catch(function(err) {
+                toast.error('Erro ao copiar contato');
+            });
+    }
 
     useEffect(() => {
         getQuickContacts();
@@ -43,8 +54,11 @@ const QuickContactslist = () => {
                         <span>
                         {contact.name}
                         </span>
-                        <span>
-                        {FormatPhone(contact.contact)}
+                        <span className='phone_content'>
+                            {FormatPhone(contact.contact)} 
+                            <Tooltip message="Copiar contato">
+                                <FaRegCopy onClick={() => submitCopyPhone(FormatPhone(contact.contact))}/>
+                            </Tooltip>
                         </span>
                         {user.isAdmin &&
                             <span>

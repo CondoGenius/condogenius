@@ -67,7 +67,7 @@ const ListReservations = () => {
                                 </span>
                                 <ModalContent
                                     header={`Lista de convidados - ${reservation.common_area_name} ${FormatDateZone(reservation.reserve_date)}`}
-                                    trigger={<span className='guest_list_action'>gerenciar lista de convidados</span>}
+                                    trigger={<span className='guest_list_action'>Gerenciar lista de convidados</span>}
                                     children={<GuestForm guestList={reservation.guest_list} reservationId={reservation.id} />}
                                     className="complaint"
                                 />

@@ -54,7 +54,8 @@ const ReservationsResidentView = () => {
                                   header={<CardTitle image={area.image}>{area.name}</CardTitle>}
                                   actions={[<Button>Realizar reserva</Button>]}
                               >
-                                  Capacidade máxima de {area.limit} pessoas
+                                  <p>Capacidade máxima de {area.capacity} pessoas</p>
+                                  <p>Horário de funcionamento das {area.business_hour}</p>
                               </Card>
                           }
                           children={<FormReservations areaId={area.id} />}

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { MdAddCircle, MdCancel, MdCheckBox, MdInfo } from 'react-icons/md';
+import { MdAddBox, MdAddCircle, MdCancel, MdCheckBox, MdInfo } from 'react-icons/md';
 import { Button, Collection, CollectionItem } from 'react-materialize';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -33,7 +33,7 @@ const ComplaintsResidentView = () => {
       <div className='form_complaint'>
         <ModalContent
           header={`Nova reclamação`}
-          trigger={<Button>Enviar nova reclamação</Button>}
+          trigger={<Button><MdAddBox /> Enviar nova reclamação</Button>}
           children={ComplaintForm()}
         />
       </div>

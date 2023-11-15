@@ -1,0 +1,14 @@
+.phone_content {
+    display: flex;
+    align-items: flex;
+
+    svg {
+        padding-left: 5px;
+        width: 2em;
+        height: 20px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
