@@ -64,9 +64,11 @@ IHost host = Host.CreateDefaultBuilder(args)
             var checkinJob = new CheckInVerificationJob(app.ApplicationServices.GetService<IChecksHandler>());
             var reservationJob =
                 new ReservationVerificationJob(app.ApplicationServices.GetService<IReservationsHandler>());
+            var meetingsJob = new MeetingsVerificationJob();
             
             checkinJob.VerifyCheckIns();
             reservationJob.RememberReservations();
+            meetingsJob.RememberMeetings();
         });
     })
     .Build();
