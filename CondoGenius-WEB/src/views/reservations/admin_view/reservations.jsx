@@ -57,7 +57,6 @@ const ReservationsAdminView = () => {
                         <span>Morador</span>
                         <span>Área</span>
                         <span>Data</span>
-                        <span>Tipo de evento</span>
                         <span />
                     </CollectionItem>
                     {reservations.list?.length > 0 ? (
@@ -72,10 +71,9 @@ const ReservationsAdminView = () => {
                                 <span>
                                 {FormatDateZone(reservation.reserve_date)}
                                 </span>
-                                <span>{reservation.type}</span>
                                 <ModalContent
                                     header={`Lista de convidados - ${reservation.common_area_name} ${FormatDateZone(reservation.reserve_date)}`}
-                                    trigger={<span className='guest_list_action'>acessar lista de convidados</span>}
+                                    trigger={<span className='guest_list_action'>Acessar lista de convidados</span>}
                                     children={renderGuestListFromReservation(reservation.guest_list)}
                                 />                     
                         </CollectionItem>

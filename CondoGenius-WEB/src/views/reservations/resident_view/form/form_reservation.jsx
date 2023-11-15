@@ -12,7 +12,6 @@ import './form_reservation.scss';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormReservationSchema = Yup.object().shape({
-    type: Yup.string().ensure().required(requiredFieldMessage),
     date: Yup.string().ensure().required(requiredFieldMessage),
 });
 
@@ -24,23 +23,6 @@ const onSubmit = async (values, createReservation, history) => {
         history.push('/my-reservations');
     }
 };
-
-const renderFieldTypeEvent = (handleChange, handleBlur, values) => (
-    <select 
-        class="browser-default"
-        name="type"
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={values.type}
-    >
-        <option value="" disabled selected hidden>Selecione o tipo de evento</option>
-        <option value="birthday">Aniversário</option>
-        <option value="family_event">Evento familiar</option>
-        <option value="happy_hour">Happy Hour</option>
-        <option value="meeting">Reunião</option>
-        <option value="other">Outro</option>
-    </select>
-);
 
 const renderFieldDate = (handleChange, handleBlur, values) => (
     <input 
@@ -98,17 +80,12 @@ const FormReservations = ({areaId}) => {
                 <div className='fields'>
                     <div class="row">
                         <form class="col s12">
-                            <div class="input-field col s6">
-                                {renderFieldTypeEvent(handleChange, handleBlur, values)}
-                                {isSubmit && errors.type && <ErrorField error={errors.type}/>}
-                            </div>
-                            <div class="input-field col s6">
+                            <div class="input-field col s12">
                                 {renderFieldDate(handleChange, handleBlur, values)}
                                 {isSubmit && errors.date && <ErrorField error={errors.date}/>}
                             </div>
                         </form>
                     </div>
-                    
                     <div className='actions'>
                         {renderButtonSubmit(isValid, handleSubmit, setIsSubmit)}
                     </div>
