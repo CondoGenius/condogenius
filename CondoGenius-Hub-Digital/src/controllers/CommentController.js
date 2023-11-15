@@ -39,7 +39,7 @@ exports.listComments = async (req, res) => {
         {
           model: User,
           as: 'user',
-          attributes: ['email'],
+          attributes: ['id', 'email'],
           include: [
             {
               model: Resident,
@@ -71,19 +71,20 @@ exports.listComments = async (req, res) => {
         last_name = comment.user.administrator.last_name;
       }
       
-      
       let formattedComment = {
         id: comment.id,
         post_id: comment.post_id,
         content: comment.content,
-        created_at: comment.created_at,
-        updated_at: comment.updated_at,
+        created_at: comment.createdAt,
+        updated_at: comment.updatedAt,
         user: {
           id: comment.user.id,
           name: name,
           last_name: last_name
         }
       }
+
+      console.log(formattedComment);
 
       return formattedComment;
     });

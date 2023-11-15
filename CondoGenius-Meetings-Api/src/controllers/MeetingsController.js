@@ -160,6 +160,8 @@ exports.deleteMeeting = async (req, res) => {
       return res.status(404).json({ message: 'Reunião não encontrada' });
     }
 
+    const title = meeting.title || '';
+
     await meeting.destroy();
 
     let message = {
