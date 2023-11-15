@@ -15,8 +15,8 @@ public class MeetingsVerificationJob
         RecurringJob.AddOrUpdate(
             "Lembrete de Reuniões",
             () => NotifyMeetings(),
-            "0 10 * * *",
-            TimeZoneInfo.Local);
+            "0 13 * * *",
+            TimeZoneInfo.Utc);
     }
 
     public async Task NotifyMeetings()

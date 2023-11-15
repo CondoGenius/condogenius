@@ -20,9 +20,9 @@ public class ReservationVerificationJob
         RecurringJob.AddOrUpdate(
             "Lembrete de Reservas",
             () => NotifyReservations(),
-            "0 20 * * *",
+            "0 23 * * *",
             //Cron.Minutely,
-            TimeZoneInfo.Local);
+            TimeZoneInfo.Utc);
     }
 
     public async Task NotifyReservations()

@@ -20,6 +20,11 @@ public class ReservationsHandler : IReservationsHandler
     {
         try
         {
+            if(request.Date.Date < DateTime.UtcNow.AddHours(-3).Date)
+            {
+                throw new Exception("Não é possível criar uma reserva para uma data passada!");
+            }
+
             var reservations = await _repository.ListReservationsDateByArea(request.AreaId);
 
             foreach (var reservation in reservations)

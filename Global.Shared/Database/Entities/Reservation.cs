@@ -8,6 +8,7 @@ public class Reservation
     public DateTime ReserveDate { get; set; }
     public DateTime CreatedAt { get; set; }
     public string CommonAreaName { get; set; }
+    public int CommonAreaCapacity { get; set; }
     public string DeviceToken { get; set; }
     public List<GuestList> GuestList { get; set; }
 }

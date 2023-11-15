@@ -21,7 +21,7 @@ public class CheckInVerificationJob
             "Verificação de CheckIn",
             () => GetAndDeleteExpiredCheckIns(),
             Cron.Minutely,
-            TimeZoneInfo.Local);
+            TimeZoneInfo.Utc);
     }
 
     public async Task GetAndDeleteExpiredCheckIns()
@@ -32,7 +32,7 @@ public class CheckInVerificationJob
         {
             foreach (var checkin in checkins)
             {
-                if (checkin?.CreatedAt.AddMinutes(10) <= DateTime.UtcNow.AddHours(-3))
+                if (checkin?.CreatedAt.AddHours(3) <= DateTime.UtcNow.AddHours(-3))
                 {
                     await _handler.UndoCheckIn(checkin.ResidentId);
 
@@ -45,7 +45,7 @@ public class CheckInVerificationJob
                     var message = new
                     {
                         Title = "Seu CheckIn expirou",
-                        Body = "Você pode fazer CheckIn novamente em 6 horas.",
+                        Body = "Você pode fazer CheckIn novamente a qualquer momento.",
                         DeviceToken = checkin?.DeviceToken
                     };
                     var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
