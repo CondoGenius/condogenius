@@ -19,6 +19,17 @@ exports.createResident = async (req, res) => {
 
     const cleanedCpf = cpf ? cpf.replace(/[^\d]/g, '') : '';
 
+    const resident = await Resident.findOne({
+      where: {
+        cpf: cleanedCpf,
+        is_active: 1
+      }
+    });
+
+    if (resident) {
+      return res.status(409).json({ message: 'CPF já cadastrado no sistema.' });
+    }
+
     const novoResidente = await Resident.create({
       user_id,
       residence_id,
