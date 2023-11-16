@@ -8,20 +8,30 @@ namespace CondoGenius_Reservations_Domain.Handler;
 public class GuestListHandler : IGuestListHandler
 {
     private readonly IGuestListRepository _repository;
+    private readonly IReservationsRepository _reservationsRepository;
 
-    public GuestListHandler(IGuestListRepository repository)
+    public GuestListHandler(IGuestListRepository repository, IReservationsRepository reservationsRepository)
     {
         _repository = repository;
+        _reservationsRepository = reservationsRepository;
     }
-    
+
     public async Task<int> CreateGuest(CreateGuestListRequest request)
     {
-        List<GuestList> guests = 
+        List<GuestList> guests =
             await ListGuestListByReservation(request.ReserveId);
-        
-        if(guests != null && guests.Any(c => c.Cpf == request.Cpf))
+
+        if (guests != null && guests.Any(c => c.Cpf == request.Cpf))
             throw new Exception("CPF já cadastrado para essa reserva");
-        
+
+        var reservation = await _reservationsRepository.ListReservation(request.ReserveId);
+
+        if (reservation == null)
+            throw new Exception("Reserva não encontrada");
+
+        if (guests != null && guests.Count >= reservation.CommonAreaCapacity)
+            throw new Exception("Capacidade máxima de convidados atingida");
+
         return await _repository.CreateGuest(request);
     }
 
