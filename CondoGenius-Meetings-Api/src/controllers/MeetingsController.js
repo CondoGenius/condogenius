@@ -165,7 +165,7 @@ exports.deleteMeeting = async (req, res) => {
     await meeting.destroy();
 
     let message = {
-      "title": `Reunião ${title} cancelada!`,
+      "title": `${title} cancelada!`,
       "body": "Uma reunião foi cancelada, acesse o sistema para mais detalhes.",
       "deviceToken": "all"
     }
