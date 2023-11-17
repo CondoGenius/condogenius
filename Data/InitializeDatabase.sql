@@ -370,8 +370,8 @@ VALUES ('Na portaria', 1, 2);
 INSERT INTO delivery_control (status, user_id, residence_id)
 VALUES ('Na portaria', 1, 3);
 
-INSERT INTO delivery_control (status, user_id, residence_id)
-VALUES ('Entregue', 1, 2);
+INSERT INTO delivery_control (status, user_id, residence_id, delivered_at)
+VALUES ('Entregue', 1, 2, NOW());
 
 INSERT INTO meetings (user_id, title, description, date, hour, duration, created_at, updated_at)
 VALUES (1, 'Reunião do Conselho', 'Discussão de assuntos financeiros', '2023-11-10', '15:00', '02:00', NOW(), NOW());
