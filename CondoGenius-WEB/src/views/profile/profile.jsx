@@ -60,7 +60,7 @@ const renderFieldLastName = (handleChange, handleBlur, values) => (
     </div>
 );
 
-const renderFieldCpf = (handleChange, handleBlur, values) => (
+const renderFieldDocument = (handleChange, handleBlur, values) => (
     <div class="input-field">
         <input 
             id="cpf"
@@ -267,7 +267,7 @@ const Profile = () => {
                                                 {isSubmit && errors.contact && <ErrorField error={errors.contact}/>}
                                             </div>
                                             <div class="input-field col s6">
-                                                {renderFieldCpf(handleChange, handleBlur, values)}
+                                                {renderFieldDocument(handleChange, handleBlur, values)}
                                                 {isSubmit && errors.cpf && <ErrorField error={errors.cpf}/>}
                                             </div>
                                         </form>

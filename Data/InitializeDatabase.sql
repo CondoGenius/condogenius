@@ -282,6 +282,9 @@ VALUES ('maria@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s
 INSERT INTO users(email, password, is_active, role_id, condominium_id)
 VALUES ('carlos@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2, 1);
 
+INSERT INTO users(email, password, is_active, role_id, condominium_id)
+VALUES ('ana@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2, 1);
+
 INSERT INTO fast_lists (name, contact, status, type, created_at, updated_at) 
 VALUES ('Gas Company', '41 99678-8651', 1, 'gas', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
@@ -340,7 +343,7 @@ VALUES (3, 3, '11122233344', 'carlos@email.com', 'lalalala', 'Carlos', 'Martinez
 
 INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
                        updated_at, is_active, birthday)
-VALUES (null, 4, '55566677788', 'ana@email.com', 'lalalala', 'Ana', 'Pereira', '+55 11 5555-1234', NOW(), NOW(), 1,
+VALUES (4, 4, '55566677788', 'ana@email.com', 'lalalala', 'Ana', 'Pereira', '+55 11 5555-1234', NOW(), NOW(), 1,
         '1988-03-22');
 
 INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
