@@ -5,7 +5,7 @@ import Loading from '../../../components/loading/loading';
 
 import useDeliveries from '../../../states/deliveries/hooks/useDeliveries';
 
-import { FormatDateZone } from '../../../utils/utils';
+import { FormatDateZoneWithHour } from '../../../utils/utils';
 
 const DeliveriesResidentView = () => {
     const resident = useSelector((state) => state.resident.data);
@@ -42,10 +42,10 @@ const DeliveriesResidentView = () => {
                             {delivery.admin_name ?? '-'}
                             </span>
                             <span>
-                            {delivery.received_at ? FormatDateZone(delivery.received_at) : '-'}
+                            {delivery.received_at ? FormatDateZoneWithHour(delivery.received_at) : '-'}
                             </span>
                             <span>
-                            {delivery.delivered_at ? FormatDateZone(delivery.delivered_at) : '-'}
+                            {delivery.delivered_at ? FormatDateZoneWithHour(delivery.delivered_at) : '-'}
                             </span>
                             <span>
                             {delivery.status}

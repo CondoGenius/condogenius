@@ -33,10 +33,27 @@ const useUser = () => {
         return response
     }
 
+    const resetPassword = async (values) => {
+        setLoadingUser(true);
+
+        const updatePassword = {
+            document: values.document,
+            email: values.email,
+            new_password: values.password
+        }
+
+        const response = await UserService().resetPassword(updatePassword);
+
+        setLoadingUser(false);
+        return response
+    }
+
+
     return {
         loadingUser,
         authUserLogin,
-        createUser
+        createUser,
+        resetPassword
     }
 };
 

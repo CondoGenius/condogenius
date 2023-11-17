@@ -21,6 +21,7 @@ import DeliveriesResidentView from './views/deliveries/resident_view/deliveries'
 import HubDigital from './views/hub_digital/hub_digital';
 import MyPublications from './views/hub_digital/my_publications_list/my_publications_list';
 import RegisterVerifys from './views/login/containers/register-verifys/register_verifys';
+import ResetPassword from './views/login/containers/reset-password/reset_password';
 import Login from './views/login/login';
 import MeetingsAdminView from './views/meetings/admin_view/meetings';
 import Profile from './views/profile/profile';
@@ -74,6 +75,7 @@ const RoutesConfig = () => {
     <Switch>
       <Route path="/" exact component={Login} />
       <Route path="/register-verifys" exact component={RegisterVerifys} />
+      <Route path="/reset-password" exact component={ResetPassword} />
       <Route path="/register" exact component={Register} />
     </Switch>
   );

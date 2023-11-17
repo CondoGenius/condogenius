@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import Tooltip from "../../../../../components/tooltip/tooltip";
 import useDeliveries from "../../../../../states/deliveries/hooks/useDeliveries";
 import useResidences from "../../../../../states/residences/hooks/useResidences";
-import { FormatDateZone } from "../../../../../utils/utils";
+import { FormatDateZoneWithHour } from "../../../../../utils/utils";
 
 const updateStatus = async (e, id, updateDelivery, getDeliveries) => {
     e.preventDefault();
@@ -49,10 +49,10 @@ const DelivriesList = () => {
                             Residência {residences.find((residence) => residence.id === delivery.residence_id)?.number}
                             </span>
                             <span>
-                            {delivery.received_at ? FormatDateZone(delivery.received_at) : '-'}
+                            {delivery.received_at ? FormatDateZoneWithHour(delivery.received_at) : '-'}
                             </span>
                             <span>
-                            {delivery.delivered_at ? FormatDateZone(delivery.delivered_at) : '-'}
+                            {delivery.delivered_at ? FormatDateZoneWithHour(delivery.delivered_at) : '-'}
                             </span>
                             <span>
                             {delivery.status}

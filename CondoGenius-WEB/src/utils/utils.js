@@ -11,15 +11,27 @@ export const FormatDateZone = (date) => {
     const day = String(dateValue.getDate()).padStart(2, '0');
     const month = String(dateValue.getMonth() + 1).padStart(2, '0');
     const year = dateValue.getFullYear();
-    const hours = String(dateValue.getHours()).padStart(2, '0');
-    const minutes = String(dateValue.getMinutes()).padStart(2, '0');
-    
-    return `${day}/${month}/${year} ${hours}:${minutes}`;
+
+    return `${day}/${month}/${year}`;
   } else {
     return '';
   }
 };
 
+export const FormatDateZoneWithHour = (date) => {
+  const dateValue = new Date(date);
+  if (dateValue instanceof Date && !isNaN(dateValue)) {
+    const day = String(dateValue.getDate()).padStart(2, '0');
+    const month = String(dateValue.getMonth() + 1).padStart(2, '0');
+    const year = dateValue.getFullYear();
+    const hours = String(dateValue.getHours()).padStart(2, '0');
+    const minutes = String(dateValue.getMinutes()).padStart(2, '0');
+    
+    return `${day}/${month}/${year} às ${hours}:${minutes}`;
+  } else {
+    return '';
+  }
+};
 
 export const FormatPhone = (phone) => {
     const number = phone.replace(/\D/g, '');
