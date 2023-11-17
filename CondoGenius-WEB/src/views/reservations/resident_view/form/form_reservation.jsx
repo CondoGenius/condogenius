@@ -20,8 +20,9 @@ const onSubmit = async (values, createReservation, history) => {
 
     if (response?.status === 201) {
         toast.success("Reserva realizada com sucesso.");
-        history.push('/my-reservations');
     }
+    
+    history.push('/my-reservations');
 };
 
 const renderFieldDate = (handleChange, handleBlur, values) => (

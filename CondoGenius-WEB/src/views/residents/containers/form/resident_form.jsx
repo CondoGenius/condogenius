@@ -38,8 +38,8 @@ const onSubmit = async (values, createResident, updateResident, getResidents, hi
     if (response.status === 201 || response.status === 200) {
         document.getElementById('reset_form_resident').click();
         toast.success(messageSuccess);
-        getResidents();
     }
+    getResidents();
 };
 
 const renderFieldName = (handleChange, handleBlur, values) => (

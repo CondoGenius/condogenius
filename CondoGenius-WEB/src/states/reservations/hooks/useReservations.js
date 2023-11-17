@@ -86,7 +86,7 @@ const useReservations = () => {
         const response = await ReservationsService().updateGuestList(guestList);
 
         if (response?.status !== 201) {
-            dispatch(setResidentReservationsAction({ error: "Erro ao atualiazar lista de convidados." }));
+            dispatch(setResidentReservationsAction({ error: response.response.data}));
         }
 
         setLoadingReservations(false);

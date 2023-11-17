@@ -92,7 +92,7 @@ const useResidents = () => {
         const response = await ResidentsService().createResident(resident);
 
         if (response?.status !== 201) {
-            dispatch(setResidentsAction({ error: "Erro ao cadastrar morador." }));
+            dispatch(setResidentsAction({ error: response.response.data.message }));
         }
 
         setLoadingResidents(false);

@@ -8,14 +8,18 @@ export const FormatDate = (date) => {
 export const FormatDateZone = (date) => {
   const dateValue = new Date(date);
   if (dateValue instanceof Date && !isNaN(dateValue)) {
-      const day = String(dateValue.getDate()).padStart(2, '0');
-      const month = String(dateValue.getMonth() + 1).padStart(2, '0');
-      const year = dateValue.getFullYear();
-      return `${day}/${month}/${year}`;
+    const day = String(dateValue.getDate()).padStart(2, '0');
+    const month = String(dateValue.getMonth() + 1).padStart(2, '0');
+    const year = dateValue.getFullYear();
+    const hours = String(dateValue.getHours()).padStart(2, '0');
+    const minutes = String(dateValue.getMinutes()).padStart(2, '0');
+    
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
   } else {
-      return '';
+    return '';
   }
 };
+
 
 export const FormatPhone = (phone) => {
     const number = phone.replace(/\D/g, '');
