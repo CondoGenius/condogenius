@@ -31,6 +31,22 @@ public class ChecksController : ControllerBase
         }
     }
     
+    [HttpGet("active")]
+    public async Task<IActionResult> GetActiveCheckIns()
+    {
+        try
+        {
+            var activeCheckins = await _handler.GetActiveCheckins();
+            
+            return Ok(activeCheckins);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            return BadRequest(ex.Message);
+        }
+    }
+    
     [HttpDelete]
     public async Task<IActionResult> UndoCheckIn([FromBody] DoCheckInRequest request)
     {
