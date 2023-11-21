@@ -53,6 +53,14 @@ exports.createMeeting = async (req, res) => {
       return res.status(400).json({ invalid_date: "Já existe uma reunião planejada para este horário!" });
     }
   
+    const latestMeeting = await Meeting.findOne({
+      order: [['date', 'DESC']],
+    });
+
+    if (latestMeeting && meetingDate < latestMeeting.date) {
+      return res.status(400).json({ invalid_date: "A data da reunião deve ser posterior a data da última reunião!" });
+    }
+
     const admin = await Admin.findOne({ where: { user_id: user_id } });
 
     if (!admin) {
