@@ -117,7 +117,7 @@ authController.getAdminByUserId = async (req, res) => {
 //  - envia email com token
 //  - nao passar pela autenticacao do token de login
 
-// metodo validate token
+// metodo validate token (x) 
 // - recebe token
 // - valida token
 // - retorna true ou false
@@ -175,6 +175,29 @@ authController.resetPassword = async (req, res) => {
   } catch (error) {
     console.error('Erro ao resetar senha:', error);
     res.status(500).json({ message: 'Erro ao resetar senha' });
+  }
+}
+
+authController.validateToken = async (req, res) => {
+  try {
+    const { token } = req.body;
+
+    const resetPasswordToken = await ResetPasswordToken.findOne({ where: { token: token } });
+
+    if (!resetPasswordToken) {
+      return res.status(404).json({ message: 'Token não encontrado', value: false });
+    }
+
+    const user = await User.findOne({ where: { id: resetPasswordToken.user_id } });
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuário não encontrado', value: false });
+    }
+
+    return res.status(200).json({ message: 'Token válido', value: true });
+  } catch (error) {
+    console.error('Erro ao validar token:', error);
+    res.status(500).json({ message: 'Erro ao validar token' });
   }
 }
 
