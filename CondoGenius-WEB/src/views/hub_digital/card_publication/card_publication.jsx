@@ -3,6 +3,7 @@ import React from "react";
 import { AiFillPushpin, AiOutlinePushpin, AiOutlineSend } from "react-icons/ai";
 import { BsPersonCircle } from "react-icons/bs";
 import { ImBin } from "react-icons/im";
+import { Button } from 'react-materialize';
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import * as Yup from 'yup';
@@ -24,7 +25,7 @@ const renderSurvey = (survey, userId, voteSurvey, getPublications) => {
         const response = await voteSurvey({userId, surveyId: survey.id, option});
 
         if (response?.status === 201) {
-            toast.success("Voto recebido com sucesso.");
+            toast.success("Voto recebido com sucesso");
         }
         
         getPublications();
@@ -37,12 +38,18 @@ const renderSurvey = (survey, userId, voteSurvey, getPublications) => {
         </div>
         <div className='options_content'>
             {survey.options.map(option => (
-                <div onClick={() => submitVote(option.id)} className="option_content">
+                <div className="option_content">
                     <span>{option.title}</span>
-                    <div class="progress-container">
-                        <div class="progress-bar" id={`progress-bar-${option.id}`} style={{ width: `${option.percentage_of_votes}%` }}/>
-                        <div class="percentage" id="percentage"/>
-                        <span>{option.percentage_of_votes}%</span>
+                    <div className='progress_button_content'>
+                        <div class="progress-container">
+                            <div class="progress-bar" id={`progress-bar-${option.id}`} style={{ width: `${option.percentage_of_votes}%` }}>
+                                <span>{option.percentage_of_votes}%</span>
+                            </div>
+                            <div class="percentage" id="percentage" />
+                        </div>
+                        <div>
+                            <Button onClick={() => submitVote(option.id)}>Votar</Button>
+                        </div>
                     </div>
                 </div>
             ))}

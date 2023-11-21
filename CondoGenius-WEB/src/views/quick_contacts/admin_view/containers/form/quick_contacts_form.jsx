@@ -10,7 +10,7 @@ const requiredFieldMessage = 'Este campo é obrigatório';
 const FormResidentSchema = Yup.object().shape({
     name: Yup.string().ensure().required(requiredFieldMessage),
     type: Yup.string().ensure().required(requiredFieldMessage),
-    contact: Yup.string().required(requiredFieldMessage).min(14, 'O contato deve ter no mínimo 10 dígitos.'),
+    contact: Yup.string().required(requiredFieldMessage),
 });
 
 const onSubmit = async (values, createQuickContact, getQuickContacts) => {

@@ -33,11 +33,28 @@ const useUser = () => {
         return response
     }
 
+    const getTokenResetPassword = async (email) => {
+        setLoadingUser(true);
+
+        const response = await UserService().getTokenResetPassword(email);
+
+        setLoadingUser(false);
+        return response
+    };
+
+    const verifyTokenResetPassword = async (token) => {
+        setLoadingUser(true);
+
+        const response = await UserService().verifyTokenResetPassword(token);
+
+        setLoadingUser(false);
+        return response
+    };
+
     const resetPassword = async (values) => {
         setLoadingUser(true);
 
         const updatePassword = {
-            document: values.document,
             email: values.email,
             new_password: values.password
         }
@@ -48,11 +65,12 @@ const useUser = () => {
         return response
     }
 
-
     return {
         loadingUser,
         authUserLogin,
         createUser,
+        getTokenResetPassword,
+        verifyTokenResetPassword,
         resetPassword
     }
 };

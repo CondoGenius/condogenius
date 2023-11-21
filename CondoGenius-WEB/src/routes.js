@@ -20,6 +20,8 @@ import DeliveriesResidentView from './views/deliveries/resident_view/deliveries'
 
 import HubDigital from './views/hub_digital/hub_digital';
 import MyPublications from './views/hub_digital/my_publications_list/my_publications_list';
+import GetTokenResetPassword from './views/login/containers/get-token-reset-password/get_token_reset_password';
+import InformTokenResetPassword from './views/login/containers/get-token-reset-password/inform_token_reset_password';
 import RegisterVerifys from './views/login/containers/register-verifys/register_verifys';
 import ResetPassword from './views/login/containers/reset-password/reset_password';
 import Login from './views/login/login';
@@ -75,6 +77,8 @@ const RoutesConfig = () => {
     <Switch>
       <Route path="/" exact component={Login} />
       <Route path="/register-verifys" exact component={RegisterVerifys} />
+      <Route path="/get-token" exact component={GetTokenResetPassword} />
+      <Route path="/inform-token" exact component={InformTokenResetPassword} />
       <Route path="/reset-password" exact component={ResetPassword} />
       <Route path="/register" exact component={Register} />
     </Switch>

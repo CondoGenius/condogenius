@@ -70,7 +70,7 @@ const useComplaints = () => {
         const response = await ComplaintsService().updateComplaint(complaint);
 
         if (response?.status !== 200) {
-            dispatch(setComplaintsAction({ error: "Erro ao atualiazar status da reclamação." }));
+            dispatch(setComplaintsAction({ error: "Erro ao atualiazar situação da reclamação." }));
         }
 
         setLoadingComplaints(false);

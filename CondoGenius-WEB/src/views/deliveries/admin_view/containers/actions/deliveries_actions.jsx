@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { MdAddBox } from 'react-icons/md';
 import { Button } from "react-materialize";
 import { useSelector } from "react-redux";
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import ErrorField from '../../../../../components/utils/errorField';
 import useDeliveries from "../../../../../states/deliveries/hooks/useDeliveries";
@@ -18,6 +19,7 @@ const onSubmit = async (values, createDelivery, getDeliveries, resetForm) => {
 
     if (response.status === 201) {
         resetForm();
+        toast.success("Entrega cadastrada com sucesso");
     }
     
     getDeliveries();

@@ -22,6 +22,22 @@ const UserService = () => {
           .catch(err => err);
     };
 
+    const getTokenResetPassword = (user) => {
+        return axios.post(`http://localhost:5000/gateway/user/token/reset-password`, user, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+          })
+          .then(res => res)
+          .catch(err => err);
+    };
+
+    const verifyTokenResetPassword = (token) => {
+        return axios.get(`http://localhost:5000/gateway/user/token/verify`, token)
+          .then(res => res)
+          .catch(err => err);
+    };
+
     const resetPassword = (updatePassword) => {
         return axios.put(`http://localhost:5000/gateway/user/reset-password`, updatePassword, {
             headers: {
@@ -35,6 +51,8 @@ const UserService = () => {
     return {
         authUserLogin,
         createUser,
+        getTokenResetPassword,
+        verifyTokenResetPassword,
         resetPassword
     };
 

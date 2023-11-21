@@ -33,7 +33,7 @@ const DeliveriesResidentView = () => {
                     <span>Porteiro</span>
                     <span>Recebida</span>
                     <span>Entregue</span>
-                    <span>Status</span>
+                    <span>Situação</span>
                 </CollectionItem>
                 {deliveries?.length > 0 ? (
                     deliveries?.map(delivery => (
