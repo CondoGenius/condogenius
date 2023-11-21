@@ -265,6 +265,16 @@ CREATE TABLE IF NOT EXISTS events
     updated_at  DATETIME      NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS passord_reset_tokens
+(
+    id         INTEGER AUTO_INCREMENT PRIMARY KEY,
+    user_id    INTEGER       NOT NULL,
+    token      NVARCHAR(255) NOT NULL,
+    created_at DATETIME      NOT NULL,
+    updated_at DATETIME      NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id)
+);
+
 INSERT INTO roles (name)
 VALUES ('Admin'),
        ('Resident');

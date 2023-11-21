@@ -35,6 +35,7 @@ router.get("/user/me", authController.me)
 router.post("/user/register", authController.register)
 router.get("/admin/:user_id", authController.getAdminByUserId)
 
+router.post("/reset_password", authController.resetPassword)
 
 //COMPLAINTS
 router.use("/api/complaints", proxy("http://complaints:7002"))
@@ -52,6 +53,7 @@ router.use("/hub_digital/", proxy("http://digital_hub:7004/"));
 router.use("/residents/", proxy("http://residents:7008/"));
 router.use("/meetings/", proxy("http://meetings:7009/"));
 router.use("/condominium/", proxy("http://condominiums:7010/"));
+
 
 app.use("/gateway", router)
 

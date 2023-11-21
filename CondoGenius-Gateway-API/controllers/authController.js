@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 
+var nodemailer = require('nodemailer');
+const randomstring = require('randomstring');
+
 var config = require('../config/config');
 
 const db = require('../models');
@@ -8,6 +11,7 @@ const User = db.users;
 const Role = db.roles;
 const Resident = db.residents;
 const Admin = db.admins;
+const ResetPasswordToken = db.reset_password_tokens;
 
 const authController = {};
 
@@ -105,5 +109,73 @@ authController.getAdminByUserId = async (req, res) => {
     res.status(500).json({ message: 'Erro ao listar admin' });
   }
 };
+
+// metodo reset password
+//  - recebe email
+//  - valida email
+//  - gera token
+//  - envia email com token
+//  - nao passar pela autenticacao do token de login
+
+// metodo validate token
+// - recebe token
+// - valida token
+// - retorna true ou false
+
+// metodo update password
+// - recebe senha
+// - atualiza senha
+
+
+// fazer se der tempo
+// melhorar email enviado (html mais bonito)
+// 
+
+authController.resetPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await User.findOne({ where: { email: email } });
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuário não encontrado' });
+    }
+
+    const token = randomstring.generate({ length: 5 });
+
+    var transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      auth: {
+        user: "condogenius23@gmail.com",
+        pass: "pzhgjpwbrjynihfw"
+      }
+    });
+
+    var mailOptions = {
+      from: "condogenius23@gmail.com",
+      to: email,
+      subject: "CondoGenius - Redefinição de senha",
+      text: "Olá, você solicitou a redefinição de senha no CondoGenius. Para redefinir sua senha, utilize o token a seguir: \n\n" +
+      "" + token + "\n\n"
+    };
+
+    await ResetPasswordToken.create({ user_id: user.id, token: token });
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Erro ao enviar email' });
+      } else {
+        console.log('Email sent: ' + info.response);
+        return res.status(200).json({ message: "Email enviado com sucesso!" });
+      }
+    });
+
+  } catch (error) {
+    console.error('Erro ao resetar senha:', error);
+    res.status(500).json({ message: 'Erro ao resetar senha' });
+  }
+}
 
 module.exports = authController;
