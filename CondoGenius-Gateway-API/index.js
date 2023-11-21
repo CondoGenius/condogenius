@@ -35,9 +35,10 @@ router.get("/user/me", authController.me)
 router.post("/user/register", authController.register)
 router.get("/admin/:user_id", authController.getAdminByUserId)
 
-router.post("/reset_password", authController.resetPassword)
-router.post("/validate_token", authController.validateToken)
-router.post("/update_password", authController.updatePassword)
+
+router.post("/user/token/reset-password", authController.resetPassword)
+router.post("/user/token/verify", authController.validateToken)
+router.post("/user/reset-password", authController.updatePassword)
 
 //COMPLAINTS
 router.use("/api/complaints", proxy("http://complaints:7002"))
