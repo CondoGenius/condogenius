@@ -50,7 +50,7 @@ public class ChecksHandler : IChecksHandler
         return await _repository.GetCheckIns();
     }
 
-    private async Task<ActiveCheckins?> GetActiveCheckins()
+    public async Task<ActiveCheckins?> GetActiveCheckins()
     {
         return await _repository.GetActiveCheckins();
     }

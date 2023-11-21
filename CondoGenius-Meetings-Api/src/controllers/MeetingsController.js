@@ -53,6 +53,14 @@ exports.createMeeting = async (req, res) => {
       return res.status(400).json({ invalid_date: "Já existe uma reunião planejada para este horário!" });
     }
   
+    const latestMeeting = await Meeting.findOne({
+      order: [['date', 'DESC']],
+    });
+
+    if (latestMeeting && meetingDate < latestMeeting.date) {
+      return res.status(400).json({ invalid_date: "A data da reunião deve ser posterior a data da última reunião!" });
+    }
+
     const admin = await Admin.findOne({ where: { user_id: user_id } });
 
     if (!admin) {
@@ -92,13 +100,13 @@ exports.listMeetings = async (req, res) => {
   try {
 
     const data = await db.sequelize.query(`
-    SELECT m.*, a.name AS admin_name, a.last_name AS admin_last_name
-    FROM meetings m
-    INNER JOIN users u ON m.user_id = u.id
-    INNER JOIN administrators a ON u.id = a.user_id
-
-     `, {
-     type: QueryTypes.SELECT
+      SELECT m.*, a.name AS admin_name, a.last_name AS admin_last_name
+      FROM meetings m
+      INNER JOIN users u ON m.user_id = u.id
+      INNER JOIN administrators a ON u.id = a.user_id
+      ORDER BY m.created_at DESC
+    `, {
+      type: QueryTypes.SELECT
     });
 
     res.status(200).json(data);
