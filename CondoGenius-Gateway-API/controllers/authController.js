@@ -122,7 +122,7 @@ authController.getAdminByUserId = async (req, res) => {
 // - valida token
 // - retorna true ou false
 
-// metodo update password
+// metodo update password (x)
 // - recebe senha
 // - atualiza senha
 
@@ -130,6 +130,7 @@ authController.getAdminByUserId = async (req, res) => {
 // fazer se der tempo
 // melhorar email enviado (html mais bonito)
 // colocar credenciais do email em variaveis de ambiente
+// criptografar o token no banco de dados
 
 authController.resetPassword = async (req, res) => {
   try {
@@ -198,6 +199,37 @@ authController.validateToken = async (req, res) => {
   } catch (error) {
     console.error('Erro ao validar token:', error);
     res.status(500).json({ message: 'Erro ao validar token' });
+  }
+}
+
+authController.updatePassword = async (req, res) => {
+  try {
+    const { token, new_password } = req.body;
+
+    const resetPasswordToken = await ResetPasswordToken.findOne({ where: { token: token } });
+
+    if (!resetPasswordToken) {
+      return res.status(404).json({ message: 'Token não encontrado' });
+    }
+
+    const user = await User.findOne({ where: { id: resetPasswordToken.user_id } });
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuário não encontrado' });
+    }
+
+    var hashedPassword = bcrypt.hashSync(new_password, 8);
+
+    user.password = hashedPassword;
+
+    await user.save();
+
+    await ResetPasswordToken.destroy({ where: { id: resetPasswordToken.id } });
+
+    return res.status(200).json({ message: 'Senha atualizada com sucesso!' });
+  } catch (error) {
+    console.error('Erro ao atualizar senha:', error);
+    res.status(500).json({ message: 'Erro ao atualizar senha' });
   }
 }
 

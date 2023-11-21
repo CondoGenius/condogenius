@@ -37,6 +37,7 @@ router.get("/admin/:user_id", authController.getAdminByUserId)
 
 router.post("/reset_password", authController.resetPassword)
 router.post("/validate_token", authController.validateToken)
+router.post("/update_password", authController.updatePassword)
 
 //COMPLAINTS
 router.use("/api/complaints", proxy("http://complaints:7002"))
