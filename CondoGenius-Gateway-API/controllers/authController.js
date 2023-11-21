@@ -110,7 +110,7 @@ authController.getAdminByUserId = async (req, res) => {
   }
 };
 
-// metodo reset password
+// metodo reset password (x)
 //  - recebe email
 //  - valida email
 //  - gera token
@@ -129,7 +129,7 @@ authController.getAdminByUserId = async (req, res) => {
 
 // fazer se der tempo
 // melhorar email enviado (html mais bonito)
-// 
+// colocar credenciais do email em variaveis de ambiente
 
 authController.resetPassword = async (req, res) => {
   try {
