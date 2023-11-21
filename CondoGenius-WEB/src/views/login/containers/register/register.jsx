@@ -60,6 +60,7 @@ const renderFieldVerifyPassword = (handleChange, handleBlur, values) => (
         value={values.password_verify} 
     />
 );
+
 const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => (
     <Button 
         className='button_to_enter'

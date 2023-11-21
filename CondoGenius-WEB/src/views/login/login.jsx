@@ -124,7 +124,7 @@ const Login = () => {
                                 <NavLink to="/register-verifys">
                                     <span>Cadastre-se</span>
                                 </NavLink>
-                                <NavLink to="/reset-password">
+                                <NavLink to="/get-token">
                                     <span>Esqueceu sua senha? Redefinir senha</span>
                                 </NavLink>
                             </div>

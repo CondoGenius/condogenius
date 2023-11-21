@@ -33,6 +33,10 @@ export const FormatDateZoneWithHour = (date) => {
   }
 };
 
+export const FormatHour = (hour) => {
+  return hour.replace(':', 'h');
+};
+
 export const FormatPhone = (phone) => {
     const number = phone.replace(/\D/g, '');
   

@@ -19,7 +19,7 @@ const renderComplaintMoreInfo = (complaint, updateComplaint, getComplaints) => {
         const response = await updateComplaint(values);
 
         if (response?.status === 200) {
-            toast.success("Status da reclamação atualizada com sucesso.");
+            toast.success("Situação da reclamação atualizada com sucesso.");
         }
         
         getComplaints();
@@ -39,14 +39,14 @@ const renderComplaintMoreInfo = (complaint, updateComplaint, getComplaints) => {
             handleSubmit
         }) => (
             <>
-                <span className='complaint_description'>{complaint.description}</span>
+                <p className='complaint_description'>Descrição: {complaint.description}</p>
                 <p className='complaint_date'>Data: {FormatDateZone(complaint.date)}</p>
                 <div className='modal_actions_button_content'>
                     <Button className='green_button' onClick={() => {setValues({...values, status: 'notified'}); handleSubmit()}} modal="close">
-                        Marcar denúncia como notificada
+                        Marcar reclamação como notificada
                     </Button>
                     <Button className='red_button' onClick={() => {setValues({...values, status: 'disapproved'}); handleSubmit()}}  modal="close">
-                        Marcar denúncia como reprovada
+                        Marcar reclamação como reprovada
                     </Button>
                 </div>
             </>
@@ -88,7 +88,7 @@ const ComplaintsAdminView = () => {
                     <span>Residência</span>
                     <span className='complaint_list_body'>Reclamação</span>
                     <span>Data</span>
-                    <span>Status</span>
+                    <span>Situação</span>
                     <span />
                 </CollectionItem>
                 {complaints.list?.length > 0 ? (

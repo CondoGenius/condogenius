@@ -6,19 +6,17 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import ErrorField from '../../../../components/utils/errorField';
 import useUser from '../../../../states/user/hooks/useUser';
-import { CpfMask } from '../../../../utils/utils';
 
 import './reset_password.scss';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
 const FormLoginSchema = Yup.object().shape({
-    document: Yup.string().ensure().required(requiredFieldMessage),
     email: Yup.string().ensure().required(requiredFieldMessage),
     password: Yup.string()
-        .required(requiredFieldMessage)
-        .min(6, 'A senha deve ter no mínimo 6 caracteres')
-        .test('passwords-match', 'As senhas não coincidem', function (value) {
-        return value === this.parent.password_verify;
+    .required(requiredFieldMessage)
+    .min(6, 'A senha deve ter no mínimo 6 caracteres')
+    .test('passwords-match', 'As senhas não coincidem', function (value) {
+    return value === this.parent.password_verify;
     }),
     password_verify: Yup.string()
         .required(requiredFieldMessage)
@@ -30,46 +28,26 @@ const FormLoginSchema = Yup.object().shape({
   
 
 const onSubmit = async (values, resetPassword, history) => {
-    const response = await resetPassword(values);
+    const response = await resetPassword(values.emmail);
 
     if (response?.status === 200) {
-        toast.success("Senha atualizada!")
+        history.push('/login');
+        localStorage.removeItem("user");
+        localStorage.removeItem("resident");
+    
         history.push('/');
+        window.location.reload();
+        toast.success("Senha alterada com sucesso. Realizde login novamente");
     } else {
-        toast.error("Ocorreu um erro na alteração. Tente novamente mais tarde ou entre em contato com um administrador.")
+        toast.error("Ocorreu um erro ao atualizar sua senha. Tente novamente mais tarde ou entre em contato com um administrador.")
     }
 }
-
-const renderFieldDocument = (handleChange, handleBlur, values) => (
-    <input 
-        id="document"
-        type="text" 
-        placeholder="Digite o número de seu documento"
-        onChange={(e) => {
-            handleChange(e);
-        }}
-        onBlur={handleBlur}
-        value={CpfMask(values.document)} 
-        maxLength={14}
-    />
-);
-
-const renderFieldEmail = (handleChange, handleBlur, values) => (
-    <input 
-        id="email"
-        type="text" 
-        placeholder="Digite seu e-mail"
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={values.email} 
-    />
-);
 
 const renderFieldPassword = (handleChange, handleBlur, values) => (
     <input 
         id="password"
         type="password" 
-        placeholder="Digite sua nova senha" 
+        placeholder="Digite sua senha" 
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.password} 
@@ -80,14 +58,14 @@ const renderFieldVerifyPassword = (handleChange, handleBlur, values) => (
     <input 
         id="password_verify"
         type="password" 
-        placeholder="Confirme sua nova senha" 
+        placeholder="Confirme sua senha" 
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.password_verify} 
     />
 );
 
-const renderButtonSubmit = (isValid, handleSubmit, handleReset, setIsSubmit) => (
+const renderButtonSubmit = (isValid, handleSubmit, setIsSubmit) => (
     <Button 
         className='button_to_enter'
         type="submit"
@@ -106,16 +84,12 @@ const ResetPassword = () => {
     const history = useHistory();
     const [isSubmit, setIsSubmit] = useState(false);
     const { resetPassword } = useUser();
-    const [messageSubmitLogin, setMessageSubmitLogin] = useState(null);
     
     return (
         <div className='background_content'>
             <Formik        
                 initialValues={{
-                    document: '',
-                    email: '',
-                    password: '',
-                    password_verify: ''
+                    email: ''
                 }}
                 validationSchema={FormLoginSchema}
                 onSubmit={values => {onSubmit(values, resetPassword, history)}}
@@ -131,15 +105,8 @@ const ResetPassword = () => {
                 }) => (
                     <div className='card_content_reset_password'>
                         <h1>Redefinir senha</h1>
+                        <p>Escolha sua nova senha</p>
                         <div className='fields_content'>
-                            <div>
-                                {renderFieldDocument(handleChange, handleBlur, values)}
-                                {isSubmit && errors.document && <ErrorField error={errors.document}/>}
-                            </div>
-                            <div>
-                                {renderFieldEmail(handleChange, handleBlur, values)}
-                                {isSubmit && errors.email && <ErrorField error={errors.email}/>}
-                            </div>
                             <div>
                                 {renderFieldPassword(handleChange, handleBlur, values)}
                                 {isSubmit && errors.password && <ErrorField error={errors.password}/>}
@@ -149,12 +116,11 @@ const ResetPassword = () => {
                                 {renderFieldVerifyPassword(handleChange, handleBlur, values)}
                                 {isSubmit && errors.password_verify && <ErrorField error={errors.password_verify}/>}
                             </div>
-
+                            
                             <div className='actions'>
                                 {renderButtonSubmit(isValid, handleSubmit, handleReset, setIsSubmit)}
                             </div>
                         </div>
-                        {messageSubmitLogin && <ErrorField error={messageSubmitLogin}/>}
                     </div>
                 )}
             </Formik>

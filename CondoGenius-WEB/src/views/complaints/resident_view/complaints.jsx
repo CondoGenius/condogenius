@@ -43,7 +43,7 @@ const ComplaintsResidentView = () => {
             <CollectionItem key="header" className='list_header'>
               <span className='complaint_list_body'>Reclamação</span>
               <span>Data</span>
-              <span>Status</span>
+              <span>Situação</span>
               <span />
             </CollectionItem>
             {resident.complaints?.length > 0 ? (

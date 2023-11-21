@@ -34,7 +34,7 @@ const QuickContactsResidentView = () => {
                 }
             />
             <div className='header_content'>
-            <h1>Lista de Contatos rápidos</h1>
+            <h1>Lista de Contatos Rápidos</h1>
             </div>
 
            <QuickContactsActions filters={filters} setFilters={setFilters} />

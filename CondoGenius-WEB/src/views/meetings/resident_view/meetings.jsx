@@ -1,8 +1,11 @@
 import { useEffect } from 'react';
+import { MdAddCircle } from 'react-icons/md';
 import { Collection, CollectionItem } from 'react-materialize';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Loading from "../../../components/loading/loading";
+import ModalContent from '../../../components/modal/modal_content';
+import Tooltip from '../../../components/tooltip/tooltip';
 import useMeetings from '../../../states/meetings/hooks/useMeetings';
 import { FormatDateZone } from '../../../utils/utils';
 
@@ -38,6 +41,7 @@ const MeetingsResidentView = () => {
                     <span className='meeting_list_title'>Tema</span>
                     <span className='meeting_list_description'>Descrição</span>
                     <span>Data</span>
+                    <span className='icon_column_action'/>
                 </CollectionItem>
                 {meetings.list?.length > 0 ? (
                     meetings.list.map(meeting => (
@@ -53,6 +57,21 @@ const MeetingsResidentView = () => {
                             </span>
                             <span>
                             {FormatDateZone(meeting.date)} às {meeting.hour}
+                            </span>
+                            <span className='icon_column_action'>
+                                <Tooltip message={"Mais detalhes"}>
+                                    <ModalContent
+                                        header={`${meeting.title}`}
+                                        trigger={<MdAddCircle />}
+                                        children={
+                                            <>
+                                                <p>Descrição: {meeting.description}</p>
+                                                <p>Responsável: {`${meeting.admin_name} ${meeting.admin_last_name}`}</p>
+                                                <p>Data: {FormatDateZone(meeting.date)} às {meeting.hour}</p>
+                                            </>
+                                        }
+                                    />
+                                </Tooltip>
                             </span>
                         </CollectionItem>
                     ))

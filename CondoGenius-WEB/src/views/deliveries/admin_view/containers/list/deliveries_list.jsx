@@ -39,7 +39,7 @@ const DelivriesList = () => {
                     <span>Residência</span>
                     <span>Recebida</span>
                     <span>Entregue</span>
-                    <span>Status</span>
+                    <span>Situação</span>
                     <span />
                 </CollectionItem>
                 {deliveries?.length > 0 ? (
