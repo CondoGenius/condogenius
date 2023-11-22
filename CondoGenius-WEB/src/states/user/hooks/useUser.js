@@ -36,7 +36,7 @@ const useUser = () => {
     const getTokenResetPassword = async (email) => {
         setLoadingUser(true);
 
-        const response = await UserService().getTokenResetPassword(email);
+        const response = await UserService().getTokenResetPassword({email});
 
         setLoadingUser(false);
         return response
@@ -45,22 +45,31 @@ const useUser = () => {
     const verifyTokenResetPassword = async (token) => {
         setLoadingUser(true);
 
-        const response = await UserService().verifyTokenResetPassword(token);
+        const response = await UserService().verifyTokenResetPassword({token});
+
+        if (response?.status === 200) {
+            localStorage.setItem("reset_password_token", JSON.stringify({token: token}));
+        }
 
         setLoadingUser(false);
         return response
     };
 
-    const resetPassword = async (values) => {
+    const resetPassword = async (newPassword) => {
         setLoadingUser(true);
+        
+        const resetPasswordToken = JSON.parse(localStorage.getItem('reset_password_token'))?.token;
 
         const updatePassword = {
-            email: values.email,
-            new_password: values.password
+            token: resetPasswordToken,
+            new_password: newPassword
         }
 
         const response = await UserService().resetPassword(updatePassword);
 
+        if (response?.status === 200) {
+            localStorage.removeItem("reset_password_token");
+        }
         setLoadingUser(false);
         return response
     }

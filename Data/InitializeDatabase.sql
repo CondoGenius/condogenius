@@ -287,7 +287,7 @@ INSERT INTO users(email, password, is_active, role_id, condominium_id)
 VALUES ('admin@condogenius.com.br', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 1, 1);
 
 INSERT INTO users(email, password, is_active, role_id, condominium_id)
-VALUES ('maria@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2, 1);
+VALUES ('gurgaczzhellen@gmail.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2, 1);
 
 INSERT INTO users(email, password, is_active, role_id, condominium_id)
 VALUES ('carlos@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2, 1);
@@ -334,16 +334,9 @@ VALUES (203, 2, 'B', 'Apartment 203', NOW(), NOW());
 INSERT INTO residences (number, floor, block, complement, created_at, updated_at)
 VALUES (100, 1, 'A', 'Apartment 100', NOW(), NOW());
 
-
--- removendo pq admin usa o mesmo user_id
--- INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
---                        updated_at, is_active, birthday)
--- VALUES (1, 1, '12345678900', 'joao@email.com', 'lalalla', 'João', 'Silva', '+55 11 1234-5678', NOW(), NOW(), 1,
---         "2000-01-31");
-
 INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
                        updated_at, is_active, birthday)
-VALUES (2, 2, '98765432100', 'maria@email.com', 'lalalala', 'Maria', 'Luz', '+55 11 1234-5678', NOW(), NOW(), 1,
+VALUES (2, 2, '98765432100', 'gurgaczzhellen@gmail.com', 'lalalala', 'Hellen', 'Gurgacz', '+55 11 1234-5678', NOW(), NOW(), 1,
         "2000-01-31");
 
 INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,

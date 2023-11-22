@@ -18,11 +18,11 @@ const FormGetTokenSchema = Yup.object().shape({
 const onSubmit = async (values, getTokenResetPassword, history) => {
     const response = await getTokenResetPassword(values.email);
 
-    if (response?.status === 201) {
+    if (response?.status === 200) {
         history.push('/inform-token');
         toast.success("Um token de acesso foi enviado ao seu e-mail");
     } else {
-        toast.error("Ocorreu um erro na validação do e-mail. Tente novamente mais tarde ou entre em contato com um administrador.");
+        toast.error(response.response.data.message);
     }
 }
 

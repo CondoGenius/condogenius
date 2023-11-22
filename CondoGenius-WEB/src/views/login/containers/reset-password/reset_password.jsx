@@ -10,15 +10,11 @@ import useUser from '../../../../states/user/hooks/useUser';
 import './reset_password.scss';
 
 const requiredFieldMessage = 'Este campo é obrigatório';
-const FormLoginSchema = Yup.object().shape({
-    email: Yup.string().ensure().required(requiredFieldMessage),
+const FormResetPasswordSchema = Yup.object().shape({
     password: Yup.string()
     .required(requiredFieldMessage)
-    .min(6, 'A senha deve ter no mínimo 6 caracteres')
-    .test('passwords-match', 'As senhas não coincidem', function (value) {
-    return value === this.parent.password_verify;
-    }),
-    password_verify: Yup.string()
+    .min(6, 'A senha deve ter no mínimo 6 caracteres'),
+    passwordVerify: Yup.string()
         .required(requiredFieldMessage)
         .min(6, 'A senha deve ter no mínimo 6 caracteres')
         .test('passwords-match', 'As senhas não coincidem', function (value) {
@@ -28,7 +24,7 @@ const FormLoginSchema = Yup.object().shape({
   
 
 const onSubmit = async (values, resetPassword, history) => {
-    const response = await resetPassword(values.emmail);
+    const response = await resetPassword(values.password);
 
     if (response?.status === 200) {
         history.push('/login');
@@ -36,8 +32,8 @@ const onSubmit = async (values, resetPassword, history) => {
         localStorage.removeItem("resident");
     
         history.push('/');
-        window.location.reload();
-        toast.success("Senha alterada com sucesso. Realizde login novamente");
+
+        toast.success("Senha alterada com sucesso. Realize login novamente");
     } else {
         toast.error("Ocorreu um erro ao atualizar sua senha. Tente novamente mais tarde ou entre em contato com um administrador.")
     }
@@ -56,12 +52,12 @@ const renderFieldPassword = (handleChange, handleBlur, values) => (
     
 const renderFieldVerifyPassword = (handleChange, handleBlur, values) => (
     <input 
-        id="password_verify"
+        id="passwordVerify"
         type="password" 
         placeholder="Confirme sua senha" 
         onChange={handleChange}
         onBlur={handleBlur}
-        value={values.password_verify} 
+        value={values.passwordVerify} 
     />
 );
 
@@ -89,9 +85,10 @@ const ResetPassword = () => {
         <div className='background_content'>
             <Formik        
                 initialValues={{
-                    email: ''
+                    password: '',
+                    passwordVerify: ''
                 }}
-                validationSchema={FormLoginSchema}
+                validationSchema={FormResetPasswordSchema}
                 onSubmit={values => {onSubmit(values, resetPassword, history)}}
             > 
                 {({
@@ -99,7 +96,6 @@ const ResetPassword = () => {
                     handleBlur,
                     values,
                     handleSubmit,
-                    handleReset,
                     isValid,
                     errors
                 }) => (
@@ -114,11 +110,11 @@ const ResetPassword = () => {
 
                             <div>
                                 {renderFieldVerifyPassword(handleChange, handleBlur, values)}
-                                {isSubmit && errors.password_verify && <ErrorField error={errors.password_verify}/>}
+                                {isSubmit && errors.passwordVerify && <ErrorField error={errors.passwordVerify}/>}
                             </div>
                             
                             <div className='actions'>
-                                {renderButtonSubmit(isValid, handleSubmit, handleReset, setIsSubmit)}
+                                {renderButtonSubmit(isValid, handleSubmit, setIsSubmit)}
                             </div>
                         </div>
                     </div>

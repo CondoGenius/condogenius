@@ -20,6 +20,7 @@ const onSubmit = async (values, verifyTokenResetPassword, history) => {
 
     if (response?.status === 200) {
         history.push('/reset-password');
+        toast.success("Token validado!")
     } else {
         toast.error("Ocorreu um erro na validação do token. Tente novamente mais tarde ou entre em contato com um administrador.");
     }
@@ -27,12 +28,12 @@ const onSubmit = async (values, verifyTokenResetPassword, history) => {
 
 const renderFieldToken = (handleChange, handleBlur, values) => (
     <input 
-        id="token "
+        id="token"
         type="text" 
         placeholder="Informe o token"
         onChange={handleChange}
         onBlur={handleBlur}
-        value={values.token } 
+        value={values.token} 
     />
 );
 
