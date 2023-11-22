@@ -155,7 +155,7 @@ authController.resetPassword = async (req, res) => {
 
     var mailOptions = {
       from: "condogenius23@gmail.com",
-      to: 'viniciuslisboa1001@gmail.com',
+      to: email,
       subject: "CondoGenius - Redefinição de senha",
       html: `
         <div style="font-family: Arial, sans-serif; background-color: #5CC2E2; padding: 20px;">
