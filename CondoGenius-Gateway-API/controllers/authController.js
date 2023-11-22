@@ -155,10 +155,18 @@ authController.resetPassword = async (req, res) => {
 
     var mailOptions = {
       from: "condogenius23@gmail.com",
-      to: email,
+      to: 'viniciuslisboa1001@gmail.com',
       subject: "CondoGenius - Redefinição de senha",
-      text: "Olá, você solicitou a redefinição de senha no CondoGenius. Para redefinir sua senha, utilize o token a seguir: \n\n" +
-      "" + token + "\n\n"
+      html: `
+        <div style="font-family: Arial, sans-serif; background-color: #5CC2E2; padding: 20px;">
+          <h1 style="color: #ffffff;">Olá!</h1>
+          <p style="color: #ffffff; font-size: 20px;">Você solicitou a redefinição de senha no CondoGenius.</p>
+          <p style="color: #ffffff; font-size: 20px;">Para redefinir sua senha, utilize o token a seguir:</p>
+          <div style="background-color: #ffffff; border: 1px solid #cccccc; padding: 10px; margin-top: 10px; display: flex; justify-content: center">
+            <p style="color: #333333; font-size: 25px; font-weight: bold;">${token}</p>
+          </div>
+        </div>
+      `
     };
 
     await ResetPasswordToken.create({ user_id: user.id, token: token });
