@@ -186,7 +186,7 @@ exports.votePoll = async (req, res) => {
   });
 
   if (existingVote) {
-    return res.status(400).json({ message: 'Este residente já votou nesta enquete' });
+    return res.status(200).json({ message: 'Este residente já votou nesta enquete' });
   }
   
   const t = await db.sequelize.transaction(); // Inicia uma transação Sequelize
