@@ -32,7 +32,7 @@ public class CheckInVerificationJob
         {
             foreach (var checkin in checkins)
             {
-                if (checkin?.CreatedAt.AddHours(3) <= DateTime.UtcNow.AddHours(-3))
+                if (checkin?.CreatedAt.AddMinutes(2) <= DateTime.UtcNow.AddHours(-3))
                 {
                     await _handler.UndoCheckIn(checkin.ResidentId);
 
@@ -44,8 +44,8 @@ public class CheckInVerificationJob
 
                     var message = new
                     {
-                        Title = "Seu CheckIn expirou",
-                        Body = "Você pode fazer CheckIn novamente a qualquer momento.",
+                        Title = "Seu check-in expirou",
+                        Body = "Você pode fazer check-in novamente a qualquer momento.",
                         DeviceToken = checkin?.DeviceToken
                     };
                     var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
