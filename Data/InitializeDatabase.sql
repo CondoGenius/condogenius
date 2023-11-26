@@ -290,10 +290,10 @@ INSERT INTO users(email, password, is_active, role_id, condominium_id)
 VALUES ('gurgaczzhellen@gmail.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2, 1);
 
 INSERT INTO users(email, password, is_active, role_id, condominium_id)
-VALUES ('carlos@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2, 1);
+VALUES ('rapha_2gtba@hotmail.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2, 1);
 
 INSERT INTO users(email, password, is_active, role_id, condominium_id)
-VALUES ('ana@email.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2, 1);
+VALUES ('igor.m99@hotmail.com', '$2a$08$ADN2NQayLDfUlWDRPOUTgu6w3KMUsTmnLYf07vxRLYZ0s592hb7f2', 1, 2, 1);
 
 INSERT INTO fast_lists (name, contact, status, type, created_at, updated_at) 
 VALUES ('Gas Company', '41 99678-8651', 1, 'gas', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
@@ -341,13 +341,13 @@ VALUES (2, 2, '98765432100', 'gurgaczzhellen@gmail.com', 'lalalala', 'Hellen', '
 
 INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
                        updated_at, is_active, birthday)
-VALUES (3, 3, '11122233344', 'carlos@email.com', 'lalalala', 'Carlos', 'Martinez', '+55 11 9876-5432', NOW(), NOW(), 1,
+VALUES (3, 3, '11122233344', 'rapha_2gtba@hotmail.com', 'fT8LTrRjSEec71ZGZ8HjrF:APA91bGc3xwrLVMraOaQLb4K6IU5rVaxIMQSaUP-_6xKDS7r90_bR4_qNtLI5I8bYjbhznFa-9KOskjVQO4mfx3y5zfQlMjPEeJYXLyu5XZnO1xNIggMHpQsbgsNd8DGt79MNOfFiv9Z', 'Raphael', 'Marangoni', '+55 11 9876-5432', NOW(), NOW(), 1,
         '1995-08-15');
 
 INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
                        updated_at, is_active, birthday)
-VALUES (4, 4, '55566677788', 'ana@email.com', 'lalalala', 'Ana', 'Pereira', '+55 11 5555-1234', NOW(), NOW(), 1,
-        '1988-03-22');
+VALUES (4, 4, '55566677788', 'igor.m99@hotmail.com', 'coj9r6SPTeGhzktthAsHHR:APA91bEpsNkgBIXr3S8-JcBJuJfwHfTjBzSSs5oE1xl_ImZ71yqvQmX-uLZwxj-Mp7hctjcYVISyMdSQ9qXs6S3daypUvHQkeWj9M-WuoGv1H_YFEzA3ZIBcmp1tzc2E1BBQlqq6YRf7', 'Igor', 'Mucharski', '+55 11 5555-1234', NOW(), NOW(), 1,
+        '1999-03-23');
 
 INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
                        updated_at, is_active, birthday)
