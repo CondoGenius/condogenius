@@ -46,7 +46,14 @@ public class RabbitMQWorker : BackgroundService
 
                     foreach (var resident in residents)
                     {
-                        await _firebase.SendNotification(message.Title, message.Body, resident.DeviceToken);
+                        try
+                        {
+                            await _firebase.SendNotification(message.Title, message.Body, resident.DeviceToken);
+                        }
+                        catch (Exception ex)
+                        {
+                            continue;
+                        }
                     }
                 }
                 else
