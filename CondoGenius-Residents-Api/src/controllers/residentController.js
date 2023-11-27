@@ -129,7 +129,7 @@ exports.listResidentByCpf = async (req, res) => {
     });
 
     if (!resident) {
-      return res.status(404).json({ message: 'Residente não encontrado' });
+      return res.status(404).json({ message: 'CPF não encontrado' });
     }
 
     if (resident.user_id) {
