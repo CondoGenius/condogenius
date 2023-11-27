@@ -57,11 +57,12 @@ const useHubDigital = () => {
 
     const createSurvey = async (values) => {
         setLoadingHubDigital(true);
-
+        console.log('create survey')
+        console.log(values)
         const survey = {
             user_id: values.userId,
             content: values.description,
-            options: values.inputOptionsValues
+            options: values.inputOptionsValues.filter(value => value !== '')
         };
 
         const response = await HubDigitalService().createSurvey(survey);

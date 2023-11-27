@@ -18,7 +18,7 @@ const useResidents = () => {
             dispatch(setResidentAction({ data: response.data }));
             localStorage.setItem("resident", JSON.stringify({...response.data, isLogged: false}));
         } else {
-            dispatch(setResidentAction({ error: "CPF não identificado na nossa base de dados. Procure um administrador"}));
+            dispatch(setResidentAction({ error: response.response.data.message }));
         }
 
         setLoadingResidents(false);
@@ -43,7 +43,7 @@ const useResidents = () => {
             }
             }));
             localStorage.setItem("resident", JSON.stringify({
-                id: response.data.id, 
+                id: response.data.id,
                 userId: response.data.user_id,
                 cpf: response.data.cpf,
                 email: response.data.email,
