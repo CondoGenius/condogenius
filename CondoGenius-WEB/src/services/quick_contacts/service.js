@@ -1,14 +1,16 @@
 
 import axios from 'axios';
+import { API_URL } from '../utils/vars/global';
 
 const QuickContactsService = () => {
     const token = JSON.parse(localStorage.getItem('user')).token;
 
     const getQuickContacts = (filters) => {
-        return axios.get(`http://localhost:5000/gateway/condominium/api/fast_list`, 
+        return axios.get(`${API_URL}/gateway/condominium/api/fast_list`, 
         {
             headers: {
                 'x-access-token': `${token}`,
+                'ngrok-skip-browser-warning': true
             },
             params: {
                 name: filters?.name,
@@ -21,10 +23,11 @@ const QuickContactsService = () => {
     };
 
     const createQuickContact = async (contact) => {
-        return axios.post(`http://localhost:5000/gateway/condominium/api/fast_list`, contact, {
+        return axios.post(`${API_URL}/gateway/condominium/api/fast_list`, contact, {
             headers: {
                 'x-access-token': `${token}`,
                 ContentType: 'application/json',
+                'ngrok-skip-browser-warning': true
             },
           })
           .then(res => res)
@@ -32,10 +35,11 @@ const QuickContactsService = () => {
     };
 
     const deleteQuickContact = (id) => {
-        return axios.delete(`http://localhost:5000/gateway/condominium/api/fast_list/${id}`, 
+        return axios.delete(`${API_URL}/gateway/condominium/api/fast_list/${id}`, 
         {
             headers: {
                 'x-access-token': `${token}`,
+                'ngrok-skip-browser-warning': true
             },
         }
         )

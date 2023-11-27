@@ -43,7 +43,7 @@ const renderSurvey = (survey, userId, voteSurvey, getPublications) => {
                     <div className='progress_button_content'>
                         <div class="progress-container">
                             <div class="progress-bar" id={`progress-bar-${option.id}`} style={{ width: `${option.percentage_of_votes}%` }}>
-                                <span>{option.percentage_of_votes}%</span>
+                                {option.percentage_of_votes !== 0 && <span>{option.percentage_of_votes}%</span>}
                             </div>
                             <div class="percentage" id="percentage" />
                         </div>
