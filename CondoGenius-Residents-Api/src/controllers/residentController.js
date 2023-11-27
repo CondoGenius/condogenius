@@ -26,9 +26,13 @@ exports.createResident = async (req, res) => {
       }
     });
 
+    // validar se cpf e email são unicos
+
     if (resident) {
       return res.status(409).json({ message: 'CPF já cadastrado no sistema.' });
     }
+
+
 
     const novoResidente = await Resident.create({
       user_id,
@@ -133,7 +137,7 @@ exports.listResidentByCpf = async (req, res) => {
     }
 
     if (resident.user_id) {
-      return res.status(409).json({ message: 'CPF já cadastrado no sistema.' });
+      return res.status(409).json({ message: 'Usuario já cadastrado no sistema.' });
     }
 
     res.status(200).json(resident);
@@ -187,6 +191,9 @@ exports.updateResident = async (req, res) => {
       return res.status(404).json({ message: 'Residente não encontrado' });
     }
 
+    // validar se cpf e email são unicos
+    // 
+
     actualCpf = resident.cpf || '';
     cleanedCpf = cpf ? cpf.replace(/[^\d]/g, '') : actualCpf;
 
@@ -238,7 +245,7 @@ exports.deleteResident = async (req, res) => {
     }
 
     // testar se ele consegue logar apos deletar
-    // 
+    // adicionar where is_active: 1 no login
 
     await resident.update({
       is_active: 0
