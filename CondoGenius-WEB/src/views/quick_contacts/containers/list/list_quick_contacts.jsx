@@ -29,7 +29,7 @@ const QuickContactslist = () => {
     const submitCopyPhone = (phone) => {
         navigator.clipboard.writeText(phone)
             .then(function() {
-                toast.success("Contato copiado para área de trasnferência")
+                toast.success("Contato copiado para área de transferência")
             })
             .catch(function(err) {
                 toast.error('Erro ao copiar contato');

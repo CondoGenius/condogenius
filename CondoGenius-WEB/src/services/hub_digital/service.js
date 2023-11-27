@@ -1,14 +1,16 @@
 
 import axios from 'axios';
+import { API_URL } from '../utils/vars/global';
 
 const HubDigitalService = () => {
     const token = JSON.parse(localStorage.getItem('user')).token;
 
     const getPublications =  () => {
-        return axios.get(`http://localhost:5000/gateway/hub_digital/api/post`, 
+        return axios.get(`https://b543-45-188-17-163.ngrok-free.app/gateway/hub_digital/api/post`, 
         {
             headers: {
                 'x-access-token': `${token}`,
+                'ngrok-skip-browser-warning': true
             },
         },
         )
@@ -17,10 +19,11 @@ const HubDigitalService = () => {
     };
 
     const getPublicationsByUserId =  (userId) => {
-        return axios.get(`http://localhost:5000/gateway/hub_digital/api/post/user/${userId}`, 
+        return axios.get(`${API_URL}/gateway/hub_digital/api/post/user/${userId}`,
         {
             headers: {
                 'x-access-token': `${token}`,
+                'ngrok-skip-browser-warning': true
             },
         },
         )
@@ -29,10 +32,11 @@ const HubDigitalService = () => {
     };
 
     const createPublication = (post) => {
-        return axios.post(`http://localhost:5000/gateway/hub_digital/api/post`, post, {
+        return axios.post(`${API_URL}/gateway/hub_digital/api/post`, post, {
             headers: {
                 'x-access-token': `${token}`,
                 ContentType: 'application/json',
+                'ngrok-skip-browser-warning': true
             },
           })
           .then(res => res)
@@ -40,10 +44,11 @@ const HubDigitalService = () => {
     };
 
     const createSurvey = (survey) => {
-        return axios.post(`http://localhost:5000/gateway/hub_digital/api/poll`, survey, {
+        return axios.post(`${API_URL}/gateway/hub_digital/api/poll`, survey, {
             headers: {
                 'x-access-token': `${token}`,
                 ContentType: 'application/json',
+                'ngrok-skip-browser-warning': true
             },
           })
           .then(res => res)
@@ -51,10 +56,11 @@ const HubDigitalService = () => {
     };
 
     const createComment = (comment) => {
-        return axios.post(`http://localhost:5000/gateway/hub_digital/api/comment`, comment, {
+        return axios.post(`${API_URL}/gateway/hub_digital/api/comment`, comment, {
             headers: {
                 'x-access-token': `${token}`,
                 ContentType: 'application/json',
+                'ngrok-skip-browser-warning': true
             },
           })
           .then(res => res)
@@ -62,9 +68,10 @@ const HubDigitalService = () => {
     };
 
     const fixPublication = (postId) => {
-        return axios.put(`http://localhost:5000/gateway/hub_digital/api/pin/${postId}`, postId, {
+        return axios.put(`${API_URL}/gateway/hub_digital/api/pin/${postId}`, postId, {
             headers: {
                 'x-access-token': `${token}`,
+                'ngrok-skip-browser-warning': true
             },
         },
         )
@@ -73,10 +80,11 @@ const HubDigitalService = () => {
     };
 
     const voteSurvey = (vote) => {
-        return axios.post(`http://localhost:5000/gateway/hub_digital/api/vote`, vote, {
+        return axios.post(`${API_URL}/gateway/hub_digital/api/vote`, vote, {
             headers: {
                 ContentType: 'application/json',
-                'x-access-token': token
+                'x-access-token': token,
+                'ngrok-skip-browser-warning': true
             },
         })
         .then(res => res)
@@ -85,10 +93,11 @@ const HubDigitalService = () => {
     
 
     const deletePublication = (id) => {
-        return axios.delete(`http://localhost:5000/gateway/hub_digital/api/post/${id}`, 
+        return axios.delete(`${API_URL}/gateway/hub_digital/api/post/${id}`, 
         {
             headers: {
                 'x-access-token': `${token}`,
+                'ngrok-skip-browser-warning': true
             },
         }
         )
@@ -97,10 +106,11 @@ const HubDigitalService = () => {
     };
 
     const deleteComment = (id) => {
-        return axios.delete(`http://localhost:5000/gateway/hub_digital/api/comment/${id}`, 
+        return axios.delete(`${API_URL}/gateway/hub_digital/api/comment/${id}`, 
         {
             headers: {
                 'x-access-token': `${token}`,
+                'ngrok-skip-browser-warning': true
             },
         }
         )

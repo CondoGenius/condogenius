@@ -187,7 +187,7 @@ const ResidentFormFields = ({residentEdited}) => {
     useEffect(() => {
         getAllResidences();
     }, []);
-
+    console.log()
     return (
         <Formik        
             initialValues={{

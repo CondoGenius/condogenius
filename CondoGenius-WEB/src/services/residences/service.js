@@ -1,14 +1,16 @@
 
 import axios from 'axios';
+import { API_URL } from '../utils/vars/global';
 
 const ResidenceService = () => {
     const token = JSON.parse(localStorage.getItem('user')).token;
 
     const getAllResidences =  () => {
-        return axios.get(`http://localhost:5000/gateway/residents/api/residences`,
+        return axios.get(`${API_URL}/gateway/residents/api/residences`,
         {
             headers: {
                 'x-access-token': `${token}`,
+                'ngrok-skip-browser-warning': true
             },
         }
         )

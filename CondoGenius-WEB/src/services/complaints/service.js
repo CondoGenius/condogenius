@@ -1,14 +1,16 @@
 
 import axios from 'axios';
+import { API_URL } from '../utils/vars/global';
 
 const ComplaintsService = () => {
     const token = JSON.parse(localStorage.getItem('user'))?.token;
 
     const getComplaintsByResindentId =  (residentId) => {
-        return axios.get(`http://localhost:5000/gateway/api/complaints/resident/${residentId}`, 
+        return axios.get(`${API_URL}/gateway/api/complaints/resident/${residentId}`, 
         {
             headers: {
                 'x-access-token': `${token}`,
+                'ngrok-skip-browser-warning': true
             },
         },
         )
@@ -17,10 +19,11 @@ const ComplaintsService = () => {
     };
 
     const getComplaints =  () => {
-        return axios.get(`http://localhost:5000/gateway/api/complaints`, 
+        return axios.get(`${API_URL}/gateway/api/complaints`, 
         {
             headers: {
                 'x-access-token': `${token}`,
+                'ngrok-skip-browser-warning': true
             },
         },
         )
@@ -29,10 +32,11 @@ const ComplaintsService = () => {
     };
 
     const createComplaint = (complaint) => {
-        return axios.post(`http://localhost:5000/gateway/api/complaints`, complaint, {
+        return axios.post(`${API_URL}/gateway/api/complaints`, complaint, {
             headers: {
                 'x-access-token': `${token}`,
                 ContentType: 'application/json',
+                'ngrok-skip-browser-warning': true
             },
           })
           .then(res => res)
@@ -40,9 +44,10 @@ const ComplaintsService = () => {
     };
 
     const updateComplaint = (complaint) => {
-        return axios.put(`http://localhost:5000/gateway/api/complaints/${complaint.id}`, complaint, {
+        return axios.put(`${API_URL}/gateway/api/complaints/${complaint.id}`, complaint, {
             headers: {
                 'x-access-token': `${token}`,
+                'ngrok-skip-browser-warning': true
             },
           })
           .then(res => res)
@@ -50,10 +55,11 @@ const ComplaintsService = () => {
     };
 
     const deleteResident = (id) => {
-        return axios.delete(`http://localhost:5000/gateway/api/complaints/${id}`, 
+        return axios.delete(`${API_URL}/gateway/api/complaints/${id}`, 
         {
             headers: {
                 'x-access-token': `${token}`,
+                'ngrok-skip-browser-warning': true
             },
         }
         )
