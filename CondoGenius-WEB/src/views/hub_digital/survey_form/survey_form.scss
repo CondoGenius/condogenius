@@ -1,8 +1,28 @@
 
 .survey_content {
+    width: 100%;
+    
     .survey_actions {
         margin-top: 10px;
         display: flex;
         justify-content: space-between;
+    }
+
+    .options_content_form {
+        display: flex;
+        align-items: center;
+        
+        .option_form {
+            width: 100%;
+        }
+
+        svg {
+            width: 2em;
+            height: 20px;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
     }
 }

@@ -78,7 +78,7 @@ const FormPublication = () => {
                                         children={<SurveyForm />}
                                     />
                                 )}
-                                <Button onClick={handleSubmit}>Compartilhar publicação</Button>
+                                <Button onClick={handleSubmit} className='button_create_publication'>Compartilhar publicação</Button>
                         </div>
                         </>
                     )}

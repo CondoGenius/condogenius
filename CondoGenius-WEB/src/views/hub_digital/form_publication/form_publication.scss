@@ -28,6 +28,12 @@
             justify-content: space-between;
             margin-top: 5px;
 
+            .button_create_publication {
+                white-space: nowrap;
+                overflow: hidden;
+                width: 300px;
+            }
+
             .survey_content {
                 color: $gray;
                 display: flex;

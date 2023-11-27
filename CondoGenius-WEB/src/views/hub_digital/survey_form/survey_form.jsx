@@ -1,5 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React, { useState } from "react";
+import { MdRemoveCircleOutline } from 'react-icons/md';
 import { Button } from "react-materialize";
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -27,6 +28,14 @@ const SurveyForm = () => {
         setInputOptionsValues(prevValues => {
             const newInputValues = [...prevValues];
             newInputValues[index] = value;
+            return newInputValues;
+        });
+    };
+
+    const handleChangeOptionDelete = (index) => {
+        setInputOptionsValues(prevValues => {
+            const newInputValues = [...prevValues];
+            newInputValues.splice(index, 1);
             return newInputValues;
         });
     };
@@ -78,14 +87,17 @@ const SurveyForm = () => {
                         />
                         <ErrorMessage name="description" component={ErrorField} />
                         {inputOptionsValues.map((value, i) => (
-                            <div key={i}>
-                                Opção {i + 1}:
-                                <input
-                                    type="text"
-                                    name={`inputOptionsValues.${i}`}
-                                    value={value}
-                                    onChange={(e) => handleChangeOption(i, e.target.value)}
-                                />
+                            <div className='options_content_form'>
+                                <div key={i} className='option_form'>
+                                    Opção {i + 1}:
+                                    <input
+                                        type="text"
+                                        name={`inputOptionsValues.${i}`}
+                                        value={value}
+                                        onChange={(e) => handleChangeOption(i, e.target.value)}
+                                    />
+                                </div>
+                                <MdRemoveCircleOutline onClick={(e) =>  handleChangeOptionDelete(i, e.target.value)}/>
                             </div>
                         ))}
                         <ErrorMessage name="inputOptionsValues" component={ErrorField} />

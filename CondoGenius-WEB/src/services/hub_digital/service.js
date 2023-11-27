@@ -6,7 +6,7 @@ const HubDigitalService = () => {
     const token = JSON.parse(localStorage.getItem('user')).token;
 
     const getPublications =  () => {
-        return axios.get(`https://b543-45-188-17-163.ngrok-free.app/gateway/hub_digital/api/post`, 
+        return axios.get(`${API_URL}/gateway/hub_digital/api/post`, 
         {
             headers: {
                 'x-access-token': `${token}`,
