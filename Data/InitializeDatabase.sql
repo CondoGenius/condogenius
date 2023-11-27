@@ -351,23 +351,18 @@ VALUES (4, 4, '55566677788', 'igor.m99@hotmail.com', 'coj9r6SPTeGhzktthAsHHR:APA
 
 INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
                        updated_at, is_active, birthday)
-VALUES (null, 5, '99900011122', 'pedro@email.com', 'lalalala', 'Pedro', 'Ferreira', '+55 11 9876-8765', NOW(), NOW(), 1,
+VALUES (null, 5, '99900011122', 'escobar@email.com', 'lalalala', 'Leandro', 'Escobar', '+55 11 9876-8765', NOW(), NOW(), 1,
         '1990-12-10');
 
 INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
                        updated_at, is_active, birthday)
-VALUES (null, 6, '33322211144', 'laura@email.com', 'lalalala', 'Laura', 'Rodriguez', '+55 11 8765-4321', NOW(), NOW(),
+VALUES (null, 6, '33322211144', 'briatore@email.com', 'lalalala', 'Geucimar', 'Briatore', '+55 11 8765-4321', NOW(), NOW(),
         1, '1993-05-28');
 
 INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
                        updated_at, is_active, birthday)
-VALUES (null, 7, '77788899911', 'gabriel@email.com', 'lalalala', 'Gabriel', 'Santos', '+55 11 7777-9876', NOW(), NOW(),
+VALUES (null, 7, '77788899911', 'inocencio@email.com', 'lalalala', 'Fábio', 'Inocêncio', '+55 11 7777-9876', NOW(), NOW(),
         1, '1986-09-17');
-
-INSERT INTO residents (user_id, residence_id, cpf, email, device_token, name, last_name, contact, created_at,
-                       updated_at, is_active, birthday)
-VALUES (null, 8, '44455566677', 'isabela@email.com', 'lalalala', 'Isabela', 'Oliveira', '+55 11 5555-6789', NOW(),
-        NOW(), 1, '1998-11-03');
 
 
 INSERT INTO delivery_control (status, user_id, residence_id)
