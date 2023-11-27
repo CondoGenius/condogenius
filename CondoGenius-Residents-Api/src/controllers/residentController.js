@@ -34,7 +34,7 @@ exports.createResident = async (req, res) => {
 
     const residentWithEmail = await Resident.findOne({
       where: {
-        email: userEmail,
+        email: email,
         is_active: 1
       }
     });
@@ -224,7 +224,7 @@ exports.updateResident = async (req, res) => {
       where: {
         cpf: cleanedCpf,
         is_active: 1,
-        id: { [Op.not]: id } // Exclua o residente atual da busca
+        id: { [db.Sequelize.Op.not]: id } // Exclua o residente atual da busca
       }
     });
     
@@ -232,7 +232,7 @@ exports.updateResident = async (req, res) => {
       where: {
         email,
         is_active: 1,
-        id: { [Op.not]: id } // Exclua o residente atual da busca
+        id: { [db.Sequelize.Op.not]: id } // Exclua o residente atual da busca
       }
     });
     
