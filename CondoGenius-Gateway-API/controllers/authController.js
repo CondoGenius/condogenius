@@ -75,7 +75,7 @@ authController.login = async (req, res) => {
 
     const token = jwt.sign({ userId: user.id }, config.secret);
 
-    var resident = await Resident.findOne({ where: { user_id: user.id } });
+    var resident = await Resident.findOne({ where: { user_id: user.id, is_active: 1 } });
 
     var admin = await Admin.findOne({ where: { user_id: user.id } });
 
