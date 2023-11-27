@@ -32,7 +32,16 @@ exports.createResident = async (req, res) => {
       return res.status(409).json({ message: 'CPF já cadastrado no sistema.' });
     }
 
+    const residentWithEmail = await Resident.findOne({
+      where: {
+        email: userEmail,
+        is_active: 1
+      }
+    });
 
+    if (residentWithEmail) {
+      return res.status(409).json({ message: 'E-mail já cadastrado no sistema.' });
+    }
 
     const novoResidente = await Resident.create({
       user_id,
@@ -191,9 +200,6 @@ exports.updateResident = async (req, res) => {
       return res.status(404).json({ message: 'Residente não encontrado' });
     }
 
-    // validar se cpf e email são unicos
-    // 
-
     actualCpf = resident.cpf || '';
     cleanedCpf = cpf ? cpf.replace(/[^\d]/g, '') : actualCpf;
 
@@ -212,6 +218,30 @@ exports.updateResident = async (req, res) => {
         res.status(500).json({ message: 'Erro ao atualizar email do usuário' });
         return;
       }
+    }
+
+    const residentWithCPF = await Resident.findOne({
+      where: {
+        cpf: cleanedCpf,
+        is_active: 1,
+        id: { [Op.not]: id } // Exclua o residente atual da busca
+      }
+    });
+    
+    const residentWithEmail = await Resident.findOne({
+      where: {
+        email,
+        is_active: 1,
+        id: { [Op.not]: id } // Exclua o residente atual da busca
+      }
+    });
+    
+    if (residentWithCPF) {
+      return res.status(409).json({ message: 'CPF já cadastrado no sistema.' });
+    }
+    
+    if (residentWithEmail) {
+      return res.status(409).json({ message: 'E-mail já cadastrado no sistema.' });
     }
 
     await resident.update({
