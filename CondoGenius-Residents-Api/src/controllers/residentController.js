@@ -183,7 +183,10 @@ exports.updateResident = async (req, res) => {
       return res.status(404).json({ message: 'Residente não encontrado' });
     }
 
-    cleanedCpf = cpf ? cpf.replace(/[^\d]/g, '') : '';
+    actualCpf = resident.cpf || '';
+    cleanedCpf = cpf ? cpf.replace(/[^\d]/g, '') : actualCpf;
+
+    newBirthday = birthday ? new Date(birthday) : resident.birthday;
 
     if (email && resident.user_id) {
       try {
@@ -210,7 +213,7 @@ exports.updateResident = async (req, res) => {
       contact,
       device_token,
       is_active,
-      birthday: new Date(birthday)
+      birthday: newBirthday
     });
 
     res.status(200).json({ message: 'Residente atualizado com sucesso', resident });
