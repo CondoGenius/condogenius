@@ -26,8 +26,21 @@ exports.createResident = async (req, res) => {
       }
     });
 
+    // validar se cpf e email são unicos
+
     if (resident) {
       return res.status(409).json({ message: 'CPF já cadastrado no sistema.' });
+    }
+
+    const residentWithEmail = await Resident.findOne({
+      where: {
+        email: userEmail,
+        is_active: 1
+      }
+    });
+
+    if (residentWithEmail) {
+      return res.status(409).json({ message: 'E-mail já cadastrado no sistema.' });
     }
 
     const novoResidente = await Resident.create({
@@ -129,7 +142,11 @@ exports.listResidentByCpf = async (req, res) => {
     });
 
     if (!resident) {
-      return res.status(404).json({ message: 'Residente não encontrado' });
+      return res.status(404).json({ message: 'CPF não encontrado' });
+    }
+
+    if (resident.user_id) {
+      return res.status(409).json({ message: 'Usuario já cadastrado no sistema.' });
     }
 
     res.status(200).json(resident);
@@ -203,6 +220,30 @@ exports.updateResident = async (req, res) => {
       }
     }
 
+    const residentWithCPF = await Resident.findOne({
+      where: {
+        cpf: cleanedCpf,
+        is_active: 1,
+        id: { [Op.not]: id } // Exclua o residente atual da busca
+      }
+    });
+    
+    const residentWithEmail = await Resident.findOne({
+      where: {
+        email,
+        is_active: 1,
+        id: { [Op.not]: id } // Exclua o residente atual da busca
+      }
+    });
+    
+    if (residentWithCPF) {
+      return res.status(409).json({ message: 'CPF já cadastrado no sistema.' });
+    }
+    
+    if (residentWithEmail) {
+      return res.status(409).json({ message: 'E-mail já cadastrado no sistema.' });
+    }
+
     await resident.update({
       user_id,
       residence_id,
@@ -232,6 +273,9 @@ exports.deleteResident = async (req, res) => {
     if (!resident) {
       return res.status(404).json({ message: 'Residente não encontrado' });
     }
+
+    // testar se ele consegue logar apos deletar
+    // adicionar where is_active: 1 no login
 
     await resident.update({
       is_active: 0
