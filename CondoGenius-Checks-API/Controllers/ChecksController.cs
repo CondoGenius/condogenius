@@ -22,7 +22,7 @@ public class ChecksController : ControllerBase
         {
             await _handler.DoCheckIn(request.ResidentId);
             
-            return Created("", "CheckIn efetuado com sucesso!");
+            return Created("", "Check-in efetuado com sucesso!");
         }
         catch (Exception ex)
         {
@@ -52,7 +52,7 @@ public class ChecksController : ControllerBase
     {
         int rowsAffected = await _handler.UndoCheckIn(request.ResidentId);
         
-        return rowsAffected == 1 ? Ok("CheckIn desfeito com sucesso!") : BadRequest("CheckIn não encontrado");
+        return rowsAffected == 1 ? Ok("Check-out efetuado com sucesso!") : BadRequest("Check-in não encontrado");
     }
     
     [HttpGet("resident/{id}")]
