@@ -5,7 +5,7 @@ function authMiddleware(req, res, next) {
   const token = req.header('x-access-token');
 
   console.log(req.url)
-  if (req.url === '/gateway/login' || req.url === '/gateway/user/register' || req.url === '/gateway/user/me' || req.url === '/gateway/logout' || req.url === '/gateway/admin' || req.url === '/gateway/user/token/reset-password' || req.url === '/gateway/user/token/verify' || req.url === '/gateway/user/reset-password') {
+  if (req.url === '/gateway/login' || req.url === '/gateway/user/register' || req.url === '/gateway/user/me' || req.url === '/gateway/logout' || req.url === '/gateway/admin' || req.url === '/gateway/user/token/reset-password' || req.url === '/gateway/user/token/verify' || req.url === '/gateway/user/reset-password' || req.url === 'gateway/residents/api/residents/cpf/:cpf') {
     console.log(req.url)
     return next();
   }
