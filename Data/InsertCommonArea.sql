@@ -16,10 +16,10 @@ INSERT INTO reserve_common_area (common_area_id, resident_id, reserve_date, crea
 VALUES (3, 2, '2023-10-28', NOW(), NOW());
 
 INSERT INTO reserve_common_area (common_area_id, resident_id, reserve_date, created_at, updated_at)
-VALUES (2, 2, '2023-11-15', NOW(), NOW());
+VALUES (2, 1, '2023-11-15', NOW(), NOW());
 
 INSERT INTO reserve_common_area (common_area_id, resident_id, reserve_date, created_at, updated_at)
-VALUES (1, 2, '2023-12-05', NOW(), NOW());
+VALUES (1, 3, '2023-12-05', NOW(), NOW());
 
 
 INSERT INTO guest_list (name, cpf, reserve_id, created_at, updated_at)
