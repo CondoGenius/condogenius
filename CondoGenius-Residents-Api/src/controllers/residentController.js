@@ -34,7 +34,7 @@ exports.createResident = async (req, res) => {
 
     const residentWithEmail = await Resident.findOne({
       where: {
-        email: userEmail,
+        email: email,
         is_active: 1
       }
     });
@@ -205,6 +205,20 @@ exports.updateResident = async (req, res) => {
 
     newBirthday = birthday ? new Date(birthday) : resident.birthday;
 
+    if (email) {
+      const residentWithEmail = await Resident.findOne({
+        where: {
+          email,
+          is_active: 1,
+          id: { [db.Sequelize.Op.not]: id } // Exclua o residente atual da busca
+        }
+      });
+      
+      if (residentWithEmail) {
+        return res.status(409).json({ message: 'E-mail já cadastrado no sistema.' });
+      }
+    }
+
     if (email && resident.user_id) {
       try {
         const user = await User.findOne({ where: { id: resident.user_id } });
@@ -224,24 +238,12 @@ exports.updateResident = async (req, res) => {
       where: {
         cpf: cleanedCpf,
         is_active: 1,
-        id: { [Op.not]: id } // Exclua o residente atual da busca
-      }
-    });
-    
-    const residentWithEmail = await Resident.findOne({
-      where: {
-        email,
-        is_active: 1,
-        id: { [Op.not]: id } // Exclua o residente atual da busca
+        id: { [db.Sequelize.Op.not]: id } // Exclua o residente atual da busca
       }
     });
     
     if (residentWithCPF) {
       return res.status(409).json({ message: 'CPF já cadastrado no sistema.' });
-    }
-    
-    if (residentWithEmail) {
-      return res.status(409).json({ message: 'E-mail já cadastrado no sistema.' });
     }
 
     await resident.update({
