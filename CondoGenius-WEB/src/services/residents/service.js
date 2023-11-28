@@ -6,7 +6,7 @@ const ResidentsService = () => {
     const token = JSON.parse(localStorage.getItem('user'))?.token;
 
     const getResidentByCpf = (cpf) => {
-        return axios.get(`${API_URL}/gateway/residents/api/residents/cpf`, JSON.stringify({cpf}), {
+        return axios.get(`${API_URL}/gateway/residents/api/residents/cpf/${cpf}`, {
             headers: {
                 'ngrok-skip-browser-warning': true
             },
@@ -16,7 +16,7 @@ const ResidentsService = () => {
     };
 
     const getResidentByUserId = (userId) => {
-        return axios.get(`${API_URL}/gateway/residents/api/residents/id/${userId}`, 
+        return axios.get(`${API_URL}/gateway/residents/api/residents/user/${userId}`, 
         {
             headers: {
                 'x-access-token': `${token}`,
