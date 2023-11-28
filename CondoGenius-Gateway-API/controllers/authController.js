@@ -77,6 +77,10 @@ authController.login = async (req, res) => {
 
     var resident = await Resident.findOne({ where: { user_id: user.id, is_active: 1 } });
 
+    if (resident == null) {
+      throw new Error("Não existe um morador associado a este email. Solicite seu cadastro ao síndico!");
+    }
+
     var admin = await Admin.findOne({ where: { user_id: user.id } });
 
     var role = await Role.findOne({ where: { id: user.role_id } });
